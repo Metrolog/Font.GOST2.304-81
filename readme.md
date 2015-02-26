@@ -17,6 +17,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 - [FontForge][]
 - [TTFAutoHint][]
+- [GNU make][]
 
 [TTFAutoHint][] не обязателен, использовал его для того, чтобы добиться приличного качества отображения шрифтов
 при малых кеглях, при этом не включая в проект "ручного" хинтирования. В принципе, можно полностью 
@@ -24,3 +25,4 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 [FontForge]: https://github.com/fontforge/fontforge
 [TTFAutoHint]: http://www.freetype.org/ttfautohint
+[GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"

@@ -1,2 +1,2 @@
 Open($1)
-Generate("fonts/ttf/" + $1:r + ".ttf")
+Generate($2)
