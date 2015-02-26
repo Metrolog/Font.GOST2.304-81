@@ -40,7 +40,7 @@ FFBUILDTTF			:= build-ttf.pe
 REVISION			:= $(shell git rev-parse --short HEAD)
 GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
 VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
-VERSION				:= $(REVISION)
+VERSION				:= $(lastword $(subst /, ,$(GIT_BRANCH)))
 
 ###
 
