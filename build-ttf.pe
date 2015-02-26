@@ -2,8 +2,8 @@ Open($1)
 
 # set font version
 SetFontNames('','','','','',$3)
-SetTTFName(1033, 5, '')
-SetTTFName(1049, 5, '')
+SetTTFName(1033, 5, $3)
+SetTTFName(1049, 5, $3)
 
 # build accented glyphs
 SelectWorthOutputting()
