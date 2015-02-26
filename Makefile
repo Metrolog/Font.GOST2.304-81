@@ -11,7 +11,7 @@ TTFDIR				:= "ttf/"
 
 FONTFORGE			?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 ifeq ($(OS),Windows_NT)
-	RM	:= del /S /Q
+	RM	:= RMDIR /S /Q
 endif
 
 ###
