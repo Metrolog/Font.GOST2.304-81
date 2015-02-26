@@ -7,10 +7,17 @@ FONTFORGEPROJECTS	:= $(wildcard *.sfd)
 FONTSDIR			:= fonts
 TTFSUBDIR			:= ttf
 TTFDIR				:= $(FONTSDIR)/$(TTFSUBDIR)/
+TEMPDIR				:= obj
+TTFTEMPDIR			:= $(TEMPDIR)/$(TTFSUBDIR)/
 
 # setup tools
 
 FONTFORGE			?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
+TTFAUTOHINT			?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" \
+						--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
+						--windows-compatibility --composites \
+						--no-info
+
 ifeq ($(OS),Windows_NT)
 	RM				:= del /S/Q
 	RMDIR			:= rmdir /S/Q
@@ -34,13 +41,18 @@ all: ttf
 BUILDTTF			?= $(FONTFORGE) -script build-ttf.pe
 TTFTARGETS			:= $(FONTFORGEPROJECTS:%.sfd=$(TTFDIR)%.ttf)
 
-$(TTFDIR)%.ttf: %.sfd
+$(TTFTEMPDIR)%.ttf: %.sfd
 	-$(MAKETARGETDIR)
 	$(BUILDTTF) $< $@
 	
+$(TTFDIR)%.ttf: $(TTFTEMPDIR)%.ttf
+	-$(MAKETARGETDIR)
+	$(TTFAUTOHINT) $< $@
+
 ttf: $(TTFTARGETS)
 
 # clean projects
 
 clean:
-	$(RMDIR) $(FONTSDIR)
+	-$(RMDIR) $(TEMPDIR)
+	-$(RMDIR) $(FONTSDIR)
