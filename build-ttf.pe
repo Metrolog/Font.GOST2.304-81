@@ -6,9 +6,13 @@ SetTTFName(1033, 5, $3)
 SetTTFName(1049, 5, $3)
 
 # build accented glyphs
+Reencode("unicode")
 SelectWorthOutputting()
 SelectInvert()
 BuildAccented()
+
+# scale to new em size
+ScaleToEm(1024)
 
 # generate font files
 Generate($2)
