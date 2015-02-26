@@ -1,2 +1,5 @@
 Open($1)
+SelectWorthOutputting()
+SelectInvert()
+BuildAccented()
 Generate($2)
