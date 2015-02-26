@@ -32,12 +32,15 @@ else
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
 endif
 
+FFBUILDTTF			:= build-ttf.pe
+
 ## grab a version number from the repository (if any) that stores this.
 ## * REVISION is the current revision number (short form, for inclusion in text)
 ## * VCSTURD is a file that gets touched after a repo update
 REVISION			:= $(shell git rev-parse --short HEAD)
 GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
 VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
+VERSION				:= $(REVISION)
 
 ###
 
@@ -49,12 +52,12 @@ all: ttf
 
 # build True Type fonts
 
-BUILDTTF			?= $(FONTFORGE) -script build-ttf.pe
+BUILDTTF			:= $(FONTFORGE) -script $(FFBUILDTTF)
 TTFTARGETS			:= $(FONTFORGEPROJECTS:%.sfd=$(TTFDIR)%.ttf)
 
-$(TTFTEMPDIR)%.ttf: %.sfd
+$(TTFTEMPDIR)%.ttf: %.sfd $(FFBUILDTTF)
 	-$(MAKETARGETDIR)
-	$(BUILDTTF) $< $@
+	$(BUILDTTF) $< $@ $(VERSION)
 	
 $(TTFDIR)%.ttf: $(TTFTEMPDIR)%.ttf
 	-$(MAKETARGETDIR)

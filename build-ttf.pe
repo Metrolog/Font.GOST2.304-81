@@ -1,5 +1,14 @@
 Open($1)
+
+# set font version
+SetFontNames('','','','','',$3)
+SetTTFName(1033, 5, '')
+SetTTFName(1049, 5, '')
+
+# build accented glyphs
 SelectWorthOutputting()
 SelectInvert()
 BuildAccented()
+
+# generate font files
 Generate($2)
