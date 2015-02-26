@@ -4,14 +4,21 @@
 
 FONTFORGEPROJECTS	:= $(wildcard *.sfd)
 
-FONTSDIR			:= "fonts/"
-TTFDIR				:= "ttf/"
+FONTSDIR			:= fonts
+TTFSUBDIR			:= ttf
+TTFDIR				:= $(FONTSDIR)/$(TTFSUBDIR)/
 
 # setup tools
 
 FONTFORGE			?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 ifeq ($(OS),Windows_NT)
-	RM	:= RMDIR /S /Q
+	RM				:= del /S/Q
+	RMDIR			:= rmdir /S/Q
+	MAKETARGETDIR	= $(foreach d,$(subst /, ,${@D}),mkdir $d && cd $d && ) @echo dir "${@D}" created...
+else
+	RM				:= rm
+	RMDIR			:= rmdir
+	MAKETARGETDIR	= mkdir -p ${@D}
 endif
 
 ###
@@ -25,14 +32,15 @@ all: ttf
 # build True Type fonts
 
 BUILDTTF			?= $(FONTFORGE) -script build-ttf.pe
-TTFTARGETS			:= $(FONTFORGEPROJECTS:.sfd=.ttf)
+TTFTARGETS			:= $(FONTFORGEPROJECTS:%.sfd=$(TTFDIR)%.ttf)
 
-%.ttf: %.sfd
+$(TTFDIR)%.ttf: %.sfd
+	-$(MAKETARGETDIR)
 	$(BUILDTTF) $< $@
-
+	
 ttf: $(TTFTARGETS)
 
 # clean projects
 
 clean:
-	$(RM) $(FONTSDIR)
+	$(RMDIR) $(FONTSDIR)
