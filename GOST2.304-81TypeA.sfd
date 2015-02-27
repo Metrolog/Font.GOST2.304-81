@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1424997215
+ModificationTime: 1425030646
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -134,12 +134,13 @@ MATH:RadicalKernAfterDegree: -1000
 MATH:RadicalDegreeBottomRaisePercent: 60
 MATH:MinConnectorOverlap: 36
 Encoding: UnicodeFull
+Compacted: 1
 UnicodeInterp: none
 NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 729 27 9
+WinInfo: 0 38 14
 BeginPrivate: 0
 EndPrivate
 Grid
@@ -386,10 +387,10 @@ Encoding: 32 32 3
 Width: 600
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 300 1350 basechar 0
 LayerCount: 2
 Back
 Fore
-Validated: 1
 EndChar
 
 StartChar: exclam
@@ -4200,7 +4201,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 3 32 N 1 0 0 1 0 0 2
-Validated: 32769
 EndChar
 
 StartChar: periodcentered
@@ -4355,7 +4355,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 430 774 N 1 0 0 1 0 0 2
-Validated: 32769
 EndChar
 
 StartChar: dotaccent
@@ -6373,7 +6372,7 @@ Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 126 728 N 1 0 0 1 200 200 2
+Refer: 412 772 N 1 0 0 1 200 200 2
 Refer: 189 1048 N 1 0 0 1 0 0 3
 EndChar
 
@@ -7381,7 +7380,7 @@ Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 126 728 N 1 0 0 1 150 0 2
+Refer: 412 772 S 1 0 0 1 150 0 2
 Refer: 221 1080 N 1 0 0 1 0 0 3
 EndChar
 
@@ -11597,8 +11596,25 @@ AnchorPoint: "TopCenterAccent" 250 1350 mark 0
 LayerCount: 2
 Back
 Fore
-Refer: 412 772 S 1 0 0 1 0 0 2
-Validated: 32769
+SplineSet
+150 1400 m 132,-1,1
+ 171 1400 171 1400 185.5 1385.5 c 132,-1,2
+ 200 1371 200 1371 200 1350 c 132,-1,3
+ 200 1329 200 1329 214.5 1314.5 c 132,-1,4
+ 229 1300 229 1300 250 1300 c 132,-1,5
+ 271 1300 271 1300 285.5 1314.5 c 132,-1,6
+ 300 1329 300 1329 300 1350 c 132,-1,7
+ 300 1371 300 1371 314.5 1385.5 c 132,-1,8
+ 329 1400 329 1400 350 1400 c 132,-1,9
+ 371 1400 371 1400 385.5 1385.5 c 132,-1,10
+ 400 1371 400 1371 400 1350 c 4,11,12
+ 400 1288 400 1288 356 1244 c 132,-1,13
+ 312 1200 312 1200 250 1200 c 132,-1,14
+ 188 1200 188 1200 144 1244 c 132,-1,15
+ 100 1288 100 1288 100 1350 c 4,16,17
+ 100 1371 100 1371 114.5 1385.5 c 132,-1,0
+ 129 1400 129 1400 150 1400 c 132,-1,1
+EndSplineSet
 EndChar
 
 StartChar: tildecomb
