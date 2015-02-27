@@ -23,7 +23,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425053054
+ModificationTime: 1425064673
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -139,7 +139,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 0 38 14
+WinInfo: 81 27 10
 BeginPrivate: 0
 EndPrivate
 Grid
@@ -312,8 +312,8 @@ Grid
   Named: "17d"
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 1048576 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
-AnchorClass2: "BottomCenterAccent" "" "TopCenterAccent" "'mark' Mark Positioning lookup 1-1" 
-BeginChars: 1114115 441
+AnchorClass2: "TopRightAccent" "" "BottomCenterAccent" "" "TopCenterAccent" "'mark' Mark Positioning lookup 1-1" 
+BeginChars: 1114115 442
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -2664,6 +2664,7 @@ Encoding: 100 100 71
 Width: 800
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopRightAccent" 850 1350 basechar 0
 AnchorPoint: "TopCenterAccent" 650 1650 basechar 0
 LayerCount: 2
 Back
@@ -2695,7 +2696,6 @@ SplineSet
  600 100 l 1,28,-1
  600 900 l 1,19,-1
 EndSplineSet
-Validated: 3073
 EndChar
 
 StartChar: e
@@ -3083,7 +3083,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 71 100 N -1 0 0 -1 800 1000 2
-Validated: 32769
 EndChar
 
 StartChar: q
@@ -7574,7 +7573,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 83 112 N 1 0 0 1 0 0 3
-Validated: 32769
 EndChar
 
 StartChar: uni0441
@@ -11840,18 +11838,31 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-150 -100 m 128,-1,1
- 170 -100 170 -100 185 -115 c 128,-1,2
- 200 -130 200 -130 200 -150 c 2,3,-1
- 200 -250 l 2,4,5
- 200 -270 200 -270 185 -285 c 128,-1,6
- 170 -300 170 -300 150 -300 c 128,-1,7
- 130 -300 130 -300 115 -285 c 128,-1,8
- 100 -270 100 -270 100 -250 c 2,9,-1
- 100 -150 l 2,10,11
- 100 -130 100 -130 115 -115 c 128,-1,0
- 130 -100 130 -100 150 -100 c 128,-1,1
+305 -121 m 1053,0,-1
+150 -100 m 128,-1,2
+ 170 -100 170 -100 185 -115 c 128,-1,3
+ 200 -130 200 -130 200 -150 c 2,4,-1
+ 200 -250 l 2,5,6
+ 200 -270 200 -270 185 -285 c 128,-1,7
+ 170 -300 170 -300 150 -300 c 128,-1,8
+ 130 -300 130 -300 115 -285 c 128,-1,9
+ 100 -270 100 -270 100 -250 c 2,10,-1
+ 100 -150 l 2,11,12
+ 100 -130 100 -130 115 -115 c 128,-1,1
+ 130 -100 130 -100 150 -100 c 128,-1,2
 EndSplineSet
+EndChar
+
+StartChar: uni02BC
+Encoding: 700 700 441
+Width: 300
+VWidth: 0
+Flags: W
+AnchorPoint: "TopRightAccent" 150 1350 mark 0
+LayerCount: 2
+Back
+Fore
+Refer: 440 806 N 1 0 0 1 0 1500 2
 EndChar
 EndChars
 EndSplineFont
