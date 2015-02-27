@@ -810,6 +810,7 @@ Width: 300
 VWidth: 2100
 Flags: W
 LayerCount: 2
+AnchorPoint: "Top" -50 50 mark 0
 Back
 Fore
 SplineSet
@@ -1932,6 +1933,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<200 585.045> 1380 20G<139.5 160.5>
 VStem: 100 100<100 1385.05>
+AnchorPoint: "Top" 150 1350 basechar 0
 LayerCount: 2
 Back
 Fore
