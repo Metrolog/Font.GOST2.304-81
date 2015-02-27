@@ -6929,6 +6929,7 @@ Encoding: 1069 1069 210
 Width: 900
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7063,6 +7064,7 @@ Encoding: 1072 1072 213
 Width: 900
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7168,6 +7170,7 @@ Encoding: 1075 1075 216
 Width: 800
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7265,6 +7268,7 @@ Encoding: 1078 1078 219
 Width: 1000
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 500 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7316,6 +7320,7 @@ Width: 750
 VWidth: 2100
 Flags: W
 CounterMasks: 1 e0
+AnchorPoint: "TopCenterAccent" 375 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7389,6 +7394,7 @@ Encoding: 1082 1082 223
 Width: 800
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7536,6 +7542,7 @@ Encoding: 1086 1086 227
 Width: 800
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7596,6 +7603,7 @@ Encoding: 1091 1091 232
 Width: 800
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7743,6 +7751,7 @@ Encoding: 1095 1095 236
 Width: 800
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7881,6 +7890,7 @@ Encoding: 1099 1099 240
 Width: 900
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 450 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -7965,6 +7975,7 @@ Width: 800
 VWidth: 2100
 Flags: W
 CounterMasks: 1 e0
+AnchorPoint: "TopCenterAccent" 375 1350 basechar 0
 LayerCount: 2
 Back
 Fore
