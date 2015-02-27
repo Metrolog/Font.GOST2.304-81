@@ -1504,7 +1504,7 @@ Flags: MW
 HStem: 400 100<323 677>
 VStem: 100 100<14.9547 85.0219> 450 100 800 100<14.9547 85.0219>
 CounterMasks: 1 70
-AnchorPoint: "Top" 500 1550 basechar 0
+AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1591,6 +1591,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<307.932 685.045> 1300 100<307.932 685.045>
 VStem: 100 100<207.932 1192.07>
+AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1629,6 +1630,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<200 592.068> 1300 100<200 592.068>
 VStem: 100 100<100 1300> 700 100<207.932 1192.07>
+AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1666,7 +1668,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<200 685.045> 700 100<200 485.045> 1300 100<200 685.045>
 VStem: 100 100<100 700 800 1300>
-AnchorPoint: "Top" 400 1550 basechar 0
+AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1745,6 +1747,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<305.942 700> 700 100<514.955 700> 1300 100<307.932 785.045>
 VStem: 100 100<207.932 1192.07> 700 100<100 700>
+AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1830,7 +1833,7 @@ Width: 300
 VWidth: 2100
 Flags: MW
 VStem: 100 100<14.9547 1385.05>
-AnchorPoint: "Top" 150 1550 basechar 0
+AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1998,7 +2001,7 @@ Width: 900
 VWidth: 2100
 Flags: MW
 VStem: 100 100<14.9547 1122 1371 1385.05> 700 100<14.9547 29 278 1385.05>
-AnchorPoint: "Top" 450 1550 basechar 0
+AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2035,7 +2038,7 @@ VWidth: 1000
 Flags: W
 HStem: 0 100<308.182 591.818> 1300 100<303.212 595.929>
 VStem: 100 100<204.612 1197.25> 700 100<204.612 1197.25>
-AnchorPoint: "Top" 450 1550 basechar 0
+AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2140,6 +2143,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 21G<139.5 160.5 736 760.5> 0 21G<139.5 160.5 736 760.5> 600 100<200 371> 1300 100<200 558.16>
 VStem: 100 100<14.9547 600 700 1300> 700 100<840.755 1158.91>
+AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2259,7 +2263,7 @@ Encoding: 85 85 56
 Width: 900
 VWidth: 2100
 Flags: W
-AnchorPoint: "Top" 450 1550 basechar 0
+AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2412,7 +2416,7 @@ Width: 1000
 VWidth: 2100
 Flags: MW
 VStem: 450 100<14.9547 687>
-AnchorPoint: "Top" 500 1550 basechar 0
+AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2628,7 +2632,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<274.625 525.122 714.955 785.045> 900 100<245.379 600>
 VStem: 100 100<175.142 854.621> 600 100<174.109 900>
-AnchorPoint: "Top" 400 1250 basechar 0
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2713,6 +2717,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<245.379 585.045> 900 100<245.379 585.045>
 VStem: 100 100<145.379 854.621>
+AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2791,6 +2796,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<245.379 685.045> 450 100<200 600> 900 100<274.625 525.375>
 VStem: 100 100<145.379 450 550 824.858> 600 100<550 824.858>
+AnchorPoint: "Top" 400 1350 basechar 0
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -2882,6 +2888,7 @@ VWidth: 2100
 Flags: W
 HStem: -400 100<114.955 554.621> 0 100<245.379 600> 900 100<245.379 600>
 VStem: 100 100<145.379 854.621> 600 100<-254.621 0 100 900>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2928,6 +2935,7 @@ VWidth: 2100
 Flags: MW
 HStem: 900 100<200 554.621>
 VStem: 100 100<14.9547 900 1000 1385.05> 600 100<14.9547 854.621>
+AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2992,6 +3000,7 @@ Width: 800
 VWidth: 2100
 Flags: MW
 VStem: 100 100<14.9547 429 571 1385.05>
+AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3032,6 +3041,7 @@ VWidth: 2100
 Flags: MW
 HStem: 0 100<245.379 385.045>
 VStem: 100 100<145.379 1385.05>
+AnchorPoint: "Top" 150 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3106,6 +3116,7 @@ VWidth: 2100
 Flags: MW
 HStem: 900 100<200 554.621>
 VStem: 100 100<14.9547 900> 600 100<14.9547 854.621>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3142,6 +3153,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<274.625 525.375> 900 100<274.625 525.375>
 VStem: 100 100<175.142 824.858> 600 100<175.142 824.858>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3207,6 +3219,7 @@ VWidth: 2100
 Flags: MW
 HStem: 900 100<200 469.575>
 VStem: 100 100<14.9547 900> 500 100<764.955 869.575>
+AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3241,6 +3254,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<197.357 557.071> 900 100<233.829 583.789>
 VStem: 100 100<685.647 862.774> 600 100<144.474 357.71>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3284,6 +3298,7 @@ VWidth: 2100
 Flags: MW
 HStem: 900 100<114.955 200 300 485.045>
 VStem: 200 100<14.9547 900 1000 1385.05>
+AnchorPoint: "Top" 250 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3324,6 +3339,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<245.379 600>
 VStem: 100 100<145.379 985.045> 600 100<100 985.045>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3371,6 +3387,7 @@ Width: 1200
 VWidth: 2100
 Flags: MW
 VStem: 100 100<898.797 985.045> 300 100 550 100 800 100 1000 100<898.797 985.045>
+AnchorPoint: "Top" 600 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3453,6 +3470,7 @@ VWidth: 2100
 Flags: MW
 HStem: -400 100<114.955 249.072>
 VStem: 100 100<915.962 985.045> 600 100<916.899 985.045>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3491,6 +3509,7 @@ Width: 800
 VWidth: 2100
 Flags: MW
 HStem: 0 100<235 685.045> 900 100<114.955 565>
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -4258,7 +4277,7 @@ Encoding: 180 180 115
 Width: 300
 VWidth: 2100
 Flags: W
-AnchorPoint: "Top" 100 1250 mark 0
+AnchorPoint: "Top" 150 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6443,7 +6462,7 @@ Encoding: 1045 1045 186
 Width: 800
 VWidth: 2100
 Flags: W
-AnchorPoint: "Top" 400 1550 basechar 0
+AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -6561,7 +6580,7 @@ VWidth: 2100
 Flags: W
 HStem: 0 21G<139.5 166 739.5 760.5> 0 21G<139.5 166 739.5 760.5> 1380 20G<139.5 160.5 734 760.5>
 VStem: 100 100<14.9547 29 278 1385.05> 700 100<14.9547 1122 1371 1385.05>
-AnchorPoint: "Top" 450 1550 basechar 0
+AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
