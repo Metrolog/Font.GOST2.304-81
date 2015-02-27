@@ -1,3 +1,7 @@
+# $1 - source .sfd file name
+# $2 - destination .ttf file name
+# $3 - True Type font version string
+
 Open($1)
 
 # set font version
