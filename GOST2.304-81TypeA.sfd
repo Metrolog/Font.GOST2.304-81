@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1424992505
+ModificationTime: 1424997215
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -134,13 +134,12 @@ MATH:RadicalKernAfterDegree: -1000
 MATH:RadicalDegreeBottomRaisePercent: 60
 MATH:MinConnectorOverlap: 36
 Encoding: UnicodeFull
-Compacted: 1
 UnicodeInterp: none
 NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 27 27 9
+WinInfo: 729 27 9
 BeginPrivate: 0
 EndPrivate
 Grid
@@ -314,7 +313,7 @@ Grid
 EndSplineSet
 TeXData: 2 0 0 346030 173015 116508 582544 -996647 116508 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
 AnchorClass2: "Top" "'mark' Mark Positioning lookup 1-1" 
-BeginChars: 1114115 441
+BeginChars: 1114115 446
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -809,8 +808,8 @@ Encoding: 44 44 15
 Width: 300
 VWidth: 2100
 Flags: W
-LayerCount: 2
 AnchorPoint: "Top" -50 50 mark 0
+LayerCount: 2
 Back
 Fore
 SplineSet
@@ -2798,8 +2797,8 @@ VWidth: 2100
 Flags: W
 HStem: 0 100<245.379 685.045> 450 100<200 600> 900 100<274.625 525.375>
 VStem: 100 100<145.379 450 550 824.858> 600 100<550 824.858>
-AnchorPoint: "Top" 400 1350 basechar 0
 CounterMasks: 1 e0
+AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -12003,15 +12002,14 @@ EndChar
 
 StartChar: uni030B
 Encoding: 779 779 432
-Width: 550
+Width: 450
 VWidth: 2100
 Flags: W
 AnchorPoint: "Top" 275 1350 mark 0
 LayerCount: 2
 Back
 Fore
-Refer: 115 180 S 1 0 0 1 0 0 2
-Refer: 115 180 S 1 0 0 1 250 0 2
+Refer: 5 34 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni030A
@@ -12123,7 +12121,7 @@ AnchorPoint: "Top" 100 1350 mark 0
 LayerCount: 2
 Back
 Fore
-Refer: 115 180 N 1 0 0 1 0 0 2
+Refer: 115 180 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: gravecomb
@@ -12200,6 +12198,58 @@ SplineSet
  300 971 300 971 314.5 985.5 c 128,-1,0
  329 1000 329 1000 350 1000 c 128,-1,1
 EndSplineSet
+EndChar
+
+StartChar: uni030E
+Encoding: 782 782 441
+Width: 450
+VWidth: 0
+LayerCount: 2
+Back
+Fore
+Refer: 5 34 N 1 0 0 1 0 0 3
+EndChar
+
+StartChar: uni0327
+Encoding: 807 807 442
+Width: 300
+VWidth: 0
+AnchorPoint: "Top" 250 1350 mark 0
+LayerCount: 2
+Back
+Fore
+Refer: 120 184 N 1 0 0 1 0 0 3
+EndChar
+
+StartChar: uni0340
+Encoding: 832 832 443
+Width: 300
+VWidth: 0
+LayerCount: 2
+Back
+Fore
+Refer: 438 768 N 1 0 0 1 0 0 3
+EndChar
+
+StartChar: uni0341
+Encoding: 833 833 444
+Width: 300
+VWidth: 0
+LayerCount: 2
+Back
+Fore
+Refer: 437 769 N 1 0 0 1 0 0 3
+EndChar
+
+StartChar: uni0344
+Encoding: 836 836 445
+Width: 600
+VWidth: 0
+LayerCount: 2
+Back
+Fore
+Refer: 437 769 N 1 0 0 1 200 332 2
+Refer: 411 776 N 1 0 0 1 0 0 3
 EndChar
 EndChars
 EndSplineFont
