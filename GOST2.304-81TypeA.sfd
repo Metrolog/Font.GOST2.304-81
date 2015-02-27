@@ -344,8 +344,6 @@ Width: 800
 VWidth: 2100
 GlyphClass: 5
 Flags: W
-HStem: 800 100<272.699 527.301> 1300 100<272.699 527.301>
-VStem: 100 100<972.699 1227.3> 600 100<972.699 1227.3>
 LayerCount: 2
 Back
 Fore
@@ -400,8 +398,6 @@ Width: 300
 VWidth: 2100
 UnlinkRmOvrlpSave: 1
 Flags: W
-HStem: 1380 20G<139.5 160.5>
-VStem: 100 100<314.955 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -510,8 +506,6 @@ Encoding: 36 36 7
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<207.674 400 500 626.354> 1300 100<254.068 400 500 661.18>
-VStem: 100 100<1030.23 1248.6> 400 100<-185.045 0 100 597 857 1299 1396.34 1585.05> 700 100<169.387 424.408>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -573,8 +567,6 @@ Encoding: 37 37 8
 Width: 1700
 VWidth: 2100
 Flags: W
-HStem: 0 100<1172.7 1427.3> 500 100<1172.7 1427.3> 800 100<272.699 527.301> 1300 100<272.699 527.301>
-VStem: 100 100<972.699 1227.3> 600 100<972.699 1227.3> 1000 100<172.699 427.3> 1500 100<172.699 427.3>
 LayerCount: 2
 Back
 Fore
@@ -589,8 +581,6 @@ Encoding: 38 38 9
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: 0 100<304.026 590.918> 0 21G<936.236 960.5> 1300 100<333.281 516.719>
-VStem: 100 100<204.218 464.24> 200 100<1074.68 1267.4> 550 100<1073.1 1267.4>
 LayerCount: 2
 Back
 Fore
@@ -716,8 +706,6 @@ Encoding: 42 42 13
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 1100 100<214.955 369 531 685.045> 1380 20G<339.5 365.5 534.5 560.5>
-VStem: 300 95<914.955 928 1372 1385.05> 505 95<914.955 928 1372 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -769,8 +757,6 @@ Width: 800
 VWidth: 2100
 UnlinkRmOvrlpSave: 1
 Flags: W
-HStem: 450 100<114.955 350 450 685.045>
-VStem: 350 100<214.955 450 550 785.045>
 LayerCount: 2
 Back
 Fore
@@ -835,7 +821,6 @@ Encoding: 45 45 16
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 450 100<114.955 685.045>
 LayerCount: 2
 Back
 Fore
@@ -906,8 +891,6 @@ Encoding: 48 48 19
 Width: 900
 VWidth: 1000
 Flags: W
-HStem: 0 100<308.182 591.818> 1300 100<303.212 595.929>
-VStem: 100 100<204.612 1197.25> 700 100<204.612 1197.25>
 LayerCount: 2
 Back
 Fore
@@ -943,7 +926,6 @@ Encoding: 49 49 20
 Width: 600
 VWidth: 0
 Flags: MW
-VStem: 400 100<1.18652 1229>
 LayerCount: 2
 Back
 Fore
@@ -973,8 +955,6 @@ Encoding: 50 50 21
 Width: 900
 VWidth: 1000
 Flags: MW
-HStem: 0 100<244.569 798.813> 1300 100<298.27 597.719>
-VStem: 700 100<894.052 1194.32>
 LayerCount: 2
 Back
 Fore
@@ -1015,8 +995,6 @@ Encoding: 51 51 22
 Width: 800
 VWidth: 1000
 Flags: W
-HStem: 0 100<101.187 460.475> 700 100<311.863 452.754> 1300 100<101.187 448.252>
-VStem: 550 100<902.523 1198.94> 600 100<241.576 536.131>
 LayerCount: 2
 Back
 Fore
@@ -1068,8 +1046,6 @@ Encoding: 52 52 23
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 300 100<214 500 600 785.045>
-VStem: 100 100<400 420.566> 351 99<1303.2 1385.05> 500 100<14.9547 300 400 685.045>
 LayerCount: 2
 Back
 Fore
@@ -1114,8 +1090,6 @@ Encoding: 53 53 24
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<114.955 492.068> 700 100<200 492.068> 1300 100<200 685.045>
-VStem: 100 100<800 1300> 600 100<207.932 592.068>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -1164,8 +1138,6 @@ Encoding: 54 54 25
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<305.372 594.282> 700 100<209 592.523> 1380 20G<543.5 560.5>
-VStem: 100 100<207.932 700> 700 100<207.293 593.579>
 LayerCount: 2
 Back
 Fore
@@ -1207,8 +1179,6 @@ Encoding: 55 55 26
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 1300 100<200 687>
-VStem: 100 100<1164.95 1300> 400 100<14.9547 98.5194> 700 100<1274.56 1300>
 LayerCount: 2
 Back
 Fore
@@ -1243,8 +1213,6 @@ Encoding: 56 56 27
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: 0 100<321.455 679.14> 700 100<338.099 661.901> 1300 100<337.261 662.739>
-VStem: 100 100<222.542 577.022> 150 100<890.023 1209.98> 750 100<890.673 1209.5> 800 100<222.107 578.066>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -1332,8 +1300,6 @@ Encoding: 60 60 31
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 200 600<638 671>
-VStem: 100 600
 LayerCount: 2
 Back
 Fore
@@ -1388,8 +1354,6 @@ Width: 800
 VWidth: 2100
 UnlinkRmOvrlpSave: 1
 Flags: W
-HStem: 1300 100<254.136 525.375>
-VStem: 350 100<314.955 775.532> 600 100<973.957 1225.37>
 LayerCount: 2
 Back
 Fore
@@ -1428,8 +1392,6 @@ Encoding: 64 64 35
 Width: 1600
 VWidth: 2100
 Flags: W
-HStem: -400 100<569.562 835.045> 0 100<674.625 926.467 1107.55 1292.82> 900 100<645.379 1000> 1300 100<575.307 1024.69>
-VStem: 100 100<69.5625 941.023> 500 100<174.016 854.621> 1000 100<173.797 900> 1400 100<207.932 941.023>
 LayerCount: 2
 Back
 Fore
@@ -1501,8 +1463,6 @@ Encoding: 65 65 36
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 400 100<323 677>
-VStem: 100 100<14.9547 85.0219> 450 100 800 100<14.9547 85.0219>
 CounterMasks: 1 70
 AnchorPoint: "TopCenterAccent" 500 1650 basechar 0
 LayerCount: 2
@@ -1542,8 +1502,6 @@ Encoding: 66 66 37
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 558.16> 700 100<200 543.579> 1300 100<200 542.068>
-VStem: 100 100<100 700 800 1300> 650 100<905.391 1192.82> 700 100<241.094 559.842>
 LayerCount: 2
 Back
 Fore
@@ -1589,8 +1547,6 @@ Encoding: 67 67 38
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<307.932 685.045> 1300 100<307.932 685.045>
-VStem: 100 100<207.932 1192.07>
 AnchorPoint: "TopCenterAccent" 400 1650 basechar 0
 LayerCount: 2
 Back
@@ -1628,8 +1584,6 @@ Encoding: 68 68 39
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 592.068> 1300 100<200 592.068>
-VStem: 100 100<100 1300> 700 100<207.932 1192.07>
 AnchorPoint: "TopCenterAccent" 400 1650 basechar 0
 LayerCount: 2
 Back
@@ -1666,8 +1620,6 @@ Encoding: 69 69 40
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 685.045> 700 100<200 485.045> 1300 100<200 685.045>
-VStem: 100 100<100 700 800 1300>
 AnchorPoint: "TopCenterAccent" 400 1650 basechar 0
 LayerCount: 2
 Back
@@ -1708,8 +1660,6 @@ Encoding: 70 70 41
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 160.5> 0 21G<139.5 160.5> 700 100<200 685.045> 1300 100<200 685.045>
-VStem: 100 100<14.9547 700 800 1300>
 LayerCount: 2
 Back
 Fore
@@ -1745,8 +1695,6 @@ Encoding: 71 71 42
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<305.942 700> 700 100<514.955 700> 1300 100<307.932 785.045>
-VStem: 100 100<207.932 1192.07> 700 100<100 700>
 AnchorPoint: "TopCenterAccent" 500 1650 basechar 0
 LayerCount: 2
 Back
@@ -1792,8 +1740,6 @@ Encoding: 72 72 43
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 160.5 739.5 760.5> 0 21G<139.5 160.5 739.5 760.5> 700 100<200 700> 1380 20G<139.5 160.5 739.5 760.5>
-VStem: 100 100<14.9547 700 800 1385.05> 700 100<14.9547 700 800 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -1832,7 +1778,6 @@ Encoding: 73 73 44
 Width: 300
 VWidth: 2100
 Flags: MW
-VStem: 100 100<14.9547 1385.05>
 AnchorPoint: "TopCenterAccent" 150 1650 basechar 0
 LayerCount: 2
 Back
@@ -1858,8 +1803,6 @@ Encoding: 74 74 45
 Width: 700
 VWidth: 2100
 Flags: MW
-HStem: 0 100<114.955 392.068>
-VStem: 500 100<207.932 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -1890,8 +1833,6 @@ Encoding: 75 75 46
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 160.5 734.5 760.5> 0 21G<139.5 160.5 734.5 760.5> 1380 20G<139.5 160.5 737.5 760.5>
-VStem: 100 100<14.9547 533 700 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -1930,8 +1871,6 @@ Encoding: 76 76 47
 Width: 700
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 585.045> 1380 20G<139.5 160.5>
-VStem: 100 100<100 1385.05>
 AnchorPoint: "TopCenterAccent" 150 1350 basechar 0
 LayerCount: 2
 Back
@@ -1961,8 +1900,6 @@ Encoding: 77 77 48
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 160.5 939.5 960.5> 0 21G<139.5 160.5 939.5 960.5> 1380 20G<139.5 164.5 935.5 960.5>
-VStem: 100 100<14.9547 1162> 900 100<14.9547 1162>
 LayerCount: 2
 Back
 Fore
@@ -2001,7 +1938,6 @@ Encoding: 78 78 49
 Width: 900
 VWidth: 2100
 Flags: MW
-VStem: 100 100<14.9547 1122 1371 1385.05> 700 100<14.9547 29 278 1385.05>
 AnchorPoint: "TopCenterAccent" 450 1650 basechar 0
 LayerCount: 2
 Back
@@ -2037,8 +1973,6 @@ Encoding: 79 79 50
 Width: 900
 VWidth: 1000
 Flags: W
-HStem: 0 100<308.182 591.818> 1300 100<303.212 595.929>
-VStem: 100 100<204.612 1197.25> 700 100<204.612 1197.25>
 AnchorPoint: "TopCenterAccent" 450 1650 basechar 0
 LayerCount: 2
 Back
@@ -2055,8 +1989,6 @@ Encoding: 80 80 51
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 600 100<200 558.16> 1300 100<200 558.16>
-VStem: 100 100<14.9547 600 700 1300> 700 100<841.094 1158.91>
 LayerCount: 2
 Back
 Fore
@@ -2093,8 +2025,6 @@ Encoding: 81 81 52
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<295.753 625.799> 0 21G<842 860.5> 1300 100<307.177 592.823>
-VStem: 100 100<197.496 1192.07> 700 100<248.344 1192.07>
 LayerCount: 2
 Back
 Fore
@@ -2142,8 +2072,6 @@ Encoding: 82 82 53
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 160.5 736 760.5> 0 21G<139.5 160.5 736 760.5> 600 100<200 371> 1300 100<200 558.16>
-VStem: 100 100<14.9547 600 700 1300> 700 100<840.755 1158.91>
 AnchorPoint: "TopCenterAccent" 400 1650 basechar 0
 LayerCount: 2
 Back
@@ -2187,8 +2115,6 @@ Encoding: 83 83 54
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<210.932 626.232> 1300 100<255.082 658.436>
-VStem: 100 100<1029.74 1247.6> 700 100<170.387 425.884>
 LayerCount: 2
 Back
 Fore
@@ -2231,8 +2157,6 @@ Encoding: 84 84 55
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 1300 100<114.955 400 500 785.045>
-VStem: 400 100<14.9547 1300>
 LayerCount: 2
 Back
 Fore
@@ -2299,7 +2223,6 @@ Encoding: 86 86 57
 Width: 1000
 VWidth: 2100
 Flags: MW
-VStem: 100 100<1315.54 1385.05> 450 100 800 100<1310.85 1385.05>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -2333,7 +2256,6 @@ Encoding: 87 87 58
 Width: 1400
 VWidth: 2100
 Flags: MW
-VStem: 100 100<1287.48 1385.05> 350 100 650 100 950 100 1200 100<1287.48 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -2377,7 +2299,6 @@ Encoding: 88 88 59
 Width: 1000
 VWidth: 2100
 Flags: MW
-VStem: 100 100 800 100
 LayerCount: 2
 Back
 Fore
@@ -2416,7 +2337,6 @@ Encoding: 89 89 60
 Width: 1000
 VWidth: 2100
 Flags: MW
-VStem: 450 100<14.9547 687>
 AnchorPoint: "TopCenterAccent" 500 1650 basechar 0
 LayerCount: 2
 Back
@@ -2450,7 +2370,6 @@ Encoding: 90 90 61
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<228 785.045> 1300 100<114.955 672>
 LayerCount: 2
 Back
 Fore
@@ -2485,8 +2404,6 @@ Encoding: 91 91 62
 Width: 400
 VWidth: 2100
 Flags: MW
-HStem: -100 100<200 285.045> 1400 100<200 285.045>
-VStem: 100 100<0 1400>
 LayerCount: 2
 Back
 Fore
@@ -2543,8 +2460,6 @@ Encoding: 93 93 64
 Width: 400
 VWidth: 2100
 Flags: W
-HStem: -100 100<114.955 200> 1400 100<114.955 200>
-VStem: 200 100<0 1400>
 LayerCount: 2
 Back
 Fore
@@ -2585,8 +2500,6 @@ Encoding: 95 95 66
 Width: 600
 VWidth: 2100
 Flags: W
-HStem: -200 100<0 600>
-VStem: 0 600<-200 -100>
 LayerCount: 2
 Back
 Fore
@@ -2631,8 +2544,6 @@ Encoding: 97 97 68
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.122 714.955 785.045> 900 100<245.379 600>
-VStem: 100 100<175.142 854.621> 600 100<174.109 900>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -2676,8 +2587,6 @@ Encoding: 98 98 69
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 554.621> 900 100<200 554.621>
-VStem: 100 100<100 900 1000 1385.05> 600 100<145.379 854.621>
 LayerCount: 2
 Back
 Fore
@@ -2716,8 +2625,6 @@ Encoding: 99 99 70
 Width: 700
 VWidth: 2100
 Flags: W
-HStem: 0 100<245.379 585.045> 900 100<245.379 585.045>
-VStem: 100 100<145.379 854.621>
 AnchorPoint: "TopCenterAccent" 350 1350 basechar 0
 LayerCount: 2
 Back
@@ -2755,8 +2662,6 @@ Encoding: 100 100 71
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<245.379 600> 900 100<245.379 600>
-VStem: 100 100<145.379 854.621> 600 100<100 900 1000 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -2795,8 +2700,6 @@ Encoding: 101 101 72
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<245.379 685.045> 450 100<200 600> 900 100<274.625 525.375>
-VStem: 100 100<145.379 450 550 824.858> 600 100<550 824.858>
 CounterMasks: 1 e0
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
@@ -2841,8 +2744,6 @@ Encoding: 102 102 73
 Width: 600
 VWidth: 2100
 Flags: MW
-HStem: 900 100<114.955 200 300 485.045> 1300 100<330.425 485.045>
-VStem: 200 100<14.9547 900 1000 1269.58>
 LayerCount: 2
 Back
 Fore
@@ -2887,8 +2788,6 @@ Encoding: 103 103 74
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: -400 100<114.955 554.621> 0 100<245.379 600> 900 100<245.379 600>
-VStem: 100 100<145.379 854.621> 600 100<-254.621 0 100 900>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -2934,8 +2833,6 @@ Encoding: 104 104 75
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 900 100<200 554.621>
-VStem: 100 100<14.9547 900 1000 1385.05> 600 100<14.9547 854.621>
 AnchorPoint: "TopCenterAccent" 150 1650 basechar 0
 LayerCount: 2
 Back
@@ -2986,8 +2883,6 @@ Encoding: 106 106 77
 Width: 500
 VWidth: 2100
 Flags: MW
-HStem: -400 100<114.955 254.621>
-VStem: 300 100<-254.621 985.045 1314.95 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -3000,7 +2895,6 @@ Encoding: 107 107 78
 Width: 800
 VWidth: 2100
 Flags: MW
-VStem: 100 100<14.9547 429 571 1385.05>
 AnchorPoint: "TopCenterAccent" 150 1650 basechar 0
 LayerCount: 2
 Back
@@ -3040,8 +2934,6 @@ Encoding: 108 108 79
 Width: 500
 VWidth: 2100
 Flags: MW
-HStem: 0 100<245.379 385.045>
-VStem: 100 100<145.379 1385.05>
 AnchorPoint: "TopCenterAccent" 150 1350 basechar 0
 LayerCount: 2
 Back
@@ -3071,8 +2963,6 @@ Encoding: 109 109 80
 Width: 1100
 VWidth: 2100
 Flags: MW
-HStem: 900 100<200 500 600 854.621>
-VStem: 100 100<14.9547 900> 500 100<14.9547 900> 900 100<14.9547 854.621>
 CounterMasks: 1 70
 LayerCount: 2
 Back
@@ -3115,8 +3005,6 @@ Encoding: 110 110 81
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 900 100<200 554.621>
-VStem: 100 100<14.9547 900> 600 100<14.9547 854.621>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -3152,8 +3040,6 @@ Encoding: 111 111 82
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.375> 900 100<274.625 525.375>
-VStem: 100 100<175.142 824.858> 600 100<175.142 824.858>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -3190,8 +3076,6 @@ Encoding: 112 112 83
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100 900 100
-VStem: 100 100
 LayerCount: 2
 Back
 Fore
@@ -3204,8 +3088,6 @@ Encoding: 113 113 84
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100 900 100
-VStem: 100 100 600 100
 LayerCount: 2
 Back
 Fore
@@ -3218,8 +3100,6 @@ Encoding: 114 114 85
 Width: 700
 VWidth: 2100
 Flags: MW
-HStem: 900 100<200 469.575>
-VStem: 100 100<14.9547 900> 500 100<764.955 869.575>
 AnchorPoint: "TopCenterAccent" 350 1350 basechar 0
 LayerCount: 2
 Back
@@ -3253,8 +3133,6 @@ Encoding: 115 115 86
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<197.357 557.071> 900 100<233.829 583.789>
-VStem: 100 100<685.647 862.774> 600 100<144.474 357.71>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -3297,8 +3175,6 @@ Encoding: 116 116 87
 Width: 600
 VWidth: 2100
 Flags: MW
-HStem: 900 100<114.955 200 300 485.045>
-VStem: 200 100<14.9547 900 1000 1385.05>
 AnchorPoint: "TopCenterAccent" 250 1350 basechar 0
 LayerCount: 2
 Back
@@ -3338,8 +3214,6 @@ Encoding: 117 117 88
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<245.379 600>
-VStem: 100 100<145.379 985.045> 600 100<100 985.045>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -3353,7 +3227,6 @@ Encoding: 118 118 89
 Width: 800
 VWidth: 2100
 Flags: MW
-VStem: 100 100<916.899 985.045> 350 100 600 100<916.899 985.045>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -3387,7 +3260,6 @@ Encoding: 119 119 90
 Width: 1200
 VWidth: 2100
 Flags: MW
-VStem: 100 100<898.797 985.045> 300 100 550 100 800 100 1000 100<898.797 985.045>
 AnchorPoint: "TopCenterAccent" 600 1350 basechar 0
 LayerCount: 2
 Back
@@ -3429,8 +3301,6 @@ Encoding: 120 120 91
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 164 636 660.5> 980 20G<139.5 164 636 660.5>
-VStem: 100 600<29 64 936 971>
 LayerCount: 2
 Back
 Fore
@@ -3469,8 +3339,6 @@ Encoding: 121 121 92
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: -400 100<114.955 249.072>
-VStem: 100 100<915.962 985.045> 600 100<916.899 985.045>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -3509,7 +3377,6 @@ Encoding: 122 122 93
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<235 685.045> 900 100<114.955 565>
 AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -3545,8 +3412,6 @@ Encoding: 123 123 94
 Width: 500
 VWidth: 2100
 Flags: W
-HStem: -100 100<314.955 385.045> 650 100<114.955 185.045> 1400 100<314.955 385.045>
-VStem: 200 100<14.9547 635.045 764.955 1385.05>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -3592,7 +3457,6 @@ Encoding: 124 124 95
 Width: 300
 VWidth: 2100
 Flags: W
-VStem: 100 100<-85.0453 1485.05>
 LayerCount: 2
 Back
 Fore
@@ -3617,7 +3481,6 @@ Encoding: 125 125 96
 Width: 500
 VWidth: 2100
 Flags: MW
-HStem: 1400 100
 LayerCount: 2
 Back
 Fore
@@ -3630,7 +3493,6 @@ Encoding: 126 126 97
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 400 100<472.97 729.383> 500 100<168.7 427.03>
 LayerCount: 2
 Back
 Fore
@@ -3661,7 +3523,6 @@ Encoding: 161 161 98
 Width: 300
 VWidth: 2100
 Flags: MW
-VStem: 100 100
 LayerCount: 2
 Back
 Fore
@@ -3673,8 +3534,6 @@ Encoding: 162 162 99
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<245.379 400 500 685.045> 900 100<245.379 400 500 685.045>
-VStem: 100 100<145.379 854.621> 400 100<-185.045 0 100 900 1000 1185.05>
 LayerCount: 2
 Back
 Fore
@@ -3730,8 +3589,6 @@ Encoding: 163 163 100
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<114.955 185.045 291 669.575> 700 100<114.955 200 300 485.045> 1300 100<344.094 555.906>
-VStem: 200 100<114.955 700 800 1254.62> 600 100<1114.95 1254.62> 700 100<130.425 235.045>
 LayerCount: 2
 Back
 Fore
@@ -3791,8 +3648,6 @@ Encoding: 164 164 101
 Width: 1400
 VWidth: 2100
 Flags: W
-HStem: 100 100<490.336 909.664> 1200 100<490.336 909.664>
-VStem: 100 100<490.336 909.664> 1200 100<490.336 909.664>
 LayerCount: 2
 Back
 Fore
@@ -3860,8 +3715,6 @@ Encoding: 165 165 102
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 500 100<164.955 450 550 835.045> 700 100<164.955 389 611 835.045> 1380 20G<139.5 165 835 860.5>
-VStem: 450 100<14.9547 500 600 687>
 LayerCount: 2
 Back
 Fore
@@ -3922,7 +3775,6 @@ Encoding: 166 166 103
 Width: 300
 VWidth: 2100
 Flags: W
-VStem: 100 100<-85.0453 585.045 814.955 1485.05>
 LayerCount: 2
 Back
 Fore
@@ -3958,8 +3810,6 @@ Encoding: 167 167 104
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: -100 100<271.482 505.906> 1400 100<294.094 528.518>
-VStem: 100 100<640.119 960.416> 150 100<1142.95 1355.91> 550 100<44.094 257.053> 600 100<439.584 759.881>
 LayerCount: 2
 Back
 Fore
@@ -4033,8 +3883,6 @@ Width: 1700
 VWidth: 2100
 UnlinkRmOvrlpSave: 1
 Flags: W
-HStem: 150 100<611.777 1088.22> 400 100<695.379 1035.05> 1300 100<695.379 1035.05> 1550 100<611.777 1088.22>
-VStem: 100 100<661.777 1138.22> 550 100<545.379 1254.62> 1500 100<661.777 1138.22>
 LayerCount: 2
 Back
 Fore
@@ -4071,8 +3919,6 @@ Encoding: 170 170 107
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 700 100<230.425 469.575 614.955 685.045> 1300 100<230.425 500>
-VStem: 100 100<830.425 1269.58> 500 100<830.425 1300>
 LayerCount: 2
 Back
 Fore
@@ -4130,8 +3976,6 @@ Encoding: 172 172 109
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 550 100<114.955 700>
-VStem: 700 100<364.955 550>
 LayerCount: 2
 Back
 Fore
@@ -4173,8 +4017,6 @@ Width: 1700
 VWidth: 2100
 UnlinkRmOvrlpSave: 1
 Flags: W
-HStem: 150 100<611.777 1088.22> 800 100<650 846> 1300 100<650 1004.62> 1550 100<611.777 1088.22>
-VStem: 100 100<661.777 1138.22> 550 100<414.955 800 900 1300> 1050 100<945.379 1254.62> 1500 100<661.777 1138.22>
 LayerCount: 2
 Back
 Fore
@@ -4231,8 +4073,6 @@ Encoding: 176 176 113
 Width: 600
 VWidth: 2100
 Flags: W
-HStem: 1000 100<223.485 376.515> 1300 100<223.485 376.515>
-VStem: 100 100<1123.49 1276.51> 400 100<1123.49 1276.51>
 LayerCount: 2
 Back
 Fore
@@ -4264,8 +4104,6 @@ Encoding: 177 177 114
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 50 100<114.955 685.045> 550 100<114.955 350 450 685.045>
-VStem: 350 100<314.955 550 650 885.045>
 LayerCount: 2
 Back
 Fore
@@ -4315,8 +4153,6 @@ Encoding: 182 182 117
 Width: 1100
 VWidth: 2100
 Flags: MW
-HStem: 700 100<307.932 450> 1300 100<307.932 450 550 750 850 985.045>
-VStem: 100 100<907.177 1192.82> 450 100<14.9547 700 800 1300> 750 100<14.9547 1300>
 LayerCount: 2
 Back
 Fore
@@ -4405,8 +4241,6 @@ Encoding: 186 186 121
 Width: 600
 VWidth: 2100
 Flags: W
-HStem: 700 100<223.808 376.192> 1300 100<223.808 376.192>
-VStem: 100 100<830.425 1269.58> 400 100<830.425 1269.58>
 LayerCount: 2
 Back
 Fore
@@ -4529,8 +4363,6 @@ Encoding: 729 729 127
 Width: 300
 VWidth: 2100
 Flags: MW
-HStem: 100 100
-VStem: 1300 100
 AnchorPoint: "TopCenterAccent" 150 1350 mark 0
 LayerCount: 2
 Back
@@ -4543,8 +4375,6 @@ Encoding: 730 730 128
 Width: 500
 VWidth: 2100
 Flags: W
-HStem: 1100 100<207.923 292.077> 1300 100<207.923 292.077>
-VStem: 100 100<1207.92 1292.08> 300 100<1207.92 1292.08>
 AnchorPoint: "TopCenterAccent" 250 1350 mark 0
 LayerCount: 2
 Back
@@ -4576,7 +4406,6 @@ Encoding: 732 732 129
 Width: 600
 VWidth: 2100
 Flags: MW
-HStem: 1250 75<262.396 470.65> 1325 75<129.757 337.604>
 AnchorPoint: "TopCenterAccent" 300 1350 mark 0
 LayerCount: 2
 Back
@@ -4601,8 +4430,6 @@ Encoding: 913 913 131
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: 400 100<323 677>
-VStem: 100 100<14.9547 85.0219> 450 100 800 100<14.9547 85.0219>
 CounterMasks: 1 70
 LayerCount: 2
 Back
@@ -4616,8 +4443,6 @@ Encoding: 914 914 132
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 558.16> 700 100<200 543.579> 1300 100<200 542.068>
-VStem: 100 100<100 700 800 1300> 650 100<905.391 1192.82> 700 100<241.094 559.842>
 LayerCount: 2
 Back
 Fore
@@ -4642,7 +4467,6 @@ Encoding: 916 916 134
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: 0 100<215 785> 1380 20G<491.5 508.5>
 LayerCount: 2
 Back
 Fore
@@ -4674,8 +4498,6 @@ Encoding: 917 917 135
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 685.045> 700 100<200 485.045> 1300 100<200 685.045>
-VStem: 100 100<100 700 800 1300>
 LayerCount: 2
 Back
 Fore
@@ -4688,7 +4510,6 @@ Encoding: 918 918 136
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<228 785.045> 1300 100<114.955 672>
 LayerCount: 2
 Back
 Fore
@@ -4701,8 +4522,6 @@ Encoding: 919 919 137
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 700 100<200 700>
-VStem: 100 100<14.9547 700 800 1385.05> 700 100<14.9547 700 800 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -4728,7 +4547,6 @@ Encoding: 921 921 139
 Width: 300
 VWidth: 2100
 Flags: W
-VStem: 100 100<14.9547 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -4753,7 +4571,6 @@ Encoding: 923 923 141
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 158.5 841.5 860.5> 0 21G<139.5 158.5 841.5 860.5> 1380 20G<491.5 508.5>
 LayerCount: 2
 Back
 Fore
@@ -4892,7 +4709,6 @@ Encoding: 931 931 148
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<228 785.045> 1300 100<228 785.045>
 LayerCount: 2
 Back
 Fore
@@ -4955,8 +4771,6 @@ Encoding: 934 934 151
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 200 100 1100 100
-VStem: 100 100<441.34 958.66> 450 100<14.9547 211.232 304 1096 1188.77 1385.05> 800 100<441.34 958.66>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -5020,8 +4834,6 @@ Encoding: 936 936 153
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 400 100
-VStem: 100 100<641.34 1385.05> 450 100<14.9547 411.232 504 1385.05> 800 100<641.34 1385.05>
 CounterMasks: 1 70
 LayerCount: 2
 Back
@@ -5069,8 +4881,6 @@ Encoding: 937 937 154
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: 0 100<214.955 350 650 785.045> 1300 100<341.094 658.906>
-VStem: 100 100<424.931 1158.16> 350 100<100 265.009> 550 100<100 265.009> 800 100<424.931 1158.16>
 LayerCount: 2
 Back
 Fore
@@ -5129,8 +4939,6 @@ Encoding: 945 945 155
 Width: 950
 VWidth: 2100
 Flags: W
-HStem: 0 100<244.094 456.857 776.963 835.045> 900 100<244.094 457.273>
-VStem: 100 100<145.379 854.621>
 LayerCount: 2
 Back
 Fore
@@ -5185,8 +4993,6 @@ Encoding: 946 946 156
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<314.955 524.858> 800 100<314.955 492.539> 1300 100<257.405 492.595>
-VStem: 100 100<-385.045 1242.54> 550 100<957.461 1242.54> 600 100<175.142 725.633>
 LayerCount: 2
 Back
 Fore
@@ -5243,8 +5049,6 @@ Encoding: 947 947 157
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 900 100<114.955 238.984>
-VStem: 350 200<-376.001 491.392>
 LayerCount: 2
 Back
 Fore
@@ -5285,8 +5089,6 @@ Encoding: 948 948 158
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.375> 1300 100<306.509 501.832>
-VStem: 100 100<175.142 824.242> 200 100<1176.93 1289.39> 600 100<175.142 825.653>
 LayerCount: 2
 Back
 Fore
@@ -5388,8 +5190,6 @@ Encoding: 950 950 160
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: -400 100<214.955 554.621> 0 100<275.142 554.621> 1100 100<245.379 458>
-VStem: 100 100<174.625 588.119 1245.38 1385.05> 600 100<-255.906 -44.094>
 LayerCount: 2
 Back
 Fore
@@ -5441,8 +5241,6 @@ Encoding: 951 951 161
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 900 100<114.955 185.045 374.109 625.269>
-VStem: 200 100<14.9547 825.891> 700 100<-385.045 824.858>
 LayerCount: 2
 Back
 Fore
@@ -5484,8 +5282,6 @@ Encoding: 952 952 162
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: 0 100<616.454 776.192> 500 100<207.923 304.944> 800 100<475.142 800 900 985.045> 1300 100<474.625 725.375>
-VStem: 100 100<414.955 485.045> 300 100<974.625 1225.37> 800 100<130.425 800 900 1224.86>
 LayerCount: 2
 Back
 Fore
@@ -5545,8 +5341,6 @@ Encoding: 953 953 163
 Width: 550
 VWidth: 2100
 Flags: MW
-HStem: 0 100<215.769 356.495>
-VStem: 100 100<124.237 985.045>
 LayerCount: 2
 Back
 Fore
@@ -5579,8 +5373,6 @@ Encoding: 954 954 164
 Width: 950
 VWidth: 2100
 Flags: W
-HStem: 0 100<695.797 835.045> 900 100<114.955 185.045>
-VStem: 200 100<14.9547 332 488 885.045>
 LayerCount: 2
 Back
 Fore
@@ -5628,8 +5420,6 @@ Encoding: 955 955 165
 Width: 850
 VWidth: 2100
 Flags: MW
-HStem: 0 100<679.078 735.045> 1300 100<164.955 263.224>
-VStem: 100 100<14.9547 83.101>
 LayerCount: 2
 Back
 Fore
@@ -5668,8 +5458,6 @@ Encoding: 956 956 166
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<273.82 525.968 714.955 785.045>
-VStem: 100 100<-385.045 76 174.109 985.045> 600 100<174.109 985.045>
 LayerCount: 2
 Back
 Fore
@@ -5715,8 +5503,6 @@ Encoding: 957 957 167
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 21G<343 361.5> 0 21G<343 361.5> 900 100<114.955 185.045>
-VStem: 200 100<405.431 885.045> 600 100<568.826 985.045>
 LayerCount: 2
 Back
 Fore
@@ -5754,8 +5540,6 @@ Encoding: 958 958 168
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: -400 100<314.955 654.621> 0 100<341.84 654.621> 700 100<375.142 635.045> 1200 100<214.955 276 374.109 635.045> 1380 20G<139.5 160.5>
-VStem: 100 100<241.094 559.755 1314.95 1385.05> 200 100<873.795 1126.18> 700 100<-255.906 -44.094>
 LayerCount: 2
 Back
 Fore
@@ -5834,8 +5618,6 @@ Encoding: 960 960 170
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: 0 100<164.955 235.045 764.955 835.045> 900 100<114.955 250 350 650>
-VStem: 250 100<114.955 900> 650 100<114.955 900>
 LayerCount: 2
 Back
 Fore
@@ -5883,8 +5665,6 @@ Encoding: 961 961 171
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<376.822 525.375> 900 100<274.625 525.375>
-VStem: 100 100<175.142 824.858> 320 100<-358.416 -21.8939> 600 100<175.142 824.858>
 LayerCount: 2
 Back
 Fore
@@ -5929,8 +5709,6 @@ Encoding: 962 962 172
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: -400 100<214.955 554.621> 0 100<245.379 554.621> 900 100<244.094 580.117>
-VStem: 100 100<145.379 854.621> 600 100<-255.906 -44.094>
 LayerCount: 2
 Back
 Fore
@@ -5978,8 +5756,6 @@ Encoding: 963 963 173
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<274.625 525.375> 900 100<274.625 526.288>
-VStem: 100 100<175.142 824.858> 600 100<175.142 825.891>
 LayerCount: 2
 Back
 Fore
@@ -6022,8 +5798,6 @@ Encoding: 964 964 174
 Width: 850
 VWidth: 2100
 Flags: W
-HStem: 0 100<464.955 585.045> 900 100<114.955 350 450 678.949>
-VStem: 350 100<114.955 900>
 LayerCount: 2
 Back
 Fore
@@ -6063,8 +5837,6 @@ Encoding: 965 965 175
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<273.808 453.074> 900 100
-VStem: 150 100<130.425 929.133> 600 100<318.126 928.352>
 LayerCount: 2
 Back
 Fore
@@ -6102,8 +5874,6 @@ Encoding: 966 966 176
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 0 100<330.117 450> 900 100<565.769 713.732>
-VStem: 100 100<220.948 769.758> 450 100<-385.045 -8.76758 84 875.763> 800 100<220.948 765.102>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -6155,7 +5925,6 @@ Encoding: 967 967 177
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: -400 100<699.875 785.045> 900 100<114.955 200.125>
 LayerCount: 2
 Back
 Fore
@@ -6200,8 +5969,6 @@ Encoding: 968 968 178
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 0 100 980 20G<139.5 160.5 839.5 860.5>
-VStem: 100 100<236.656 985.045> 450 100<-385.045 8.20801 100 1185.05> 800 100<236.656 985.045>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -6249,8 +6016,6 @@ Encoding: 969 969 179
 Width: 1100
 VWidth: 2100
 Flags: MW
-HStem: 0 100<244.094 456.091 643.909 855.906>
-VStem: 100 100<145.379 765.312> 204 96<829.489 985.045> 500 100<145.379 485.045> 800 100<814.95 985.045> 900 100<145.379 760.219>
 LayerCount: 2
 Back
 Fore
@@ -6332,8 +6097,6 @@ Encoding: 1041 1041 182
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<200 558.16> 700 100<200 558.16> 1300 100<200 685.045>
-VStem: 100 100<100 700 800 1300> 700 100<241.094 558.906>
 LayerCount: 2
 Back
 Fore
@@ -6386,8 +6149,6 @@ Encoding: 1043 1043 184
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 160.5> 0 21G<139.5 160.5> 1300 100<200 685.045>
-VStem: 100 100<14.9547 1300>
 LayerCount: 2
 Back
 Fore
@@ -6416,8 +6177,6 @@ Encoding: 1044 1044 185
 Width: 1000
 VWidth: 2100
 Flags: W
-HStem: -100 200<114.955 185.045 814.955 885.045> 0 100<200 207 308 700> 1300 100<493 700>
-VStem: 100 100<-85.0453 0> 700 100<100 1300> 800 100<-85.0453 0>
 LayerCount: 2
 Back
 Fore
@@ -6476,7 +6235,6 @@ Encoding: 1046 1046 187
 Width: 1100
 VWidth: 2100
 Flags: MW
-VStem: 500 100<14.9547 638 838 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -6527,8 +6285,6 @@ Encoding: 1047 1047 188
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<239.533 595.564> 700 100<314.955 584.878> 1300 100<256.996 584.511>
-VStem: 670 100<890.803 1209.42> 700 100<209.751 588.505>
 LayerCount: 2
 Back
 Fore
@@ -6579,8 +6335,6 @@ Encoding: 1048 1048 189
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 21G<139.5 166 739.5 760.5> 0 21G<139.5 166 739.5 760.5> 1380 20G<139.5 160.5 734 760.5>
-VStem: 100 100<14.9547 29 278 1385.05> 700 100<14.9547 1122 1371 1385.05>
 AnchorPoint: "TopCenterAccent" 450 1650 basechar 0
 LayerCount: 2
 Back
@@ -6640,8 +6394,6 @@ Encoding: 1051 1051 192
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 1300 100<499 700>
-VStem: 700 100<14.9547 1300>
 LayerCount: 2
 Back
 Fore
@@ -6711,8 +6463,6 @@ Encoding: 1055 1055 196
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 1300 100<200 700>
-VStem: 100 100<14.9547 1300> 700 100<14.9547 1300>
 LayerCount: 2
 Back
 Fore
@@ -6781,8 +6531,6 @@ Encoding: 1059 1059 200
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<214.955 624.858> 600 100<341.84 700>
-VStem: 100 100<841.84 1385.05> 700 100<175.142 600 700 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -6826,8 +6574,6 @@ Encoding: 1060 1060 201
 Width: 1300
 VWidth: 2100
 Flags: MW
-HStem: 300 100<377.991 600 700 922.009> 1100 100<377.991 600 700 922.009>
-VStem: 100 100<577.558 922.442> 600 100<14.9547 300 400 1100 1200 1385.05> 1100 100<577.558 922.442>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -6899,8 +6645,6 @@ Encoding: 1062 1062 203
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 700>
-VStem: 100 100<100 1385.05> 700 100<100 1385.05> 800 100<-185.045 0>
 LayerCount: 2
 Back
 Fore
@@ -6940,8 +6684,6 @@ Encoding: 1063 1063 204
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 600 100<341.84 700>
-VStem: 100 100<841.84 1385.05> 700 100<14.9547 600 700 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -6979,8 +6721,6 @@ Encoding: 1064 1064 205
 Width: 1100
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 500 600 900>
-VStem: 100 100<100 1385.05> 500 100<100 1385.05> 900 100<100 1385.05>
 CounterMasks: 1 70
 LayerCount: 2
 Back
@@ -7021,8 +6761,6 @@ Encoding: 1065 1065 206
 Width: 1200
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 500 600 900>
-VStem: 100 100<100 1385.05> 500 100<100 1385.05> 900 100<100 1385.05> 1000 100<-185.045 0>
 LayerCount: 2
 Back
 Fore
@@ -7069,8 +6807,6 @@ Encoding: 1066 1066 207
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: 0 100<400 758.16> 700 100<400 758.16> 1300 100<114.955 300>
-VStem: 300 100<100 700 800 1300> 900 100<241.094 558.906>
 LayerCount: 2
 Back
 Fore
@@ -7111,8 +6847,6 @@ Encoding: 1067 1067 208
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 458.16> 700 100<200 458.16>
-VStem: 100 100<100 700 800 1385.05> 600 100<241.094 558.906> 800 100<14.9547 1385.05>
 LayerCount: 2
 Back
 Fore
@@ -7160,8 +6894,6 @@ Encoding: 1068 1068 209
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 558.16> 700 100<200 558.16>
-VStem: 100 100<100 700 800 1385.05> 700 100<241.094 558.906>
 LayerCount: 2
 Back
 Fore
@@ -7198,8 +6930,6 @@ Encoding: 1069 1069 210
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<114.955 592.068> 700 100<314.955 700> 1300 100<114.955 592.068>
-VStem: 700 100<207.932 700 800 1192.07>
 LayerCount: 2
 Back
 Fore
@@ -7243,8 +6973,6 @@ Encoding: 1070 1070 211
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 0 100<474.625 725.375> 700 100<200 300> 1300 100<474.625 725.375>
-VStem: 100 100<14.9547 700 800 1385.05> 300 100<175.142 700 800 1224.86> 800 100<175.142 1224.86>
 LayerCount: 2
 Back
 Fore
@@ -7294,8 +7022,6 @@ Encoding: 1071 1071 212
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 600 100<529 700> 1300 100<341.84 700>
-VStem: 100 100<840.755 1158.91> 700 100<14.9547 600 700 1300>
 LayerCount: 2
 Back
 Fore
@@ -7350,8 +7076,6 @@ Encoding: 1073 1073 214
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.375> 900 100<274.109 400> 1300 100<266 685.045>
-VStem: 100 100<175.142 825.891> 600 100<175.142 824.459>
 LayerCount: 2
 Back
 Fore
@@ -7397,8 +7121,6 @@ Encoding: 1074 1074 215
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.375> 900 100<392.363 524.858> 1300 100<223.808 376.192>
-VStem: 100 100<175.142 825.891 928 1269.58> 400 100<1109.88 1276.19> 600 100<175.142 824.858>
 LayerCount: 2
 Back
 Fore
@@ -7447,8 +7169,6 @@ Encoding: 1075 1075 216
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<242.929 602.643> 900 100<195.813 566.171>
-VStem: 100 100<144.863 338.538> 600 100<676.155 862.708>
 LayerCount: 2
 Back
 Fore
@@ -7490,8 +7210,6 @@ Encoding: 1076 1076 217
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.375> 900 100<245.379 600> 1300 100<214.955 569.575>
-VStem: 100 100<175.142 854.621> 600 100<175.142 900 1000 1269.58>
 LayerCount: 2
 Back
 Fore
@@ -7548,8 +7266,6 @@ Encoding: 1078 1078 219
 Width: 1000
 VWidth: 2100
 Flags: MW
-HStem: 980 20G<139.5 163.5 489.5 510.5 836.5 860.5>
-VStem: 450 100<14.9547 428 572 985.045>
 LayerCount: 2
 Back
 Fore
@@ -7600,8 +7316,6 @@ Encoding: 1079 1079 220
 Width: 750
 VWidth: 2100
 Flags: W
-HStem: 0 100<198.114 487.128> 450 100<314.955 487.422> 900 100<246.442 487.128>
-VStem: 550 100<163.742 387.385 601.001 837.128>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -7676,7 +7390,6 @@ Encoding: 1082 1082 223
 Width: 800
 VWidth: 2100
 Flags: MW
-VStem: 100 100<14.9547 332 488 985.045>
 LayerCount: 2
 Back
 Fore
@@ -7715,8 +7428,6 @@ Encoding: 1083 1083 224
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 900 100<438 600>
-VStem: 600 100<14.9547 900>
 LayerCount: 2
 Back
 Fore
@@ -7750,7 +7461,6 @@ Encoding: 1084 1084 225
 Width: 900
 VWidth: 2100
 Flags: MW
-VStem: 100 100<14.9547 785> 700 100<14.9547 785>
 LayerCount: 2
 Back
 Fore
@@ -7789,8 +7499,6 @@ Encoding: 1085 1085 226
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 450 100<200 600>
-VStem: 100 100<14.9547 450 550 985.045> 600 100<14.9547 450 550 985.045>
 LayerCount: 2
 Back
 Fore
@@ -7889,8 +7597,6 @@ Encoding: 1091 1091 232
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: -400 100<164.955 569.575> 0 100<245.379 600>
-VStem: 100 100<145.379 985.045> 600 100<-269.575 0 100 985.045>
 LayerCount: 2
 Back
 Fore
@@ -7934,8 +7640,6 @@ Encoding: 1092 1092 233
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: 0 100<341.84 500 600 758.16> 900 100<341.84 500 600 758.16>
-VStem: 100 100<241.84 758.16> 500 100<-385.045 0 100 900 1000 1235.05> 900 100<241.84 758.16>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -7999,8 +7703,6 @@ Encoding: 1094 1094 235
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<245.379 600>
-VStem: 100 100<145.379 985.045> 600 100<100 985.045> 700 100<-185.045 0>
 LayerCount: 2
 Back
 Fore
@@ -8042,8 +7744,6 @@ Encoding: 1095 1095 236
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 450 100<245.379 600>
-VStem: 100 100<595.379 985.045> 600 100<14.9547 450 550 985.045>
 LayerCount: 2
 Back
 Fore
@@ -8093,8 +7793,6 @@ Encoding: 1097 1097 238
 Width: 1200
 VWidth: 2100
 Flags: MW
-HStem: 0 100<245.379 500 600 900>
-VStem: 100 100<145.379 985.045> 500 100<100 985.045> 900 100<100 985.045> 1000 100<-185.045 0>
 LayerCount: 2
 Back
 Fore
@@ -8143,8 +7841,6 @@ Encoding: 1098 1098 239
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 0 100<300 642.539> 450 100<300 642.539> 900 100<114.955 200>
-VStem: 200 100<100 450 550 900> 700 100<157.405 392.595>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -8186,8 +7882,6 @@ Encoding: 1099 1099 240
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 442.539> 450 100<200 442.539>
-VStem: 100 100<100 450 550 985.045> 500 100<157.405 392.595> 700 100<14.9547 985.045>
 LayerCount: 2
 Back
 Fore
@@ -8235,8 +7929,6 @@ Encoding: 1100 1100 241
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<200 542.539> 450 100<200 542.539>
-VStem: 100 100<100 450 550 985.045> 600 100<157.405 392.595>
 LayerCount: 2
 Back
 Fore
@@ -8273,8 +7965,6 @@ Encoding: 1101 1101 242
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<114.955 554.621> 450 100<364.955 600> 900 100<114.955 554.621>
-VStem: 600 100<145.379 450 550 854.621>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -8319,8 +8009,6 @@ Encoding: 1102 1102 243
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<444.094 655.906> 450 100<200 300> 900 100<444.094 655.906>
-VStem: 100 100<14.9547 450 550 985.045> 300 100<145.379 450 550 854.621> 700 100<145.379 854.621>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -8371,8 +8059,6 @@ Encoding: 1103 1103 244
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 450 100<429 600> 900 100<257.461 600>
-VStem: 100 100<606.763 842.595> 600 100<14.9547 450 550 900>
 LayerCount: 2
 Back
 Fore
@@ -8463,7 +8149,6 @@ Encoding: 8212 8212 249
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: 450 100<114.955 985.045>
 LayerCount: 2
 Back
 Fore
@@ -8612,8 +8297,6 @@ Encoding: 8226 8226 259
 Width: 400
 VWidth: 2100
 Flags: W
-HStem: 400 200<130.425 269.575>
-VStem: 100 200<430.425 569.575>
 LayerCount: 2
 Back
 Fore
@@ -8675,8 +8358,6 @@ Encoding: 8240 8240 263
 Width: 2400
 VWidth: 2100
 Flags: W
-HStem: 0 100<1172.7 1427.3 1872.7 2127.3> 500 100<1172.7 1427.3 1872.7 2127.3> 800 100<272.699 527.301> 1300 100<272.699 527.301>
-VStem: 100 100<972.699 1227.3> 600 100<972.699 1227.3> 1000 100<172.699 427.3> 1500 100<172.699 427.3> 1700 100<172.699 427.3> 2200 100<172.699 427.3>
 LayerCount: 2
 Back
 Fore
@@ -8692,8 +8373,6 @@ Encoding: 8241 8241 264
 Width: 3100
 VWidth: 2100
 Flags: W
-HStem: 0 100<1172.7 1427.3 1872.7 2127.3 2572.7 2827.3> 500 100<1172.7 1427.3 1872.7 2127.3 2572.7 2827.3> 800 100<272.699 527.301> 1300 100<272.699 527.301>
-VStem: 100 100<972.699 1227.3> 600 100<972.699 1227.3> 1000 100<172.699 427.3> 1500 100<172.699 427.3> 1700 100<172.699 427.3> 2200 100<172.699 427.3> 2400 100<172.699 427.3> 2900 100<172.699 427.3>
 LayerCount: 2
 Back
 Fore
@@ -8879,8 +8558,6 @@ Encoding: 8364 8364 276
 Width: 1400
 VWidth: 2100
 Flags: W
-HStem: 0 100<670.921 1126.9> 550 100<114.955 202 319 985.045> 750 100<114.955 202 319 1085.05> 1300 100<670.921 1130.29>
-VStem: 200 100<650 750>
 LayerCount: 2
 Back
 Fore
@@ -8943,8 +8620,6 @@ Encoding: 8451 8451 277
 Width: 1300
 VWidth: 2100
 Flags: W
-HStem: 0 100<807.932 1185.05> 1000 100<223.485 376.515> 1300 100<223.485 376.515 807.932 1185.05>
-VStem: 100 100<1123.49 1276.51> 400 100<1123.49 1276.51> 600 100<207.932 1192.07>
 LayerCount: 2
 Back
 Fore
@@ -8958,8 +8633,6 @@ Encoding: 8457 8457 278
 Width: 1300
 VWidth: 2100
 Flags: W
-HStem: 0 21<639.5 660.5 639.5 660.5> 700 100<700 1185.05> 1000 100<223.485 376.515> 1300 100<223.485 376.515 700 1185.05>
-VStem: 100 100<1123.49 1276.51> 400 100<1123.49 1276.51> 600 100<14.9547 700 800 1300>
 LayerCount: 2
 Back
 Fore
@@ -8973,8 +8646,6 @@ Encoding: 8470 8470 279
 Width: 1400
 VWidth: 2100
 Flags: W
-HStem: 700 100<1023.81 1176.19> 1300 100<1023.81 1176.19>
-VStem: 100 100<14.9547 1122 1371 1385.05> 700 100<14.9547 29 278 1385.05> 900 100<830.425 1269.58> 1200 100<830.425 1269.58>
 LayerCount: 2
 Back
 Fore
@@ -8988,8 +8659,6 @@ Encoding: 8482 8482 280
 Width: 1400
 VWidth: 2100
 Flags: W
-HStem: 1300 100<114.955 300 400 585.045>
-VStem: 300 100<714.955 1300> 700 100<714.955 1194> 1200 100<714.955 1194>
 LayerCount: 2
 Back
 Fore
@@ -9409,8 +9078,6 @@ Width: 900
 VWidth: 1800
 Flags: W
 TeX: 100 1800
-HStem: 1600 100<790 1000>
-VStem: 100 99<878.338 985.261>
 LayerCount: 2
 Back
 Fore
@@ -9443,8 +9110,6 @@ Encoding: 8733 8733 309
 Width: 1050
 VWidth: 2100
 Flags: W
-HStem: 300 100<223.485 403.516 796.875 935.045> 600 100<223.485 403.516 796.875 935.045>
-VStem: 100 100<423.485 576.515>
 LayerCount: 2
 Back
 Fore
@@ -9492,8 +9157,6 @@ Encoding: 8734 8734 310
 Width: 1200
 VWidth: 2100
 Flags: W
-HStem: 300 100<223.485 403.516 796.484 976.515> 600 100<223.485 403.516 796.484 976.515>
-VStem: 100 100<423.485 576.515> 1000 100<423.485 576.515>
 LayerCount: 2
 Back
 Fore
@@ -9570,7 +9233,6 @@ Encoding: 8736 8736 312
 Width: 950
 VWidth: 2100
 Flags: W
-HStem: 300 100<327 835.045>
 LayerCount: 2
 Back
 Fore
@@ -9600,8 +9262,6 @@ Encoding: 8737 8737 313
 Width: 950
 VWidth: 2100
 Flags: W
-HStem: 300 100<327 600 700 835.045>
-VStem: 600 100<164.955 300 400 568 747 865.045>
 LayerCount: 2
 Back
 Fore
@@ -9650,7 +9310,6 @@ Encoding: 8738 8738 314
 Width: 950
 VWidth: 2100
 Flags: W
-VStem: 600 100<64.9547 191 347 653 809 935.045>
 LayerCount: 2
 Back
 Fore
@@ -9723,7 +9382,6 @@ Encoding: 8747 8747 317
 Width: 1100
 VWidth: 2100
 Flags: W
-HStem: -200 100<114.955 257.903> 1600 100<842.097 985.045>
 LayerCount: 2
 Back
 Fore
@@ -9794,7 +9452,6 @@ Encoding: 8765 8765 321
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 400 100<160.625 380.651> 500 100<419.806 640.808>
 LayerCount: 2
 Back
 Fore
@@ -9825,8 +9482,6 @@ Encoding: 8766 8766 322
 Width: 1200
 VWidth: 2100
 Flags: W
-HStem: 300 100<216.841 285.045 793.359 976.515> 600 100<223.485 406.641 914.955 983.159>
-VStem: 100 100<415.965 576.515> 1000 100<423.485 584.035>
 LayerCount: 2
 Back
 Fore
@@ -9873,8 +9528,6 @@ Encoding: 8767 8767 323
 Width: 900
 VWidth: 2100
 Flags: W
-HStem: 300 100<523.808 676.192> 600 100<223.808 376.192>
-VStem: 100 100<464.955 569.575> 400 100<430.425 569.575> 700 100<430.425 535.045>
 CounterMasks: 1 38
 LayerCount: 2
 Back
@@ -9914,7 +9567,6 @@ Encoding: 8770 8770 324
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 250 100<160.529 380.311> 350 100<419.689 641.114> 600 100<114.955 685.045>
 LayerCount: 2
 Back
 Fore
@@ -10155,8 +9807,6 @@ Encoding: 8869 8869 342
 Width: 900
 VWidth: 2100
 Flags: MW
-HStem: 0 100<114.955 400 500 785.045>
-VStem: 400 100<100 985.045>
 LayerCount: 2
 Back
 Fore
@@ -10395,7 +10045,6 @@ Encoding: 9007 9007 347
 Width: 2400
 VWidth: 2100
 Flags: W
-HStem: 200 100<514.955 1885.05> 650 100<114.955 2285.05> 1100 100<514.955 1885.05>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -10443,7 +10092,6 @@ Encoding: 9008 9008 348
 Width: 4500
 VWidth: 2100
 Flags: W
-HStem: -400 100<271 2229>
 LayerCount: 2
 Back
 Fore
@@ -10789,8 +10437,6 @@ Encoding: 8215 8215 361
 Width: 600
 VWidth: 2100
 Flags: W
-HStem: -400 100<0 600> -200 100<0 600>
-VStem: 0 600<-400 -300 -200 -100>
 LayerCount: 2
 Back
 Fore
@@ -10816,8 +10462,6 @@ Encoding: 8232 8232 363
 Width: 850
 VWidth: 2100
 Flags: MW
-HStem: 0 100<271 650>
-VStem: 650 100<100 985.045>
 LayerCount: 2
 Back
 Fore
@@ -10880,8 +10524,6 @@ Encoding: 8706 8706 366
 Width: 800
 VWidth: 2100
 Flags: W
-HStem: 0 100<274.625 525.375> 900 100<274.625 526.18> 1300 100<214.955 554.621>
-VStem: 100 100<175.142 824.858> 600 100<175.142 825.891 923 1254.62>
 LayerCount: 2
 Back
 Fore
@@ -10928,8 +10570,6 @@ Encoding: 8707 8707 367
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<114.955 150> 650 100<114.955 150> 1300 100<114.955 150>
-VStem: 600 100
 LayerCount: 2
 Back
 Fore
@@ -10969,8 +10609,6 @@ Encoding: 8708 8708 368
 Width: 800
 VWidth: 2100
 Flags: MW
-HStem: 0 100<275 600> 650 100<114.955 333.412 466.588 600> 1300 100<114.955 524.588>
-VStem: 600 100<100 650 750 1203.6 1530.46 1585.05>
 CounterMasks: 1 e0
 LayerCount: 2
 Back
@@ -11033,8 +10671,6 @@ Width: 1000
 VWidth: 2100
 GlyphClass: 5
 Flags: W
-HStem: 300 100<330.806 662.433> 1000 100<335.852 664.188>
-VStem: 100 100<534.322 867.918> 800 100<537.02 860.032>
 LayerCount: 2
 Back
 Fore
@@ -11282,8 +10918,6 @@ Encoding: 8992 8992 385
 Width: 600
 VWidth: 2100
 Flags: W
-HStem: 1600 100<345.41 485.045>
-VStem: 200 100<-400 1556.68>
 LayerCount: 2
 Back
 Fore
@@ -11580,7 +11214,6 @@ Encoding: 9134 9134 406
 Width: 600
 VWidth: 2100
 Flags: W
-VStem: 200 100<-400 1799>
 LayerCount: 2
 Back
 Fore
@@ -11698,8 +11331,6 @@ Encoding: 776 776 411
 Width: 600
 VWidth: 2100
 Flags: W
-HStem: 1300 100<114.955 185.045 414.955 485.045>
-VStem: 100 100<1314.95 1385.05> 400 100<1314.95 1385.05>
 AnchorPoint: "TopCenterAccent" 300 1350 mark 0
 LayerCount: 2
 Back
