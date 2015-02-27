@@ -1503,6 +1503,7 @@ Encoding: 66 66 37
 Width: 900
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2588,6 +2589,7 @@ Encoding: 98 98 69
 Width: 800
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2663,6 +2665,7 @@ Encoding: 100 100 71
 Width: 800
 VWidth: 2100
 Flags: MW
+AnchorPoint: "TopCenterAccent" 650 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3302,6 +3305,7 @@ Encoding: 120 120 91
 Width: 800
 VWidth: 2100
 Flags: W
+AnchorPoint: "TopCenterAccent" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
