@@ -139,7 +139,8 @@ DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
 WinInfo: 27 27 10
-BeginPrivate: 0
+BeginPrivate: 1
+BlueValues 58 [-400 -300 0 100 400 500 450 550 600 700 700 800 900 1000 1300 1400 1500 1600]
 EndPrivate
 Grid
 50 1800 m 0
