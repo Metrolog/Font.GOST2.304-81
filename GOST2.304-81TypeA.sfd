@@ -47,6 +47,7 @@ OS2CapHeight: 1400
 OS2XHeight: 1000
 OS2FamilyClass: 2048
 OS2Vendor: 'PfEd'
+Lookup: 1 0 0 "'dtls' Dotless Forms lookup 0" { "'dtls' Dotless Forms lookup 0-1"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "'mark' Mark Positioning lookup 1" { "'mark' Mark Positioning lookup 1-1"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 262 0 0 "'mkmk' Mark Positioning lookup 1" { "'mkmk' Mark Positioning lookup 1-1"  } ['mkmk' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 258 8 0 "'kern' Horizontal Kerning lookup 0" { "'kern' Horizontal Kerning lookup 0 subtable"  } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
@@ -139,7 +140,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 486 27 9
+WinInfo: 27 27 9
 BeginPrivate: 1
 BlueValues 54 [-400 -300 0 100 450 550 900 1000 1300 1400 1500 1600]
 EndPrivate
@@ -2880,6 +2881,7 @@ Back
 Fore
 Refer: 127 729 N 1 0 0 1 0 0 2
 Refer: 430 305 N 1 0 0 1 0 0 3
+Substitution2: "'dtls' Dotless Forms lookup 0-1" dotlessi
 EndChar
 
 StartChar: j
@@ -2892,6 +2894,7 @@ Back
 Fore
 Refer: 127 729 N 1 0 0 1 200 0 2
 Refer: 431 567 N 1 0 0 1 0 0 3
+Substitution2: "'dtls' Dotless Forms lookup 0-1" uni0237
 EndChar
 
 StartChar: k
