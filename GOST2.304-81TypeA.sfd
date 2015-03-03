@@ -23,7 +23,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425322568
+ModificationTime: 1425395180
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -402,6 +402,11 @@ UnlinkRmOvrlpSave: 1
 Flags: W
 LayerCount: 2
 Back
+SplineSet
+150 50 m 1049
+150 1350 m 25
+ 150 350 l 1049
+EndSplineSet
 Fore
 SplineSet
 150 1400 m 0,0,1
@@ -4160,7 +4165,6 @@ VWidth: 2100
 Flags: MW
 LayerCount: 2
 Back
-Fore
 SplineSet
 450 1400 m 2,0,-1
  950 1400 l 2,1,2
@@ -4194,6 +4198,7 @@ SplineSet
  450 1300 l 1,27,28
 EndSplineSet
 Validated: 3073
+Fore
 EndChar
 
 StartChar: uni00A0
@@ -8149,9 +8154,9 @@ VWidth: 2100
 Flags: MW
 LayerCount: 2
 Back
-Fore
 Refer: 16 45 S 1 0 0 1 0 0 2
 Validated: 32769
+Fore
 EndChar
 
 StartChar: emdash
@@ -10384,9 +10389,9 @@ VWidth: 2100
 Flags: W
 LayerCount: 2
 Back
-Fore
 Refer: 248 8211 S 1 0 0 1 0 0 2
 Validated: 32769
+Fore
 EndChar
 
 StartChar: underscoredbl
