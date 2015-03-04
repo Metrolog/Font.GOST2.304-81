@@ -5,7 +5,7 @@
 Open($1)
 
 # convert stroked font from Back layer to outline font in Fore layer
-SelectSingletons("exclam", "numbersign", "ampersand", "quotesingle", "AE", "multiply", "slash", "uni26AC", "parenleft", "hyphen", "period", "asterisk", "plus", "comma", "dollar")
+SelectSingletons("exclam", "question", "numbersign", "ampersand", "quotesingle", "AE", "multiply", "slash", "uni26AC", "parenleft", "hyphen", "period", "asterisk", "plus", "comma", "dollar")
 SelectMore("zero", "nine")
 SelectMoreSingletons("less", "backslash", "bar", "bracketleft", "asciicircum")
 SelectMoreSingletons("underscore")
