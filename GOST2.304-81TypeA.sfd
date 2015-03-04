@@ -969,7 +969,7 @@ StartChar: less
 Encoding: 60 60 31
 Width: 800
 VWidth: 2100
-Flags: MWO
+Flags: MW
 LayerCount: 2
 Back
 Fore
@@ -996,14 +996,12 @@ StartChar: greater
 Encoding: 62 62 33
 Width: 800
 VWidth: 2100
-Flags: W
-HStem: 250 600<129 162>
-VStem: 538 162<469 631>
-DStem2: 538 550 672 595 0.894427 -0.447214<-480.866 0> 672 505 538 550 0.894427 0.447214<-580.594 -99.7286>
+UnlinkRmOvrlpSave: 1
+Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 31 60 S -1 0 0 -1 800 1050 2
+Refer: 31 60 N -1 0 0 -1 800 1050 2
 EndChar
 
 StartChar: question
