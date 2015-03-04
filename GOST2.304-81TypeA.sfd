@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425491729
+ModificationTime: 1425494766
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -136,13 +136,12 @@ MATH:RadicalKernAfterDegree: -1000
 MATH:RadicalDegreeBottomRaisePercent: 60
 MATH:MinConnectorOverlap: 36
 Encoding: UnicodeFull
-Compacted: 1
 UnicodeInterp: none
 NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 27 27 10
+WinInfo: 0 27 10
 BeginPrivate: 1
 BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
 EndPrivate
@@ -317,7 +316,7 @@ Grid
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667280 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
 AnchorClass2: "TopMark" "'mkmk' Mark Positioning lookup 1-1" "TopRight" "'mark' Mark Positioning lookup 1-1" "Bottom" "'mark' Mark Positioning lookup 1-1" "Top" "'mark' Mark Positioning lookup 1-1" 
-BeginChars: 1114115 445
+BeginChars: 1114115 446
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -1088,10 +1087,10 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-150 50 m 24,0,-1
- 250 50 l 2,1,2
- 371 50 371 50 464.75 133.75 c 0,3,4
- 550 210 550 210 550 350 c 2,5,6
+150 50 m 28,0,-1
+ 250 50 l 6,1,2
+ 371 50 371 50 464.75 133.75 c 4,3,4
+ 550 210 550 210 550 350 c 6,5,6
  550 1351 l 1052,7,-1
 EndSplineSet
 EndChar
@@ -1551,43 +1550,13 @@ EndChar
 StartChar: f
 Encoding: 102 102 73
 Width: 600
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
-SplineSet
-400 1400 m 2,0,-1
- 450 1400 l 2,1,2
- 471 1400 471 1400 485.5 1385.5 c 128,-1,3
- 500 1371 500 1371 500 1350 c 128,-1,4
- 500 1329 500 1329 485.5 1314.5 c 128,-1,5
- 471 1300 471 1300 450 1300 c 2,6,-1
- 400 1300 l 2,7,8
- 359 1300 359 1300 329.5 1270.5 c 128,-1,9
- 300 1241 300 1241 300 1200 c 2,10,-1
- 300 1000 l 1,11,-1
- 450 1000 l 2,12,13
- 471 1000 471 1000 485.5 985.5 c 128,-1,14
- 500 971 500 971 500 950 c 128,-1,15
- 500 929 500 929 485.5 914.5 c 128,-1,16
- 471 900 471 900 450 900 c 2,17,-1
- 300 900 l 1,18,-1
- 300 50 l 2,19,20
- 300 29 300 29 285.5 14.5 c 128,-1,21
- 271 0 271 0 250 0 c 128,-1,22
- 229 0 229 0 214.5 14.5 c 128,-1,23
- 200 29 200 29 200 50 c 2,24,-1
- 200 900 l 1,25,-1
- 150 900 l 2,26,27
- 129 900 129 900 114.5 914.5 c 128,-1,28
- 100 929 100 929 100 950 c 128,-1,29
- 100 971 100 971 114.5 985.5 c 128,-1,30
- 129 1000 129 1000 150 1000 c 2,31,-1
- 200 1000 l 1,32,-1
- 200 1200 l 2,33,34
- 200 1282 200 1282 259 1341 c 128,-1,35
- 318 1400 318 1400 400 1400 c 2,0,-1
-EndSplineSet
+Refer: 445 821 N 1 0 0 1 0 -50 2
+Refer: 431 567 N -1 0 -0 -1 600 999 2
 EndChar
 
 StartChar: g
@@ -9808,10 +9777,11 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-150 -350 m 128,-1,0
- 232.5 -350.5 232.5 -350.5 291 -291.75 c 0,1,2
- 350 -232.497863248 350 -232.497863248 350 -150 c 8,3,-1
- 350 950 l 1049,4,-1
+350 950 m 4,0,-1
+ 350 -200 l 2,1,2
+ 350 -262 350 -262 306 -306.25 c 0,3,4
+ 262 -350 262 -350 200 -350 c 10,5,-1
+ 150 -350 l 1049,6,-1
 EndSplineSet
 EndChar
 
@@ -10050,6 +10020,20 @@ SplineSet
  600 159 600 159 600 200 c 2,69,-1
  600 450 l 1,70,-1
  300 450 l 2,58,59
+EndSplineSet
+EndChar
+
+StartChar: uni0335
+Encoding: 821 821 445
+Width: 600
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+SplineSet
+150 1000 m 29,0,-1
+ 450 1000 l 1053,1,-1
 EndSplineSet
 EndChar
 EndChars
