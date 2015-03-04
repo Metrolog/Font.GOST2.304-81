@@ -429,7 +429,6 @@ Encoding: 36 36 7
 Width: 900
 UnlinkRmOvrlpSave: 1
 Flags: W
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -758,7 +757,6 @@ StartChar: eight
 Encoding: 56 56 27
 Width: 1000
 Flags: W
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -951,7 +949,6 @@ StartChar: A
 Encoding: 65 65 36
 Width: 1000
 Flags: MW
-CounterMasks: 1 70
 AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
@@ -1329,7 +1326,6 @@ StartChar: V
 Encoding: 86 86 57
 Width: 1000
 Flags: MW
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -1628,7 +1624,6 @@ StartChar: e
 Encoding: 101 101 72
 Width: 800
 Flags: W
-CounterMasks: 1 e0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -1879,7 +1874,6 @@ StartChar: m
 Encoding: 109 109 80
 Width: 1100
 Flags: MW
-CounterMasks: 1 70
 LayerCount: 2
 Back
 Fore
@@ -2125,7 +2119,6 @@ StartChar: v
 Encoding: 118 118 89
 Width: 800
 Flags: MW
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -2301,7 +2294,6 @@ StartChar: braceleft
 Encoding: 123 123 94
 Width: 500
 Flags: W
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -3230,7 +3222,6 @@ StartChar: Alpha
 Encoding: 913 913 131
 Width: 1000
 Flags: W
-CounterMasks: 1 70
 LayerCount: 2
 Back
 Fore
@@ -3531,7 +3522,6 @@ StartChar: Phi
 Encoding: 934 934 151
 Width: 1000
 Flags: MW
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -3590,7 +3580,6 @@ StartChar: Psi
 Encoding: 936 936 153
 Width: 1000
 Flags: MW
-CounterMasks: 1 70
 LayerCount: 2
 Back
 Fore
@@ -4584,7 +4573,6 @@ StartChar: phi
 Encoding: 966 966 176
 Width: 1000
 Flags: MW
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -4675,7 +4663,6 @@ StartChar: psi
 Encoding: 968 968 178
 Width: 1000
 Flags: MW
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -5235,7 +5222,6 @@ StartChar: uni0424
 Encoding: 1060 1060 201
 Width: 1300
 Flags: MW
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -5374,7 +5360,6 @@ StartChar: uni0428
 Encoding: 1064 1064 205
 Width: 1100
 Flags: MW
-CounterMasks: 1 70
 LayerCount: 2
 Back
 Fore
@@ -5944,7 +5929,6 @@ StartChar: uni0437
 Encoding: 1079 1079 220
 Width: 750
 Flags: W
-CounterMasks: 1 e0
 AnchorPoint: "Top" 375 1350 basechar 0
 LayerCount: 2
 Back
@@ -6248,7 +6232,6 @@ StartChar: uni0444
 Encoding: 1092 1092 233
 Width: 1100
 Flags: W
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -6438,7 +6421,6 @@ StartChar: uni044A
 Encoding: 1098 1098 239
 Width: 900
 Flags: W
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -6557,7 +6539,6 @@ StartChar: uni044D
 Encoding: 1101 1101 242
 Width: 800
 Flags: W
-CounterMasks: 1 e0
 AnchorPoint: "Top" 375 1350 basechar 0
 LayerCount: 2
 Back
@@ -6600,7 +6581,6 @@ StartChar: uni044E
 Encoding: 1102 1102 243
 Width: 900
 Flags: MW
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -7972,7 +7952,6 @@ StartChar: uni223F
 Encoding: 8767 8767 323
 Width: 900
 Flags: W
-CounterMasks: 1 38
 LayerCount: 2
 Back
 Fore
@@ -8397,7 +8376,6 @@ StartChar: uni232F
 Encoding: 9007 9007 343
 Width: 2400
 Flags: W
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
@@ -8919,7 +8897,6 @@ StartChar: uni2204
 Encoding: 8708 8708 364
 Width: 800
 Flags: MW
-CounterMasks: 1 e0
 LayerCount: 2
 Back
 Fore
