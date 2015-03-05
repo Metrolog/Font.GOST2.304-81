@@ -3,6 +3,7 @@
 # $3 - True Type font version string
 
 Open($1)
+Reencode("unicode")
 
 # add 0-9, +-=() subscript
 subscriptScale = 100*10/14
@@ -73,6 +74,7 @@ SelectMore("uni0304", "uni0304")
 SelectMoreSingletons("uni0308")
 SelectMore("uni0326", "uni0328")
 SelectMore("uni0336", "uni0338")
+SelectMore("uni0413", "uni0413")
 SelectMoreSingletons("uni20DD", "uni2E32")
 SelectMoreSingletons("ae")
 SelectMore("uni1D3F", "uni1D3F") # A-Z superscript
@@ -87,7 +89,6 @@ SetTTFName(1033, 5, $3)
 SetTTFName(1049, 5, $3)
 
 # build accented glyphs
-Reencode("unicode")
 SelectWorthOutputting()
 SelectInvert()
 BuildAccented()
