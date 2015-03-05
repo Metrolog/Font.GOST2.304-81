@@ -71,7 +71,7 @@ SelectMoreSingletons(0u20BD)
 SelectMore("uni0304", "uni0304")
 SelectMoreSingletons("uni0308")
 SelectMore("uni0326", "uni0328")
-SelectMore("uni0337", "uni0338")
+SelectMore("uni0336", "uni0338")
 SelectMoreSingletons("uni20DD", "uni2E32")
 SelectMoreSingletons("ae")
 SelectMore("uni1D3F", "uni1D3F") # A-Z superscript
