@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425591882
+ModificationTime: 1425595189
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -141,7 +141,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 0 27 10
+WinInfo: 189 27 10
 BeginPrivate: 1
 BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
 EndPrivate
@@ -321,8 +321,8 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667280 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
-AnchorClass2: "TopMark" "'mkmk' Mark Positioning lookup 1-1" "Cedilla" "'mark' Mark Positioning lookup 1-1" "Ogonek" "'mark' Mark Positioning lookup 1-1" "TopRight" "'mark' Mark Positioning lookup 1-1" "Bottom" "'mark' Mark Positioning lookup 1-1" "Top" "'mark' Mark Positioning lookup 1-1" 
-BeginChars: 1114115 466
+AnchorClass2: "TopMark" "'mkmk' Mark Positioning lookup 1-1" "Cedilla" "'mark' Mark Positioning lookup 1-1" "Ogonek" "'mark' Mark Positioning lookup 1-1" "TopRight" "'mark' Mark Positioning lookup 1-1" "Right" "'mark' Mark Positioning lookup 1-1" "Bottom" "'mark' Mark Positioning lookup 1-1" "Top" "'mark' Mark Positioning lookup 1-1" 
+BeginChars: 1114115 467
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -1130,6 +1130,8 @@ StartChar: L
 Encoding: 76 76 47
 Width: 700
 Flags: W
+AnchorPoint: "Right" 350 750 basechar 0
+AnchorPoint: "TopRight" 351 1350 basechar 0
 AnchorPoint: "Bottom" 350 -150 basechar 0
 AnchorPoint: "Cedilla" 300 0 basechar 0
 AnchorPoint: "Top" 150 1650 basechar 0
@@ -1676,6 +1678,8 @@ StartChar: l
 Encoding: 108 108 79
 Width: 500
 Flags: MW
+AnchorPoint: "Right" 350 750 basechar 0
+AnchorPoint: "TopRight" 351 1350 basechar 0
 AnchorPoint: "Bottom" 300 -150 basechar 0
 AnchorPoint: "Cedilla" 250 0 basechar 0
 AnchorPoint: "Top" 150 1650 basechar 0
@@ -2328,6 +2332,7 @@ StartChar: periodcentered
 Encoding: 183 183 119
 Width: 300
 Flags: W
+AnchorPoint: "Right" 150 500 mark 0
 LayerCount: 2
 Back
 Fore
@@ -9646,6 +9651,18 @@ LayerCount: 2
 Back
 Fore
 Refer: 223 1082 N 1 0 0 1 0 0 2
+EndChar
+
+StartChar: ldot
+Encoding: 320 320 466
+Width: 500
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+Refer: 119 183 N 1 0 0 1 200 250 2
+Refer: 79 108 N 1 0 0 1 0 0 2
 EndChar
 EndChars
 EndSplineFont
