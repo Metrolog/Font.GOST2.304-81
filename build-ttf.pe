@@ -4,7 +4,33 @@
 
 Open($1)
 
+# add 0-9 superscript
+Select(0u30) # 0
+CopyReference()
+Select(0u2070)
+Paste()
+Select(0u31) # 1
+CopyReference()
+Select(0u00B9)
+Paste()
+Select(0u32, 0u33) # 2-3
+CopyReference()
+Select(0u00B2, 0u00B3)
+Paste()
+Select(0u34, 0u39) # 4-9
+CopyReference()
+Select(0u2074, 0u2079)
+Paste()
+
+SelectNone()
+SelectSingletons(0u2070, 0u00B9) # 0, 1
+SelectMore(0u00B2, 0u00B3, 0u2074, 0u2079) # 2-3, 4-9
+#BuildComposite()
+Scale(100*10/14, 0, 0)
+Move(0, 900)
+
 # convert stroked font from Back layer to outline font in Fore layer
+SelectNone()
 SelectSingletons("exclam", "question", "numbersign", "ampersand", "quotesingle", "AE", "multiply", "slash", "uni26AC", "parenleft", "hyphen", "period", "asterisk", "plus", "comma", "dollar")
 SelectMore("zero", "nine")
 SelectMoreSingletons("less", "backslash", "bar", "braceleft", "bracketleft", "asciicircum", "asciitilde")
