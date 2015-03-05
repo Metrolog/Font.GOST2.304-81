@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425553734
+ModificationTime: 1425554347
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -141,7 +141,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 38 38 14
+WinInfo: 0 38 14
 BeginPrivate: 1
 BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
 EndPrivate
@@ -322,7 +322,7 @@ Grid
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667280 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
 AnchorClass2: "TopMark" "'mkmk' Mark Positioning lookup 1-1" "TopRight" "'mark' Mark Positioning lookup 1-1" "Bottom" "'mark' Mark Positioning lookup 1-1" "Top" "'mark' Mark Positioning lookup 1-1" 
-BeginChars: 1114115 449
+BeginChars: 1114115 450
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -9188,23 +9188,14 @@ EndChar
 
 StartChar: uni0337
 Encoding: 823 823 438
-Width: 600
+Width: 900
 Flags: W
 LayerCount: 2
 Back
 Fore
 SplineSet
-14 415 m 0,0,1
- 0 428 0 428 0 450 c 0,2,3
- 0 471 0 471 15 485 c 2,4,-1
- 515 985 l 2,5,6
- 529 1000 529 1000 550 1000 c 0,7,8
- 569 1000 569 1000 585 985 c 0,9,10
- 600 971 600 971 600 950 c 128,-1,11
- 600 929 600 929 585 915 c 2,12,-1
- 85 415 l 2,13,14
- 71 400 71 400 50 400 c 0,15,16
- 30 400 30 400 14 415 c 0,0,1
+150 50 m 1,0,-1
+ 750 950 l 1025,1,-1
 EndSplineSet
 EndChar
 
@@ -9216,17 +9207,8 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-950 1400 m 0,1,2
- 971 1400 971 1400 985.5 1385.5 c 128,-1,3
- 1000 1371 1000 1371 1000 1350 c 0,4,5
- 1000 1336 1000 1336 993 1324 c 2,6,-1
- 193 24 l 2,7,8
- 178 0 178 0 150 0 c 0,9,10
- 129 0 129 0 114.5 14.5 c 128,-1,11
- 100 29 100 29 100 50 c 0,12,13
- 100 64 100 64 107 76 c 2,14,-1
- 907 1376 l 2,15,16
- 922 1400 922 1400 950 1400 c 0,1,2
+150 50 m 29,0,-1
+ 950 1350 l 1049,1,-1
 EndSplineSet
 EndChar
 
@@ -9395,8 +9377,20 @@ Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 18 47 N 1 0 0 1 0 0 2
+Refer: 439 824 S 1 0 0 1 0 0 2
 Refer: 50 79 N 1 0 0 1 100 0 2
+EndChar
+
+StartChar: oslash
+Encoding: 248 248 449
+Width: 900
+UnlinkRmOvrlpSave: 1
+Flags: W
+LayerCount: 2
+Back
+Fore
+Refer: 438 823 N 1 0 0 1 0 0 2
+Refer: 82 111 N 1 0 0 1 50 0 2
 EndChar
 EndChars
 EndSplineFont
