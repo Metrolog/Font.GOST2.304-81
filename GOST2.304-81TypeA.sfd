@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425590712
+ModificationTime: 1425591882
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -141,7 +141,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 216 27 10
+WinInfo: 0 27 10
 BeginPrivate: 1
 BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
 EndPrivate
@@ -1130,14 +1130,16 @@ StartChar: L
 Encoding: 76 76 47
 Width: 700
 Flags: W
-AnchorPoint: "Top" 150 1350 basechar 0
+AnchorPoint: "Bottom" 350 -150 basechar 0
+AnchorPoint: "Cedilla" 300 0 basechar 0
+AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
 550 50 m 25,0,-1
- 150 50 l 25,1,-1
- 150 1350 l 1053,2,-1
+ 150 50 l 1,1,-1
+ 150 1350 l 1049,2,-1
 EndSplineSet
 EndChar
 
@@ -1164,12 +1166,14 @@ StartChar: N
 Encoding: 78 78 49
 Width: 900
 Flags: MW
+AnchorPoint: "Cedilla" 400 0 basechar 0
+AnchorPoint: "Bottom" 450 -150 basechar 0
 AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-750 1350 m 29,0,-1
+750 1350 m 25,0,-1
  750 50 l 1049,1,-1
 150 50 m 25,2,-1
  150 1350 l 1049,3,-1
@@ -1495,7 +1499,7 @@ AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
-Refer: 71 100 S -1 0 0 1 800 0 2
+Refer: 71 100 N -1 0 0 1 800 0 2
 EndChar
 
 StartChar: c
@@ -1672,11 +1676,13 @@ StartChar: l
 Encoding: 108 108 79
 Width: 500
 Flags: MW
-AnchorPoint: "Top" 150 1350 basechar 0
+AnchorPoint: "Bottom" 300 -150 basechar 0
+AnchorPoint: "Cedilla" 250 0 basechar 0
+AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
-Refer: 431 567 S -1 0 0 1 500 400 3
+Refer: 431 567 N -1 0 0 1 500 400 3
 EndChar
 
 StartChar: m
@@ -1702,17 +1708,19 @@ StartChar: n
 Encoding: 110 110 81
 Width: 800
 Flags: MW
+AnchorPoint: "Cedilla" 351 0 basechar 0
+AnchorPoint: "Bottom" 401 -150 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-150 50 m 5,0,-1
- 150 950 l 21,1,-1
- 450 950 l 6,2,3
- 535 950 535 950 592 892 c 4,4,5
- 650 834 650 834 650 750 c 6,6,-1
- 650 51 l 1030,7,-1
+150 50 m 1,0,-1
+ 150 950 l 17,1,-1
+ 450 950 l 2,2,3
+ 535 950 535 950 592 892 c 0,4,5
+ 650 834 650 834 650 750 c 2,6,-1
+ 650 51 l 1026,7,-1
 EndSplineSet
 EndChar
 
