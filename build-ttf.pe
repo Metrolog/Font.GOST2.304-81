@@ -4,16 +4,35 @@
 
 Open($1)
 
-# add 0-9 subscript
+# add 0-9, +-=() subscript
 subscriptScale = 100*10/14
 Select(0u30, 0u39) # 0-9
 CopyReference()
 Select(0u2080, 0u2089)
 Paste()
+
+Select(0u2B) # +
+CopyReference()
+Select(0u208A)
+Paste()
+Select(0u2212) # -
+CopyReference()
+Select(0u208B)
+Paste()
+Select(0u3D) # =
+CopyReference()
+Select(0u208C)
+Paste()
+Select(0u28, 0u29) # ()
+CopyReference()
+Select(0u208D, 0u208E)
+Paste()
+
+Select(0u2080, 0u208E) # 0-9 +-=()
 Scale(subscriptScale, 0, 0)
 Move(0, -500)
 
-# add 0-9 superscript
+# add 0-9, +-=() superscript
 Select(0u2080) # 0
 CopyReference()
 Select(0u2070)
@@ -26,13 +45,13 @@ Select(0u2082, 0u2083) # 2-3
 CopyReference()
 Select(0u00B2, 0u00B3)
 Paste()
-Select(0u2084, 0u2089) # 4-9
+Select(0u2084, 0u208E) # 4-9, +-=()
 CopyReference()
-Select(0u2074, 0u2079)
+Select(0u2074, 0u207E)
 Paste()
 
 SelectSingletons(0u2070, 0u00B9) # 0, 1
-SelectMore(0u00B2, 0u00B3, 0u2074, 0u2079) # 2-3, 4-9
+SelectMore(0u00B2, 0u00B3, 0u2074, 0u207E) # 2-3, 4-9, +-=()
 Move(0, 1400)
 
 # convert stroked font from Back layer to outline font in Fore layer
