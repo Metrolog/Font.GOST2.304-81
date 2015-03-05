@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425547518
+ModificationTime: 1425548099
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -141,7 +141,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 38 38 14
+WinInfo: 0 38 14
 BeginPrivate: 1
 BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
 EndPrivate
@@ -2409,7 +2409,8 @@ Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 108 171 N -1 0 0 -1 850 1000 2
+Refer: 269 8250 N 1 0 0 1 300 0 2
+Refer: 269 8250 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: multiply
@@ -6275,27 +6276,16 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-400 900 m 4,0,1
- 421 900 421 900 435.5 885.5 c 132,-1,2
- 450 871 450 871 450 850 c 4,3,4
- 450 833 450 833 441 821 c 6,5,-1
- 211 500 l 5,6,-1
- 441 179 l 6,7,8
- 450 167 450 167 450 150 c 4,9,10
- 450 129 450 129 435.5 114.5 c 132,-1,11
- 421 100 421 100 400 100 c 4,12,13
- 374 100 374 100 359 121 c 6,14,-1
- 110 470 l 6,15,16
- 100 483 100 483 100 500 c 4,17,18
- 100 515 100 515 110 530 c 6,19,-1
- 359 879 l 6,20,21
- 374 900 374 900 400 900 c 4,0,1
+400 850 m 25,0,-1
+ 150 500 l 25,1,-1
+ 400 150 l 1053,2,-1
 EndSplineSet
 EndChar
 
 StartChar: guilsinglright
 Encoding: 8250 8250 269
 Width: 550
+UnlinkRmOvrlpSave: 1
 Flags: W
 LayerCount: 2
 Back
