@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425555341
+ModificationTime: 1425558314
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -136,6 +136,7 @@ MATH:RadicalKernAfterDegree: -1000
 MATH:RadicalDegreeBottomRaisePercent: 60
 MATH:MinConnectorOverlap: 36
 Encoding: UnicodeFull
+Compacted: 1
 UnicodeInterp: none
 NameList: AGL For New Fonts
 DisplaySize: -48
@@ -321,8 +322,8 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667280 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
-AnchorClass2: "TopMark" "'mkmk' Mark Positioning lookup 1-1" "TopRight" "'mark' Mark Positioning lookup 1-1" "Bottom" "'mark' Mark Positioning lookup 1-1" "Top" "'mark' Mark Positioning lookup 1-1" 
-BeginChars: 1114115 453
+AnchorClass2: "TopMark" "'mkmk' Mark Positioning lookup 1-1" "Ogonek" "" "TopRight" "'mark' Mark Positioning lookup 1-1" "Bottom" "'mark' Mark Positioning lookup 1-1" "Top" "'mark' Mark Positioning lookup 1-1" 
+BeginChars: 1114115 455
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -378,6 +379,7 @@ StartChar: space
 Encoding: 32 32 3
 Width: 600
 Flags: W
+AnchorPoint: "Ogonek" 50 0 basechar 0
 AnchorPoint: "Top" 300 1350 basechar 0
 LayerCount: 2
 Back
@@ -915,6 +917,7 @@ StartChar: A
 Encoding: 65 65 36
 Width: 1000
 Flags: MW
+AnchorPoint: "Ogonek" 850 0 basechar 0
 AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
@@ -1001,6 +1004,7 @@ StartChar: E
 Encoding: 69 69 40
 Width: 800
 Flags: W
+AnchorPoint: "Ogonek" 650 0 basechar 0
 AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
@@ -1075,6 +1079,7 @@ StartChar: I
 Encoding: 73 73 44
 Width: 300
 Flags: MW
+AnchorPoint: "Ogonek" 150 0 basechar 0
 AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
@@ -1174,11 +1179,12 @@ StartChar: O
 Encoding: 79 79 50
 Width: 900
 Flags: W
+AnchorPoint: "Ogonek" 350 0 basechar 0
 AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
-Refer: 19 48 S 1 0 0 1 0 0 2
+Refer: 19 48 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: P
@@ -1273,6 +1279,7 @@ StartChar: U
 Encoding: 85 85 56
 Width: 900
 Flags: W
+AnchorPoint: "Ogonek" 350 0 basechar 0
 AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
@@ -1284,7 +1291,7 @@ SplineSet
  326 50 326 50 450 50 c 131,-1,4
  574 50 574 50 662 138 c 128,-1,5
  750 226 750 226 750 350 c 2,6,-1
- 750 1350 l 1046,7,8
+ 750 1350 l 1042,7,8
 EndSplineSet
 EndChar
 
@@ -1454,25 +1461,26 @@ StartChar: a
 Encoding: 97 97 68
 Width: 900
 Flags: W
+AnchorPoint: "Ogonek" 750 0 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-750 50 m 4,0,1
- 708 50 708 50 679 79 c 4,2,3
- 650 109 650 109 650 150 c 14,4,5
- 650 300 l 1053,6,-1
-150 750 m 22,7,8
- 150 834 150 834 208 892 c 4,9,10
- 265 950 265 950 349.5 950 c 6,11,-1
- 650 950 l 5,12,-1
- 650 300 l 6,13,14
- 650 197 650 197 577 123.5 c 132,-1,15
- 504 50 504 50 400 50 c 132,-1,16
- 296 50 296 50 223 123.5 c 132,-1,17
- 150 197 150 197 150 300 c 6,18,-1
- 150 750 l 22,7,8
+750 50 m 0,0,1
+ 708 50 708 50 679 79 c 0,2,3
+ 650 109 650 109 650 150 c 10,4,5
+ 650 300 l 1049,6,-1
+150 750 m 18,7,8
+ 150 834 150 834 208 892 c 0,9,10
+ 265 950 265 950 349.5 950 c 2,11,-1
+ 650 950 l 1,12,-1
+ 650 300 l 2,13,14
+ 650 197 650 197 577 123.5 c 128,-1,15
+ 504 50 504 50 400 50 c 128,-1,16
+ 296 50 296 50 223 123.5 c 128,-1,17
+ 150 197 150 197 150 300 c 2,18,-1
+ 150 750 l 18,7,8
 EndSplineSet
 EndChar
 
@@ -1533,6 +1541,7 @@ StartChar: e
 Encoding: 101 101 72
 Width: 800
 Flags: W
+AnchorPoint: "Ogonek" 650 0 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -1613,6 +1622,7 @@ StartChar: i
 Encoding: 105 105 76
 Width: 300
 Flags: MW
+AnchorPoint: "Ogonek" 150 0 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1703,6 +1713,7 @@ StartChar: o
 Encoding: 111 111 82
 Width: 800
 Flags: W
+AnchorPoint: "Ogonek" 300 0 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -1801,6 +1812,7 @@ StartChar: u
 Encoding: 117 117 88
 Width: 800
 Flags: W
+AnchorPoint: "Ogonek" 650 0 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -2314,10 +2326,7 @@ Flags: W
 LayerCount: 2
 Back
 Fore
-SplineSet
-100 -150 m 25,0,-1
- 200 50 l 1053,1,-1
-EndSplineSet
+Refer: 433 807 S 1 0 0 1 0 0 2
 EndChar
 
 StartChar: ordmasculine
@@ -9140,11 +9149,14 @@ EndChar
 StartChar: uni0327
 Encoding: 807 807 433
 Width: 300
-AnchorPoint: "Top" 250 1350 mark 0
+Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 120 184 N 1 0 0 1 0 0 3
+SplineSet
+100 -150 m 29,0,-1
+ 200 50 l 1053,1,-1
+EndSplineSet
 EndChar
 
 StartChar: uni0340
@@ -9425,6 +9437,32 @@ Back
 Fore
 Refer: 445 821 N 1 0 0 1 300 300 2
 Refer: 71 100 N 1 0 0 1 0 0 2
+EndChar
+
+StartChar: ogonek
+Encoding: 731 731 453
+Width: 600
+VWidth: 0
+Flags: W
+AnchorPoint: "Ogonek" 350 0 mark 0
+LayerCount: 2
+Back
+Fore
+Refer: 454 808 N 1 0 0 1 300 1.06581e-013 2
+EndChar
+
+StartChar: uni0328
+Encoding: 808 808 454
+Width: 300
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+SplineSet
+150 -50 m 1,0,-1
+ 150 -150 l 1025,1,-1
+EndSplineSet
 EndChar
 EndChars
 EndSplineFont
