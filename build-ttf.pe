@@ -18,6 +18,7 @@ SelectMoreSingletons("dotlessi", "uni0237")
 SelectMore("uni0304", "uni0304")
 SelectMoreSingletons("uni0308")
 SelectMoreSingletons("uni20DD")
+SelectMoreSingletons("ae")
 SelectMore("uni1D3F", "uni1D3F") # A-Z superscript
 ExpandStroke(100, 1, 1)
 RemoveOverlap()
