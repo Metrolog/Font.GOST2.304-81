@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425824289
+ModificationTime: 1425824629
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -4406,8 +4406,8 @@ Width: 800
 Flags: MW
 LayerCount: 2
 Back
-Refer: 16 45 S 1 0 0 1 0 0 2
 Fore
+Refer: 16 45 S 1 0 0 1 0 0 2
 EndChar
 
 StartChar: emdash
@@ -6425,8 +6425,8 @@ Width: 800
 Flags: W
 LayerCount: 2
 Back
-Refer: 248 8211 S 1 0 0 1 0 0 2
 Fore
+Refer: 248 8211 S 1 0 0 1 0 0 2
 EndChar
 
 StartChar: underscoredbl
