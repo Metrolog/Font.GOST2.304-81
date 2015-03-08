@@ -79,7 +79,7 @@ SelectMore("uni0336", "uni0338")
 SelectMore("uni0401", "uni042F") # А-Я
 SelectMore("uni0430", "uni044F") # а-я
 SelectMore(0u2010, 0u201F)
-SelectMore(0u2021, 0u2031)
+SelectMore(0u2021, 0u2034)
 SelectMoreSingletons("uni20DD", "uni2E32")
 SelectMoreSingletons("ae")
 SelectMore("uni1D3F", "uni1D3F") # A-Z superscript
