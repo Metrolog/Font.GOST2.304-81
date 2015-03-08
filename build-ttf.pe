@@ -71,10 +71,7 @@ SelectMore("guilsinglleft", "guilsinglleft")
 SelectMoreSingletons("dotlessi", "uni0237")
 SelectMoreSingletons("Thorn", "thorn", "eth")
 SelectMoreSingletons("Lslash", "lslash")
-SelectMore("uni0304", "uni0304")
-SelectMoreSingletons("uni0308", "uni030A")
-SelectMore("uni0326", "uni0328")
-SelectMore("uni0336", "uni0338")
+SelectMore(0u0300, 0u034F)
 SelectMore("uni0401", "uni042F") # А-Я
 SelectMore("uni0430", "uni044F") # а-я
 SelectMore(0u2010, 0u201F)
