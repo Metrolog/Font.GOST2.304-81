@@ -2756,7 +2756,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: Omega
+StartChar: uni03A9
 Encoding: 937 937 154
 Width: 1000
 Flags: W
@@ -5599,7 +5599,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni2126
+StartChar: Omega
 Encoding: 8486 8486 281
 Width: 1000
 Flags: W
