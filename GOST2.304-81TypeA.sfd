@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425842313
+ModificationTime: 1425842847
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6145,14 +6145,8 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-100 -400 m 21,0,1
- 100 1060 100 1060 198 1452 c 4,2,3
- 210 1500 210 1500 250 1500 c 4,4,5
- 271 1500 271 1500 285.5 1485.5 c 132,-1,6
- 300 1471 300 1471 300 1450 c 4,7,8
- 300 1444 300 1444 298 1437 c 4,9,10
- 200 1094 200 1094 200 -400 c 4,11,-1
- 100 -400 l 21,0,1
+150 -400 m 17,0,1
+ 150 1052 150 1052 250 1452 c 1029,2,-1
 EndSplineSet
 EndChar
 
@@ -6169,20 +6163,12 @@ EndChar
 StartChar: uni239D
 Encoding: 9117 9117 377
 Width: 400
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
-SplineSet
-100 1800 m 9,0,1
- 200 1800 l 0,2,3
- 200 306 200 306 298 -37 c 0,4,5
- 300 -44 300 -44 300 -50 c 0,6,7
- 300 -71 300 -71 285.5 -85.5 c 128,-1,8
- 271 -100 271 -100 250 -100 c 0,9,10
- 210 -100 210 -100 198 -52 c 0,11,12
- 100 340 100 340 100 1800 c 9,0,1
-EndSplineSet
+Refer: 375 9115 S 1 0 0 -1 0 1400 2
 EndChar
 
 StartChar: uni239E
@@ -6379,11 +6365,8 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-200 -400 m 0,0,-1
- 200 1800 l 1,1,2
- 300 1799 l 1,3,-1
- 300 -400 l 24,4,-1
- 200 -400 l 0,0,-1
+250 1800 m 25,0,-1
+ 250 -400 l 1053,1,-1
 EndSplineSet
 EndChar
 
