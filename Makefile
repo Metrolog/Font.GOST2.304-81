@@ -15,7 +15,8 @@ TTFTEMPDIR			:= $(TEMPDIR)/$(TTFSUBDIR)/
 
 TTFAUTOHINTOPTIONS	:= \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
-	--windows-compatibility --composites \
+	--windows-compatibility \
+	--composites \
 	--no-info
 
 ifeq ($(OS),Windows_NT)
@@ -46,19 +47,22 @@ VERSION				:= $(lastword $(subst /, ,$(GIT_BRANCH)))
 
 .DEFAULT_GOAL		:= all
 
-.PHONY: all clean ttf
+.PHONY: all clean ttf ttf-without-autohint
 
 all: ttf
 
 # build True Type fonts
 
 BUILDTTF			:= $(FONTFORGE) -script $(FFBUILDTTF)
+TTFNOAUTOHINTTARGETS:= $(FONTFORGEPROJECTS:%.sfd=$(TTFTEMPDIR)%.ttf)
 TTFTARGETS			:= $(FONTFORGEPROJECTS:%.sfd=$(TTFDIR)%.ttf)
 
 $(TTFTEMPDIR)%.ttf: %.sfd $(FFBUILDTTF)
 	-$(MAKETARGETDIR)
 	$(BUILDTTF) $< $@ $(VERSION)
 	
+ttf-without-autohint: $(TTFNOAUTOHINTTARGETS)
+
 $(TTFDIR)%.ttf: $(TTFTEMPDIR)%.ttf
 	-$(MAKETARGETDIR)
 	$(TTFAUTOHINT) $< $@
