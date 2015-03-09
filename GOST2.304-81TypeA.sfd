@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425904368
+ModificationTime: 1425905417
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6047,9 +6047,6 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-SplineSet
-50 1661 m 1048
-EndSplineSet
 Refer: 16 45 N 1 0 0 1 0 300 2
 Refer: 16 45 N 1 0 0 1 0 100 2
 Refer: 16 45 N 1 0 0 1 0 -300 2
