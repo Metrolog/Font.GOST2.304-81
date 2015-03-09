@@ -3,6 +3,15 @@
 # $3 - True Type font version string
 
 Open($1)
+
+# convert stroked font from Back layer to outline font in Fore layer
+Reencode("compacted")
+SelectWorthOutputting()
+ExpandStroke(100, 1, 1)
+RemoveOverlap()
+Simplify()
+#CorrectDirection()
+
 Reencode("unicode")
 
 # add 0-9, +-=() subscript
@@ -54,42 +63,6 @@ Paste()
 SelectSingletons(0u2070, 0u00B9) # 0, 1
 SelectMore(0u00B2, 0u00B3, 0u2074, 0u207E) # 2-3, 4-9, +-=()
 Move(0, 1400)
-
-# convert stroked font from Back layer to outline font in Fore layer
-SelectNone()
-SelectSingletons("exclam", "question", "numbersign", "ampersand", "quotesingle", "AE", "multiply", "slash", "uni26AC", "parenleft", "hyphen", "period", "asterisk", "plus", "comma", "dollar")
-SelectMore("zero", "nine")
-SelectMoreSingletons("less", "backslash", "bar", "braceleft", "bracketleft", "asciicircum", "asciitilde")
-SelectMoreSingletons("underscore", "grave", "at", "ring")
-SelectMoreSingletons("uni0335")
-SelectMore("A", "Z")
-SelectMore("a", "z")
-SelectMore("Alpha", "uni03A9")
-SelectMore("alpha", "omega")
-SelectMore("exclamdown", "ordmasculine")
-SelectMore("guilsinglleft", "guilsinglleft")
-SelectMoreSingletons("dotlessi", "uni0237")
-SelectMoreSingletons("Thorn", "thorn", "eth")
-SelectMoreSingletons("Lslash", "lslash")
-SelectMore(0u0300, 0u034F)
-SelectMore("uni0401", "uni042F") # А-Я
-SelectMore("uni0430", "uni044F") # а-я
-SelectMore(0u2010, 0u201F)
-SelectMore(0u2021, 0u2049)
-SelectMoreSingletons(0u20AC, 0u20BD)
-SelectMoreSingletons("uni20DD")
-SelectMore(0u2103, 0u2122)
-SelectMore(0u2200, 0u226B)
-SelectMore(0u22A5, 0u22A5)
-SelectMore(0u2300, 0u232F)
-SelectMore(0u239B, 0u2E32)
-SelectMoreSingletons("uni20DD", "uni2E32")
-SelectMoreSingletons("ae")
-SelectMore("uni1D3F", "uni1D3F") # A-Z superscript
-ExpandStroke(100, 1, 1)
-RemoveOverlap()
-Simplify()
-#CorrectDirection()
 
 # set font version
 SetFontNames('','','','','',$3)
