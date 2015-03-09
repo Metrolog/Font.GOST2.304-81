@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1425895062
+ModificationTime: 1425904368
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6058,27 +6058,27 @@ EndChar
 
 StartChar: integraltp
 Encoding: 8992 8992 373
-Width: 600
+Width: 700
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-450 1650 m 5,0,1
- 366.5 1650 366.5 1650 308.25 1592 c 128,-1,2
- 250 1534 250 1534 250 1450 c 2,3,-1
- 250 -400 l 1025,4,-1
+550 1650 m 1,0,1
+ 466.5 1650 466.5 1650 408.25 1592 c 128,-1,2
+ 350 1534 350 1534 350 1450 c 2,3,-1
+ 350 -400 l 1025,4,-1
 EndSplineSet
 EndChar
 
 StartChar: integralbt
 Encoding: 8993 8993 374
-Width: 600
+Width: 700
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 373 8992 N -1 0 0 -1 500 1450 2
+Refer: 373 8992 N -1 0 0 -1 700 1450 2
 EndChar
 
 StartChar: uni239B
@@ -6098,10 +6098,11 @@ StartChar: uni239C
 Encoding: 9116 9116 376
 Width: 400
 Flags: MW
+TeX: 1400 400
 LayerCount: 2
 Back
 Fore
-Refer: 394 9134 N 1 0 0 1 -100 0 2
+Refer: 394 9134 S 1 0 0 1 -200 0 2
 EndChar
 
 StartChar: uni239D
@@ -6128,6 +6129,7 @@ StartChar: uni239F
 Encoding: 9119 9119 379
 Width: 400
 Flags: MW
+TeX: 1400 400
 LayerCount: 2
 Back
 Fore
@@ -6152,7 +6154,7 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-250 1452 m 13,0,-1
+250 1450 m 13,0,-1
  150 1450 l 25,1,-1
  150 -395 l 1049,2,-1
 EndSplineSet
@@ -6162,6 +6164,7 @@ StartChar: uni23A2
 Encoding: 9122 9122 382
 Width: 400
 Flags: MW
+TeX: 1400 400
 LayerCount: 2
 Back
 Fore
@@ -6192,6 +6195,7 @@ StartChar: uni23A5
 Encoding: 9125 9125 385
 Width: 400
 Flags: MW
+TeX: 1400 400
 LayerCount: 2
 Back
 Fore
@@ -6210,98 +6214,102 @@ EndChar
 
 StartChar: uni23A7
 Encoding: 9127 9127 387
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-50 1646 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23A8
-Encoding: 9128 9128 388
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-50 1637 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23A9
-Encoding: 9129 9129 389
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-50 1661 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23AA
-Encoding: 9130 9130 390
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-50 1658 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23AB
-Encoding: 9131 9131 391
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-50 1649 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23AC
-Encoding: 9132 9132 392
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-70 1650 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23AD
-Encoding: 9133 9133 393
-Width: 2100
-Flags: M
-LayerCount: 2
-Back
-Fore
-SplineSet
-50 1658 m 1052,0,-1
-EndSplineSet
-EndChar
-
-StartChar: uni23AE
-Encoding: 9134 9134 394
-Width: 600
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-250 1800 m 25,0,-1
- 250 -400 l 1053,1,-1
+250 -395 m 5,0,-1
+ 250 1350 l 6,1,2
+ 250 1386.5 250 1386.5 279 1418.25 c 132,-1,3
+ 308 1450 308 1450 350 1450 c 1285,4,5
+EndSplineSet
+EndChar
+
+StartChar: uni23A8
+Encoding: 9128 9128 388
+Width: 500
+Flags: MW
+TeX: 1400 400
+LayerCount: 2
+Back
+Fore
+SplineSet
+250 -400 m 1,0,-1
+ 250 400 l 2,1,2
+ 250 437 250 437 221 468.25 c 0,3,4
+ 192 500 192 500 150 500 c 1281,5,-1
+250 1400 m 1,6,-1
+ 250 600 l 2,7,8
+ 250 563 250 563 221 531.75 c 0,9,10
+ 192 500 192 500 150 500 c 1281,11,-1
+EndSplineSet
+EndChar
+
+StartChar: uni23A9
+Encoding: 9129 9129 389
+Width: 500
+Flags: MW
+LayerCount: 2
+Back
+Fore
+Refer: 387 9127 N 1 0 0 -1 0 1400 3
+EndChar
+
+StartChar: uni23AA
+Encoding: 9130 9130 390
+Width: 500
+Flags: MW
+TeX: 1400 400
+LayerCount: 2
+Back
+Fore
+Refer: 379 9119 N 1 0 0 1 0 0 2
+EndChar
+
+StartChar: uni23AB
+Encoding: 9131 9131 391
+Width: 500
+Flags: MW
+LayerCount: 2
+Back
+Fore
+Refer: 387 9127 S -1 0 0 1 500 0 3
+EndChar
+
+StartChar: uni23AC
+Encoding: 9132 9132 392
+Width: 500
+Flags: MW
+TeX: 1400 400
+LayerCount: 2
+Back
+Fore
+Refer: 388 9128 S -1 0 0 1 500 0 3
+EndChar
+
+StartChar: uni23AD
+Encoding: 9133 9133 393
+Width: 500
+Flags: MW
+LayerCount: 2
+Back
+Fore
+Refer: 389 9129 S -1 0 0 1 500 0 3
+EndChar
+
+StartChar: uni23AE
+Encoding: 9134 9134 394
+Width: 700
+Flags: MW
+TeX: 1400 400
+LayerCount: 2
+Back
+Fore
+SplineSet
+350 1400 m 25,0,-1
+ 350 -400 l 1049,1,-1
 EndSplineSet
 EndChar
 
