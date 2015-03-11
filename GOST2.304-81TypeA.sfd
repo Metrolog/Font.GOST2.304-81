@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426078981
+ModificationTime: 1426079646
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -1255,6 +1255,7 @@ StartChar: T
 Encoding: 84 84 55
 Width: 900
 Flags: MW
+AnchorPoint: "Top" 450 1650 basechar 0
 AnchorPoint: "Bottom" 450 -150 basechar 0
 AnchorPoint: "Cedilla" 450 0 basechar 0
 LayerCount: 2
@@ -1308,18 +1309,19 @@ StartChar: W
 Encoding: 87 87 58
 Width: 1400
 Flags: MW
+AnchorPoint: "Top" 700 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-701 950 m 5,0,-1
- 999 50 l 1053,1,-1
-1250 1350 m 29,2,-1
- 1001 50 l 1053,3,-1
-150 1350 m 29,4,-1
- 399 50 l 1053,5,-1
-401 50 m 29,6,-1
- 699 950 l 1053,7,-1
+701 950 m 1,0,-1
+ 999 50 l 1049,1,-1
+1250 1350 m 25,2,-1
+ 1001 50 l 1049,3,-1
+150 1350 m 25,4,-1
+ 399 50 l 1049,5,-1
+401 50 m 25,6,-1
+ 699 950 l 1049,7,-1
 EndSplineSet
 EndChar
 
@@ -1359,12 +1361,13 @@ StartChar: Z
 Encoding: 90 90 61
 Width: 900
 Flags: MW
+AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
 750 50 m 25,0,-1
- 150 50 l 1053,1,-1
+ 150 50 l 1049,1,-1
 150 1350 m 25,2,-1
  750 1350 l 1049,3,-1
 750 1349 m 25,4,-1
@@ -6652,10 +6655,9 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-150 1350 m 25,0,-1
+150 1350 m 13,0,-1
  250 1250 l 25,1,-1
- 350 1350 l 1049,2,-1
-250 1321 m 1025,3,-1
+ 350 1350 l 1041,2,3
 EndSplineSet
 EndChar
 
