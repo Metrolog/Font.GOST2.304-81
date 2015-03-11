@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426077481
+ModificationTime: 1426077859
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -1213,12 +1213,14 @@ Encoding: 82 82 53
 Width: 900
 UnlinkRmOvrlpSave: 1
 Flags: MW
+AnchorPoint: "Bottom" 400 -150 basechar 0
+AnchorPoint: "Cedilla" 400 0 basechar 0
 AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-750 50 m 25,0,-1
+750 50 m 25
  400 650 l 1049
 EndSplineSet
 Refer: 51 80 N 1 0 0 1 0 0 2
@@ -1753,6 +1755,8 @@ StartChar: r
 Encoding: 114 114 85
 Width: 700
 Flags: MW
+AnchorPoint: "Cedilla" 150 0 basechar 0
+AnchorPoint: "Bottom" 150 -150 basechar 0
 AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
