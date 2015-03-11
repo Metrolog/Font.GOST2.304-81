@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426068707
+ModificationTime: 1426069560
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -49,7 +49,7 @@ OS2XHeight: 1000
 OS2FamilyClass: 2048
 OS2Vendor: 'PfEd'
 Lookup: 1 0 0 "'dtls' Dotless Forms lookup 0" { "'dtls' Dotless Forms lookup 0-1"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 260 0 0 "Marks" { "Cedilla"  "Top"  "Bottom"  "Right" } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
+Lookup: 260 0 0 "Marks" { "Cedilla"  "Top"  "Bottom"  "Right"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 262 0 0 "Marks above marks" { "MarksAboveMarks"  } ['mkmk' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 258 8 0 "Kern" { "Kern" [330,33,0] } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 MarkAttachClasses: 1
@@ -302,7 +302,7 @@ Grid
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667280 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
 AnchorClass2: "TopMark" "MarksAboveMarks" "Cedilla" "Cedilla" "Ogonek" "Bottom" "TopRight" "Top" "Right" "Right" "Bottom" "Bottom" "Top" "Top" 
-BeginChars: 1114115 464
+BeginChars: 1114115 466
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -7242,6 +7242,72 @@ SplineSet
  450 50 l 1049,6,-1
 150 650 m 1,7,-1
  450 950 l 1049,8,-1
+EndSplineSet
+EndChar
+
+StartChar: OE
+Encoding: 338 338 464
+Width: 1400
+Flags: W
+LayerCount: 2
+Back
+Fore
+SplineSet
+750 1350 m 25,0,1
+ 574 1350 574 1350 450 1350 c 131,-1,2
+ 326 1350 326 1350 238 1262 c 128,-1,3
+ 150 1174 150 1174 150 1050 c 2,4,-1
+ 150 350 l 2,5,6
+ 150 226 150 226 238 138 c 128,-1,7
+ 326 50 326 50 450 50 c 131,-1,8
+ 574 50 574 50 750 50 c 1049,9,-1
+750 750 m 1,10,-1
+ 1050 750 l 1,11,-1
+ 1050 752 l 1025,12,-1
+1250 1350 m 1,13,-1
+ 750 1350 l 17,14,-1
+ 750 50 l 1,15,-1
+ 1250 50 l 1025,16,-1
+EndSplineSet
+EndChar
+
+StartChar: oe
+Encoding: 339 339 465
+Width: 1300
+Flags: W
+LayerCount: 2
+Back
+Fore
+SplineSet
+400 950 m 128,-1,1
+ 503 950 503 950 576.5 876.5 c 128,-1,2
+ 650 803 650 803 650 700 c 2,3,-1
+ 650 300 l 2,4,5
+ 650 197 650 197 576 124 c 0,6,7
+ 503 50 503 50 400 50 c 128,-1,8
+ 297 50 297 50 224 124 c 0,9,10
+ 150 199 150 199 150 300 c 2,11,-1
+ 150 700 l 2,12,13
+ 150 803 150 803 224 876 c 0,14,0
+ 297 950 297 950 400 950 c 128,-1,1
+500 950 m 1026,15,16
+650 799.5 m 0,17,-1
+ 650 200 l 1050,18,-1
+650 500 m 1025,19,-1
+650 500 m 1,20,-1
+ 1150 500 l 1,21,-1
+ 1150 800.5 l 2,22,23
+ 1150 863 1150 863 1106 906.5 c 128,-1,24
+ 1062 950 1062 950 1000 950 c 2,25,-1
+ 800 950 l 2,26,27
+ 738 950 738 950 694 905.75 c 0,28,29
+ 650 862 650 862 650 799.5 c 1024,30,-1
+1150 50 m 24,31,-1
+ 800 50 l 1,32,33
+ 738 50 738 50 694 94 c 128,-1,34
+ 650 138 650 138 650 200 c 1024,35,36
+650 500 m 1025,37,-1
+650 500 m 1025,38,-1
 EndSplineSet
 EndChar
 EndChars
