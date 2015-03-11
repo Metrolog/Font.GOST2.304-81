@@ -2,14 +2,12 @@
 ### GNU make Makefile for build GOST 2.304-81 fonts files
 ###
 
-FONTFORGEPROJECTS	:= $(wildcard *.sfd)
+FONT				?= GOST2.304-81TypeA
 
 SPACE				= $(empty) $(empty)
-FONTSDIR			:= fonts
-TTFSUBDIR			:= ttf
-TTFDIR				:= $(FONTSDIR)/$(TTFSUBDIR)/
-TEMPDIR				:= obj
-TTFTEMPDIR			:= $(TEMPDIR)/$(TTFSUBDIR)/
+OUTPUTDIR			:= release
+TTFDIR				:= $(OUTPUTDIR)/ttf
+AUXDIR				:= obj
 
 # setup tools
 
@@ -22,18 +20,20 @@ TTFAUTOHINTOPTIONS	:= \
 ifeq ($(OS),Windows_NT)
 	RM				:= del /S/Q
 	RMDIR			:= rmdir /S/Q
-	MAKETARGETDIR	= $(foreach d,$(subst /, ,${@D}),mkdir $d && cd $d && ) @echo dir "${@D}" created...
+	MAKETARGETDIR	= $(foreach d,$(subst /, ,${@D}),@mkdir $d && @cd $d && ) @echo dir "${@D}" created... 
+	MAKETARGETDIR2	= cd $(dir ${@D}) && mkdir $(notdir ${@D})
+	TOUCH			= @echo . >
 	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
 else
 	RM				:= rm
 	RMDIR			:= rmdir
 	MAKETARGETDIR	= mkdir -p ${@D}
+	MAKETARGETDIR2	= MAKETARGETDIR
+	TOUCH			= touch
 	FONTFORGE		?= fontforge
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
 endif
-
-FFBUILDTTF			:= build-ttf.pe
 
 ## grab a version number from the repository (if any) that stores this.
 ## * REVISION is the current revision number (short form, for inclusion in text)
@@ -43,28 +43,47 @@ GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
 VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
 VERSION				:= $(lastword $(subst /, ,$(GIT_BRANCH)))
 
+# directories rules
+
+dirstate:;
+
+%/dirstate:
+	$(info Directory "${@D}" creating...)
+	$(MAKETARGETDIR2)
+	@$(TOUCH) $@
+
+$(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
+
 ###
 
 .DEFAULT_GOAL		:= all
 
-.PHONY: all clean ttf ttf-without-autohint
+.PHONY: all clean ttf
 
 all: ttf
 
+# generate aux .sfd files
+
+FFBUILDREGULARSFD	:= build-regular-sfd.pe
+
+$(AUXDIR)/$(FONT)-Regular.sfd: $(FONT).sfd $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
+	$(info Build additional glyphs, additional .sfd processing...)
+	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@ $(VERSION)
+
 # build True Type fonts
 
-BUILDTTF			:= $(FONTFORGE) -script $(FFBUILDTTF)
-TTFNOAUTOHINTTARGETS:= $(FONTFORGEPROJECTS:%.sfd=$(TTFTEMPDIR)%.ttf)
-TTFTARGETS			:= $(FONTFORGEPROJECTS:%.sfd=$(TTFDIR)%.ttf)
+FFGENERATETTF		:= generate-ttf.pe
 
-$(TTFTEMPDIR)%.ttf: %.sfd $(FFBUILDTTF)
+TTFTARGETS			:= $(TTFDIR)/$(FONT)-Regular.ttf
+TTFNOAUTOHINTTARGETS:= $(TTFTARGETS:$(TTFDIR)/%.ttf=$(AUXDIR)/%.ttf)
+
+$(AUXDIR)/%.ttf: $(AUXDIR)/%.sfd $(FFGENERATETTF)
+	$(info Generate .ttf fonts...)
 	-$(MAKETARGETDIR)
-	$(BUILDTTF) $< $@ $(VERSION)
+	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 	
-ttf-without-autohint: $(TTFNOAUTOHINTTARGETS)
-
-$(TTFDIR)%.ttf: $(TTFTEMPDIR)%.ttf
-	-$(MAKETARGETDIR)
+$(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
+	$(info Autohinting and autoinstructing .ttf fonts (by ttfautohint)...)
 	$(TTFAUTOHINT) $< $@
 
 ttf: $(TTFTARGETS)
@@ -72,5 +91,6 @@ ttf: $(TTFTARGETS)
 # clean projects
 
 clean:
-	-$(RMDIR) $(TEMPDIR)
-	-$(RMDIR) $(FONTSDIR)
+	$(info Erase aux and release directories...)
+	-$(RMDIR) $(AUXDIR)
+	-$(RMDIR) $(OUTPUTDIR)

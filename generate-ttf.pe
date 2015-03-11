@@ -1,0 +1,10 @@
+# $1 - source .sfd file name
+# $2 - destination .ttf file name
+
+Open($1)
+
+# scale to new em size
+ScaleToEm(1024)
+
+# generate font files
+Generate($2)

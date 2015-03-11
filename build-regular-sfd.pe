@@ -1,6 +1,6 @@
 # $1 - source .sfd file name
-# $2 - destination .ttf file name
-# $3 - True Type font version string
+# $2 - destination .sfd file name
+# $3 - font version string
 
 Open($1)
 
@@ -74,8 +74,5 @@ SelectWorthOutputting()
 SelectInvert()
 BuildAccented()
 
-# scale to new em size
-ScaleToEm(1024)
-
-# generate font files
-Generate($2)
+# save sfd files
+Save($2)
