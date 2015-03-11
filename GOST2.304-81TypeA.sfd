@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426086550
+ModificationTime: 1426090290
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -122,7 +122,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 418 38 14
+WinInfo: 0 38 14
 BeginPrivate: 1
 BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
 EndPrivate
@@ -911,13 +911,14 @@ StartChar: B
 Encoding: 66 66 37
 Width: 900
 Flags: MW
+AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
 150 750 m 1,0,-1
- 400 750 l 1,1,-1
+ 400 750 l 1,1,2
  524 750 524 750 612 838 c 128,-1,3
  700 926 700 926 700 1050 c 128,-1,4
  700 1174 700 1174 612 1262 c 0,5,6
@@ -930,7 +931,7 @@ SplineSet
  750 305 750 305 750 400 c 0,16,17
  750 492 750 492 703 576 c 0,18,19
  658 656 658 656 576 704 c 0,20,21
- 497 750 497 750 400 750 c 1152,-1,0
+ 497 750 497 750 400 750 c 1024,22,-1
 EndSplineSet
 EndChar
 
@@ -959,6 +960,8 @@ StartChar: D
 Encoding: 68 68 39
 Width: 900
 Flags: MW
+AnchorPoint: "Cedilla" 400 0 basechar 0
+AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
@@ -1041,6 +1044,8 @@ StartChar: H
 Encoding: 72 72 43
 Width: 900
 Flags: MW
+AnchorPoint: "Bottom" 450 -150 basechar 0
+AnchorPoint: "Cedilla" 450 0 basechar 0
 AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
@@ -1128,12 +1133,14 @@ StartChar: M
 Encoding: 77 77 48
 Width: 1100
 Flags: MW
+AnchorPoint: "Top" 550 1650 basechar 0
+AnchorPoint: "Bottom" 550 -150 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
 948 1350 m 25,0,-1
- 552 650 l 1053,1,-1
+ 552 650 l 1049,1,-1
 950 50 m 25,2,-1
  950 1350 l 1049,3,-1
 150 50 m 25,4,-1
@@ -1313,6 +1320,7 @@ StartChar: W
 Encoding: 87 87 58
 Width: 1400
 Flags: MW
+AnchorPoint: "Bottom" 700 -150 basechar 0
 AnchorPoint: "Top" 700 1650 basechar 0
 LayerCount: 2
 Back
@@ -1462,6 +1470,7 @@ StartChar: a
 Encoding: 97 97 68
 Width: 900
 Flags: MW
+AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "Ogonek" 750 0 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
@@ -1489,6 +1498,7 @@ StartChar: b
 Encoding: 98 98 69
 Width: 800
 Flags: MW
+AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
@@ -1521,6 +1531,8 @@ StartChar: d
 Encoding: 100 100 71
 Width: 800
 Flags: MW
+AnchorPoint: "Cedilla" 400 0 basechar 0
+AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "TopRight" 850 1350 basechar 0
 AnchorPoint: "Top" 650 1650 basechar 0
 LayerCount: 2
@@ -1607,6 +1619,7 @@ StartChar: h
 Encoding: 104 104 75
 Width: 800
 Flags: MW
+AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
@@ -1687,6 +1700,8 @@ StartChar: m
 Encoding: 109 109 80
 Width: 1100
 Flags: MW
+AnchorPoint: "Bottom" 550 -150 basechar 0
+AnchorPoint: "Top" 550 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1817,12 +1832,12 @@ Flags: MW
 AnchorPoint: "Cedilla" 250 0 basechar 0
 AnchorPoint: "Bottom" 250 -150 basechar 0
 AnchorPoint: "TopRight" 450 1350 basechar 0
-AnchorPoint: "Top" 250 1350 basechar 0
+AnchorPoint: "Top" 250 1650 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-250 50 m 25,0,-1
+250 50 m 1
  250 1350 l 1049
 EndSplineSet
 Refer: 439 821 N 1 0 0 1 0 0 2
@@ -1896,6 +1911,7 @@ StartChar: y
 Encoding: 121 121 92
 Width: 800
 Flags: MW
+AnchorPoint: "Bottom" 650 -150 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -1905,8 +1921,8 @@ SplineSet
  400 50 l 1049,1,-1
 650 950 m 0,2,-1
  332 -200 l 2,3,4
- 313 -268 313 -268 272 -309 c 128,-1,6
- 231 -350 231 -350 150 -349.75 c 1026,7,-1
+ 313 -268 313 -268 272 -309 c 128,-1,5
+ 231 -350 231 -350 150 -349.75 c 1026,6,-1
 EndSplineSet
 EndChar
 
@@ -6880,7 +6896,6 @@ Encoding: 700 700 435
 Width: 300
 Flags: MW
 AnchorPoint: "TopMark" 150 1350 mark 0
-AnchorPoint: "TopMark" 150 1650 basemark 0
 AnchorPoint: "TopRight" 150 1350 mark 0
 LayerCount: 2
 Back
@@ -7549,7 +7564,6 @@ StartChar: uni0342
 Encoding: 834 834 479
 Width: 600
 Flags: W
-AnchorPoint: "TopMark" 300 1350 mark 0
 AnchorPoint: "TopMark" 300 1650 basemark 0
 AnchorPoint: "Top" 300 1350 mark 0
 LayerCount: 2
