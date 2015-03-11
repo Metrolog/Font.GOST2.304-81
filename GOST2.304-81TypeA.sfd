@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426076338
+ModificationTime: 1426077481
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -1793,15 +1793,16 @@ Encoding: 116 116 87
 Width: 600
 UnlinkRmOvrlpSave: 1
 Flags: MW
+AnchorPoint: "TopRight" 450 1350 basechar 0
 AnchorPoint: "Top" 250 1350 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-250 50 m 25,0,-1
+250 50 m 25
  250 1350 l 1049
 EndSplineSet
-Refer: 440 821 S 1 0 0 1 0 0 2
+Refer: 440 821 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: u
