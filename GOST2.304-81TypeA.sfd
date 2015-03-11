@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426077859
+ModificationTime: 1426078981
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -1230,20 +1230,24 @@ StartChar: S
 Encoding: 83 83 54
 Width: 900
 Flags: MW
+AnchorPoint: "Top" 450 1650 basechar 0
+AnchorPoint: "TopRight" 950 1350 basechar 0
+AnchorPoint: "Bottom" 450 -150 basechar 0
+AnchorPoint: "Cedilla" 450 0 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-150 150 m 5,0,1
- 280 50 280 50 450 50 c 7,2,3
- 594 50 594 50 672 117 c 132,-1,4
- 750 184 750 184 750 281 c 7,5,6
- 750 407.931034483 750 407.931034483 661 500 c 6,7,-1
- 226 950 l 6,8,9
- 150 1028 150 1028 150 1123 c 7,10,11
- 150 1215 150 1215 228.5 1283 c 4,12,13
- 306 1350 306 1350 450 1350 c 7,14,15
- 621 1350 621 1350 750 1250 c 1029,16,-1
+150 150 m 1,0,1
+ 280 50 280 50 450 50 c 3,2,3
+ 594 50 594 50 672 117 c 128,-1,4
+ 750 184 750 184 750 281 c 3,5,6
+ 750 407.931034483 750 407.931034483 661 500 c 2,7,-1
+ 226 950 l 2,8,9
+ 150 1028 150 1028 150 1123 c 3,10,11
+ 150 1215 150 1215 228.5 1283 c 0,12,13
+ 306 1350 306 1350 450 1350 c 3,14,15
+ 621 1350 621 1350 750 1250 c 1025,16,-1
 EndSplineSet
 EndChar
 
@@ -1251,12 +1255,14 @@ StartChar: T
 Encoding: 84 84 55
 Width: 900
 Flags: MW
+AnchorPoint: "Bottom" 450 -150 basechar 0
+AnchorPoint: "Cedilla" 450 0 basechar 0
 LayerCount: 2
 Back
 Fore
 SplineSet
 450 50 m 25,0,-1
- 450 1350 l 1053,1,-1
+ 450 1350 l 1049,1,-1
 150 1350 m 25,2,-1
  750 1350 l 1049,3,-1
 EndSplineSet
@@ -1755,7 +1761,7 @@ StartChar: r
 Encoding: 114 114 85
 Width: 700
 Flags: MW
-AnchorPoint: "Cedilla" 150 0 basechar 0
+AnchorPoint: "Cedilla" 100 0 basechar 0
 AnchorPoint: "Bottom" 150 -150 basechar 0
 AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
@@ -1774,6 +1780,7 @@ StartChar: s
 Encoding: 115 115 86
 Width: 800
 Flags: MW
+AnchorPoint: "Cedilla" 400 0 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
@@ -1788,7 +1795,7 @@ SplineSet
  150 693 150 693 150 775 c 256,10,11
  150 853.488073767 150 853.488073767 212.5 901.744036883 c 128,-1,12
  275 950 275 950 400 950 c 256,13,14
- 547.42 950 547.42 950 650 875 c 1285,15,-1
+ 547.42 950 547.42 950 650 875 c 1281,15,-1
 EndSplineSet
 EndChar
 
@@ -1797,6 +1804,8 @@ Encoding: 116 116 87
 Width: 600
 UnlinkRmOvrlpSave: 1
 Flags: MW
+AnchorPoint: "Cedilla" 250 0 basechar 0
+AnchorPoint: "Bottom" 250 -150 basechar 0
 AnchorPoint: "TopRight" 450 1350 basechar 0
 AnchorPoint: "Top" 250 1350 basechar 0
 LayerCount: 2
@@ -2329,7 +2338,7 @@ AnchorPoint: "Cedilla" 175 0 mark 0
 LayerCount: 2
 Back
 Fore
-Refer: 428 807 N 1 0 0 1 0 0 2
+Refer: 428 807 S 1 0 0 1 -25 0 2
 EndChar
 
 StartChar: ordmasculine
