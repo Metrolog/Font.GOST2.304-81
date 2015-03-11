@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426090290
+ModificationTime: 1426091949
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -892,6 +892,7 @@ StartChar: A
 Encoding: 65 65 36
 Width: 1000
 Flags: MW
+AnchorPoint: "Bottom" 500 -150 basechar 0
 AnchorPoint: "Ogonek" 850 0 basechar 0
 AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
@@ -900,7 +901,7 @@ Fore
 SplineSet
 850 50 m 25,0,-1
  501 1350 l 1049,1,-1
-499 1350 m 28,2,-1
+499 1350 m 24,2,-1
  150 50 l 1025,3,-1
 259 450 m 1,4,-1
  742 450 l 1025,5,-1
@@ -1837,7 +1838,7 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-250 50 m 1
+250 50 m 1,0,-1
  250 1350 l 1049
 EndSplineSet
 Refer: 439 821 N 1 0 0 1 0 0 2
