@@ -7,8 +7,11 @@ Open($1)
 SelectWorthOutputting()
 ExpandStroke(100, 1, 1)
 RemoveOverlap()
+CorrectDirection()
 Simplify()
-#CorrectDirection()
+AddExtrema()
+CanonicalStart()
+CanonicalContours()
 
 # save sfd files
 Save($2)
