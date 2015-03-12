@@ -68,5 +68,9 @@ SelectWorthOutputting()
 SelectInvert()
 BuildAccented()
 
+# remove flipped references
+SelectWorthOutputting()
+CorrectDirection()
+
 # save sfd files
 Save($2)
