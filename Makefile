@@ -5,9 +5,11 @@
 FONT				?= GOST2.304-81TypeA
 
 SPACE				= $(empty) $(empty)
+SRCDIR				:= sources/
 OUTPUTDIR			:= release
 TTFDIR				:= $(OUTPUTDIR)/ttf
 AUXDIR				:= obj
+TOOLSDIR			:= tools/
 
 # setup tools
 
@@ -64,15 +66,15 @@ all: ttf
 
 # generate aux .sfd files
 
-FFBUILDREGULARSFD	:= build-regular-sfd.pe
+FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.pe
 
-$(AUXDIR)/$(FONT)-Regular.sfd: $(FONT).sfd $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
+$(AUXDIR)/$(FONT)-Regular.sfd: $(SRCDIR)$(FONT).sfd $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing...)
 	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@ $(VERSION)
 
 # build True Type fonts
 
-FFGENERATETTF		:= generate-ttf.pe
+FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.pe
 
 TTFTARGETS			:= $(TTFDIR)/$(FONT)-Regular.ttf
 TTFNOAUTOHINTTARGETS:= $(TTFTARGETS:$(TTFDIR)/%.ttf=$(AUXDIR)/%.ttf)
