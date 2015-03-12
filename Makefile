@@ -81,7 +81,6 @@ TTFNOAUTOHINTTARGETS:= $(TTFTARGETS:$(TTFDIR)/%.ttf=$(AUXDIR)/%.ttf)
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%.sfd $(FFGENERATETTF)
 	$(info Generate .ttf fonts...)
-	-$(MAKETARGETDIR)
 	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 	
 $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
