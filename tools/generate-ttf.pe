@@ -6,5 +6,9 @@ Open($1)
 # scale to new em size
 ScaleToEm(1024)
 
+SelectWorthOutputting()
+AutoHint() 
+AutoInstr()
+
 # generate font files
 Generate($2)

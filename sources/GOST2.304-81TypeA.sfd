@@ -24,7 +24,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426191266
+ModificationTime: 1426195319
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -124,7 +124,7 @@ AntiAlias: 1
 FitToEm: 1
 WinInfo: 216 27 10
 BeginPrivate: 1
-BlueValues 53 [-400 -390 0 10 490 510 990 1000 1390 1400 1590 1600]
+BlueValues 53 [-400 -380 0 20 480 520 980 1000 1380 1400 1580 1600]
 EndPrivate
 Grid
 50 1800 m 0
@@ -1766,6 +1766,7 @@ EndChar
 StartChar: p
 Encoding: 112 112 83
 Width: 800
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1776,6 +1777,7 @@ EndChar
 StartChar: q
 Encoding: 113 113 84
 Width: 800
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -3628,16 +3630,16 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-250 50 m 25,0,-1
+250 50 m 8,0,-1
  500 50 l 18,1,2
  602 50 602 50 676 123 c 128,-1,3
  750 196 750 196 750 300 c 10,4,-1
- 750 1350 l 1049,5,-1
-150 1350 m 25,6,-1
- 150 1000 l 2,7,8
- 150 870 150 870 260 760 c 128,-1,9
- 370 650 370 650 500 650 c 2,10,-1
- 750 650 l 1025,11,-1
+ 750 1350 l 1044,5,6
+150 1350 m 8,7,-1
+ 150 1000 l 2,8,9
+ 150 870 150 870 260 760 c 128,-1,10
+ 370 650 370 650 500 650 c 2,11,-1
+ 750 650 l 1040,12,13
 EndSplineSet
 EndChar
 
@@ -3701,13 +3703,13 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-750 50 m 9,0,-1
- 750 1350 l 1049,1,-1
-150 1350 m 25,2,-1
- 150 1000 l 2,3,4
- 150 870 150 870 260 760 c 128,-1,5
- 370 650 370 650 500 650 c 2,6,-1
- 750 650 l 1025,7,-1
+750 50 m 0,0,1
+ 750 1350 l 1044,2,3
+150 1350 m 8,4,-1
+ 150 1000 l 2,5,6
+ 150 870 150 870 260 760 c 128,-1,7
+ 370 650 370 650 500 650 c 2,8,-1
+ 750 650 l 1040,9,10
 EndSplineSet
 EndChar
 
@@ -4265,11 +4267,12 @@ EndChar
 StartChar: uni0448
 Encoding: 1096 1096 237
 Width: 1100
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 80 109 N -1 0 0 -1 1100 1000 3
+Refer: 80 109 N -1 0 0 -1 1100 1000 2
 EndChar
 
 StartChar: uni0449
@@ -4335,14 +4338,14 @@ Back
 Fore
 SplineSet
 150 500 m 5,0,-1
- 450 500 l 6,1,2
- 539 500 539 500 594.5 443.5 c 132,-1,3
- 650 387 650 387 650 300 c 262,4,-1
- 650 250 l 262,5,6
- 650 166 650 166 592.5 108 c 132,-1,7
- 535 50 535 50 450 50 c 262,8,-1
- 150 50 l 13,9,-1
- 150 950 l 1053,10,-1
+ 450 500 l 2,1,2
+ 539 500 539 500 594.5 443.5 c 128,-1,3
+ 650 387 650 387 650 300 c 258,4,-1
+ 650 250 l 258,5,6
+ 650 166 650 166 592.5 108 c 128,-1,7
+ 535 50 535 50 450 50 c 258,8,-1
+ 150 50 l 9,9,-1
+ 150 950 l 1041,10,11
 EndSplineSet
 EndChar
 
