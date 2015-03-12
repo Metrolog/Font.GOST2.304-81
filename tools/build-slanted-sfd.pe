@@ -1,0 +1,12 @@
+# $1 - source .sfd file name
+# $2 - destination .sfd file name
+
+Open($1)
+
+SelectWorthOutputting()
+Transform( 100, 0,   100.0 * Tan( 3.141592653 / 180 * (90-75) ), 100,   0, 0 )
+CanonicalStart()
+CanonicalContours()
+
+# save sfd files
+Save($2)

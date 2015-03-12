@@ -83,8 +83,17 @@ REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
 FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.pe
 
 $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
-	$(info Build outline regular font .sfd file...)
+	$(info Build stroked regular font .sfd file "$@"...)
 	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@
+
+# generate aux slanted .sfd file
+
+SLANTEDFONTSFD		:= $(AUXDIR)/$(FONT)-Slanted.sfd
+FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.pe
+
+$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
+	$(info Build stroked slanted font .sfd file "$@"...)
+	$(FONTFORGE) -script $(FFBUILDSLANTEDSFD) $< $@
 
 # stroke font -> outline font
 
@@ -96,7 +105,7 @@ $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE)
 
 # all FontForge aux projects
 
-FONTVARIANTS		:= Regular
+FONTVARIANTS		:= Regular Slanted
 FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-outline.sfd)
 
 # build True Type fonts
