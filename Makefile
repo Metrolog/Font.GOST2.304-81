@@ -2,6 +2,18 @@
 ### GNU make Makefile for build GOST 2.304-81 fonts files
 ###
 
+.DEFAULT_GOAL		:= all
+
+all: ttf
+
+.PHONY: all clean ttf
+
+.SECONDARY:;
+
+.DELETE_ON_ERROR:;
+
+###
+
 FONT				?= GOST2.304-81TypeA
 
 SPACE				= $(empty) $(empty)
@@ -56,14 +68,6 @@ dirstate:;
 
 $(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
-###
-
-.DEFAULT_GOAL		:= all
-
-.PHONY: all clean ttf
-
-all: ttf
-
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
@@ -82,18 +86,27 @@ $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
 	$(info Build outline regular font .sfd file...)
 	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@
 
+# stroke font -> outline font
+
+FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke.pe
+
+$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE)
+	$(info Expand stroke font to outline font "$@"...)
+	$(FONTFORGE) -script $(FFEXPANDSTROKE) $< $@
+
 # all FontForge aux projects
 
-FONTALLSFD		:= $(REGULARFONTSFD)
+FONTVARIANTS		:= Regular
+FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-outline.sfd)
 
 # build True Type fonts
 
 FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.pe
 
-TTFTARGETS			:= $(FONTALLSFD:$(AUXDIR)/%.sfd=$(TTFDIR)/%.ttf)
-TTFNOAUTOHINTTARGETS:= $(TTFTARGETS:$(TTFDIR)/%.ttf=$(AUXDIR)/%.ttf)
+TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
+TTFNOAUTOHINTTARGETS:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT).ttf)
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%.sfd $(FFGENERATETTF)
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF)
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 	

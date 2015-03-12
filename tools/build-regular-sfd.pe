@@ -3,12 +3,5 @@
 
 Open($1)
 
-# convert stroked font to outline font
-SelectWorthOutputting()
-ExpandStroke(100, 1, 1)
-RemoveOverlap()
-Simplify()
-#CorrectDirection()
-
 # save sfd files
 Save($2)
