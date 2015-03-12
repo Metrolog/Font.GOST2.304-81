@@ -66,25 +66,39 @@ all: ttf
 
 # generate aux .sfd files
 
+FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
+FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.pe
+
+$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirstate
+	$(info Build additional glyphs, additional .sfd processing for stroked font...)
+	$(FONTFORGE) -script $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
+
+# generate aux regular .sfd file
+
+REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
 FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.pe
 
-$(AUXDIR)/$(FONT)-Regular.sfd: $(SRCDIR)$(FONT).sfd $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
-	$(info Build additional glyphs, additional .sfd processing...)
-	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@ $(VERSION)
+$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
+	$(info Build outline regular font .sfd file...)
+	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@
+
+# all FontForge aux projects
+
+FONTALLSFD		:= $(REGULARFONTSFD)
 
 # build True Type fonts
 
 FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.pe
 
-TTFTARGETS			:= $(TTFDIR)/$(FONT)-Regular.ttf
+TTFTARGETS			:= $(FONTALLSFD:$(AUXDIR)/%.sfd=$(TTFDIR)/%.ttf)
 TTFNOAUTOHINTTARGETS:= $(TTFTARGETS:$(TTFDIR)/%.ttf=$(AUXDIR)/%.ttf)
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%.sfd $(FFGENERATETTF)
-	$(info Generate .ttf fonts...)
+	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 	
 $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
-	$(info Autohinting and autoinstructing .ttf fonts (by ttfautohint)...)
+	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
 	$(TTFAUTOHINT) $< $@
 
 ttf: $(TTFTARGETS)
