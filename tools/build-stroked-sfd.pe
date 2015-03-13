@@ -12,8 +12,8 @@ SetTTFName(1049, 5, $3)
 Reencode("unicode")
 
 # unlink transformed references
-SelectWorthOutputting()
-UnlinkReference()
+#SelectWorthOutputting()
+#UnlinkReference()
 #ReplaceWithReference(2.0)
 #DefaultRoundToGrid()
 #DefaultUseMyMetrics() 
