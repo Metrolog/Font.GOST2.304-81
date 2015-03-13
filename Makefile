@@ -25,6 +25,8 @@ TOOLSDIR			:= tools/
 
 # setup tools
 
+AUTOHINT			?= fontforge
+
 TTFAUTOHINTOPTIONS	:= \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
@@ -100,7 +102,7 @@ $(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
 
 FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke.pe
 
-$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE)
+$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 	$(info Expand stroke font to outline font "$@"...)
 	$(FONTFORGE) -script $(FFEXPANDSTROKE) $< $@
 
@@ -114,15 +116,28 @@ FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)
 FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.pe
 
 TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
-TTFNOAUTOHINTTARGETS:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT).ttf)
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF)
+ifeq ($(AUTOHINT),ttfautohint)
+
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(AUXDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 	
 $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
 	$(TTFAUTOHINT) $< $@
+
+else
+
+ifeq ($(AUTOHINT),fontforge)
+FFGENERATETTF		:= $(TOOLSDIR)generate-autohinted-ttf.pe
+endif
+
+$(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
+	$(info Generate .ttf font "$@"...)
+	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
+
+endif 
 
 ttf: $(TTFTARGETS)
 
