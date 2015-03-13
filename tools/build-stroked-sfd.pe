@@ -18,6 +18,16 @@ Reencode("unicode")
 #DefaultRoundToGrid()
 #DefaultUseMyMetrics() 
 
+# duplicate with x+2 for adding hstem on stem ends
+SelectWorthOutputting()
+UnlinkReference()
+Copy()
+PasteWithOffset(2, 0)
+Join()
+ReplaceWithReference(0.0)
+DefaultRoundToGrid()
+DefaultUseMyMetrics() 
+
 # add 0-9, +-=() subscript
 subscriptScale = 100*10/14
 Select(0u30, 0u39) # 0-9

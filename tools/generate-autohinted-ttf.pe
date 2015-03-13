@@ -8,7 +8,7 @@ ScaleToEm(1024)
 
 SetPref("GenerateHintWidthEqualityTolerance", 4)
 SetPref("StandardSlopeError", 29, 10)
-SetPref("HintBoundingBoxes", 0)
+SetPref("HintBoundingBoxes", 1)
 SetPref("HintDiagonalEnds", 1)
 SetPref("DetectDiagonalStems", 1)
 SetPref("InstructDiagonalStems", 1)
