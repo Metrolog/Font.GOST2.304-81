@@ -6,5 +6,7 @@ Open($1)
 # scale to new em size
 ScaleToEm(1024)
 
+SetPref("AutoHint", 0)
+
 # generate font files
 Generate($2)
