@@ -1,3 +1,4 @@
 *.sfd-*
 obj
 dirstate
+/make.log
