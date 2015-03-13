@@ -3,9 +3,12 @@
 
 Open($1)
 
+SlantAngle = 75-90
+
 SelectWorthOutputting()
 CorrectDirection()
-Transform( 100, 0,   100.0 * Tan( 3.141592653 / 180 * (90-75) ), 100,   0, 0 )
+Transform( 100, 0,   100.0 * Tan( 3.141592653 / 180 * (-SlantAngle) ), 100,   0, 0 )
+SetItalicAngle(SlantAngle)
 CanonicalStart()
 CanonicalContours()
 
