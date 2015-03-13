@@ -38,6 +38,7 @@ Paste()
 Select(0u2080, 0u208E) # 0-9 +-=()
 Scale(subscriptScale, 0, 0)
 Move(0, -500)
+UnlinkReference()
 SetVWidth(1000)
 
 # add 0-9, +-=() superscript
@@ -60,6 +61,8 @@ Paste()
 
 SelectSingletons(0u2070, 0u00B9) # 0, 1
 SelectMore(0u00B2, 0u00B3, 0u2074, 0u207E) # 2-3, 4-9, +-=()
+DefaultRoundToGrid()
+DefaultUseMyMetrics() 
 Move(0, 1400)
 SetVWidth(1000)
 
