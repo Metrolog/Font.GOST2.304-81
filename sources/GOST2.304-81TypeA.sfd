@@ -124,10 +124,10 @@ AntiAlias: 1
 FitToEm: 1
 WinInfo: 27 27 10
 BeginPrivate: 11
-BlueValues 43 [0 20 480 520 980 1000 1380 1400 1580 1600]
-FamilyBlueValues 43 [0 20 480 520 980 1000 1380 1400 1580 1600]
-OtherBlues 11 [-400 -380]
-FamilyOtherBlues 11 [-400 -400]
+BlueValues 35 [0 0 0995 1000 1395 1400 1595 1600]
+FamilyBlueValues 35 [0 0 0995 1000 1395 1400 1595 1600]
+OtherBlues 19 [-400 -380 480 520]
+FamilyOtherBlues 19 [-400 -380 480 520]
 StemSnapH 8 [100 71]
 StdHW 5 [100]
 StemSnapV 8 [100 71]

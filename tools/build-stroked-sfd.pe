@@ -9,9 +9,16 @@ SetFontNames('','','','','',$3)
 SetTTFName(1033, 5, $3)
 SetTTFName(1049, 5, $3)
 
-# add 0-9, +-=() subscript
 Reencode("unicode")
 
+# unlink transformed references
+SelectWorthOutputting()
+UnlinkReference()
+#ReplaceWithReference(2.0)
+#DefaultRoundToGrid()
+#DefaultUseMyMetrics() 
+
+# add 0-9, +-=() subscript
 subscriptScale = 100*10/14
 Select(0u30, 0u39) # 0-9
 CopyReference()
