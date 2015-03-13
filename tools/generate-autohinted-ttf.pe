@@ -15,7 +15,7 @@ SetPref("InstructDiagonalStems", 1)
 SetPref("InstructSerifs", 0)
 SetPref("InstructBallTerminals", 1)
 SetPref("InterpolateStrongPoints", 0)
-SetPref("CounterControl", 1)
+SetPref("CounterControl", 0)
 
 SelectWorthOutputting()
 AutoHint()
