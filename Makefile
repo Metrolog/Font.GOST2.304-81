@@ -25,6 +25,7 @@ TOOLSDIR			:= tools/
 
 # setup tools
 
+# fontforge, ttfautohint or no
 AUTOHINT			?= fontforge
 
 TTFAUTOHINTOPTIONS	:= \
