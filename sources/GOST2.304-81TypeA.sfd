@@ -374,7 +374,6 @@ EndChar
 StartChar: exclam
 Encoding: 33 33 4
 Width: 300
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -419,7 +418,6 @@ EndChar
 StartChar: dollar
 Encoding: 36 36 7
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -525,7 +523,6 @@ EndChar
 StartChar: plus
 Encoding: 43 43 14
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -785,7 +782,6 @@ EndChar
 StartChar: nine
 Encoding: 57 57 28
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -843,7 +839,6 @@ EndChar
 StartChar: greater
 Encoding: 62 62 33
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -854,7 +849,6 @@ EndChar
 StartChar: question
 Encoding: 63 63 34
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -875,7 +869,6 @@ EndChar
 StartChar: at
 Encoding: 64 64 35
 Width: 1600
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1222,7 +1215,6 @@ EndChar
 StartChar: Q
 Encoding: 81 81 52
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1237,7 +1229,6 @@ EndChar
 StartChar: R
 Encoding: 82 82 53
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 AnchorPoint: "Bottom" 400 -150 basechar 0
 AnchorPoint: "Cedilla" 400 0 basechar 0
@@ -1433,7 +1424,6 @@ EndChar
 StartChar: bracketright
 Encoding: 93 93 64
 Width: 400
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1596,7 +1586,6 @@ EndChar
 StartChar: f
 Encoding: 102 102 73
 Width: 600
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1780,7 +1769,6 @@ EndChar
 StartChar: p
 Encoding: 112 112 83
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1791,7 +1779,6 @@ EndChar
 StartChar: q
 Encoding: 113 113 84
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -1844,7 +1831,6 @@ EndChar
 StartChar: t
 Encoding: 116 116 87
 Width: 600
-UnlinkRmOvrlpSave: 1
 Flags: MW
 AnchorPoint: "Cedilla" 250 0 basechar 0
 AnchorPoint: "Bottom" 250 -150 basechar 0
@@ -1863,7 +1849,6 @@ EndChar
 StartChar: u
 Encoding: 117 117 88
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 AnchorPoint: "TopRight" 850 950 basechar 0
 AnchorPoint: "Ogonek" 650 0 basechar 0
@@ -2113,7 +2098,6 @@ EndChar
 StartChar: yen
 Encoding: 165 165 102
 Width: 1000
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -3194,7 +3178,6 @@ EndChar
 StartChar: rho
 Encoding: 961 961 171
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -3234,7 +3217,6 @@ EndChar
 StartChar: sigma
 Encoding: 963 963 173
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -3514,7 +3496,6 @@ EndChar
 StartChar: uni0418
 Encoding: 1048 1048 189
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
@@ -3811,7 +3792,6 @@ EndChar
 StartChar: uni042C
 Encoding: 1068 1068 209
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -3870,7 +3850,6 @@ EndChar
 StartChar: uni042F
 Encoding: 1071 1071 212
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -3947,7 +3926,6 @@ EndChar
 StartChar: uni0433
 Encoding: 1075 1075 216
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
@@ -4039,7 +4017,6 @@ EndChar
 StartChar: uni0438
 Encoding: 1080 1080 221
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
@@ -4246,7 +4223,6 @@ EndChar
 StartChar: uni0446
 Encoding: 1094 1094 235
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -4282,7 +4258,6 @@ EndChar
 StartChar: uni0448
 Encoding: 1096 1096 237
 Width: 1100
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -4293,7 +4268,6 @@ EndChar
 StartChar: uni0449
 Encoding: 1097 1097 238
 Width: 1200
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -4309,7 +4283,6 @@ EndChar
 StartChar: uni044A
 Encoding: 1098 1098 239
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -4501,7 +4474,6 @@ EndChar
 StartChar: quoteleft
 Encoding: 8216 8216 251
 Width: 250
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -4711,7 +4683,6 @@ EndChar
 StartChar: guilsinglright
 Encoding: 8250 8250 269
 Width: 550
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -5116,7 +5087,6 @@ EndChar
 StartChar: uni2216
 Encoding: 8726 8726 304
 Width: 1100
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -5329,7 +5299,6 @@ EndChar
 StartChar: uni222E
 Encoding: 8750 8750 318
 Width: 1100
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -5608,7 +5577,6 @@ EndChar
 StartChar: uni2300
 Encoding: 8960 8960 339
 Width: 1000
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -5630,7 +5598,6 @@ EndChar
 StartChar: revlogicalnot
 Encoding: 8976 8976 340
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -5959,7 +5926,6 @@ EndChar
 StartChar: uni2204
 Encoding: 8708 8708 360
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -6044,7 +6010,6 @@ EndChar
 StartChar: uni222F
 Encoding: 8751 8751 367
 Width: 1350
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -6070,7 +6035,6 @@ EndChar
 StartChar: uni2230
 Encoding: 8752 8752 368
 Width: 1600
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -6403,7 +6367,6 @@ EndChar
 StartChar: uni2A7D
 Encoding: 10877 10877 395
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -6418,7 +6381,6 @@ EndChar
 StartChar: uni2A7E
 Encoding: 10878 10878 396
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -7047,7 +7009,6 @@ EndChar
 StartChar: Oslash
 Encoding: 216 216 442
 Width: 1100
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -7059,7 +7020,6 @@ EndChar
 StartChar: oslash
 Encoding: 248 248 443
 Width: 900
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -7191,7 +7151,6 @@ EndChar
 StartChar: uni2E32
 Encoding: 11826 11826 451
 Width: 300
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -7259,7 +7218,6 @@ EndChar
 StartChar: Lslash
 Encoding: 321 321 456
 Width: 800
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
