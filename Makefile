@@ -28,6 +28,9 @@ TOOLSDIR			:= tools/
 # fontforge, ttfautohint or no
 AUTOHINT			?= fontforge
 
+FONTFORGEOPTIONS	:= \
+	-nosplash
+
 TTFAUTOHINTOPTIONS	:= \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
@@ -79,7 +82,7 @@ FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.pe
 
 $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
-	$(FONTFORGE) -script $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
 
 # generate aux regular .sfd file
 
@@ -88,7 +91,7 @@ FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.pe
 
 $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
 	$(info Build stroked regular font .sfd file "$@"...)
-	$(FONTFORGE) -script $(FFBUILDREGULARSFD) $< $@
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFBUILDREGULARSFD) $< $@
 
 # generate aux slanted .sfd file
 
@@ -97,7 +100,7 @@ FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.pe
 
 $(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
 	$(info Build stroked slanted font .sfd file "$@"...)
-	$(FONTFORGE) -script $(FFBUILDSLANTEDSFD) $< $@
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFBUILDSLANTEDSFD) $< $@
 
 # stroke font -> outline font
 
@@ -105,7 +108,7 @@ FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke.pe
 
 $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 	$(info Expand stroke font to outline font "$@"...)
-	$(FONTFORGE) -script $(FFEXPANDSTROKE) $< $@
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFEXPANDSTROKE) $< $@
 
 # all FontForge aux projects
 
@@ -122,7 +125,7 @@ ifeq ($(AUTOHINT),ttfautohint)
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(AUXDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
 	
 $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
@@ -136,7 +139,7 @@ endif
 
 $(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
 
 endif 
 
