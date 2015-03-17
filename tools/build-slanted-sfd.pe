@@ -10,7 +10,8 @@ CorrectDirection()
 Transform( 100, 0,   100.0 * Tan( 3.141592653 / 180 * (-SlantAngle) ), 100,   0, 0 )
 SetItalicAngle(SlantAngle)
 CanonicalStart()
-CanonicalContours()
+
+SetMacStyle(2)
 
 # save sfd files
 Save($2)
