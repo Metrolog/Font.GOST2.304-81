@@ -8,8 +8,11 @@ SelectWorthOutputting()
 ExpandStroke(100, 1, 1)
 RemoveOverlap()
 CorrectDirection()
-Simplify()
-AddExtrema()
+
+RoundToInt()
+AddExtrema(1)
+RoundToInt()
+
 CanonicalStart()
 CanonicalContours()
 
