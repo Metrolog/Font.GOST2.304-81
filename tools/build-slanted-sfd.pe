@@ -8,10 +8,16 @@ SlantAngle = 75-90
 SelectWorthOutputting()
 CorrectDirection()
 Transform( 100, 0,   100.0 * Tan( 3.141592653 / 180 * (-SlantAngle) ), 100,   0, 0 )
-SetItalicAngle(SlantAngle)
 CanonicalStart()
 
+SetItalicAngle(SlantAngle)
 SetMacStyle(2)
+
+SetTTFName(0x409, 2, "Italic")
+SetTTFName(0x409, 4, GetTTFName(0x409, 4) + " " + GetTTFName(0x409, 2))
+
+SetTTFName(0x419, 2, "Наклонный")
+SetTTFName(0x419, 4, GetTTFName(0x419, 4) + " " + GetTTFName(0x419, 2))
 
 # save sfd files
 Save($2)

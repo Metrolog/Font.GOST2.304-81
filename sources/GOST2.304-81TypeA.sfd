@@ -55,7 +55,7 @@ Lookup: 262 0 0 "Marks above marks" { "MarksAboveMarks"  } ['mkmk' ('DFLT' <'dfl
 Lookup: 258 8 0 "Kern" { "Kern" [330,33,0] } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 MarkAttachClasses: 1
 DEI: 91125
-LangName: 1033 "" "" "Normal" "" "" "01.00.0000" "" "" "" "Sergei S. Betke"
+LangName: 1033 "" "" "Regular" "" "GOST 2.304-81 Type A" "01.00.0000" "" "" "" "Sergei S. Betke"
 LangName: 1049 "" "+BBMEHgQhBCIA 2.304-81" "+BB4EMQRLBEcEPQRLBDkA" "" "+BBMEHgQhBCIA 2.304-81 +BCIEOAQ/ +BBAA" "" "" "" "" "+BBEENQRCBDoENQAA +BCEENQRABDMENQQ5 +BCEENQRABDMENQQ1BDIEOARH"
 GaspTable: 3 8 2 22 13 65535 7 1
 MATH:ScriptPercentScaleDown: 80
