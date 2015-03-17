@@ -11,6 +11,7 @@ CorrectDirection()
 
 RoundToInt()
 AddExtrema(1)
+Simplify(4+8, 5, 5)
 RoundToInt()
 
 CanonicalStart()

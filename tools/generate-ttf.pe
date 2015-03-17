@@ -8,5 +8,8 @@ ScaleToEm(1024)
 
 SetPref("AutoHint", 0)
 
+SelectWorthOutputting()
+RoundToInt()
+
 # generate font files
 Generate($2)

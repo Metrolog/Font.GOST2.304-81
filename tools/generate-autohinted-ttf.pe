@@ -18,6 +18,7 @@ SetPref("InterpolateStrongPoints", 0)
 SetPref("CounterControl", 0)
 
 SelectWorthOutputting()
+RoundToInt()
 AutoHint()
 AutoCounter()
 AutoInstr()

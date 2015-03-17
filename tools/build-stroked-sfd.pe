@@ -12,20 +12,11 @@ SetTTFName(1049, 5, $3)
 Reencode("unicode")
 
 # unlink transformed references
-#SelectWorthOutputting()
-#UnlinkReference()
-#ReplaceWithReference(2.0)
-#DefaultRoundToGrid()
-#DefaultUseMyMetrics() 
-
-# duplicate with x+2 for adding hstem on stem ends
-#SelectWorthOutputting()
-#UnlinkReference()
-#Copy()
-#PasteWithOffset(2, 0)
-#ReplaceWithReference(0.0)
-#DefaultRoundToGrid()
-#DefaultUseMyMetrics() 
+SelectWorthOutputting()
+UnlinkReference()
+ReplaceWithReference(2.0)
+DefaultRoundToGrid()
+DefaultUseMyMetrics() 
 
 # add 0-9, +-=() subscript
 subscriptScale = 100*10/14
