@@ -96,7 +96,7 @@ $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
 # generate aux slanted .sfd file
 
 SLANTEDFONTSFD		:= $(AUXDIR)/$(FONT)-Slanted.sfd
-FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.pe
+FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.py
 
 $(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
 	$(info Build stroked slanted font .sfd file "$@"...)
@@ -104,7 +104,7 @@ $(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
 
 # stroke font -> outline font
 
-FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke.pe
+FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke-sfd.py
 
 $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 	$(info Expand stroke font to outline font "$@"...)
