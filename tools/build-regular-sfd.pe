@@ -1,7 +1,0 @@
-# $1 - source .sfd file name
-# $2 - destination .sfd file name
-
-Open($1)
-
-# save sfd files
-Save($2)

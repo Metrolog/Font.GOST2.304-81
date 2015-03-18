@@ -87,7 +87,7 @@ $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirst
 # generate aux regular .sfd file
 
 REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
-FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.pe
+FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.py
 
 $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
 	$(info Build stroked regular font .sfd file "$@"...)
