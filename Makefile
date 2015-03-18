@@ -78,7 +78,7 @@ $(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
-FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.pe
+FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
 
 $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
