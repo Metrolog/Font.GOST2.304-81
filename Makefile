@@ -45,6 +45,7 @@ ifeq ($(OS),Windows_NT)
 	MAKETARGETDIR2	= cd $(dir ${@D}) && mkdir $(notdir ${@D})
 	TOUCH			= @echo . >
 	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
+	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
 	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
 else
 	RM				:= rm
@@ -53,6 +54,7 @@ else
 	MAKETARGETDIR2	= MAKETARGETDIR
 	TOUCH			= touch
 	FONTFORGE		?= fontforge
+	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
 endif
 
@@ -82,7 +84,7 @@ FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
 
 $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
+	$(PY) $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
 
 # generate aux regular .sfd file
 
@@ -91,7 +93,7 @@ FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.py
 
 $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
 	$(info Build stroked regular font .sfd file "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFBUILDREGULARSFD) $< $@
+	$(PY) $(FFBUILDREGULARSFD) $< $@
 
 # generate aux slanted .sfd file
 
@@ -100,7 +102,7 @@ FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.py
 
 $(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
 	$(info Build stroked slanted font .sfd file "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFBUILDSLANTEDSFD) $< $@
+	$(PY) $(FFBUILDSLANTEDSFD) $< $@
 
 # stroke font -> outline font
 
@@ -108,7 +110,7 @@ FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke-sfd.py
 
 $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 	$(info Expand stroke font to outline font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFEXPANDSTROKE) $< $@
+	$(PY) $(FFEXPANDSTROKE) $< $@
 
 # all FontForge aux projects
 
