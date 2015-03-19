@@ -45,11 +45,4 @@ for i in range(len(sourceUnicode)):
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
 
-# build accented glyphs
-font.encoding = 'unicode'
-font.selection.all()
-for existingGlyph in font.glyphs():
-	font.selection.select(['less', None], existingGlyph)
-#font.build (True)
-
 font.save (destfile)
