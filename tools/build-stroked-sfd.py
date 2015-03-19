@@ -45,4 +45,6 @@ for i in range(len(sourceUnicode)):
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
 
+font.is_quadratic = False
+
 font.save (destfile)

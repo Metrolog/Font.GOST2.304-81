@@ -21,6 +21,7 @@ fontforge.setPrefs ('CounterControl', 0)
 
 font.selection.all ()
 font.round ()
+font.is_quadratic = True
 font.autoHint ()
 font.autoInstr ()
 
