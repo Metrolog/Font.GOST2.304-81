@@ -14,7 +14,7 @@ font = fontforge.open (sourcefile)
 font.version = version
 ver = re.search('^(?P<major>\d+)\.(?P<minor>\d+)(\.(?P<release>\d+)(\.(?P<build>\d+))?)?', version)
 if ver is not None:
-	font.sfntRevision = ( int(ver.group('major')) << 16 ) + ( int(ver.group ('minor')) )
+	font.sfntRevision = None
 	for name in font.sfnt_names:
 		if name[1] == 'Version':
 			font.appendSFNTName (name[0], name[1], '')
