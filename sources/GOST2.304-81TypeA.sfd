@@ -16,7 +16,8 @@ LayerCount: 2
 Layer: 0 0 "Back" 1
 Layer: 1 0 "Fore" 0
 StrokedFont: 1
-XUID: [1021 655 1312083872 19032]
+UniqueID: 4500000
+UseUniqueID: 1
 BaseHoriz: 4 'ideo' 'idtp' 'math' 'romn'
 BaseScript: 'DFLT' 3  -400 1400 0 0
 FSType: 0
@@ -24,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426778834
+ModificationTime: 1426788842
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -122,7 +123,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 0 38 14
+WinInfo: 27 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]

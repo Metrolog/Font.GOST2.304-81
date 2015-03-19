@@ -10,6 +10,8 @@ destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
 
+font.uniqueid += 1
+
 for glyph in font.glyphs():
 	if not ( glyph.background.isEmpty ):
 		glyph.foreground += glyph.background
