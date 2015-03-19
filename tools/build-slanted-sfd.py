@@ -10,6 +10,9 @@ destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
 
+for glyph in font.glyphs():
+	glyph.foreground += glyph.background
+
 slantAngle = 75-90
 
 font.selection.all ()

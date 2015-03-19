@@ -10,6 +10,9 @@ destfile = sys.argv[2]
 font = fontforge.open (sourcefile)
 
 for glyph in font.glyphs():
+	glyph.foreground += glyph.background
+
+for glyph in font.glyphs():
 	if ( (glyph.unlinkRmOvrlpSave) or ( (len(glyph.foreground)>0) and (len(glyph.references)>0) ) ):
 		glyph.unlinkRef ()
 		glyph.unlinkRmOvrlpSave = False

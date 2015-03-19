@@ -10,6 +10,9 @@ version = sys.argv[3]
 
 font = fontforge.open (sourcefile)
 
+for glyph in font.glyphs():
+	glyph.foreground += glyph.background
+
 # set font version
 font.version = version
 ver = re.search('^(?P<major>\d+)\.(?P<minor>\d+)(\.(?P<release>\d+)(\.(?P<build>\d+))?)?', version)

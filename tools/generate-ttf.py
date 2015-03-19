@@ -6,6 +6,9 @@ destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
 
+for glyph in font.glyphs():
+	glyph.foreground += glyph.background
+
 font.em = 1024
 
 fontforge.setPrefs ('AutoHint', 0)
