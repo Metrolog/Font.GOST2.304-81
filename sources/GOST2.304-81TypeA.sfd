@@ -59,23 +59,23 @@ DEI: 91125
 LangName: 1033 "" "" "Regular" "" "GOST 2.304-81 Type A" "01.00.0000" "" "" "" "Sergei S. Betke"
 LangName: 1049 "" "+BBMEHgQhBCIA 2.304-81" "+BB4EMQRLBEcEPQRLBDkA" "" "+BBMEHgQhBCIA 2.304-81 +BCIEOAQ/ +BBAA" "" "" "" "" "+BBEENQRCBDoENQAA +BCEENQRABDMENQQ5 +BCEENQRABDMENQQ1BDIEOARH"
 GaspTable: 3 8 2 22 13 65535 7 1
-MATH:ScriptPercentScaleDown: 80
-MATH:ScriptScriptPercentScaleDown: 60
+MATH:ScriptPercentScaleDown: 71
+MATH:ScriptScriptPercentScaleDown: 51
 MATH:DelimitedSubFormulaMinHeight: 2700
 MATH:DisplayOperatorMinHeight: 0
 MATH:MathLeading: 0 
 MATH:AxisHeight: 500 
 MATH:AccentBaseHeight: 0 
 MATH:FlattenedAccentBaseHeight: 0 
-MATH:SubscriptShiftDown: 0 
-MATH:SubscriptTopMax: 0 
-MATH:SubscriptBaselineDropMin: 0 
-MATH:SuperscriptShiftUp: 0 
+MATH:SubscriptShiftDown: 500 
+MATH:SubscriptTopMax: 500 
+MATH:SubscriptBaselineDropMin: 200 
+MATH:SuperscriptShiftUp: 900 
 MATH:SuperscriptShiftUpCramped: 0 
-MATH:SuperscriptBottomMin: 0 
-MATH:SuperscriptBaselineDropMax: 0 
+MATH:SuperscriptBottomMin: 900 
+MATH:SuperscriptBaselineDropMax: 200 
 MATH:SubSuperscriptGapMin: 400 
-MATH:SuperscriptBottomMaxWithSubscript: 0 
+MATH:SuperscriptBottomMaxWithSubscript: 100 
 MATH:SpaceAfterScript: 75 
 MATH:UpperLimitGapMin: 0 
 MATH:UpperLimitBaselineRiseMin: 0 
