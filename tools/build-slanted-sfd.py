@@ -37,7 +37,6 @@ for glyph in font.selection.byGlyphs:
 
 font.italicangle = slantAngle
 font.macstyle = 2
-#SetTeXParams( GetTeXParam(-1), GetTeXParam(0), slantAngle, GetTeXParam(2), GetTeXParam(3), GetTeXParam(4), GetTeXParam(5), GetTeXParam(6), GetTeXParam(7))
 
 font.fullname += " Slanted"
 font.appendSFNTName ('English (US)', 'SubFamily', 'Italic')
