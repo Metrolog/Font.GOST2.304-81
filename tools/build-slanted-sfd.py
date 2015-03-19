@@ -17,14 +17,21 @@ for glyph in font.glyphs():
 
 slantAngle = 75-90
 
-font.selection.all ()
-font.selection.select (['less', 'unicode', 'singletons'], 0x2031, 0x26AC, 0x030A, 0x2300, 0x2332, 0x2218, 0x2219, 0x2316, 0x232D, 0x23E5, 0x27C2)
-font.selection.select (['less', 'singletons'], 'percent', 'perthousand', 'slash', 'degree', 'perpendicular', '.notdef', '.null', 'nonmarkingreturn')
-font.selection.select (['less', 'unicode', 'ranges'], 0x2500, 0x25FF)
+transformation = psMat.skew ( math.radians (-slantAngle) )
 
+font.selection.none ()
+font.selection.select (['more', 'unicode', 'singletons'], 0x2031, 0x26AC, 0x030A, 0x2300, 0x2332, 0x2218, 0x2219, 0x2316, 0x232D, 0x23E5, 0x27C2)
+font.selection.select (['more', 'singletons'], 'percent', 'perthousand', 'slash', 'degree', 'perpendicular', '.notdef', '.null', 'nonmarkingreturn')
+font.selection.select (['more', 'unicode', 'ranges'], 0x2500, 0x25FF)
+#for glyph in font.selection.byGlyphs:
+#	bounds = glyph.boundingBox()
+#	dx = fontforge.point(0, bounds[3]+50).transform(transformation).x
+#	glyph.transform ( psMat.translate( dx, 0 ), ['partialRefs', None] )
+
+font.selection.invert ()
 for glyph in font.selection.byGlyphs:
 	glyph.correctDirection ()
-	glyph.transform ( psMat.skew ( math.radians (-slantAngle) ), ['partialRefs', None]  )
+	glyph.transform ( transformation, ['partialRefs', None]  )
 	glyph.round ()
 	glyph.canonicalStart()
 
