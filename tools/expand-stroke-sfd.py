@@ -20,7 +20,7 @@ for glyph in font.glyphs():
 	glyph.correctDirection ()
 	glyph.simplify (0.4, ['smoothcurves', 'removesingletonpoints', 'ignoreextrema'])
 	glyph.addExtrema ('all')
-	glyph.simplify (4, ['smoothcurves', 'setstarttoextremum'])
+	glyph.simplify (3, ['smoothcurves', 'setstarttoextremum'])
 	glyph.round ()
 	glyph.canonicalStart ()
 	glyph.canonicalContours ()
