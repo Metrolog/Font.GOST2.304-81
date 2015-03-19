@@ -134,7 +134,7 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
 else
 
 ifeq ($(AUTOHINT),fontforge)
-FFGENERATETTF		:= $(TOOLSDIR)generate-autohinted-ttf.pe
+FFGENERATETTF		:= $(TOOLSDIR)generate-autohinted-ttf.py
 endif
 
 $(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
