@@ -1,2 +1,5 @@
-/*.sfd-*
+*.sfd-*
 obj
+dirstate
+/make.log
+/build.log
