@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1426788842
+ModificationTime: 1426793734
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -45,6 +45,16 @@ HheadAscent: 1800
 HheadAOffset: 0
 HheadDescent: -400
 HheadDOffset: 0
+OS2SubXSize: 1430
+OS2SubYSize: 1562
+OS2SubXOff: -197
+OS2SubYOff: 500
+OS2SupXSize: 1430
+OS2SupYSize: 1562
+OS2SupXOff: 678
+OS2SupYOff: 900
+OS2StrikeYSize: 100
+OS2StrikeYPos: 500
 OS2CapHeight: 1400
 OS2XHeight: 1000
 OS2FamilyClass: 2048
@@ -123,7 +133,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 27 27 10
+WinInfo: 0 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
