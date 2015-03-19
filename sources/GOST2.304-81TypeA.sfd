@@ -2063,6 +2063,7 @@ EndChar
 StartChar: copyright
 Encoding: 169 169 106
 Width: 1700
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
@@ -2131,6 +2132,7 @@ EndChar
 StartChar: registered
 Encoding: 174 174 111
 Width: 1700
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
