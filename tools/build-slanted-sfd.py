@@ -11,7 +11,9 @@ destfile = sys.argv[2]
 font = fontforge.open (sourcefile)
 
 for glyph in font.glyphs():
-	glyph.foreground += glyph.background
+	if not ( glyph.background.isEmpty ):
+		glyph.foreground += glyph.background
+		glyph.background = fontforge.layer()
 
 slantAngle = 75-90
 

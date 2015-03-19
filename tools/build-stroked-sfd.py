@@ -11,7 +11,9 @@ version = sys.argv[3]
 font = fontforge.open (sourcefile)
 
 for glyph in font.glyphs():
-	glyph.foreground += glyph.background
+	if not ( glyph.background.isEmpty ):
+		glyph.foreground += glyph.background
+		glyph.background = fontforge.layer()
 
 # set font version
 font.version = version
