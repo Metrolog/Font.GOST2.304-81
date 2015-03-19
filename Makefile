@@ -117,7 +117,7 @@ FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)
 
 # build True Type fonts
 
-FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.pe
+FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.py
 
 TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
 
