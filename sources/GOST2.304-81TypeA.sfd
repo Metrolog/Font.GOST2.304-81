@@ -87,10 +87,10 @@ MATH:SuperscriptBaselineDropMax: 200
 MATH:SubSuperscriptGapMin: 400 
 MATH:SuperscriptBottomMaxWithSubscript: 100 
 MATH:SpaceAfterScript: 75 
-MATH:UpperLimitGapMin: 0 
-MATH:UpperLimitBaselineRiseMin: 0 
-MATH:LowerLimitGapMin: 0 
-MATH:LowerLimitBaselineDropMin: 0 
+MATH:UpperLimitGapMin: 300 
+MATH:UpperLimitBaselineRiseMin: 300 
+MATH:LowerLimitGapMin: 300 
+MATH:LowerLimitBaselineDropMin: 300 
 MATH:StackTopShiftUp: 0 
 MATH:StackTopDisplayStyleShiftUp: 0 
 MATH:StackBottomShiftDown: 0 
@@ -133,7 +133,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 0 27 10
+WinInfo: 27 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
