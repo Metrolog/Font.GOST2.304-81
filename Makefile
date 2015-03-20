@@ -81,8 +81,9 @@ $(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
 FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
+FFBUILDSTROKEDSFDPRE:= $(foreach file, numero.fea, $(TOOLSDIR)$(file))
 
-$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirstate
+$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
 	$(PY) $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
 

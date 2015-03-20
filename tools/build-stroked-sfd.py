@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import fontforge, psMat
-import sys, re
+import sys, os, re
 
+toolsdir = os.path.dirname(os.path.abspath(sys.argv[0])) + '/'
 sourcefile = sys.argv[1]
 destfile = sys.argv[2]
 version = sys.argv[3]
@@ -54,5 +55,9 @@ for i in range(len(sourceUnicode)):
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
 
 font.is_quadratic = False
+
+# add numero № ligatures
+# http://en.wikipedia.org/wiki/Numero_sign
+font.mergeFeature ( toolsdir + 'numero.fea')
 
 font.save (destfile)
