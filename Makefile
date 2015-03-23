@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf
+all: ttf ttc
 
-.PHONY: all clean ttf
+.PHONY: all clean ttf ttc
 
 .SECONDARY:;
 
@@ -146,7 +146,17 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
 
 endif 
 
-ttf: $(TTFTARGETS)
+ttf: $(TTFTARGETS) $(TTFDIR)/dirstate
+
+# build True Type collection
+
+FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
+
+$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC)
+	$(info Generate .ttc collection "$@"...)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
+
+ttc: $(TTFDIR)/$(FONT).ttc ttf $(TTFDIR)/dirstate
 
 # clean projects
 
