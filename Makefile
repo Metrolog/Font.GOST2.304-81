@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf ttc
+all: ttf ttc woff
 
-.PHONY: all clean ttf ttc
+.PHONY: all clean ttf ttc woff
 
 .SECONDARY:;
 
@@ -20,6 +20,7 @@ SPACE				= $(empty) $(empty)
 SRCDIR				:= sources/
 OUTPUTDIR			:= release
 TTFDIR				:= $(OUTPUTDIR)/ttf
+WOFFDIR				:= $(OUTPUTDIR)/woff
 AUXDIR				:= obj
 TOOLSDIR			:= tools/
 
@@ -76,6 +77,7 @@ dirstate:;
 	@$(TOUCH) $@
 
 $(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
+$(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 # generate aux .sfd files
 
@@ -154,9 +156,21 @@ FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
 
 $(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TTFDIR)/dirstate
 	$(info Generate .ttc collection "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
+	$(PY) $(FFGENERATETTC) $@ $(TTFTARGETS)
 
 ttc: $(TTFDIR)/$(FONT).ttc ttf
+
+# build Web Open Font Format
+
+FFGENERATEWOFF		:= $(TOOLSDIR)generate-woff.py
+
+WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIANT).woff)
+
+$(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(WOFFDIR)/dirstate
+	$(info Generate .woff font "$@"...)
+	$(PY) $(FFGENERATEWOFF) $< $@
+
+woff: $(WOFFTARGETS)
 
 # clean projects
 

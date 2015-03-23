@@ -54,6 +54,15 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Данный формат - удобная форма поставки пакета шрифтов семейства ГОСТ 2.304-81 в одном файле. Поддерживается Windows.
 
+#### Web Open Font Format - `woff`
+
+Сборка [WOFF][] осуществляется следующим образом:
+
+	make woff
+
+Данная цель требует предварительной сборки цели `ttf`.
+
+
 Версии
 ------
 
@@ -63,3 +72,5 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 [FontForge]: https://github.com/fontforge/fontforge
 [TTFAutoHint]: http://www.freetype.org/ttfautohint
 [GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
+[WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
+[TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
