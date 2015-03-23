@@ -16,4 +16,4 @@ fontforge.setPrefs ('AutoHint', 0)
 font.selection.all ()
 font.round ()
 
-font.generate ( destfile, flags=['TeX-table', 'omit-instructions'] )
+font.generate ( destfile ) # , flags=['TeX-table', 'omit-instructions'] )
