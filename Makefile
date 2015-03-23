@@ -27,7 +27,7 @@ TOOLSDIR			:= tools/
 # setup tools
 
 # fontforge, ttfautohint or no
-AUTOHINT			?= fontforge
+AUTOHINT			?= ttfautohint
 
 FONTFORGEOPTIONS	:= \
 	-nosplash
