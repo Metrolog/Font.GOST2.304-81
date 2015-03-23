@@ -42,7 +42,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 На данный момент по умолчанию используется автоинструктирование средствами [FontForge][], и [TTFAutoHint][] не требуется.
 Для принудительного использования [TTFAutoHint][] вместо автоинструктирования [FontForge][]:
 
-	make ttf AUTOHINT='ttfautohint'
+	make ttf AUTOHINT=ttfautohint
 	
 #### True Type Fonts Collection - `ttc`
 
