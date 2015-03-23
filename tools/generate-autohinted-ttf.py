@@ -28,5 +28,4 @@ font.is_quadratic = True
 font.autoHint ()
 font.autoInstr ()
 
-font.generate (destfile)
-#font.generate ( destfile, flags=['dummy-dsig', 'TeX-table'] )
+font.generate ( destfile, flags=['TeX-table', None] )
