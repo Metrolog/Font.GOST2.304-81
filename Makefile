@@ -146,17 +146,17 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
 
 endif 
 
-ttf: $(TTFTARGETS) $(TTFDIR)/dirstate
+ttf: $(TTFTARGETS)
 
 # build True Type collection
 
 FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
 
-$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC)
+$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TTFDIR)/dirstate
 	$(info Generate .ttc collection "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
 
-ttc: $(TTFDIR)/$(FONT).ttc ttf $(TTFDIR)/dirstate
+ttc: $(TTFDIR)/$(FONT).ttc ttf
 
 # clean projects
 
