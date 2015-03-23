@@ -21,7 +21,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Сборка проекта осуществляется следующим образом:
 
-	make ttf
+	make
 
 либо
 
@@ -40,13 +40,13 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 вручную добавить хинты в проект шрифта, тогда использование [TTFAutoHint][] не потребуется вовсе.
 
 На данный момент по умолчанию используется автоинструктирование средствами [FontForge][], и [TTFAutoHint][] не требуется.
-Для принудительного использования [TTFAutoHint][] автоинструктирования [FontForge][]:
+Для принудительного использования [TTFAutoHint][] вместо автоинструктирования [FontForge][]:
 
 	make ttf AUTOHINT='ttfautohint'
 	
 #### True Type Fonts Collection - `ttc`
 
-Сборка True Type Fonts Collection (.ttc) осуществляется следующим образом:
+Сборка [True Type Fonts Collection (.ttc)](<http://en.wikipedia.org/wiki/TrueType#TrueType_Collection>) осуществляется следующим образом:
 
 	make ttc
 
