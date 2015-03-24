@@ -28,7 +28,7 @@ TOOLSDIR			:= tools/
 # setup tools
 
 # fontforge, ttfautohint or no
-AUTOHINT			?= fontforge
+AUTOHINT			?= ttfautohint
 
 FONTFORGEOPTIONS	:= \
 	-nosplash
@@ -174,14 +174,10 @@ woff: $(WOFFTARGETS)
 
 # build Open Type fonts
 
-FFGENERATEOTF		:= $(TOOLSDIR)generate-otf.py
+FFGENERATEOTF		:= $(TOOLSDIR)generate-autohinted-otf.py
 OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT).otf)
 
 $(OTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
-
-ifeq ($(AUTOHINT),fontforge)
-FFGENERATEOTF		:= $(TOOLSDIR)generate-autohinted-otf.py
-endif
 
 $(OTFDIR)/%.otf: $(AUXDIR)/%-outline.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
 	$(info Generate .otf font "$@"...)
