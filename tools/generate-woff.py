@@ -9,11 +9,4 @@ font = fontforge.open (sourcefile)
 for glyph in font.glyphs():
 	glyph.foreground += glyph.background
 
-font.em = 1024
-
-fontforge.setPrefs ('AutoHint', 0)
-
-font.selection.all ()
-font.round ()
-
-font.generate ( destfile ) # , flags=['TeX-table', 'omit-instructions'] )
+font.generate ( destfile ) # , flags=[None] )
