@@ -155,7 +155,7 @@ FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
 
 $(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TTFDIR)/dirstate
 	$(info Generate .ttc collection "$@"...)
-	$(PY) $(FFGENERATETTC) $@ $(TTFTARGETS)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
 
 ttc: $(TTFDIR)/$(FONT).ttc ttf
 
@@ -168,7 +168,7 @@ $(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 $(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(WOFFDIR)/dirstate
 	$(info Generate .woff font "$@"...)
-	$(PY) $(FFGENERATEWOFF) $< $@
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEWOFF) $< $@
 
 woff: $(WOFFTARGETS)
 
