@@ -18,6 +18,8 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 - [FontForge][]
 - [TTFAutoHint][]
 - [GNU make][]
+- [latexmk][] (только для сборки TeX пакетов и документов)
+- [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
 
 Сборка проекта осуществляется следующим образом:
 
@@ -70,7 +72,9 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 Поэтому разработку и сборку следует вести в ветках типа "0.1", "0.2", "1.0".
 
 [FontForge]: https://github.com/fontforge/fontforge
-[TTFAutoHint]: http://www.freetype.org/ttfautohint
 [GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
-[WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
+[latexmk]: https://www.ctan.org/pkg/latexmk/ "latexmk – Fully automated LaTeX document generation"
+[Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
+[TTFAutoHint]: http://www.freetype.org/ttfautohint
+[WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
