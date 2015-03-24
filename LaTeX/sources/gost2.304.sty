@@ -1,0 +1,795 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gost2.304}[2014/12/20 v0.2 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
+% используем шрифты A и Б, последний - для "утолщённых" начертаний
+
+\RequirePackage{expl3}
+\RequirePackage{l3keys2e}
+
+\ExplSyntaxOn
+
+% NFSS идентификатор шрифта
+\tl_const:Nn \c_eskdfont_mainfont_tl {eskdfont}
+\tl_const:Nn \c_eskdfont_mathfont_tl {eskdfont}
+
+% ряд размеров шрифтов h по ГОСТ 2.304
+% применяемые размеры шрифта h=2,5; 3,5; 5,0; 7,0; 10,0; 14,0; 20,0; 28,0; 40,0 мм
+% п.3.3 ГОСТ 2.105-95 - высота шрифта не менее 2,5 мм
+% ввожу в ряд 1.8mm только ради формул (индексов, прочего)
+\clist_const:Nn \c__eskdfont_fontsizes_clist {1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm}
+
+\bool_new:N \g__eskdfont_mainfontsize_bool
+\bool_gset_false:N \g__eskdfont_mainfontsize_bool
+
+\dim_new:N \g__eskdfont_normalsize_dim
+\dim_new:N \g__eskdfont_small_dim
+\dim_new:N \g__eskdfont_footnotesize_dim
+\dim_new:N \g__eskdfont_scriptsize_dim
+\dim_new:N \g__eskdfont_tiny_dim
+\dim_new:N \g__eskdfont_large_dim
+\dim_new:N \g__eskdfont_Large_dim
+\dim_new:N \g__eskdfont_LARGE_dim
+\dim_new:N \g__eskdfont_huge_dim
+\dim_new:N \g__eskdfont_Huge_dim
+
+\bool_new:N \g__eskdfont_romannumeral_check_bool
+\bool_gset_false:N \g__eskdfont_romannumeral_check_bool
+\bool_new:N \g__eskdfont_math_support_bool
+\bool_gset_false:N \g__eskdfont_math_support_bool
+
+\cs_generate_variant:Nn \dim_to_decimal_in_unit:nn { cn }
+
+\msg_new:nnn { gost2.304 } { mainfont }
+  {
+    Set~ eskdfont~ as~ main~ font.
+  }
+\msg_new:nnn { gost2.304 } { invalid-font-size }
+  {
+    The~ font~ size~ "#1"~ is~ invalid.~
+    Valid~ eskd~ font~ sizes:~ \clist_use:Nn \c__eskdfont_fontsizes_clist {,~ }.
+  }
+\msg_new:nnn { gost2.304 } { invalid-mainfontsize }
+  {
+    Invalid~ "mainfontsize"~ value~ "#1".
+  }
+\msg_new:nnn { gost2.304 } { set-font-size }
+  {
+    Set~ "#1"~ font~ size~ to~ \dim_to_decimal_in_unit:cn {g__eskdfont_#1_dim} {1mm}~mm.
+  }
+
+\keys_define:nn { gost2.304 }
+  {
+    mainfontsize .code:n =
+      {
+        \clist_if_in:NnTF \c__eskdfont_fontsizes_clist {#1}
+          {
+            \dim_gset:Nn \g__eskdfont_normalsize_dim {#1}
+            \bool_gset_true:N \g__eskdfont_mainfontsize_bool
+          }
+          { \msg_fatal:nnn { gost2.304 } {invalid-font-size} {#1} }
+      },
+    romannumeral .choice:,
+    romannumeral / gost2.304 .code:n =
+      { \bool_gset_true:N \g__eskdfont_romannumeral_check_bool },
+    romannumeral / tex .code:n =
+      { \bool_gset_false:N \g__eskdfont_romannumeral_check_bool },
+    romannumeral .initial:n = { gost2.304 },
+    math .choice:,
+    math / true .code:n =
+      {
+        \bool_gset_true:N \g__eskdfont_math_support_bool
+        \PassOptionsToClass {no-math} {fontspec}
+      },
+    math / false .code:n =
+      {
+        \bool_gset_false:N \g__eskdfont_math_support_bool
+      },
+    math .default:n = true,
+    math .initial:n = true,
+    no-math .meta:n =
+      {
+        math = false
+      },
+    quiet .code:n =
+      {
+        \msg_redirect_module:nnn { gost2.304 } { warning } { info }
+        \msg_redirect_module:nnn { gost2.304 } { info } { none }
+      },
+    quiet .meta:n =
+      {
+        trace = off
+      },
+    silent .code:n =
+      {
+        \msg_redirect_module:nnn { gost2.304 } { warning } { none }
+        \msg_redirect_module:nnn { gost2.304 } { info } { none }
+      },
+    silent .meta:n =
+      {
+        trace = off
+      },
+    warnings-off .code:n =
+      {
+        \clist_map_inline:nn {#1}
+          { \msg_redirect_name:nnn { gost2.304 } { ##1 } { none } }
+      },
+    trace .choice:,
+    trace / on .code:n = 
+      {
+        \msg_redirect_module:nnn { gost2.304 } { log } { log }
+      },
+    trace / debug .code:n =
+      {
+        \msg_redirect_module:nnn { gost2.304 } { log } { warning }
+      },
+    trace / off .code:n =
+      {
+        \msg_redirect_module:nnn { gost2.304 } { log } { none }
+      }
+  }
+
+\ProcessKeysOptions { gost2.304 }
+
+\PassOptionsToPackage{T2A}{fontenc}
+\PassOptionsToPackage{T1}{fontenc}
+\RequirePackage{fontenc}
+\RequirePackage{cmap}
+\RequirePackage{xecyr}
+\RequirePackage{xparse}
+\RequirePackage{fontspec}
+\RequirePackage{unicode-math}
+
+\cs_new_nopar:Nn \__eskdfont_fontsizeget:n
+  {
+    \clist_item:Nn \c__eskdfont_fontsizes_clist {#1}
+  }
+
+\cs_new_nopar:Nn \__eskdfont_normalsize_gset:n
+  {
+    \dim_set:Nn \l_tmpa_dim {#1}
+    \bool_gset_false:N \g__eskdfont_mainfontsize_bool
+    \int_set_eq:NN \l_tmpa_int \c_zero
+    \clist_map_inline:Nn \c__eskdfont_fontsizes_clist
+      {
+        \int_incr:N \l_tmpa_int
+        \dim_compare:nNnT \l_tmpa_dim = {##1}
+          {
+            \bool_gset_true:N \g__eskdfont_mainfontsize_bool
+            \clist_map_break:
+          }
+      }
+    \bool_if:NTF \g__eskdfont_mainfontsize_bool
+      {
+        \int_case:nnTF { \l_tmpa_int }
+          {
+            { 2 } % 2,5mm
+              {
+                \dim_gset:Nn \g__eskdfont_tiny_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_scriptsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_footnotesize_dim { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_small_dim        { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_normalsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
+                \dim_gset:Nn \g__eskdfont_Large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
+                \dim_gset:Nn \g__eskdfont_LARGE_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
+                \dim_gset:Nn \g__eskdfont_Huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
+              }
+            { 3 } % 3,5mm
+              {
+                \dim_gset:Nn \g__eskdfont_tiny_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_scriptsize_dim   { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_footnotesize_dim { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_small_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_normalsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
+                \dim_gset:Nn \g__eskdfont_Large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
+                \dim_gset:Nn \g__eskdfont_LARGE_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
+                \dim_gset:Nn \g__eskdfont_Huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
+              }
+            { 4 } % 5,0mm
+              {
+                \dim_gset:Nn \g__eskdfont_tiny_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 3 } } }
+                \dim_gset:Nn \g__eskdfont_scriptsize_dim   { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_footnotesize_dim { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_small_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_normalsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
+                \dim_gset:Nn \g__eskdfont_Large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
+                \dim_gset:Nn \g__eskdfont_LARGE_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
+                \dim_gset:Nn \g__eskdfont_Huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
+              }
+            { 5 } % 7,0mm
+              {
+                \dim_gset:Nn \g__eskdfont_tiny_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 3 } } }
+                \dim_gset:Nn \g__eskdfont_scriptsize_dim   { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_footnotesize_dim { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_small_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_normalsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
+                \dim_gset:Nn \g__eskdfont_Large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
+                \dim_gset:Nn \g__eskdfont_LARGE_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
+                \dim_gset:Nn \g__eskdfont_Huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
+              }
+            { 6 } % 10mm
+              {
+                \dim_gset:Nn \g__eskdfont_tiny_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_scriptsize_dim   { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_footnotesize_dim { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_small_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_normalsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
+                \dim_gset:Nn \g__eskdfont_Large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
+                \dim_gset:Nn \g__eskdfont_LARGE_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
+                \dim_gset:Nn \g__eskdfont_Huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
+              }
+            { 7 } % 14mm
+              {
+                \dim_gset:Nn \g__eskdfont_tiny_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_scriptsize_dim   { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
+                \dim_gset:Nn \g__eskdfont_footnotesize_dim { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_small_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
+                \dim_gset:Nn \g__eskdfont_normalsize_dim   { \__eskdfont_fontsizeget:n \l_tmpa_int }
+                \dim_gset:Nn \g__eskdfont_large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
+                \dim_gset:Nn \g__eskdfont_Large_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
+                \dim_gset:Nn \g__eskdfont_LARGE_dim        { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+                \dim_gset:Nn \g__eskdfont_Huge_dim         { \__eskdfont_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
+              }
+          }
+          {
+            \clist_map_inline:nn {
+              \normalsize, \small, \footnotesize, \scriptsize, \tiny,
+              \large, \Large, \LARGE, \huge, \Huge
+            }
+              {
+                \DeclareDocumentCommand ##1 {} {%
+                  \__eskdfont_setfontsize_h:Nc ##1 {g__eskdfont_\cs_to_str:N ##1_dim}
+                  \selectfont
+                }
+                \msg_log:nnx { gost2.304 } { set-font-size } {\cs_to_str:N ##1}
+              }
+            \normalsize
+            \setmainfont { \tl_use:N \c_eskdfont_mainfont_tl }
+              [
+                NFSSFamily = \tl_use:N \c_eskdfont_mainfont_tl,
+                \tl_use:N \g__eskdfont_mainfont_features_tl
+              ]
+            \msg_log:nn { gost2.304 } { mainfont }
+          }
+          {
+            \msg_fatal:nnn { gost2.304 } { invalid-mainfontsize } {#1}
+          }
+      }
+      {
+        \msg_fatal:nnn { gost2.304 } { invalid-font-size } {#1}
+      }
+  }
+\@onlypreamble \__eskdfont_normalsize_gset:n
+\cs_new_nopar:Nn \__eskdfont_normalsize_gset:
+  {
+    \__eskdfont_normalsize_gset:n \g__eskdfont_normalsize_dim
+  }
+\@onlypreamble \__eskdfont_normalsize_gset:
+
+% основные параметры шрифтов ГОСТ 2.304
+\tl_const:Nn \c__eskdfont_type_A_tl { GOST2.304-81TypeA-Regular }
+\tl_const:Nn \c__eskdfont_type_A_slanted_tl { GOST2.304-81TypeA-Slanted }
+\tl_const:Nn \c__eskdfont_type_B_tl { GOST2.304-81TypeA-Regular }
+\tl_const:Nn \c__eskdfont_type_B_slanted_tl { GOST2.304-81TypeA-Slanted }
+\tl_new:N \l__eskdfont_type_A_features_tl
+\tl_new:N \l__eskdfont_type_A_fontadjustment_tl
+\fp_new:N \g__eskdfont_type_A_scale_fp
+\fp_gset_eq:NN \g__eskdfont_type_A_scale_fp \c_one_fp
+\tl_new:N \l__eskdfont_type_B_features_tl
+\tl_new:N \l__eskdfont_type_B_fontadjustment_tl
+\fp_new:N \g__eskdfont_type_B_scale_fp
+\fp_gset_eq:NN \g__eskdfont_type_B_scale_fp \c_one_fp
+\tl_new:N \g__eskdfont_font_features_tl % fontspec параметры семейства шрифтов
+\tl_set:Nn \l__eskdfont_type_A_features_tl
+  {
+    Font = \tl_use:N \c__eskdfont_type_A_tl
+    ,Scale = \fp_to_decimal:N \g__eskdfont_type_A_scale_fp
+    ,FontAdjustment = { \tl_use:N \l__eskdfont_type_A_fontadjustment_tl }
+  }
+\tl_set:Nn \l__eskdfont_type_A_slanted_features_tl
+  {
+    Font = \tl_use:N \c__eskdfont_type_A_slanted_tl
+    ,Scale = \fp_to_decimal:N \g__eskdfont_type_A_scale_fp
+    ,FontAdjustment = { \tl_use:N \l__eskdfont_type_A_fontadjustment_tl }
+  }
+\tl_set:Nn \l__eskdfont_type_B_features_tl
+  {
+    Font = \tl_use:N \c__eskdfont_type_B_tl
+    ,Scale = \fp_to_decimal:N \g__eskdfont_type_B_scale_fp
+    ,FontAdjustment = { \tl_use:N \l__eskdfont_type_B_fontadjustment_tl }
+  }
+\tl_set:Nn \l__eskdfont_type_B_slanted_features_tl
+  {
+    Font = \tl_use:N \c__eskdfont_type_B_slanted_tl
+    ,Scale = \fp_to_decimal:N \g__eskdfont_type_B_scale_fp
+    ,FontAdjustment = { \tl_use:N \l__eskdfont_type_B_fontadjustment_tl }
+  }
+\tl_gset:Nn \g__eskdfont_font_features_tl
+  {
+    Path = fonts/
+    ,Extension = .ttf
+    ,UprightFont = \tl_use:N \c__eskdfont_type_A_tl
+    ,OpticalSize = 0
+    ,Mapping = tex-text
+    ,UprightFeatures =
+      {
+        \tl_use:N \l__eskdfont_type_A_features_tl
+      }
+    ,SlantedFeatures =
+      {
+        \tl_use:N \l__eskdfont_type_A_slanted_features_tl
+      }
+    ,BoldFeatures =
+      {
+        \tl_use:N \l__eskdfont_type_B_features_tl
+      }
+    ,BoldSlantedFeatures =
+      {
+        \tl_use:N \l__eskdfont_type_B_slanted_features_tl
+      }
+    %Kerning = On, % not avaliable for ttf fonts
+    %Numbers = Uppercase, % not avaliable in font
+  }
+
+% определяем масштаб для шрифта
+% 1ex = c, h = 14/10 c (или 10/7 c для шрифта типа Б)
+% 1em = кегль шрифта (\f@size)
+% (\f@size) / h = em / (14/10 ex) = 10em / 14ex
+\group_begin:
+  \fontspec { \tl_use:N \c_eskdfont_mainfont_tl }
+    [
+      NFSSFamily = \tl_use:N \c_eskdfont_mainfont_tl,
+      \tl_use:N \g__eskdfont_font_features_tl
+    ]
+  \fontsize { 100pt } { 100pt } \selectfont
+  \dim_set:Nn \l_tmpa_dim { 1pt * \dim_ratio:nn { 10em } { 14ex } }
+  \int_set:Nn \l_tmpa_int \l_tmpa_dim
+  \tl_const:Nx \c__eskdfont_fontscale_tl { \int_use:N \l_tmpa_int / 65536 }
+
+  \dim_set:Nn \l_tmpa_dim {1ex}
+  \bfseries
+  \fp_gset:Nn \g__eskdfont_type_B_scale_fp
+    { \dim_to_fp:n { 1pt * \dim_ratio:nn \l_tmpa_dim { 1ex } } }
+\group_end:
+
+\cs_new_nopar:Nn \__eskdfont_fontsize_from_h:n
+  { \dim_eval:n { \dim_eval:n{ #1 } * \c__eskdfont_fontscale_tl } }
+\cs_new_nopar:Nn \__eskdfont_fontsize_from_h:Nn
+  { \dim_set:Nn #1 { \__eskdfont_fontsize_from_h:n { #2 } } }
+
+% ограничиваем допустимые размеры шрифтов
+\clist_set_eq:NN \l_tmpa_clist \c__eskdfont_fontsizes_clist
+\clist_pop:NN \l_tmpa_clist \l_tmpa_tl % tiny size
+% переводим 1.8mm в число в pt
+\dim_set:Nn \l_tmpa_dim { \__eskdfont_fontsize_from_h:n { \tl_use:N \l_tmpa_tl } }
+% готовим список остальных допустимых размеров
+\seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
+\seq_clear:N \l_tmpb_seq
+\seq_push:Nx \l_tmpb_seq
+  { {
+    Size = \dim_to_decimal:n \l_tmpa_dim % п.2.2 ГОСТ 2.304-81
+    , \tl_use:N \l__eskdfont_type_B_features_tl
+  } }
+\seq_map_inline:Nn \l_tmpa_seq
+  {
+    \seq_push:Nx \l_tmpb_seq
+      { { Size = \dim_to_decimal:n { \__eskdfont_fontsize_from_h:n { #1 } } } }
+  }
+%\tl_put_right:Nx \l__eskdfont_type_A_features_tl
+%  { ,SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
+
+\seq_clear:N \l_tmpb_seq
+\clist_map_inline:Nn \c__eskdfont_fontsizes_clist
+  {
+    \seq_push:Nx \l_tmpb_seq
+      { { Size = \dim_to_decimal:n { \__eskdfont_fontsize_from_h:n { #1 } } } }
+  }
+%\tl_put_right:Nx \l__eskdfont_type_B_features_tl
+%  { ,SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
+
+\tl_gset:Nx \g__eskdfont_mainfont_features_tl { \tl_use:N \g__eskdfont_font_features_tl }
+\newfontfamily \eskdfont { \tl_use:N \c_eskdfont_mainfont_tl }
+  [
+    NFSSFamily = \tl_use:N \c_eskdfont_mainfont_tl,
+    \tl_use:N \g__eskdfont_mainfont_features_tl
+  ]
+
+\cs_new_nopar:Nn \__eskdfont_b_from_h:n
+  {
+    \dim_eval:n { #1 * 22 / 14 }
+  }
+
+\cs_new_nopar:Nn \__eskdfont_setfontsize_h:Nnn
+  {
+    \@setfontsize{#1}{\__eskdfont_fontsize_from_h:n{#2}}{#3}
+    \ignorespaces
+  }
+\cs_new_nopar:Nn \__eskdfont_setfontsize_h:Nn
+  {
+    \__eskdfont_setfontsize_h:Nnn {#1}{#2}{ \__eskdfont_b_from_h:n {#2} }
+  }
+\cs_generate_variant:Nn \__eskdfont_setfontsize_h:Nn { Nc }
+
+\cs_new_nopar:Nn \eskdfont_fontsize_h:nn
+  {
+    \fontsize{\__eskdfont_fontsize_from_h:n{#1}}{#2}
+    \ignorespaces
+  }
+\cs_new_nopar:Nn \eskdfont_fontsize_h:n
+  {
+    \eskdfont_fontsize_h:nn {#1}{ \__eskdfont_b_from_h:n {#1} }
+  }
+
+% в отличии от \fontsize устанавливает не кегль шрифта, а h (ex) параметр шрифта
+\DeclareDocumentCommand \eskdfontsize {m o}
+  {
+    \IfNoValueTF{#2}
+      { \eskdfont_fontsize_h:n {#1} }
+      { \eskdfont_fontsize_h:nn {#1}{#2} }
+    \ignorespaces
+  }
+
+% устанавливаем основной шрифт и производные размеры, если указана опция mainfontsize
+\bool_if:NT \g__eskdfont_mainfontsize_bool
+  { \__eskdfont_normalsize_gset: }
+
+% опционально используем только заглавные римские цифры, как предусмотрено ГОСТ 2.304
+\cs_new_nopar:Nn \eskdfont_int_to_Roman:n
+  {
+    \tl_if_eq:NNTF \c_eskdfont_mainfont_tl \f@family
+      { \__eskdfont_int_to_Roman_aux:n {#1} }
+      { \int_to_Roman:n {#1} }
+  }
+\cs_new_nopar:Nn \eskdfont_int_to_roman:n
+  {
+    \tl_if_eq:NNTF \c_eskdfont_mainfont_tl \f@family
+      { \__eskdfont_int_to_Roman_aux:n {#1} }
+      { \int_to_roman:n {#1} }
+  }
+
+\dim_new:N \l__eskdfont_romannumeral_kern_dim
+
+\cs_generate_variant:Nn \tl_if_eq:nnTF {xx}
+\cs_new_nopar:Nn \__eskdfont_int_to_Roman_aux:n
+  {
+    \group_begin:
+      \tl_if_eq:xxTF \f@series {m}
+        {
+          % 1ex = c, h = 14/10 c, d = ex / 10, kern = -d = -1/10 ex
+          \dim_set:Nn \l__eskdfont_romannumeral_kern_dim {-0.1ex}
+        }
+        {
+          % 1ex = c, h = 10/7 c, d = ex / 7, kern = -d = -1/7 ex
+          \dim_set:Nn \l__eskdfont_romannumeral_kern_dim {-0,142857ex}
+        }
+      \cs_set_nopar:Npn \__int_to_Roman_i:w { I\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_v:w { V\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_x:w { X\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_l:w { L\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_c:w { C\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_d:w { D\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_m:w { M\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \int_to_Roman:n {#1}
+      \tex_kern:D -\l__eskdfont_romannumeral_kern_dim
+    \group_end:
+  }
+
+\bool_if:NT \g__eskdfont_romannumeral_check_bool
+  {
+    \cs_set_eq:NN \@roman \eskdfont_int_to_roman:n
+    \cs_set_eq:NN \@Roman \eskdfont_int_to_Roman:n
+  }
+
+% опционально заменяем математические шрифты
+\tl_new:N \l__eskdfont_mathfont_features_tl % fontspec параметры math шрифтов
+
+% определяем допустимые размеры шрифтов для формул
+\cs_new:Nn \__eskdfont_declare_math_sizes:nnnn
+  {
+    \DeclareMathSizes
+      { \dim_to_decimal:n {#1} }
+      { \dim_to_decimal:n {#2} }
+      { \dim_to_decimal:n {#3} }
+      { \dim_to_decimal:n {#4} }
+  }
+
+\cs_new:Nn \__eskdfont_declare_math_sizes:
+  {
+    \dim_new:N \l__eskdfont_mathscriptsize_dim
+    \dim_new:N \l__eskdfont_mathsubscriptsize_dim
+    \clist_get:NN \l_tmpa_tl \c__eskdfont_fontsizes_clist
+    \__eskdfont_fontsize_from_h:Nn \l__eskdfont_mathscriptsize_dim \l_tmpa_tl
+    \dim_set_eq:NN \l__eskdfont_mathsubscriptsize_dim \l__eskdfont_mathscriptsize_dim
+    \clist_map_inline:Nn \c__eskdfont_fontsizes_clist
+      {
+        \__eskdfont_fontsize_from_h:Nn \l_tmpa_dim {##1}
+        \__eskdfont_declare_math_sizes:nnnn
+          \l_tmpa_dim
+          \l_tmpa_dim
+          \l__eskdfont_mathscriptsize_dim
+          \l__eskdfont_mathsubscriptsize_dim
+        \dim_set_eq:NN \l__eskdfont_mathsubscriptsize_dim \l__eskdfont_mathscriptsize_dim
+        \dim_set_eq:NN \l__eskdfont_mathscriptsize_dim \l_tmpa_dim
+      }
+  }
+
+% переопределяем шрифты цифр
+\cs_new:Nn \__eskdfont_math_symbol_declare:nNnn
+  {
+    \DeclareMathSymbol {#1} {#2} {#3} {#4}
+    \ignorespaces
+  }
+\cs_generate_variant:Nn \__eskdfont_math_symbol_declare:nNnn { nNnx }
+\cs_generate_variant:Nn \__eskdfont_math_symbol_declare:nNnn { xNnx }
+
+\cs_new:Nn \__eskdfont_numbers_set:
+  {
+%    \DeclareSymbolFont {numbers}        \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+%    \SetSymbolFont     {numbers} {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+%    \int_step_inline:nnnn { 0 } { 1 } { 9 }
+%      { \__eskdfont_math_symbol_declare:nNnx {##1} \mathalpha {numbers} {`##1} }
+%    \__eskdfont_math_symbol_declare:nNnx {,} \mathpunct {numbers} {`,}
+  }
+
+% переопределяем шрифты символов
+\cs_new:Nn \__eskdfont_letters_set:
+  {
+    %\DeclareSymbolFont {eskd}                \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {eskd}         {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    \SetSymbolFont     {operators}    {eskd} { \tl_use:N \g_fontspec_encoding_tl } {eskdfont} \mddefault \updefault
+    \SetSymbolFont     {symbols}      {eskd} { \tl_use:N \g_fontspec_encoding_tl } {eskdfont} \mddefault \updefault
+    \SetSymbolFont     {largesymbols} {eskd} { \tl_use:N \g_fontspec_encoding_tl } {eskdfont} \mddefault \updefault
+    %\DeclareSymbolFontAlphabet \matheskd     {eskd}
+    %\DeclareSymbolFontAlphabet \mathrm       {eskd}
+    %\DeclareSymbolFont {eskdsl}              \g_fontspec_encoding_tl {eskdfont} \mddefault \sldefault
+    %\SetSymbolFont     {eskdsl}       {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \sldefault
+    \SetSymbolFont     {letters}      {eskd} { \tl_use:N \g_fontspec_encoding_tl } {eskdfont} \mddefault \sldefault
+    %\DeclareSymbolFontAlphabet \matheskdsl   {eskdsl}
+    %\DeclareSymbolFontAlphabet \mathnormal   {eskdsl}
+    %\DeclareSymbolFontAlphabet \mathit       {eskdsl}
+    %\DeclareSymbolFont {eskdbf}              \g_fontspec_encoding_tl {eskdfont} \bfdefault \updefault
+    %\SetSymbolFont     {eskdbf}       {eskd} \g_fontspec_encoding_tl {eskdfont} \bfdefault \updefault
+    %\DeclareSymbolFontAlphabet \matheskdbf   {eskdbf}
+    %\DeclareSymbolFontAlphabet \mathbf       {eskdbf}
+    %\DeclareSymbolFont {eskdbfsl}            \g_fontspec_encoding_tl {eskdfont} \bfdefault \sldefault
+    %\SetSymbolFont     {eskdbfsl}     {eskd} \g_fontspec_encoding_tl {eskdfont} \bfdefault \sldefault
+    %\DeclareSymbolFontAlphabet \matheskdbfsl {eskdbfsl}
+  }
+
+% переопределяем шрифты операторов
+\cs_new:Nn \__eskdfont_operators_set:
+  {
+    \SetSymbolFont {operators} {eskd} { \tl_use:N \g_fontspec_encoding_tl } {eskdfont} \mddefault \updefault
+
+    % должен быть "022C5, но этого символа нет в шрифте
+    % * сознательно перевожу в знак умножения в виде точки
+    \__eskdfont_math_symbol_declare:nNnn {*} \mathbin {operators} {"000B7} %{"002DA} {"02217} {"022C5}
+    \cs_set_eq:NN \cdot \cdotp
+    \cs_set_eq:NN \times \cdot
+
+    \__eskdfont_math_symbol_declare:nNnn {+} \mathbin {operators} {`+}
+    \__eskdfont_math_symbol_declare:nNnn {-} \mathbin {operators} {`-}
+
+    \__eskdfont_math_symbol_declare:nNnn {:} \mathrel {operators} {`:}
+    \__eskdfont_math_symbol_declare:nNnn {=} \mathrel {operators} {`=}
+  }
+
+% переопределеяем знак корня
+\cs_new:Nn \__eskdfont_math_radical_declare:Nnnnn
+  {
+    \DeclareMathRadical {#1} {#2} {#3} {#4} {#5}
+    \ignorespaces
+  }
+
+\cs_new:Nn \__eskdfont_radical_set:
+  {
+    %\DeclareSymbolFont {eskdsymbols}             \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {eskdsymbols}      {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\DeclareSymbolFont {eskdlargesymbols}        \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {eskdlargesymbols} {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+
+    %\DeclareSymbolFont {symbols}             \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {symbols}      {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\DeclareSymbolFont {largesymbols}        \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {largesymbols} {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+
+    %\DeclareSymbolFont {eskdsymbols}             {OMS} {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {eskdsymbols}      {eskd} {OMS} {eskdfont} \mddefault \updefault
+    %\DeclareSymbolFont {eskdlargesymbols}        {OMX} {eskdfont} \mddefault \updefault
+    %\SetSymbolFont     {eskdlargesymbols} {eskd} {OMX} {eskdfont} \mddefault \updefault
+    %\__eskdfont_math_radical_declare:Nnnnn \sqrtsign
+    %  {eskdsymbols} {`X}
+    %  {eskdlargesymbols} {"0221A} %{"221A}
+    %\DeclareMathRadical{\sqrtsign}{eskdsymbols}{"70}{eskdlargesymbols}{"70}
+
+%    \@ifpackageloaded { amsmath } { }
+%    {
+%      \cs_set_nopar:Npn \r@@t ##1 ##2
+%      {
+%        \hbox_set:Nn \l_tmpa_box
+%        {
+%          \c_math_toggle_token
+%          \m@th
+%          ##1
+%          \sqrtsign { ##2 }
+%          \c_math_toggle_token
+%        }
+%        \um_mathstyle_scale:Nnn ##1 { \kern }
+%        { \fontdimen 63 \l_um_font }
+%        \box_move_up:nn
+%        {
+%          (\box_ht:N \l_tmpa_box - \box_dp:N \l_tmpa_box)
+%          * \number \fontdimen 65 \l_um_font / 100
+%        }
+%        { \box_use:N \rootbox }
+%        \um_mathstyle_scale:Nnn ##1 { \kern }
+%        { \fontdimen 64 \l_um_font }
+%        \box_use_clear:N \l_tmpa_box
+%      }
+%    }
+  }
+
+\cs_new_nopar:Nn \__eskdfont_math_font_family:n
+  {\tl_to_str:N \c_eskdfont_mathfont_tl #1}
+
+\cs_generate_variant:Nn \fontspec_set_family:cnn { cxx }
+
+\cs_new_nopar:Nn \__eskdfont_set_symbol_font:nnn
+  {
+    \tl_set:Nx \l__eskdfont_mathfont_features_tl { \tl_use:N \g__eskdfont_font_features_tl }
+    \fontspec_set_family:cxx { g__eskdfont_math_symbol_font_ #1 }
+      {
+        NFSSFamily = \__eskdfont_math_font_family:n {#1},
+        \tl_use:N \l__eskdfont_mathfont_features_tl
+      }
+      { \tl_use:N \c_eskdfont_mathfont_tl }
+    \SetSymbolFont
+      {#1}
+      {eskd}
+      { \tl_use:N \g_fontspec_encoding_tl }
+      { \__eskdfont_math_font_family:n {#1} }
+      {#2}
+      {#3}
+  }
+\cs_new_nopar:Nn \__eskdfont_set_symbol_font:nnnnn
+  {
+    % hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
+    % и это шрифт мог иметь отличный от других набор команд FontAdjustment
+    \fp_gadd:Nn \g__eskdfont_type_A_scale_fp {0.00001}
+    \fp_gadd:Nn \g__eskdfont_type_B_scale_fp {0.00001}
+    \tl_set:Nn \l__eskdfont_type_A_fontadjustment_tl {#4}
+    \tl_set:Nn \l__eskdfont_type_B_fontadjustment_tl {#5}
+    \__eskdfont_set_symbol_font:nnn {#1} {#2} {#3}
+  }
+
+\DeclareMathVersion {eskd}
+
+\__eskdfont_set_symbol_font:nnn {operators}    \mddefault \updefault
+\__eskdfont_set_symbol_font:nnn {letters}      \mddefault \sldefault
+
+\__eskdfont_set_symbol_font:nnnnn {symbols}      \mddefault \updefault
+  {
+    % положение числителя и знаменателя
+    %\fontdimen8\font=0pt\relax %FractionNumeratorDisplayStyleShiftUp
+    %\fontdimen9\font=0pt\relax %FractionNumeratorShiftUp
+    %\fontdimen11\font=0pt\relax %FractionDenominatorDisplayStyleShiftDown
+    %\fontdimen12\font=0pt\relax %FractionDenominatorShiftDown
+    % положение дробной линии по вертикали
+    %\fontdimen22\font=.505ex\relax %AxisHeight
+    %
+    % переопределяем параметры знака корня (радикала)
+    %\fontdimen62\font=0pt\relax % radical_kern
+    %\fontdimen61\font=0pt\relax % radical_rule
+    %\fontdimen60\font=0pt\relax % radical_vgap
+    %\fontdimen59\font=0pt\relax % radical_vgap
+    %\fontdimen63\font=0pt\relax % radical_degree_before
+    %\fontdimen64\font=0pt\relax % radical_degree_after
+    %\fontdimen65\font=0pt\relax % radical_degree_raise
+    %
+    % увеличиваем количество доступных параметров до 23
+    %\fontdimen66\font=0pt\relax
+  }
+  {
+    % положение числителя и знаменателя
+    %\fontdimen8\font=0pt\relax %FractionNumeratorDisplayStyleShiftUp
+    %\fontdimen9\font=0pt\relax %FractionNumeratorShiftUp
+    %\fontdimen11\font=0pt\relax %FractionDenominatorDisplayStyleShiftDown
+    %\fontdimen12\font=0pt\relax %FractionDenominatorShiftDown
+    % положение дробной линии по вертикали
+    %\fontdimen22\font=.81ex\relax %AxisHeight
+    %
+    % переопределяем параметры знака корня (радикала)
+    %\fontdimen62\font=0pt\relax % radical_kern
+    %\fontdimen61\font=0pt\relax % radical_rule
+    %\fontdimen60\font=0pt\relax % radical_vgap
+    %\fontdimen59\font=0pt\relax % radical_vgap
+    %\fontdimen63\font=0pt\relax % radical_degree_before
+    %\fontdimen64\font=0pt\relax % radical_degree_after
+    %\fontdimen65\font=0pt\relax % radical_degree_raise
+    %
+    % увеличиваем количество доступных параметров до 23
+    %\fontdimen66\font=0pt\relax
+  }
+
+\__eskdfont_set_symbol_font:nnnnn {largesymbols} \mddefault \updefault
+  {
+    % переопределяем толщину линии в дробях для шрифта типа А d = 1/14 h = 1/10 c = .1ex
+    % \fontdimen8\font=.1ex\relax %FractionRuleThickness
+    % увеличиваем количество доступных параметров до 13
+    % \fontdimen13\font=0pt\relax
+    %
+    % переопределяем параметры знака корня (радикала)
+    %\fontdimen9\font=1pt\relax % UpperLimitGapMin
+    %\fontdimen10\font=1pt\relax % LowerLimitGapMin
+    %\fontdimen11\font=1pt\relax % UpperLimitBaselineRiseMin
+    %\fontdimen12\font=1pt\relax % LowerLimitBaselineDropMin
+    %
+    %\fontdimen62\font=0pt\relax % radical_kern
+    %\fontdimen61\font=0pt\relax % radical_rule
+    %\fontdimen60\font=0pt\relax % radical_vgap
+    %\fontdimen59\font=0pt\relax % radical_vgap
+    %\fontdimen63\font=0pt\relax % radical_degree_before
+    %\fontdimen64\font=0pt\relax % radical_degree_after
+    %\fontdimen65\font=0pt\relax % radical_degree_raise
+    %
+    % увеличиваем количество доступных параметров до 23
+    %\fontdimen66\font=0pt\relax
+  }
+  {
+    % переопределяем толщину линии в дробях для шрифта типа Б d = 1/10 h = 1/7 c = 0,1428571428571429ex
+    %\fontdimen8\font=.1428571428571429ex\relax %FractionRuleThickness
+    % увеличиваем количество доступных параметров до 13
+    %\fontdimen13\font=0pt\relax
+    %
+    % переопределяем параметры знака корня (радикала)
+    %\fontdimen9\font=1pt\relax % UpperLimitGapMin
+    %\fontdimen10\font=1pt\relax % LowerLimitGapMin
+    %\fontdimen11\font=1pt\relax % UpperLimitBaselineRiseMin
+    %\fontdimen12\font=1pt\relax % LowerLimitBaselineDropMin
+    %
+    %\fontdimen62\font=0pt\relax % radical_kern
+    %\fontdimen61\font=0pt\relax % radical_rule
+    %\fontdimen60\font=0pt\relax % radical_vgap
+    %\fontdimen59\font=0pt\relax % radical_vgap
+    %\fontdimen63\font=0pt\relax % radical_degree_before
+    %\fontdimen64\font=0pt\relax % radical_degree_after
+    %\fontdimen65\font=0pt\relax % radical_degree_raise
+    %
+    % увеличиваем количество доступных параметров до 23
+    %\fontdimen66\font=0pt\relax
+  }
+
+%\SetMathAlphabet   \mathbf        {eskd} \g_fontspec_encoding_tl {eskdfont} \bfdefault \updefault
+%\SetMathAlphabet   \mathsf        {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+%\SetMathAlphabet   \mathit        {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \sldefault
+%\SetMathAlphabet   \mathtt        {eskd} \g_fontspec_encoding_tl {eskdfont} \mddefault \updefault
+
+%\__eskdfont_numbers_set:
+%\__eskdfont_letters_set:
+\__eskdfont_operators_set:
+
+%\__eskdfont_math_symbol_declare:nNnn {!} \mathclose {operators} {`!}
+%\__eskdfont_math_symbol_declare:nNnn {?} \mathclose {operators} {`?}
+%\__eskdfont_math_symbol_declare:nNnn {;} \mathpunct {operators} {`;}
+%\__eskdfont_math_symbol_declare:nNnn {.} \mathord   {letters}   {`.}
+
+%\__eskdfont_radical_set:
+
+\__eskdfont_declare_math_sizes:
+
+\AtBeginDocument
+  {
+    \bool_if:NT \g__eskdfont_math_support_bool
+      { \mathversion{eskd} }
+  }
+
+\ExplSyntaxOff

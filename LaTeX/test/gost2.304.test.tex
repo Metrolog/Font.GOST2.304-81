@@ -1,0 +1,322 @@
+\documentclass[trace=off]{article}
+
+% !TeX spellcheck = ru_RU
+% !TeX program = xelatex
+
+\usepackage{interfaces}
+\usepackage{tikz}
+\usepackage{interfaces-tikz}
+\usepackage[a4 paper, portrait, tmargin=10mm, bmargin=10mm, inner=20mm, outer=20mm, headheight=0mm, headsep=0mm, footskip=0mm]{geometry}
+\usepackage
+  [
+    mainfontsize = 3.5mm,
+    math = true
+  ]
+  {gost2.304}
+
+\begin{document}
+
+  \parindent=0pt\relax
+  \raggedright
+  \papergraduate
+
+  \makeatletter
+  \f@family\,\f@series\,\@roman{4}\, \eskdfont \f@family\,\@roman{4}\,\@roman{6}\,\@roman{12}
+
+  \eskdfontsize{1.8mm}\selectfont
+  Tiny 999 \bfseries Tiny 999 - должны быть одинаково утолщёнными (1.8 мм - допустим только для шрифта Б \f@series)
+  f@size=\f@size.\,
+  \eskdfontsize{1mm}\selectfont И это - не 1 мм, а 1.8 мм.
+  f@size=\f@size.
+
+  \normalsize\upshape\mdseries Нормальный
+  \small small
+  \footnotesize Footnotesize
+  \scriptsize Scriptsize
+  \tiny Tiny
+  \large large
+  \Large Large
+  \LARGE LARGE
+  \huge huge
+  \Huge Huge
+  
+  \eskdfontsize{5mm}\selectfont
+  \newlength\ldn
+  \ldn=1em 1\,em равен \the\ldn,
+  \ldn=1.4ex 1.4\,ex равен \the\ldn,
+  \ldn=5mm 5\,mm равно \the\ldn.
+  \f@family
+  
+  \eskdfontsize{40mm}\selectfont С
+  {\slshape С}
+  \textbf{С}
+  {\slshape\bfseries С}
+
+  \NewDocumentCommand \DrawChars {m} {
+    \begin{tikzpicture}
+    \papergraduate (-5mm,0mm) (160mm,20mm);
+    \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
+    {
+      #1
+    };
+    \end{tikzpicture}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{14mm} \selectfont\mdseries
+  Раздел 3 ГОСТ 2.304-81. Шрифт типа А
+  
+  {
+    \slshape
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя}
+  }
+
+  {
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{10mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \slshape
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя}
+  }
+
+  {
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{14mm} \selectfont\mdseries
+  Раздел 4 ГОСТ 2.304-81. Шрифт типа А
+
+  {
+    \slshape
+    \DrawChars{ABCDEFGHIJKLMN}
+    \DrawChars{OPQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnop}
+    \DrawChars{qrstuvwxyz}
+  }
+
+  {
+    \DrawChars{ABCDEFGHIJKLMNO}
+    \DrawChars{PQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnopq}
+    \DrawChars{rstuvwxyz}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{10mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \slshape
+    \DrawChars{ABCDEFGHIJKLMN}
+    \DrawChars{OPQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnop}
+    \DrawChars{qrstuvwxyz}
+  }
+
+  {
+    \DrawChars{ABCDEFGHIJKLMN}
+    \DrawChars{OPQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnopq}
+    \DrawChars{rstuvwxyz}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{14mm} \selectfont\mdseries
+  Раздел 5 ГОСТ 2.304-81. Шрифт типа А
+
+  {
+    \slshape
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu \Xi}
+    \DrawChars{\Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu}
+    \DrawChars{\xi \omicron \pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  {
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu \Xi \Omicron}
+    \DrawChars{\Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi \omicron}
+    \DrawChars{\pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{10mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \slshape
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu}
+    \DrawChars{\Xi \Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu}
+    \DrawChars{\nu \xi \omicron \pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  {
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu}
+    \DrawChars{\Xi \Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu}
+    \DrawChars{\xi \omicron \pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{14mm} \selectfont\mdseries
+  Раздел 6 ГОСТ 2.304-81. Шрифт типа А
+
+  {
+    \DrawChars{1234567890}
+  }
+  {
+    \slshape
+    \DrawChars{1234567890}
+  }
+  \newcounter{digit}%
+  {
+    \DrawChars{%
+      \setcounter{digit}{1}\roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+    }
+    \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}
+  }
+  {
+    \slshape
+    \DrawChars{%
+      \setcounter{digit}{1}\Roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{10mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \DrawChars{1234567890}
+  }
+  {
+    \slshape
+    \DrawChars{1234567890}
+  }
+  {
+    \DrawChars{%
+      \setcounter{digit}{1}\Roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+    }
+    \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}
+  }
+  {
+    \slshape
+    \DrawChars{%
+      \setcounter{digit}{1}\Roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{10mm} \selectfont\mdseries
+  Раздел 8 ГОСТ 2.304-81. Степени и дроби
+
+  \papergraduate
+  %\mathversion{eskd}
+
+  f@size=\f@size,
+  %\@tempdima=10mm\relax10 mm=\the\@tempdima\,
+  \@ifundefined{S@\f@size}
+    {math size doesn't definded.}
+    {math size definded.}
+
+  \[m = 1.23 * \left(а+б+в_{Гл}\right)\times a_{b_c}\]
+
+  \[m = \frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\times 2 \times 10^{23}\]
+
+  \begin{eqnarray}
+    m &=& 1,23 * \left(а+б+в_{Гл}\right)\\
+    E &=& mc^2\\
+    m &=& \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\times 2.34 \cdot 10^{23}\\
+    z &=& \sum_{i=0}^{10}a^i\sigma\left( x_i \right) \times \pi\\
+  \end{eqnarray}
+
+  \newpage
+  \papergraduate
+  \eskdfont \eskdfontsize{14mm} \selectfont\mdseries
+  f@size=\f@size
+  \[A_{B_{C_{D_{E_{F}}}}}\]
+  \[b=\sqrt[3]{222} \cdot 10^{23} \] %\cdot \XeTeXradical 3 "0221A{222}\]
+  \[m = 1,23 * \left(а+в_{Гл}\right) \times A_{B_C}\]
+  \[m = \frac{a}{a}\times\frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\]
+
+  \eskdfont \eskdfontsize{10mm} \selectfont\bfseries
+  f@size=\f@size
+  \[m = \frac{a}{a}\times\frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\]
+
+  \eskdfont \eskdfontsize{3.5mm} \selectfont\mdseries
+  f@size=\f@size
+  \[m = 1.23 * \left(а+в_{Гл}\right) \times A_{B_C}\]
+  \[m = \frac{a}{a}\times\frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\]
+
+  \newpage
+  \eskdfont \eskdfontsize{10mm} \selectfont\mdseries
+  Проба всего размерного ряда шрифтов
+
+  \NewDocumentCommand \DrawSize {m} {
+    \par
+    \begin{tikzpicture}
+    \papergraduate (-5mm,0mm) (160mm,#1+5mm);
+    \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
+    {
+      \eskdfontsize{#1}\selectfont
+      \upshape\mdseries SIZE=#1,\,
+      \bfseries SIZE=#1,\,
+      \slshape\mdseries SIZE=#1,\,
+      \bfseries SIZE=#1.
+    };
+    \end{tikzpicture}
+    \par
+  }
+
+  \DrawSize{1mm}
+  \DrawSize{1.8mm}
+  \DrawSize{2.5mm}
+  \DrawSize{3.5mm}
+  \DrawSize{5mm}
+  \DrawSize{7mm}
+  \DrawSize{10mm}
+  \DrawSize{14mm}
+  \DrawSize{20mm}
+  \DrawSize{28mm}
+  \DrawSize{40mm}
+
+\end{document}
