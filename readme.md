@@ -17,6 +17,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 - [FontForge][]
 - [TTFAutoHint][]
+- [GNUWin32 Core Utils][]
 - [GNU make][]
 - [latexmk][] (только для сборки TeX пакетов и документов)
 - [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
@@ -73,6 +74,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 [FontForge]: https://github.com/fontforge/fontforge
 [GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
+[GNUWin32 Core Utils]: http://gnuwin32.sourceforge.net/packages/coreutils.htm
 [latexmk]: https://www.ctan.org/pkg/latexmk/ "latexmk – Fully automated LaTeX document generation"
 [Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"

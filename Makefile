@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf ttc woff otf
+all: ttf ttc woff otf tex-pkg
 
-.PHONY: all clean ttf ttc woff otf
+.PHONY: all clean ttf ttc woff otf tex-pkg
 
 .SECONDARY:;
 
@@ -14,14 +14,10 @@ all: ttf ttc woff otf
 
 ###
 
-FONT				?= GOST2.304-81TypeA
-
-SPACE				= $(empty) $(empty)
+FONT				:= GOST2.304-81TypeA
+SPACE				:= $(empty) $(empty)
 SRCDIR				:= sources/
 OUTPUTDIR			:= release
-TTFDIR				:= $(OUTPUTDIR)/ttf
-WOFFDIR				:= $(OUTPUTDIR)/woff
-OTFDIR				:= $(OUTPUTDIR)/otf
 AUXDIR				:= obj
 TOOLSDIR			:= tools/
 
@@ -41,24 +37,17 @@ TTFAUTOHINTOPTIONS	:= \
 	--no-info
 
 ifeq ($(OS),Windows_NT)
-	RM				:= del /S/Q
-	RMDIR			:= rmdir /S/Q
-	MAKETARGETDIR	= $(foreach d,$(subst /, ,${@D}),@mkdir $d && @cd $d && ) @echo dir "${@D}" created... 
-	MAKETARGETDIR2	= cd $(dir ${@D}) && mkdir $(notdir ${@D})
-	TOUCH			= @echo . >
+	MAKETARGETDIR	= cd $(dir ${@D}) && mkdir $(notdir ${@D})
 	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
 	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
 else
-	RM				:= rm
-	RMDIR			:= rmdir
 	MAKETARGETDIR	= mkdir -p ${@D}
-	MAKETARGETDIR2	= MAKETARGETDIR
-	TOUCH			= touch
 	FONTFORGE		?= fontforge
 	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
 endif
+LATEXMK				?= latexmk
 
 ## grab a version number from the repository (if any) that stores this.
 ## * REVISION is the current revision number (short form, for inclusion in text)
@@ -74,8 +63,8 @@ dirstate:;
 
 %/dirstate:
 	$(info Directory "${@D}" creating...)
-	$(MAKETARGETDIR2)
-	@$(TOUCH) $@
+	$(MAKETARGETDIR)
+	@touch $@
 
 # generate aux .sfd files
 
@@ -120,6 +109,7 @@ FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)
 
 # build True Type fonts
 
+TTFDIR				:= $(OUTPUTDIR)/ttf
 FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.py
 TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
 
@@ -161,6 +151,7 @@ ttc: $(TTFDIR)/$(FONT).ttc ttf
 
 # build Web Open Font Format
 
+WOFFDIR				:= $(OUTPUTDIR)/woff
 FFGENERATEWOFF		:= $(TOOLSDIR)generate-woff.py
 WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIANT).woff)
 
@@ -174,6 +165,7 @@ woff: $(WOFFTARGETS)
 
 # build Open Type fonts
 
+OTFDIR				:= $(OUTPUTDIR)/otf
 FFGENERATEOTF		:= $(TOOLSDIR)generate-autohinted-otf.py
 OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT).otf)
 
@@ -185,9 +177,26 @@ $(OTFDIR)/%.otf: $(AUXDIR)/%-outline.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
 
 otf: $(OTFTARGETS)
 
+# build latex style gost2.304.sty
+
+LATEXPKG			:= gost2.304
+LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
+LATEXSRCDIR			:= $(SRCDIR)latex
+LATEXPKGSRCDIR		:= $(LATEXSRCDIR)/$(LATEXPKG)
+
+$(OUTPUTDIR)/latexpkg/dirstate: $(OUTPUTDIR)/dirstate
+
+$(LATEXPKGDIR)/dirstate: $(OUTPUTDIR)/latexpkg/dirstate
+
+$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate
+	$(info Generate latex style package "$@"...)
+	cp $< $@
+
+tex-pkg: $(LATEXPKGDIR)/$(LATEXPKG).sty
+
 # clean projects
 
 clean:
 	$(info Erase aux and release directories...)
-	-$(RMDIR) $(AUXDIR)
-	-$(RMDIR) $(OUTPUTDIR)
+	rm -rf $(AUXDIR)
+	rm -rf $(OUTPUTDIR)
