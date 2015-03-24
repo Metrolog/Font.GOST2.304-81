@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf
+all: ttf ttc woff otf
 
-.PHONY: all clean ttf
+.PHONY: all clean ttf ttc woff otf
 
 .SECONDARY:;
 
@@ -20,13 +20,15 @@ SPACE				= $(empty) $(empty)
 SRCDIR				:= sources/
 OUTPUTDIR			:= release
 TTFDIR				:= $(OUTPUTDIR)/ttf
+WOFFDIR				:= $(OUTPUTDIR)/woff
+OTFDIR				:= $(OUTPUTDIR)/otf
 AUXDIR				:= obj
 TOOLSDIR			:= tools/
 
 # setup tools
 
 # fontforge, ttfautohint or no
-AUTOHINT			?= fontforge
+AUTOHINT			?= ttfautohint
 
 FONTFORGEOPTIONS	:= \
 	-nosplash
@@ -75,14 +77,13 @@ dirstate:;
 	$(MAKETARGETDIR2)
 	@$(TOUCH) $@
 
-$(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
-
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
 FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
+FFBUILDSTROKEDSFDPRE:= $(foreach file, numero.fea, $(TOOLSDIR)$(file))
 
-$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(AUXDIR)/dirstate
+$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
 	$(PY) $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
 
@@ -120,8 +121,9 @@ FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)
 # build True Type fonts
 
 FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.py
-
 TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
+
+$(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 ifeq ($(AUTOHINT),ttfautohint)
 
@@ -146,6 +148,42 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
 endif 
 
 ttf: $(TTFTARGETS)
+
+# build True Type collection
+
+FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
+
+$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TTFDIR)/dirstate
+	$(info Generate .ttc collection "$@"...)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
+
+ttc: $(TTFDIR)/$(FONT).ttc ttf
+
+# build Web Open Font Format
+
+FFGENERATEWOFF		:= $(TOOLSDIR)generate-woff.py
+WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIANT).woff)
+
+$(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
+
+$(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(WOFFDIR)/dirstate
+	$(info Generate .woff font "$@"...)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEWOFF) $< $@
+
+woff: $(WOFFTARGETS)
+
+# build Open Type fonts
+
+FFGENERATEOTF		:= $(TOOLSDIR)generate-autohinted-otf.py
+OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT).otf)
+
+$(OTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
+
+$(OTFDIR)/%.otf: $(AUXDIR)/%-outline.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
+	$(info Generate .otf font "$@"...)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
+
+otf: $(OTFTARGETS)
 
 # clean projects
 

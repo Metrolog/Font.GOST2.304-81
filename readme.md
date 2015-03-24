@@ -10,16 +10,16 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Шрифты содержат необходимые математические символы, позволяющие использовать их в математическом режиме TeX.
 
-Сборка шрифтов
+Сборка проекта
 --------------
 
-Для внесения изменений в пакет и повторной сборки шрифтов потребуются следующие продукты:
+Для внесения изменений в пакет и повторной сборки проекта потребуются следующие продукты:
 
 - [FontForge][]
 - [TTFAutoHint][]
 - [GNU make][]
 
-Сборка осуществляется следующим образом:
+Сборка проекта осуществляется следующим образом:
 
 	make
 
@@ -27,13 +27,41 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 	make all
 
-Сборка только True Type шрифтов выполняется следующим образом:
+### Цели
+
+#### True Type Fonts - `ttf`
+
+Сборка True Type Fonts (.ttf) осуществляется следующим образом:
 
 	make ttf
 
 [TTFAutoHint][] не обязателен, использовал его для того, чтобы добиться приличного качества отображения шрифтов
 при малых кеглях, при этом не включая в проект "ручного" хинтирования. В принципе, можно полностью 
 вручную добавить хинты в проект шрифта, тогда использование [TTFAutoHint][] не потребуется вовсе.
+
+На данный момент по умолчанию используется автоинструктирование средствами [TTFAutoHint][], а не [FontForge][].
+Для принудительного использования [FontForge][]:
+
+	make ttf AUTOHINT=fontforge
+	
+#### True Type Fonts Collection - `ttc`
+
+Сборка [True Type Fonts Collection (.ttc)](<http://en.wikipedia.org/wiki/TrueType#TrueType_Collection>) осуществляется следующим образом:
+
+	make ttc
+
+Данная цель требует предварительной сборки цели `ttf`.
+
+Данный формат - удобная форма поставки пакета шрифтов семейства ГОСТ 2.304-81 в одном файле. Поддерживается Windows.
+
+#### Web Open Font Format - `woff`
+
+Сборка [WOFF][] осуществляется следующим образом:
+
+	make woff
+
+Данная цель требует предварительной сборки цели `ttf`.
+
 
 Версии
 ------
@@ -44,3 +72,5 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 [FontForge]: https://github.com/fontforge/fontforge
 [TTFAutoHint]: http://www.freetype.org/ttfautohint
 [GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
+[WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
+[TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"

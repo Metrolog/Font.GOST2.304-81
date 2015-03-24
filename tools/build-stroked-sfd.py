@@ -2,19 +2,25 @@
 # -*- coding: utf-8 -*-
 
 import fontforge, psMat
-import sys, re
+import sys, os, re
 
+toolsdir = os.path.dirname(os.path.abspath(sys.argv[0])) + '/'
 sourcefile = sys.argv[1]
 destfile = sys.argv[2]
 version = sys.argv[3]
 
 font = fontforge.open (sourcefile)
 
+for glyph in font.glyphs():
+	if not ( glyph.background.isEmpty ):
+		glyph.foreground += glyph.background
+		glyph.background = fontforge.layer()
+
 # set font version
 font.version = version
 ver = re.search('^(?P<major>\d+)\.(?P<minor>\d+)(\.(?P<release>\d+)(\.(?P<build>\d+))?)?', version)
 if ver is not None:
-	font.sfntRevision = ( int(ver.group('major')) << 16 ) + ( int(ver.group ('minor')) )
+	font.sfntRevision = None
 	for name in font.sfnt_names:
 		if name[1] == 'Version':
 			font.appendSFNTName (name[0], name[1], '')
@@ -25,6 +31,9 @@ for glyph in font.glyphs():
 	for ref in glyph.references:
 		if ( (ref[1][0]!=1) or (ref[1][1]!=0) or (ref[1][2]!=0) or (ref[1][3]!=1)):
 			glyph.unlinkRef ()
+	if ( (glyph.unlinkRmOvrlpSave) or ( (len(glyph.foreground)>0) and (len(glyph.references)>0) ) ):
+		glyph.unlinkRef ()
+		glyph.unlinkRmOvrlpSave = False
 
 font.encoding = 'unicode'
 
@@ -44,5 +53,11 @@ for i in range(len(sourceUnicode)):
 	subGlyph.transform (subscriptTransform)
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+
+font.is_quadratic = False
+
+# add numero № ligatures
+# http://en.wikipedia.org/wiki/Numero_sign
+font.mergeFeature ( toolsdir + 'numero.fea')
 
 font.save (destfile)
