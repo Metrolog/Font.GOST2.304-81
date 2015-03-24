@@ -25,6 +25,7 @@ TOOLSDIR			:= tools/
 
 # fontforge, ttfautohint or no
 AUTOHINT			?= ttfautohint
+VIEWPDF				?= no
 
 FONTFORGEOPTIONS	:= \
 	-nosplash
@@ -47,7 +48,12 @@ else
 	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
 endif
-LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- -pv -recorder
+ifeq ($(VIEWPDF),yes)
+	VIEWPDFOPT		:= -pv
+else
+	VIEWPDFOPT		:= -pv-
+endif
+LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- $(VIEWPDFOPT) -recorder
 
 ## grab a version number from the repository (if any) that stores this.
 ## * REVISION is the current revision number (short form, for inclusion in text)
