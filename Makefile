@@ -47,7 +47,7 @@ else
 	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
 endif
-LATEXMK				?= latexmk
+LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- -pv -recorder
 
 ## grab a version number from the repository (if any) that stores this.
 ## * REVISION is the current revision number (short form, for inclusion in text)
@@ -208,7 +208,7 @@ LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR
 
 $(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex tex-pkg
 	$(info Generate latex test pdf file "$@"...)
-	$(LATEXMK) -xelatex -outdir=$(LATEXTESTSOUTPUTDIR) -auxdir=$(AUXDIR) -pdf -dvi- -ps- -pv -recorder $<
+	$(LATEXMK) -outdir=$(@D) $<
 
 tex-tests: tex-pkg $(LATEXTESTSTARGETS)
 
