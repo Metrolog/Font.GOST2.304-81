@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf ttc woff
+all: ttf ttc woff otf
 
-.PHONY: all clean ttf ttc woff
+.PHONY: all clean ttf ttc woff otf
 
 .SECONDARY:;
 
@@ -21,13 +21,14 @@ SRCDIR				:= sources/
 OUTPUTDIR			:= release
 TTFDIR				:= $(OUTPUTDIR)/ttf
 WOFFDIR				:= $(OUTPUTDIR)/woff
+OTFDIR				:= $(OUTPUTDIR)/otf
 AUXDIR				:= obj
 TOOLSDIR			:= tools/
 
 # setup tools
 
 # fontforge, ttfautohint or no
-AUTOHINT			?= ttfautohint
+AUTOHINT			?= fontforge
 
 FONTFORGEOPTIONS	:= \
 	-nosplash
@@ -76,9 +77,6 @@ dirstate:;
 	$(MAKETARGETDIR2)
 	@$(TOUCH) $@
 
-$(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
-$(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
-
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
@@ -123,8 +121,9 @@ FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)
 # build True Type fonts
 
 FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.py
-
 TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
+
+$(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 ifeq ($(AUTOHINT),ttfautohint)
 
@@ -163,14 +162,32 @@ ttc: $(TTFDIR)/$(FONT).ttc ttf
 # build Web Open Font Format
 
 FFGENERATEWOFF		:= $(TOOLSDIR)generate-woff.py
-
 WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIANT).woff)
+
+$(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 $(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(WOFFDIR)/dirstate
 	$(info Generate .woff font "$@"...)
 	$(PY) $(FFGENERATEWOFF) $< $@
 
 woff: $(WOFFTARGETS)
+
+# build Open Type fonts
+
+FFGENERATEOTF		:= $(TOOLSDIR)generate-otf.py
+OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT).otf)
+
+$(OTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
+
+ifeq ($(AUTOHINT),fontforge)
+FFGENERATEOTF		:= $(TOOLSDIR)generate-autohinted-otf.py
+endif
+
+$(OTFDIR)/%.otf: $(AUXDIR)/%-outline.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
+	$(info Generate .otf font "$@"...)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
+
+otf: $(OTFTARGETS)
 
 # clean projects
 
