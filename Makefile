@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf ttc woff otf tex-pkg
+all: ttf ttc woff otf tex-pkg tex-tests
 
-.PHONY: all clean ttf ttc woff otf tex-pkg
+.PHONY: all clean ttf ttc woff otf tex-pkg tex-tests
 
 .SECONDARY:;
 
@@ -188,11 +188,29 @@ $(OUTPUTDIR)/latexpkg/dirstate: $(OUTPUTDIR)/dirstate
 
 $(LATEXPKGDIR)/dirstate: $(OUTPUTDIR)/latexpkg/dirstate
 
-$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate
+$(LATEXPKGDIR)/%.ttf: $(TTFDIR)/%.ttf $(LATEXPKGDIR)/dirstate ttf
+	cp $< $@
+
+$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate \
+		ttf $(patsubst $(TTFDIR)/%.ttf, $(LATEXPKGDIR)/%.ttf, $(TTFTARGETS))
 	$(info Generate latex style package "$@"...)
 	cp $< $@
 
 tex-pkg: $(LATEXPKGDIR)/$(LATEXPKG).sty
+
+# build latex tests
+
+LATEXPKG			:= gost2.304
+LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
+LATEXTESTSSRCDIR	:= $(LATEXSRCDIR)/tests
+LATEXTESTSOUTPUTDIR := $(AUXDIR)
+LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR)/%.pdf, $(wildcard $(LATEXTESTSSRCDIR)/*.tex))
+
+$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex tex-pkg
+	$(info Generate latex test pdf file "$@"...)
+	$(LATEXMK) -xelatex -outdir=$(LATEXTESTSOUTPUTDIR) -auxdir=$(AUXDIR) -pdf -dvi- -ps- -pv -recorder $<
+
+tex-tests: tex-pkg $(LATEXTESTSTARGETS)
 
 # clean projects
 
