@@ -192,20 +192,22 @@ LATEXPKG			:= gost2.304
 LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
 LATEXSRCDIR			:= $(SRCDIR)latex
 LATEXPKGSRCDIR		:= $(LATEXSRCDIR)/$(LATEXPKG)
+LATEXFONTSDIR		:= $(LATEXPKGDIR)/fonts
 
 $(OUTPUTDIR)/latexpkg/dirstate: $(OUTPUTDIR)/dirstate
-
 $(LATEXPKGDIR)/dirstate: $(OUTPUTDIR)/latexpkg/dirstate
+$(LATEXFONTSDIR)/dirstate: $(LATEXPKGDIR)/dirstate
 
-$(LATEXPKGDIR)/%.ttf: $(TTFDIR)/%.ttf $(LATEXPKGDIR)/dirstate ttf
+$(LATEXFONTSDIR)/%.ttf: $(TTFDIR)/%.ttf $(LATEXFONTSDIR)/dirstate ttf
 	cp $< $@
 
 $(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate \
-		ttf $(patsubst $(TTFDIR)/%.ttf, $(LATEXPKGDIR)/%.ttf, $(TTFTARGETS))
+		ttf $(patsubst $(TTFDIR)/%.ttf, $(LATEXFONTSDIR)/%.ttf, $(TTFTARGETS))
 	$(info Generate latex style package "$@"...)
 	cp $< $@
 
 export TEXINPUTS=".$(PATHSEP)$(LATEXPKGDIR)/$(PATHSEP)"
+export TEXFONTS="$(LATEXFONTSDIR)/$(PATHSEP)"
 
 tex-pkg: $(LATEXPKGDIR)/$(LATEXPKG).sty
 
