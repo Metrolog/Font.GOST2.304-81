@@ -42,11 +42,13 @@ ifeq ($(OS),Windows_NT)
 	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
 	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
+	PATHSEP			:=;
 else
 	MAKETARGETDIR	= mkdir -p ${@D}
 	FONTFORGE		?= fontforge
 	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
+	PATHSEP			:=:
 endif
 ifeq ($(VIEWPDF),yes)
 	VIEWPDFOPT		:= -pv
@@ -54,6 +56,7 @@ else
 	VIEWPDFOPT		:= -pv-
 endif
 LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- $(VIEWPDFOPT) -recorder
+# -interaction=batchmode
 
 ## grab a version number from the repository (if any) that stores this.
 ## * REVISION is the current revision number (short form, for inclusion in text)
@@ -201,6 +204,8 @@ $(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)
 		ttf $(patsubst $(TTFDIR)/%.ttf, $(LATEXPKGDIR)/%.ttf, $(TTFTARGETS))
 	$(info Generate latex style package "$@"...)
 	cp $< $@
+
+export TEXINPUTS=".$(PATHSEP)$(LATEXPKGDIR)/$(PATHSEP)"
 
 tex-pkg: $(LATEXPKGDIR)/$(LATEXPKG).sty
 
