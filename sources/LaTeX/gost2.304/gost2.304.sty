@@ -335,8 +335,7 @@
       {
         \tl_use:N \l__eskdfont_type_B_slanted_features_tl
       }
-    %Kerning = On, % not avaliable for ttf fonts
-    %Numbers = Uppercase, % not avaliable in font
+    %,Kerning = On
   }
 
 % определяем масштаб для шрифта
@@ -368,32 +367,35 @@
 % ограничиваем допустимые размеры шрифтов
 \clist_set_eq:NN \l_tmpa_clist \c__eskdfont_fontsizes_clist
 \clist_pop:NN \l_tmpa_clist \l_tmpa_tl % tiny size
-% переводим 1.8mm в число в pt
-\dim_set:Nn \l_tmpa_dim { \__eskdfont_fontsize_from_h:n { \tl_use:N \l_tmpa_tl } }
 % готовим список остальных допустимых размеров
 \seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
 \seq_clear:N \l_tmpb_seq
-\seq_push:Nx \l_tmpb_seq
+\tl_clear:N \l_tmpb_tl
+\seq_push:Nn \l_tmpb_seq
   { {
-    Size = \dim_to_decimal:n \l_tmpa_dim % п.2.2 ГОСТ 2.304-81
-    , \tl_use:N \l__eskdfont_type_B_features_tl
+    Size = \dim_to_decimal:n { \__eskdfont_fontsize_from_h:n { \tl_use:N \l_tmpa_tl } } % п.2.2 ГОСТ 2.304-81
+    , \tl_use:N \l_tmpb_tl %\l__eskdfont_type_B_features_tl
   } }
 \seq_map_inline:Nn \l_tmpa_seq
   {
-    \seq_push:Nx \l_tmpb_seq
-      { { Size = \dim_to_decimal:n { \__eskdfont_fontsize_from_h:n { #1 } } } }
+    \seq_put_right:Nn \l_tmpb_seq
+      { {
+        Size = \dim_to_decimal:n { \__eskdfont_fontsize_from_h:n { #1 } } 
+      } }
   }
-%\tl_put_right:Nx \l__eskdfont_type_A_features_tl
-%  { ,SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
+\tl_new:N \l__eskdfont_SizeFeatures_tl
+\tl_set:Nx \l__eskdfont_SizeFeatures_tl
+  { SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
 
-\seq_clear:N \l_tmpb_seq
-\clist_map_inline:Nn \c__eskdfont_fontsizes_clist
-  {
-    \seq_push:Nx \l_tmpb_seq
-      { { Size = \dim_to_decimal:n { \__eskdfont_fontsize_from_h:n { #1 } } } }
-  }
-%\tl_put_right:Nx \l__eskdfont_type_B_features_tl
-%  { ,SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
+\tl_set:Nx \l_tmpb_tl \l__eskdfont_type_B_features_tl
+\tl_put_right:Nx \l__eskdfont_type_A_features_tl { ,\l__eskdfont_SizeFeatures_tl }
+
+\tl_set:Nx \l_tmpb_tl \l__eskdfont_type_B_slanted_features_tl
+\tl_put_right:Nx \l__eskdfont_type_A_slanted_features_tl { ,\l__eskdfont_SizeFeatures_tl }
+
+\tl_clear:N \l_tmpb_tl
+\tl_put_right:Nx \l__eskdfont_type_B_features_tl { ,\l__eskdfont_SizeFeatures_tl }
+\tl_put_right:Nx \l__eskdfont_type_B_slanted_features_tl { ,\l__eskdfont_SizeFeatures_tl }
 
 \tl_gset:Nx \g__eskdfont_mainfont_features_tl { \tl_use:N \g__eskdfont_font_features_tl }
 \newfontfamily \eskdfont { \tl_use:N \c_eskdfont_mainfont_tl }
