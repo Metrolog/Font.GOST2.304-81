@@ -67,7 +67,7 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.SlashedZero') > -1:
 	subGlyph.transform (subscriptTransform)
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-	subtableName = "'zero' Slashed Zero lookup 1-1"
+	subtableName = "Slashed Zero"
 	if font.getLookupOfSubtable (subtableName) is not None:
 		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
 		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
@@ -93,6 +93,9 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.AltThree') > -1:
 		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
 font.is_quadratic = False
+
+# roman ligatures
+font.mergeFeature ( toolsdir + 'roman.fea')
 
 # add numero № ligatures
 # http://en.wikipedia.org/wiki/Numero_sign

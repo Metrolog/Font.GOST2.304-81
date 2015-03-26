@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1427367352
+ModificationTime: 1427406041
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -59,9 +59,10 @@ OS2CapHeight: 1400
 OS2XHeight: 1000
 OS2FamilyClass: 2048
 OS2Vendor: 'PfEd'
+Lookup: 4 0 1 "Standard Ligatures" { "Standard Ligatures"  } ['liga' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 1 0 0 "Alternative Three" { "Alternative Three"  } ['cv01' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 1 0 0 "'zero' Slashed Zero lookup 1" { "'zero' Slashed Zero lookup 1-1"  } ['zero' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 1 0 0 "'dtls' Dotless Forms lookup 0" { "'dtls' Dotless Forms lookup 0-1"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
+Lookup: 1 0 0 "Slashed Zero" { "Slashed Zero"  } ['zero' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
+Lookup: 1 0 0 "Dotless Forms" { "Dotless Forms"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "Marks" { "Cedilla"  "Top"  "Bottom"  "Right"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "GreekMarks" { "Tonos"  } ['mark' ('grek' <'dflt' > ) ]
 Lookup: 262 0 0 "Marks above marks" { "MarksAboveMarks"  } ['mkmk' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
@@ -608,7 +609,7 @@ SplineSet
  150 350 l 2
  150 186 286 50 450 50 c 131
 EndSplineSet
-Substitution2: "'zero' Slashed Zero lookup 1-1" zero.SlashedZero
+Substitution2: "Slashed Zero" zero.SlashedZero
 EndChar
 
 StartChar: one
@@ -1584,7 +1585,7 @@ Back
 Fore
 Refer: 127 729 N 1 0 0 1 0 0 2
 Refer: 425 305 N 1 0 0 1 0 0 3
-Substitution2: "'dtls' Dotless Forms lookup 0-1" dotlessi
+Substitution2: "Dotless Forms" dotlessi
 EndChar
 
 StartChar: j
@@ -1596,7 +1597,7 @@ Back
 Fore
 Refer: 127 729 S 1 0 0 1 200 0 2
 Refer: 426 567 S 1 0 0 1 0 0 3
-Substitution2: "'dtls' Dotless Forms lookup 0-1" uni0237
+Substitution2: "Dotless Forms" uni0237
 EndChar
 
 StartChar: k
@@ -4599,6 +4600,7 @@ LayerCount: 2
 Back
 Fore
 Refer: 44 73 N 1 0 0 1 0 0 3
+Kerns2: 291 -100 "Kern" 286 -100 "Kern"
 EndChar
 
 StartChar: uni2161
@@ -4626,12 +4628,12 @@ EndChar
 
 StartChar: uni2163
 Encoding: 8547 8547 285
-Width: 1150
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 57 86 N 1 0 0 1 250 0 2
+Refer: 57 86 N 1 0 0 1 200 0 2
 Refer: 44 73 N 1 0 0 1 0 0 2
 EndChar
 
@@ -4643,52 +4645,53 @@ LayerCount: 2
 Back
 Fore
 Refer: 57 86 N 1 0 0 1 0 0 3
+Kerns2: 284 -100 "Kern" 283 -100 "Kern" 284 -100 "Kern" 283 -100 "Kern" 282 -100 "Kern"
 EndChar
 
 StartChar: uni2165
 Encoding: 8549 8549 287
-Width: 1150
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 44 73 N 1 0 0 1 850 0 2
+Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 57 86 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni2166
 Encoding: 8550 8550 288
-Width: 1450
+Width: 1500
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 44 73 N 1 0 0 1 1150 0 2
-Refer: 44 73 N 1 0 0 1 850 0 2
+Refer: 44 73 N 1 0 0 1 1200 0 2
+Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 57 86 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni2167
 Encoding: 8551 8551 289
-Width: 1650
+Width: 1700
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 44 73 N 1 0 0 1 1350 0 2
-Refer: 44 73 N 1 0 0 1 1100 0 2
-Refer: 44 73 N 1 0 0 1 850 0 2
+Refer: 44 73 N 1 0 0 1 1400 0 2
+Refer: 44 73 N 1 0 0 1 1150 0 2
+Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 57 86 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni2168
 Encoding: 8552 8552 290
-Width: 1180
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 59 88 N 1 0 0 1 220 0 2
+Refer: 59 88 N 1 0 0 1 200 0 2
 Refer: 44 73 N 1 0 0 1 0 0 2
 EndChar
 
@@ -4700,28 +4703,29 @@ LayerCount: 2
 Back
 Fore
 Refer: 59 88 N 1 0 0 1 0 0 3
+Kerns2: 285 -100 "Kern" 284 -100 "Kern" 283 -100 "Kern" 284 -100 "Kern" 283 -100 "Kern" 282 -100 "Kern"
 EndChar
 
 StartChar: uni216A
 Encoding: 8554 8554 292
-Width: 1180
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 44 73 N 1 0 0 1 880 0 2
+Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 59 88 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni216B
 Encoding: 8555 8555 293
-Width: 1480
+Width: 1500
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 44 73 N 1 0 0 1 1180 0 2
-Refer: 44 73 N 1 0 0 1 880 0 2
+Refer: 44 73 N 1 0 0 1 1200 0 2
+Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 59 88 N 1 0 0 1 0 0 2
 EndChar
 
@@ -6086,7 +6090,8 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 282 8544 N 1 0 0 1 0 0 2
+Refer: 282 8544 N 1 0 0 1 0 0 3
+Kerns2: 408 -100 "Kern" 403 -100 "Kern" 399 -50 "Kern"
 EndChar
 
 StartChar: uni2171
@@ -6096,7 +6101,7 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 283 8545 N 1 0 0 1 0 0 2
+Refer: 283 8545 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2172
@@ -6106,17 +6111,17 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 284 8546 N 1 0 0 1 0 0 2
+Refer: 284 8546 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2173
 Encoding: 8563 8563 402
-Width: 1150
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 285 8547 N 1 0 0 1 0 0 2
+Refer: 285 8547 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2174
@@ -6126,47 +6131,48 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 286 8548 N 1 0 0 1 0 0 2
+Refer: 286 8548 N 1 0 0 1 0 0 3
+Kerns2: 401 -100 "Kern" 400 -100 "Kern" 401 -100 "Kern" 400 -100 "Kern" 399 -100 "Kern"
 EndChar
 
 StartChar: uni2175
 Encoding: 8565 8565 404
-Width: 1150
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 287 8549 N 1 0 0 1 0 0 2
+Refer: 287 8549 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2176
 Encoding: 8566 8566 405
-Width: 1450
+Width: 1500
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 288 8550 N 1 0 0 1 0 0 2
+Refer: 288 8550 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2177
 Encoding: 8567 8567 406
-Width: 1650
+Width: 1700
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 289 8551 N 1 0 0 1 0 0 2
+Refer: 289 8551 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2178
 Encoding: 8568 8568 407
-Width: 1180
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 290 8552 N 1 0 0 1 0 0 2
+Refer: 290 8552 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni2179
@@ -6176,27 +6182,28 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 291 8553 N 1 0 0 1 0 0 2
+Refer: 291 8553 N 1 0 0 1 0 0 3
+Kerns2: 402 -100 "Kern" 401 -100 "Kern" 400 -100 "Kern" 401 -100 "Kern" 400 -100 "Kern" 399 -100 "Kern"
 EndChar
 
 StartChar: uni217A
 Encoding: 8570 8570 409
-Width: 1180
+Width: 1200
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 292 8554 N 1 0 0 1 0 0 2
+Refer: 292 8554 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni217B
 Encoding: 8571 8571 410
-Width: 1480
+Width: 1500
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 293 8555 N 1 0 0 1 0 0 2
+Refer: 293 8555 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni217C
