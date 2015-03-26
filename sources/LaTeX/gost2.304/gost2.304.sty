@@ -31,6 +31,8 @@
 \dim_new:N \g__eskdfont_huge_dim
 \dim_new:N \g__eskdfont_Huge_dim
 
+\bool_new:N \g__eskdfont_digit_three_alt_bool
+\bool_gset_false:N \g__eskdfont_digit_three_alt_bool
 \bool_new:N \g__eskdfont_romannumeral_check_bool
 \bool_gset_false:N \g__eskdfont_romannumeral_check_bool
 \bool_new:N \g__eskdfont_math_support_bool
@@ -67,6 +69,12 @@
           }
           { \msg_fatal:nnn { gost2.304 } {invalid-font-size} {#1} }
       },
+    digit-three .choice:,
+    digit-three / basic .code:n =
+    { \bool_gset_false:N \g__eskdfont_digit_three_alt_bool },
+    digit-three / alternative .code:n =
+    { \bool_gset_true:N \g__eskdfont_digit_three_alt_bool },
+    digit-three .initial:n = { basic },
     romannumeral .choice:,
     romannumeral / gost2.304 .code:n =
       { \bool_gset_true:N \g__eskdfont_romannumeral_check_bool },
@@ -313,13 +321,18 @@
     ,Scale = \fp_to_decimal:N \g__eskdfont_type_B_scale_fp
     ,FontAdjustment = { \tl_use:N \l__eskdfont_type_B_fontadjustment_tl }
   }
+
 \tl_gset:Nn \g__eskdfont_font_features_tl
   {
-	Path = 
+    Path = 
     ,Extension = .ttf
     ,UprightFont = \tl_use:N \c__eskdfont_type_A_tl
     ,OpticalSize = 0
     ,Mapping = tex-text
+    ,\bool_if:NT \g__eskdfont_digit_three_alt_bool
+      {
+        CharacterVariant = {1}
+      }
     ,UprightFeatures =
       {
         \tl_use:N \l__eskdfont_type_A_features_tl

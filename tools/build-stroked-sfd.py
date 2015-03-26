@@ -73,6 +73,25 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.SlashedZero') > -1:
 		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
 		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
+# add alternative 3 support for subscript and superscript
+normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[3] )]
+if font.findEncodingSlot (normalSourceGlyph.glyphname + '.AltThree') > -1:
+	sourceGlyph = font[normalSourceGlyph.glyphname + '.AltThree']
+	normalSubGlyph = font[fontforge.nameFromUnicode( subUnicode[3] )]
+	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.AltThree' )
+	normalSuperGlyph = font[fontforge.nameFromUnicode( superUnicode[3] )]
+	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.AltThree' )
+	subGlyph.width = sourceGlyph.width
+	subGlyph.addReference (sourceGlyph.glyphname)
+	subGlyph.transform (subscriptTransform)
+	superGlyph.width = subGlyph.width
+	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+	subtableName = "Alternative Three"
+	if font.getLookupOfSubtable (subtableName) is not None:
+		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
+		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
+		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
+
 font.is_quadratic = False
 
 # add numero № ligatures
