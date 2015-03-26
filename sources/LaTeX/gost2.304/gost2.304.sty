@@ -31,6 +31,8 @@
 \dim_new:N \g__eskdfont_huge_dim
 \dim_new:N \g__eskdfont_Huge_dim
 
+\bool_new:N \g__eskdfont_slashed_zero_bool
+\bool_gset_false:N \g__eskdfont_slashed_zero_bool
 \bool_new:N \g__eskdfont_digit_three_alt_bool
 \bool_gset_false:N \g__eskdfont_digit_three_alt_bool
 \bool_new:N \g__eskdfont_romannumeral_check_bool
@@ -69,18 +71,28 @@
           }
           { \msg_fatal:nnn { gost2.304 } {invalid-font-size} {#1} }
       },
+
+    zero .choice:,
+    zero / basic .code:n =
+    { \bool_gset_false:N \g__eskdfont_slashed_zero_bool },
+    zero / slashed .code:n =
+    { \bool_gset_true:N \g__eskdfont_slashed_zero_bool },
+    zero .initial:n = { basic },
+
     digit-three .choice:,
     digit-three / basic .code:n =
     { \bool_gset_false:N \g__eskdfont_digit_three_alt_bool },
     digit-three / alternative .code:n =
     { \bool_gset_true:N \g__eskdfont_digit_three_alt_bool },
     digit-three .initial:n = { basic },
+
     romannumeral .choice:,
     romannumeral / gost2.304 .code:n =
       { \bool_gset_true:N \g__eskdfont_romannumeral_check_bool },
     romannumeral / tex .code:n =
       { \bool_gset_false:N \g__eskdfont_romannumeral_check_bool },
     romannumeral .initial:n = { gost2.304 },
+
     math .choice:,
     math / true .code:n =
       {
@@ -93,10 +105,12 @@
       },
     math .default:n = true,
     math .initial:n = true,
+
     no-math .meta:n =
       {
         math = false
       },
+
     quiet .code:n =
       {
         \msg_redirect_module:nnn { gost2.304 } { warning } { info }
@@ -106,6 +120,7 @@
       {
         trace = off
       },
+
     silent .code:n =
       {
         \msg_redirect_module:nnn { gost2.304 } { warning } { none }
@@ -115,11 +130,13 @@
       {
         trace = off
       },
+
     warnings-off .code:n =
       {
         \clist_map_inline:nn {#1}
           { \msg_redirect_name:nnn { gost2.304 } { ##1 } { none } }
       },
+
     trace .choice:,
     trace / on .code:n = 
       {
@@ -329,9 +346,13 @@
     ,UprightFont = \tl_use:N \c__eskdfont_type_A_tl
     ,OpticalSize = 0
     ,Mapping = tex-text
-    ,\bool_if:NT \g__eskdfont_digit_three_alt_bool
+    ,CharacterVariant =
       {
-        CharacterVariant = {1}
+        \bool_if:NT \g__eskdfont_digit_three_alt_bool {1}
+      }
+    ,Numbers =
+      {
+        \bool_if:NT \g__eskdfont_slashed_zero_bool { SlashedZero }
       }
     ,UprightFeatures =
       {
