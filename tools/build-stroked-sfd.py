@@ -54,6 +54,25 @@ for i in range(len(sourceUnicode)):
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
 
+# add slashed zero support for subscript and superscript
+normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[0] )]
+if font.findEncodingSlot (normalSourceGlyph.glyphname + '.SlashedZero') > -1:
+	sourceGlyph = font[normalSourceGlyph.glyphname + '.SlashedZero']
+	normalSubGlyph = font[fontforge.nameFromUnicode( subUnicode[0] )]
+	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.SlashedZero' )
+	normalSuperGlyph = font[fontforge.nameFromUnicode( superUnicode[0] )]
+	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.SlashedZero' )
+	subGlyph.width = sourceGlyph.width
+	subGlyph.addReference (sourceGlyph.glyphname)
+	subGlyph.transform (subscriptTransform)
+	superGlyph.width = subGlyph.width
+	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+	subtableName = "'zero' Slashed Zero lookup 1-1"
+	if font.getLookupOfSubtable (subtableName) is not None:
+		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
+		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
+		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
+
 font.is_quadratic = False
 
 # add numero № ligatures
