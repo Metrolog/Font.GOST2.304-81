@@ -477,24 +477,14 @@
 \cs_new_nopar:Nn \__eskdfont_int_to_Roman_aux:n
   {
     \group_begin:
-      \tl_if_eq:xxTF \f@series {m}
-        {
-          % 1ex = c, h = 14/10 c, d = ex / 10, kern = -d = -1/10 ex
-          \dim_set:Nn \l__eskdfont_romannumeral_kern_dim {-0.1ex}
-        }
-        {
-          % 1ex = c, h = 10/7 c, d = ex / 7, kern = -d = -1/7 ex
-          \dim_set:Nn \l__eskdfont_romannumeral_kern_dim {-0,142857ex}
-        }
-      \cs_set_nopar:Npn \__int_to_Roman_i:w { I\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
-      \cs_set_nopar:Npn \__int_to_Roman_v:w { V\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
-      \cs_set_nopar:Npn \__int_to_Roman_x:w { X\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
-      \cs_set_nopar:Npn \__int_to_Roman_l:w { L\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
-      \cs_set_nopar:Npn \__int_to_Roman_c:w { C\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
-      \cs_set_nopar:Npn \__int_to_Roman_d:w { D\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
-      \cs_set_nopar:Npn \__int_to_Roman_m:w { M\tex_kern:D \l__eskdfont_romannumeral_kern_dim }
+      \cs_set_nopar:Npn \__int_to_Roman_i:w { \symbol{\string"2160} }
+      \cs_set_nopar:Npn \__int_to_Roman_v:w { \symbol{\string"2164} }
+      \cs_set_nopar:Npn \__int_to_Roman_x:w { \symbol{\string"2169} }
+      \cs_set_nopar:Npn \__int_to_Roman_l:w { \symbol{\string"216C} }
+      \cs_set_nopar:Npn \__int_to_Roman_c:w { \symbol{\string"216D} }
+      \cs_set_nopar:Npn \__int_to_Roman_d:w { \symbol{\string"216E} }
+      \cs_set_nopar:Npn \__int_to_Roman_m:w { \symbol{\string"216F} }
       \int_to_Roman:n {#1}
-      \tex_kern:D -\l__eskdfont_romannumeral_kern_dim
     \group_end:
   }
 
