@@ -55,7 +55,7 @@ ifeq ($(VIEWPDF),yes)
 else
 	VIEWPDFOPT		:= -pv-
 endif
-LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- $(VIEWPDFOPT) -recorder
+LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- $(VIEWPDFOPT) -recorder -gg
 # -interaction=batchmode
 
 ## grab a version number from the repository (if any) that stores this.
@@ -193,23 +193,24 @@ LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
 LATEXSRCDIR			:= $(SRCDIR)latex
 LATEXPKGSRCDIR		:= $(LATEXSRCDIR)/$(LATEXPKG)
 LATEXFONTSDIR		:= $(LATEXPKGDIR)/fonts
+LATEXPKGFONTS		:= $(patsubst $(TTFDIR)/%.ttf, $(LATEXFONTSDIR)/%.ttf, $(TTFTARGETS))
+LATEXPKGPRE			:= $(LATEXPKGDIR)/$(LATEXPKG).sty $(LATEXPKGFONTS)
 
 $(OUTPUTDIR)/latexpkg/dirstate: $(OUTPUTDIR)/dirstate
 $(LATEXPKGDIR)/dirstate: $(OUTPUTDIR)/latexpkg/dirstate
 $(LATEXFONTSDIR)/dirstate: $(LATEXPKGDIR)/dirstate
 
-$(LATEXFONTSDIR)/%.ttf: $(TTFDIR)/%.ttf $(LATEXFONTSDIR)/dirstate ttf
+$(LATEXFONTSDIR)/%.ttf: $(TTFDIR)/%.ttf $(LATEXFONTSDIR)/dirstate
 	cp $< $@
 
-$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate \
-		ttf $(patsubst $(TTFDIR)/%.ttf, $(LATEXFONTSDIR)/%.ttf, $(TTFTARGETS))
+$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate $(LATEXPKGFONTS)
 	$(info Generate latex style package "$@"...)
 	cp $< $@
 
 export TEXINPUTS=".$(PATHSEP)$(LATEXPKGDIR)/$(PATHSEP)"
 export TEXFONTS="$(LATEXFONTSDIR)/$(PATHSEP)"
 
-tex-pkg: $(LATEXPKGDIR)/$(LATEXPKG).sty
+tex-pkg: $(LATEXPKGPRE)
 
 # build latex tests
 
@@ -219,11 +220,11 @@ LATEXTESTSSRCDIR	:= $(LATEXSRCDIR)/tests
 LATEXTESTSOUTPUTDIR := $(AUXDIR)
 LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR)/%.pdf, $(wildcard $(LATEXTESTSSRCDIR)/*.tex))
 
-$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex tex-pkg
+$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXPKGPRE)
 	$(info Generate latex test pdf file "$@"...)
 	$(LATEXMK) -outdir=$(@D) $<
 
-tex-tests: tex-pkg $(LATEXTESTSTARGETS)
+tex-tests: $(LATEXTESTSTARGETS) tex-pkg 
 
 # clean projects
 
