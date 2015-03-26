@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1427280942
+ModificationTime: 1427359138
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -59,6 +59,7 @@ OS2CapHeight: 1400
 OS2XHeight: 1000
 OS2FamilyClass: 2048
 OS2Vendor: 'PfEd'
+Lookup: 1 0 0 "'zero' Slashed Zero lookup 1" { "'zero' Slashed Zero lookup 1-1"  } ['zero' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 1 0 0 "'dtls' Dotless Forms lookup 0" { "'dtls' Dotless Forms lookup 0-1"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "Marks" { "Cedilla"  "Top"  "Bottom"  "Right"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "GreekMarks" { "Tonos"  } ['mark' ('grek' <'dflt' > ) ]
@@ -133,7 +134,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 27 27 10
+WinInfo: 216 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -324,7 +325,7 @@ Grid
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
 AnchorClass2: "Tonos" "Tonos" "TopMark" "MarksAboveMarks" "Cedilla" "Cedilla" "Ogonek" "Bottom" "TopRight" "Top" "Right" "Right" "Bottom" "Bottom" "Top" "Top" 
-BeginChars: 1114115 485
+BeginChars: 1114115 486
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -606,6 +607,7 @@ SplineSet
  150 350 l 2
  150 186 286 50 450 50 c 131
 EndSplineSet
+Substitution2: "'zero' Slashed Zero lookup 1-1" zero.SlashedZero
 EndChar
 
 StartChar: one
@@ -7219,6 +7221,18 @@ SplineSet
  150 750 l 25
  150 250 l 29
 EndSplineSet
+EndChar
+
+StartChar: zero.SlashedZero
+Encoding: 1114114 -1 485
+Width: 900
+UnlinkRmOvrlpSave: 1
+Flags: W
+LayerCount: 2
+Back
+Fore
+Refer: 433 824 N 1 0 0 1 0 0 2
+Refer: 19 48 N 1 0 0 1 0 0 3
 EndChar
 EndChars
 EndSplineFont
