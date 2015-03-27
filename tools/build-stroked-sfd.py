@@ -13,6 +13,8 @@ font = fontforge.open (sourcefile)
 
 font.is_quadratic = False
 
+kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
+
 for glyph in font.glyphs():
 	if not ( glyph.background.isEmpty ):
 		glyph.foreground += glyph.background
@@ -107,10 +109,15 @@ if font.findEncodingSlot (0x2170) not in font:
 	sourceUnicode = range(0x2160, 0x2170)
 	destUnicode = range(0x2170, 0x2180)
 	for i in range(len(sourceUnicode)):
-		sourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[i] )]
+		sourceGlyph = font[ fontforge.nameFromUnicode( sourceUnicode[i] ) ]
 		destGlyph = font.createMappedChar ( destUnicode[i] )
 		destGlyph.addReference (sourceGlyph.glyphname)
 		destGlyph.useRefsMetrics (sourceGlyph.glyphname)
+		for k in reduce( lambda a, b: a + b, [ sourceGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
+			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
+			if ( pairGlyphUnicode >= 0x2160 ) and ( pairGlyphUnicode <= 0x216F ):
+				pairGlyphUnicode += 0x10
+				destGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ), k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
 
 # roman ligatures
 font.mergeFeature ( toolsdir + 'roman.fea')
