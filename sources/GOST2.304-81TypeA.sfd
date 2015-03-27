@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1427465584
+ModificationTime: 1427470534
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -67,7 +67,7 @@ Lookup: 1 0 0 "Dotless Forms" { "Dotless Forms"  } ['dtls' ('DFLT' <'dflt' > 'cy
 Lookup: 260 0 0 "Marks" { "Cedilla"  "Top"  "Bottom"  "Right"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "GreekMarks" { "Tonos"  } ['mark' ('grek' <'dflt' > ) ]
 Lookup: 262 0 0 "Marks above marks" { "MarksAboveMarks"  } ['mkmk' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 258 12 0 "Kern" { "Kern" [330,33,0] } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
+Lookup: 258 8 0 "Kern" { "Kern" [330,33,0] } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 MarkAttachClasses: 1
 DEI: 91125
 LangName: 1033 "" "" "Regular" "" "GOST 2.304-81 Type A" "01.00.0000" "" "" "" "Sergei S. Betke"
@@ -137,7 +137,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 162 27 10
+WinInfo: 216 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
