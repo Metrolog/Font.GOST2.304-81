@@ -35,6 +35,8 @@
 \bool_gset_false:N \g__eskdfont_slashed_zero_bool
 \bool_new:N \g__eskdfont_digit_three_alt_bool
 \bool_gset_false:N \g__eskdfont_digit_three_alt_bool
+\bool_new:N \g__eskdfont_roman_V_alt_bool
+\bool_gset_false:N \g__eskdfont_roman_V_alt_bool
 \bool_new:N \g__eskdfont_romannumeral_check_bool
 \bool_gset_false:N \g__eskdfont_romannumeral_check_bool
 \bool_new:N \g__eskdfont_math_support_bool
@@ -74,16 +76,16 @@
 
     zero .choice:,
     zero / basic .code:n =
-    { \bool_gset_false:N \g__eskdfont_slashed_zero_bool },
+      { \bool_gset_false:N \g__eskdfont_slashed_zero_bool },
     zero / slashed .code:n =
-    { \bool_gset_true:N \g__eskdfont_slashed_zero_bool },
+      { \bool_gset_true:N \g__eskdfont_slashed_zero_bool },
     zero .initial:n = { basic },
 
     digit-three .choice:,
     digit-three / basic .code:n =
-    { \bool_gset_false:N \g__eskdfont_digit_three_alt_bool },
+      { \bool_gset_false:N \g__eskdfont_digit_three_alt_bool },
     digit-three / alternative .code:n =
-    { \bool_gset_true:N \g__eskdfont_digit_three_alt_bool },
+      { \bool_gset_true:N \g__eskdfont_digit_three_alt_bool },
     digit-three .initial:n = { basic },
 
     romannumeral .choice:,
@@ -93,6 +95,15 @@
       { \bool_gset_false:N \g__eskdfont_romannumeral_check_bool },
     romannumeral .initial:n = { gost2.304 },
 
+    roman-V .choice:,
+    roman-V / basic .code:n =
+      { \bool_gset_false:N \g__eskdfont_roman_V_alt_bool },
+    roman-V / alternative .code:n =
+      { \bool_gset_true:N \g__eskdfont_roman_V_alt_bool },
+    roman-V / serif .code:n =
+      { \bool_gset_true:N \g__eskdfont_roman_V_alt_bool },
+    roman-V .initial:n = { basic },
+    
     math .choice:,
     math / true .code:n =
       {
@@ -348,7 +359,8 @@
     ,Mapping = tex-text
     ,CharacterVariant =
       {
-        \bool_if:NT \g__eskdfont_digit_three_alt_bool {1}
+        \bool_if:NT \g__eskdfont_digit_three_alt_bool {,1}
+        \bool_if:NT \g__eskdfont_roman_V_alt_bool {,2}
       }
     ,Numbers =
       {

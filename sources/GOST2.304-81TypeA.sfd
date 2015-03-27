@@ -62,7 +62,7 @@ OS2Vendor: 'PfEd'
 Lookup: 4 0 1 "Standard Ligatures" { "Standard Ligatures"  } ['liga' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 1 0 0 "Alternative Three" { "Alternative Three" ("AltThree") } ['cv01' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 1 0 0 "Slashed Zero" { "Slashed Zero" ("SlashedZero") } ['zero' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 1 0 0 "Alternative Roman V" { "Alternative Roman V" ("AltRomanV") } ['cv02' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'RUS ' 'dflt' > ) ]
+Lookup: 1 0 0 "Alternative Roman V" { "Alternative Roman V" ("AltRomanV") } ['cv02' ('latn' <'ROM ' 'dflt' > ) ]
 Lookup: 1 0 0 "Dotless Forms" { "Dotless Forms"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "Marks" { "Cedilla"  "Top"  "Bottom"  "Right"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "GreekMarks" { "Tonos"  } ['mark' ('grek' <'dflt' > ) ]
