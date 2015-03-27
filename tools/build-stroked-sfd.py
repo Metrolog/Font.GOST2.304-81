@@ -11,6 +11,8 @@ version = sys.argv[3]
 
 font = fontforge.open (sourcefile)
 
+font.is_quadratic = False
+
 for glyph in font.glyphs():
 	if not ( glyph.background.isEmpty ):
 		glyph.foreground += glyph.background
@@ -46,13 +48,16 @@ subUnicode = range(0x2080, 0x208F)
 superUnicode = [0x2070, 0x00B9, 0x00B2, 0x00B3] + range( 0x2074, 0x207F )
 for i in range(len(sourceUnicode)):
 	sourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[i] )]
-	subGlyph = font.createMappedChar ( subUnicode[i] )
-	superGlyph = font.createMappedChar ( superUnicode[i] )
-	subGlyph.width = sourceGlyph.width
-	subGlyph.addReference (sourceGlyph.glyphname)
-	subGlyph.transform (subscriptTransform)
-	superGlyph.width = subGlyph.width
-	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+	if font.findEncodingSlot ( subUnicode[i] ) not in font:
+		subGlyph = font.createMappedChar ( subUnicode[i] )
+		subGlyph.width = sourceGlyph.width
+		subGlyph.addReference (sourceGlyph.glyphname)
+		subGlyph.transform (subscriptTransform)
+	if font.findEncodingSlot ( superUnicode[i] ) not in font:
+		subGlyph = font.createMappedChar ( subUnicode[i] )
+		superGlyph = font.createMappedChar ( superUnicode[i] )
+		superGlyph.width = subGlyph.width
+		superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
 
 # add slashed zero support for subscript and superscript
 normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[0] )]
@@ -92,7 +97,20 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.AltThree') > -1:
 		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
 		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
-font.is_quadratic = False
+# build capitalized roman digits
+if font.findEncodingSlot (0x2160) not in font:
+	font.selection.select ( ['ranges', 'unicode'], 0x2160, 0x216F )
+	font.build()
+
+# create small roman digits as a copy of capitalized roman digits
+if font.findEncodingSlot (0x2170) not in font:
+	sourceUnicode = range(0x2160, 0x2170)
+	destUnicode = range(0x2170, 0x2180)
+	for i in range(len(sourceUnicode)):
+		sourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[i] )]
+		destGlyph = font.createMappedChar ( destUnicode[i] )
+		destGlyph.addReference (sourceGlyph.glyphname)
+		destGlyph.useRefsMetrics (sourceGlyph.glyphname)
 
 # roman ligatures
 font.mergeFeature ( toolsdir + 'roman.fea')
