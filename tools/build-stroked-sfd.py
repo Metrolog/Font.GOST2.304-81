@@ -130,7 +130,7 @@ if font.findEncodingSlot (0x2170) not in font:
 			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
 			if ( pairGlyphUnicode >= 0x2160 ) and ( pairGlyphUnicode <= 0x216F ):
 				pairGlyphUnicode += 0x10
-				destGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ), k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
+			destGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ), k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
 
 # roman ligatures
 font.mergeFeature ( toolsdir + 'roman.fea')
