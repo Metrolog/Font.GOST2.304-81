@@ -55,11 +55,24 @@ for i in range(len(sourceUnicode)):
 		subGlyph.width = sourceGlyph.width
 		subGlyph.addReference (sourceGlyph.glyphname)
 		subGlyph.transform (subscriptTransform)
+		for k in reduce( lambda a, b: a + b, [ sourceGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
+			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
+			if pairGlyphUnicode in sourceUnicode:
+				pairGlyphUnicode = subUnicode[ sourceUnicode.index( pairGlyphUnicode ) ]
+				subGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ),
+					k[3] * subscriptScale, k[4] * subscriptScale, k[5] * subscriptScale, k[6] * subscriptScale,
+					k[7] * subscriptScale, k[8] * subscriptScale, k[9] * subscriptScale, k[10] * subscriptScale )
 	if font.findEncodingSlot ( superUnicode[i] ) not in font:
 		subGlyph = font.createMappedChar ( subUnicode[i] )
 		superGlyph = font.createMappedChar ( superUnicode[i] )
 		superGlyph.width = subGlyph.width
 		superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+		for k in reduce( lambda a, b: a + b, [ subGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
+			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
+			if pairGlyphUnicode in subUnicode:
+				pairGlyphUnicode = superUnicode[ subUnicode.index( pairGlyphUnicode ) ]
+				superGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ),
+					k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
 
 # add slashed zero support for subscript and superscript
 normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[0] )]
