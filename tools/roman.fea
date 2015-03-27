@@ -4,11 +4,11 @@ languagesystem latn dflt;
 feature liga {
     sub uni2160 uni2160                  by uni2161;
     sub uni2160 uni2160 uni2160          by uni2162;
-    sub uni2160 uni2164                  by uni2163;
-    sub uni2160 uni2169                  by uni2168;
+    #sub uni2160 uni2164                  by uni2163;
+    #sub uni2160 uni2169                  by uni2168;
 
     sub uni2170 uni2170                  by uni2171;
     sub uni2170 uni2170 uni2170          by uni2172;
-    sub uni2170 uni2174                  by uni2173;
-    sub uni2170 uni2179                  by uni2178;
+    #sub uni2170 uni2174                  by uni2173;
+    #sub uni2170 uni2179                  by uni2178;
 } liga;
