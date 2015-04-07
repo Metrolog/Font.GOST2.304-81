@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1427537110
+ModificationTime: 1428409059
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -137,7 +137,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 54 27 10
+WinInfo: 0 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -1407,15 +1407,12 @@ EndChar
 
 StartChar: grave
 Encoding: 96 96 67
-Width: 300
+Width: 350
 Flags: MW
 LayerCount: 2
 Back
 Fore
-SplineSet
-150 1350 m 25
- 200 1150 l 1053
-EndSplineSet
+Refer: 408 768 N 1 0 0 1 200 0 2
 EndChar
 
 StartChar: a
@@ -6221,16 +6218,16 @@ EndChar
 
 StartChar: gravecomb
 Encoding: 768 768 408
-Width: 350
+Width: 0
 Flags: MW
-AnchorPoint: "Top" 200 1350 mark 0
-AnchorPoint: "TopMark" 200 1350 mark 0
+AnchorPoint: "Top" 0 1350 mark 0
+AnchorPoint: "TopMark" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-150 1350 m 25
- 200 1250 l 1049
+-50 1350 m 25
+ 0 1250 l 1049
 EndSplineSet
 EndChar
 
@@ -6293,7 +6290,7 @@ EndChar
 
 StartChar: uni0340
 Encoding: 832 832 413
-Width: 350
+Width: 0
 Flags: MW
 AnchorPoint: "Top" 150 1350 mark 0
 AnchorPoint: "TopMark" 150 1350 mark 0
@@ -6849,7 +6846,7 @@ EndChar
 
 StartChar: uni0316
 Encoding: 790 790 450
-Width: 350
+Width: 0
 Flags: W
 AnchorPoint: "Bottom" 150 -150 mark 0
 LayerCount: 2
