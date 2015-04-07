@@ -50,6 +50,7 @@ for markData in [
 	, [0x0304, 0x00AF, 0x02C9] # macron
 	, [0x0306, 0x02D8] # breve
 	, [0x0307, 0x02D9] # dot above
+	, [0x0308, 0x00A8] # diaeresis
 	]:
 	if font.findEncodingSlot (markData[0]) > -1:
 		sourceGlyph = font[markData[0]]
