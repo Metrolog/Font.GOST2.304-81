@@ -52,6 +52,7 @@ for markData in [
 	, [0x0307, 0x02D9] # dot above
 	, [0x0308, 0x00A8] # diaeresis
 	, [0x030A, 0x02DA] # ring above
+	, [0x030B, 0x02DD] # double acute
 	]:
 	if font.findEncodingSlot (markData[0]) > -1:
 		sourceGlyph = font[markData[0]]
