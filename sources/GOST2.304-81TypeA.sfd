@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1428419678
+ModificationTime: 1428437629
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6051,9 +6051,9 @@ LayerCount: 2
 Back
 Fore
 SplineSet
--100 1350 m 13
- 0 1250 l 29
- 100 1350 l 1045
+-100 1350 m 9
+ 0 1250 l 25
+ 100 1350 l 1041
 EndSplineSet
 EndChar
 
@@ -6625,17 +6625,17 @@ EndChar
 
 StartChar: uni030D
 Encoding: 781 781 431
-Width: 300
+Width: 0
 Flags: W
-AnchorPoint: "TopMark" 150 1350 mark 0
-AnchorPoint: "TopMark" 150 1650 basemark 0
-AnchorPoint: "Top" 150 1350 mark 0
+AnchorPoint: "TopMark" 0 1350 mark 0
+AnchorPoint: "TopMark" 0 1650 basemark 0
+AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-150 1350 m 25
- 150 1150 l 1049
+0 1350 m 29
+ 0 1250 l 1053
 EndSplineSet
 EndChar
 
@@ -6757,7 +6757,7 @@ EndChar
 
 StartChar: uni0329
 Encoding: 809 809 442
-Width: 300
+Width: 0
 Flags: W
 AnchorPoint: "Bottom" 150 -150 mark 0
 LayerCount: 2
@@ -6768,7 +6768,7 @@ EndChar
 
 StartChar: uni032C
 Encoding: 812 812 443
-Width: 2
+Width: 0
 Flags: W
 AnchorPoint: "Bottom" 250 -150 mark 0
 LayerCount: 2
