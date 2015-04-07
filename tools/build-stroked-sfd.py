@@ -41,6 +41,28 @@ for glyph in font.glyphs():
 
 font.encoding = 'unicode'
 
+# additional glyphs for marks
+for markData in [
+	[0x0300, 0x0060, 0x02CB] # grave
+	, [0x0301, 0x00B4, 0x02CA] # acute
+	, [0x0302, 0x005E, 0x02C6] # circumflex
+	, [0x0303, 0x007E, 0x02DC] # tilde
+	, [0x0304, 0x00AF, 0x02C9] # macron
+	, [0x0306, 0x02D8] # breve
+	, [0x0307, 0x02D9] # dot above
+	, [0x0308, 0x00A8] # diaeresis
+	, [0x030A, 0x02DA] # ring above
+	, [0x030B, 0x02DD] # double acute
+	, [0x030C, 0x02C7] # caron
+	]:
+	if font.findEncodingSlot (markData[0]) > -1:
+		sourceGlyph = font[markData[0]]
+		for i in range(1, len(markData)):
+			if font.findEncodingSlot ( markData[i] ) not in font:
+				markGlyph = font.createMappedChar ( markData[i] )
+				markGlyph.width =  100 + sourceGlyph.width - sourceGlyph.right_side_bearing - sourceGlyph.left_side_bearing
+				markGlyph.addReference ( sourceGlyph.glyphname, psMat.translate( 50 - sourceGlyph.left_side_bearing, 0 ) )
+
 # add 0-9, +-=() subscript, superscript
 subscriptScale = 10.0/14
 subscriptTransform = psMat.compose ( psMat.scale(subscriptScale), psMat.translate(0, -500) )
