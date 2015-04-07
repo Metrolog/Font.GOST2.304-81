@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1428415834
+ModificationTime: 1428416231
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6894,7 +6894,7 @@ EndChar
 
 StartChar: uni0331
 Encoding: 817 817 454
-Width: 2
+Width: 0
 Flags: W
 AnchorPoint: "Bottom" 250 -150 mark 0
 LayerCount: 2
@@ -7076,12 +7076,15 @@ EndChar
 
 StartChar: uni0305
 Encoding: 773 773 468
-Width: 600
+Width: 0
 Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 465 818 N 1 0 0 1 0 1700 2
+SplineSet
+-300 1550 m 25
+ 300 1550 l 1049
+EndSplineSet
 EndChar
 EndChars
 EndSplineFont
