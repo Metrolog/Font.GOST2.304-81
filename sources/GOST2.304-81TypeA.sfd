@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1428439007
+ModificationTime: 1428440483
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6172,15 +6172,15 @@ EndChar
 
 StartChar: uni0311
 Encoding: 785 785 402
-Width: 500
+Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 250 1350 mark 0
-AnchorPoint: "TopMark" 250 1650 basemark 0
-AnchorPoint: "Top" 250 1350 mark 0
+AnchorPoint: "TopMark" 0 1350 mark 0
+AnchorPoint: "TopMark" 0 1650 basemark 0
+AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
-Refer: 387 774 N -1 0 0 -1 500 2600 2
+Refer: 387 774 S -1 0 0 -1 0 2600 2
 EndChar
 
 StartChar: uni0337
@@ -6801,7 +6801,7 @@ EndChar
 
 StartChar: uni032F
 Encoding: 815 815 446
-Width: 500
+Width: 0
 Flags: W
 AnchorPoint: "Bottom" 250 -150 mark 0
 LayerCount: 2
