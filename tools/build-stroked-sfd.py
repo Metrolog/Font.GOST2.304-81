@@ -48,6 +48,7 @@ for markData in [
 	, [0x0302, 0x005E, 0x02C6] # circumflex
 	, [0x0303, 0x007E, 0x02DC] # tilde
 	, [0x0304, 0x00AF, 0x02C9] # macron
+	, [0x0306, 0x02D8] # breve
 	]:
 	if font.findEncodingSlot (markData[0]) > -1:
 		sourceGlyph = font[markData[0]]
