@@ -64,8 +64,8 @@ for markData in [
 		for i in range(1, len(markData)):
 			if font.findEncodingSlot ( markData[i] ) not in font:
 				markGlyph = font.createMappedChar ( markData[i] )
-				markGlyph.width =  100 + sourceGlyph.width - sourceGlyph.right_side_bearing - sourceGlyph.left_side_bearing
-				markGlyph.addReference ( sourceGlyph.glyphname, psMat.translate( 50 - sourceGlyph.left_side_bearing, 0 ) )
+				markGlyph.width =  font.strokewidth + sourceGlyph.width - sourceGlyph.right_side_bearing - sourceGlyph.left_side_bearing
+				markGlyph.addReference ( sourceGlyph.glyphname, psMat.translate( font.strokewidth / 2 - sourceGlyph.left_side_bearing, 0 ) )
 
 # add 0-9, +-=() subscript, superscript
 subscriptScale = 10.0/14
