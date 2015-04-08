@@ -59,6 +59,8 @@ for markData in [
 	, [0x0313, 0x02BC] # comma above
 	, [0x0314, 0x02BD] # reversed comma above
 	, [0x0328, 0x02DB] # ogonek
+	, [0x0332, 0x005F] # low line
+	, [0x0333, 0x2017] # double low line
 	]:
 	if font.findEncodingSlot (markData[0]) > -1:
 		sourceGlyph = font[markData[0]]
