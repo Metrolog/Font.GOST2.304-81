@@ -328,7 +328,7 @@ Grid
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
 AnchorClass2: "Tonos" "Tonos" "TopMark" "MarksAboveMarks" "Cedilla" "Cedilla" "Ogonek" "Bottom" "TopRight" "Top" "Right" "Right" "Bottom" "Bottom" "Top" "Top" 
-BeginChars: 1114117 462
+BeginChars: 1114117 461
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -1388,7 +1388,7 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 458 818 S 1 0 0 1 0 0 3
+Refer: 457 818 S 1 0 0 1 0 0 3
 EndChar
 
 StartChar: a
@@ -4455,7 +4455,7 @@ LayerCount: 2
 Back
 Fore
 Refer: 44 73 N 1 0 0 1 0 0 3
-Kerns2: 279 -100 "Kern" 274 -100 "Kern" 457 -100 "Kern"
+Kerns2: 279 -100 "Kern" 274 -100 "Kern" 456 -100 "Kern"
 EndChar
 
 StartChar: uni2161
@@ -5378,7 +5378,7 @@ Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 459 819 S 1 0 0 1 0 0 2
+Refer: 458 819 S 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni2029
@@ -6861,19 +6861,8 @@ Fore
 Refer: 432 787 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni031B
-Encoding: 795 795 451
-Width: 300
-Flags: W
-AnchorPoint: "TopRight" 150 1350 mark 0
-LayerCount: 2
-Back
-Fore
-Refer: 15 44 N 1 0 0 1 50 1300 2
-EndChar
-
 StartChar: tonos
-Encoding: 900 900 452
+Encoding: 900 900 451
 Width: 400
 Flags: W
 AnchorPoint: "TopMark" 150 1150 mark 0
@@ -6888,7 +6877,7 @@ EndSplineSet
 EndChar
 
 StartChar: dotmath
-Encoding: 8901 8901 453
+Encoding: 8901 8901 452
 Width: 300
 Flags: W
 LayerCount: 2
@@ -6898,7 +6887,7 @@ Refer: 114 183 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni2332
-Encoding: 9010 9010 454
+Encoding: 9010 9010 453
 Width: 900
 Flags: W
 LayerCount: 2
@@ -6913,7 +6902,7 @@ EndSplineSet
 EndChar
 
 StartChar: zero.SlashedZero
-Encoding: 1114114 -1 455
+Encoding: 1114114 -1 454
 Width: 900
 UnlinkRmOvrlpSave: 1
 Flags: W
@@ -6925,7 +6914,7 @@ Refer: 19 48 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: three.AltThree
-Encoding: 1114115 -1 456
+Encoding: 1114115 -1 455
 Width: 800
 Flags: W
 LayerCount: 2
@@ -6943,7 +6932,7 @@ EndSplineSet
 EndChar
 
 StartChar: uni2164.AltRomanV
-Encoding: 1114116 -1 457
+Encoding: 1114116 -1 456
 Width: 1200
 UnlinkRmOvrlpSave: 1
 Flags: W
@@ -6963,7 +6952,7 @@ Kerns2: 272 -100 "Kern" 271 -100 "Kern" 270 -100 "Kern"
 EndChar
 
 StartChar: uni0332
-Encoding: 818 818 458
+Encoding: 818 818 457
 Width: 600
 Flags: W
 LayerCount: 2
@@ -6976,28 +6965,28 @@ EndSplineSet
 EndChar
 
 StartChar: uni0333
-Encoding: 819 819 459
+Encoding: 819 819 458
 Width: 600
 Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 458 818 N 1 0 0 1 0 -200 0
-Refer: 458 818 N 1 0 0 1 0 0 2
+Refer: 457 818 N 1 0 0 1 0 -200 0
+Refer: 457 818 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni033F
-Encoding: 831 831 460
+Encoding: 831 831 459
 Width: 600
 Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 459 819 S 1 0 0 1 0 1900 2
+Refer: 458 819 S 1 0 0 1 0 1900 2
 EndChar
 
 StartChar: uni0305
-Encoding: 773 773 461
+Encoding: 773 773 460
 Width: 0
 Flags: W
 LayerCount: 2
