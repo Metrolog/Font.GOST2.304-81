@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1428780182
+ModificationTime: 1428781308
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -6115,7 +6115,6 @@ Width: 0
 Flags: MW
 AnchorPoint: "Top" 0 1350 mark 0
 AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
 LayerCount: 2
 Back
 Fore
