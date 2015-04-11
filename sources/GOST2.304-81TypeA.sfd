@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1428769939
+ModificationTime: 1428770732
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -137,7 +137,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 27 27 10
+WinInfo: 0 27 10
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -4602,7 +4602,7 @@ EndChar
 
 StartChar: emptyset
 Encoding: 8709 8709 285
-Width: 1100
+Width: 900
 UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
@@ -5134,19 +5134,19 @@ EndChar
 StartChar: uni2300
 Encoding: 8960 8960 326
 Width: 1000
-UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
+300 50 m 1
+ 700 1350 l 1025
 500 350 m 256
- 308 350 150 509 150 700 c 260
+ 308 350 150 509 150 700 c 256
  150 891 308 1050 500 1050 c 256
  692 1050 850 891 850 700 c 256
  850 509 692 350 500 350 c 256
 EndSplineSet
-Refer: 401 824 N 1 0 0 1 50 0 2
 EndChar
 
 StartChar: revlogicalnot
@@ -5417,6 +5417,7 @@ StartChar: existential
 Encoding: 8707 8707 345
 Width: 800
 Flags: MW
+AnchorPoint: "Slash" 400 700 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -5432,14 +5433,14 @@ EndChar
 
 StartChar: uni2204
 Encoding: 8708 8708 346
-Width: 900
+Width: 800
 UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 401 824 N 1 0 0 1 0 0 2
-Refer: 345 8707 N 1 0 0 1 50 0 2
+Refer: 401 824 N 1 0 0 1 400 0 2
+Refer: 345 8707 N 1 0 0 1 0 0 3
 EndChar
 
 StartChar: uni20DD
@@ -6151,14 +6152,15 @@ EndChar
 
 StartChar: uni0338
 Encoding: 824 824 401
-Width: 900
+Width: 0
 Flags: MW
+AnchorPoint: "Slash" 0 700 mark 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-150 50 m 5
- 750 1350 l 1049
+-300 50 m 1
+ 300 1350 l 1049
 EndSplineSet
 EndChar
 
@@ -6273,14 +6275,14 @@ EndChar
 
 StartChar: Oslash
 Encoding: 216 216 408
-Width: 1100
+Width: 900
 UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 401 824 N 1 0 0 1 100 0 2
-Refer: 50 79 N 1 0 0 1 100 0 2
+Refer: 401 824 N 1 0 0 1 450 0 2
+Refer: 50 79 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: oslash
@@ -6711,7 +6713,7 @@ Flags: W
 LayerCount: 2
 Back
 Fore
-Refer: 401 824 N 1 0 0 1 0 0 2
+Refer: 401 824 N 1 0 0 1 450 0 2
 Refer: 19 48 N 1 0 0 1 0 0 3
 EndChar
 
