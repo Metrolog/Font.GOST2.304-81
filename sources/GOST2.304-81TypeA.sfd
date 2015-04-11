@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1428781308
+ModificationTime: 1428786935
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -64,7 +64,7 @@ Lookup: 1 0 0 "Alternative Three" { "Alternative Three" ("AltThree") } ['cv01' (
 Lookup: 1 0 0 "Slashed Zero" { "Slashed Zero" ("SlashedZero") } ['zero' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 1 0 0 "Alternative Roman V" { "Alternative Roman V" ("AltRomanV") } ['cv02' ('latn' <'ROM ' 'dflt' > ) ]
 Lookup: 1 0 0 "Dotless Forms" { "Dotless Forms"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 260 0 0 "Marks" { "Top"  "Bottom"  "Right"  "Slash"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
+Lookup: 260 0 0 "Marks" { "Top"  "Bottom"  "Right"  "Center"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 260 0 0 "GreekMarks" { "Tonos"  } ['mark' ('grek' <'dflt' > ) ]
 Lookup: 262 0 0 "Marks above marks" { "MarksAboveMarks"  } ['mkmk' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 Lookup: 258 8 0 "Kern" { "Kern" [330,33,0] } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
@@ -137,7 +137,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 81 27 9
+WinInfo: 162 27 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -327,7 +327,7 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
-AnchorClass2: "Slash" "Slash" "Tonos" "Tonos" "TopMark" "MarksAboveMarks" "Ogonek" "Bottom" "TopRight" "Top" "Right" "Right" "Bottom" "Bottom" "Top" "Top" 
+AnchorClass2: "Center" "Center" "Tonos" "Tonos" "TopMark" "MarksAboveMarks" "Ogonek" "Bottom" "TopRight" "Top" "Right" "Right" "Bottom" "Bottom" "Top" "Top" 
 BeginChars: 1114117 442
 
 StartChar: .notdef
@@ -1639,7 +1639,7 @@ StartChar: o
 Encoding: 111 111 80
 Width: 800
 Flags: MW
-AnchorPoint: "Slash" 400 500 basechar 0
+AnchorPoint: "Center" 400 500 basechar 0
 AnchorPoint: "TopRight" 850 950 basechar 0
 AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
@@ -2031,7 +2031,7 @@ LayerCount: 2
 Back
 Fore
 Refer: 68 99 N 1 0 0 1 450 400 2
-Refer: 347 8413 N 1 0 0 1 0 0 2
+Refer: 347 8413 N 1 0 0 1 850 0 2
 EndChar
 
 StartChar: ordfeminine
@@ -2100,7 +2100,7 @@ LayerCount: 2
 Back
 Fore
 Refer: 406 7487 S 1 0 0 1 450 0 2
-Refer: 347 8413 N 1 0 0 1 0 0 2
+Refer: 347 8413 N 1 0 0 1 850 0 2
 EndChar
 
 StartChar: degree
@@ -5417,7 +5417,7 @@ StartChar: existential
 Encoding: 8707 8707 345
 Width: 800
 Flags: MW
-AnchorPoint: "Slash" 400 700 basechar 0
+AnchorPoint: "Center" 400 700 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -5445,17 +5445,18 @@ EndChar
 
 StartChar: uni20DD
 Encoding: 8413 8413 347
-Width: 1700
+Width: 0
 Flags: MW
+AnchorPoint: "Center" 0 900 mark 0
 LayerCount: 2
 Back
 Fore
 SplineSet
-1550 900 m 128
- 1550 1285 1235 1600 850 1600 c 128
- 465 1600 150 1285 150 900 c 128
- 150 515 465 200 850 200 c 128
- 1235 200 1550 515 1550 900 c 128
+700 900 m 128
+ 700 1285 385 1600 0 1600 c 128
+ -385 1600 -700 1285 -700 900 c 128
+ -700 515 -385 200 0 200 c 128
+ 385 200 700 515 700 900 c 128
 EndSplineSet
 EndChar
 
@@ -6138,7 +6139,7 @@ StartChar: uni0337
 Encoding: 823 823 400
 Width: 0
 Flags: MW
-AnchorPoint: "Slash" 0 500 mark 0
+AnchorPoint: "Center" 0 500 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6152,7 +6153,7 @@ StartChar: uni0338
 Encoding: 824 824 401
 Width: 0
 Flags: MW
-AnchorPoint: "Slash" 0 700 mark 0
+AnchorPoint: "Center" 0 700 mark 0
 LayerCount: 2
 Back
 Fore
