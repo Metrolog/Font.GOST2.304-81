@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1429025652
+ModificationTime: 1429028258
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -137,7 +137,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 27 27 9
+WinInfo: 0 27 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -6078,10 +6078,10 @@ LayerCount: 2
 Back
 Fore
 SplineSet
-350 950 m 1
- 350 -200 l 2
- 350 -282 282 -350 200 -350 c 10
- 150 -350 l 1049
+350 950 m 5
+ 350 -200 l 6
+ 350 -282 282 -350 200 -350 c 14
+ 150 -350 l 1053
 EndSplineSet
 EndChar
 
@@ -6604,7 +6604,10 @@ AnchorPoint: "TopRight" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
-Refer: 426 787 N 1 0 0 1 0 0 2
+SplineSet
+0 1250 m 25
+ 0 1350 l 1049
+EndSplineSet
 EndChar
 
 StartChar: uni0316
