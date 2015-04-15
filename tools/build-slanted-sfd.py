@@ -15,6 +15,7 @@ font.uniqueid += 1
 for glyph in font.glyphs():
 #	if not ( glyph.background.isEmpty() ):
 		glyph.layers[1] += glyph.background
+		glyph.layerrefs[1] += glyph.layerrefs[0]
 		glyph.layers[0] = fontforge.layer()
 
 slantAngle = 75-90
