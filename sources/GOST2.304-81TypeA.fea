@@ -3,6 +3,7 @@ languagesystem cyrl dflt;
 languagesystem grek dflt;
 languagesystem latn dflt;
 languagesystem latn ENG ;
+languagesystem latn DEU ;
 languagesystem latn LTH ;
 languagesystem latn ROM ;
 languagesystem latn RUS ;
@@ -155,18 +156,19 @@ feature liga {
 
 # лигатуры для №
 # http://en.wikipedia.org/wiki/Numero_sign
+
+lookup Numero {
+	lookupflag 0;
+	sub N ordmasculine by numero;
+	sub N degree by numero;
+} Numero;
+
+lookup NumeroENG {
+	lookupflag 0;
+	sub N o period by numero;
+} NumeroENG;
+
 feature liga {
-	lookup Numero {
-		lookupflag 0;
-		sub N ordmasculine by numero;
-		sub N degree by numero;
-	} Numero;
-
-	lookup NumeroENG {
-		lookupflag 0;
-		sub N o period by numero;
-	} NumeroENG;
-
 	script DFLT;
 		language dflt ;
 			lookup Numero;
@@ -177,8 +179,6 @@ feature liga {
 		language RUS exclude_dflt;
 			lookup NumeroENG;
 } liga;
-
-
 
 lookup Marks {
   lookupflag 0;
