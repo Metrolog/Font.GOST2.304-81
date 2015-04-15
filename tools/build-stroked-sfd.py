@@ -11,14 +11,14 @@ version = sys.argv[3]
 
 font = fontforge.open (sourcefile)
 
+for glyph in font.glyphs():
+#	if not ( glyph.background.isEmpty() ):
+		glyph.layers[1] += glyph.background
+		glyph.layers[0] = fontforge.layer()
+
 font.is_quadratic = False
 
 kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
-
-for glyph in font.glyphs():
-	if not ( glyph.background.isEmpty ):
-		glyph.foreground += glyph.background
-		glyph.background = fontforge.layer()
 
 # set font version
 font.version = version

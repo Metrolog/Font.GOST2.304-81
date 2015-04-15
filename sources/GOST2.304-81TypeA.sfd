@@ -25,7 +25,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1429028258
+ModificationTime: 1429089375
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -1594,7 +1594,12 @@ AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
-Refer: 395 567 N -1 0 0 1 500 400 3
+SplineSet
+150 1350 m 1
+ 150 200 l 2
+ 150 118 218 50 300 50 c 10
+ 350 50 l 1049
+EndSplineSet
 EndChar
 
 StartChar: m
