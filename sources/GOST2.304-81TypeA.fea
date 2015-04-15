@@ -158,13 +158,13 @@ feature liga {
 feature liga {
 	lookup Numero {
 		lookupflag 0;
-		sub N ordmasculine by uni2116;
-		sub N degree by uni2116;
+		sub N ordmasculine by numero;
+		sub N degree by numero;
 	} Numero;
 
 	lookup NumeroENG {
 		lookupflag 0;
-		sub N o period by uni2116;
+		sub N o period by numero;
 	} NumeroENG;
 
 	script DFLT;
@@ -399,7 +399,7 @@ feature kern {
 	\oslash \Thorn \germandbls \eth \thorn \uni2E32 \uni20BD \kgreenlandic \ldot 
 	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.SlashedZero 
 	\three.AltThree \uni2164.AltRomanV \uni0332 \uni0333 \uni033F \uni0305];
-@GDEF_Ligature = [\uni2116 \uni2161 \uni2162];
+@GDEF_Ligature = [\numero \uni2161 \uni2162];
 @GDEF_Mark = [\periodcentered \uni20DD \uni0308 \uni0304 \uni0306 \tildecomb 
 	\uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E 
 	\uni0340 \uni0341 \uni0311 \uni0337 \uni0338 \uni0326 \uni0328 \uni0312 \uni030D 

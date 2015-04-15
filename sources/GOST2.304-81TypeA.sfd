@@ -4250,7 +4250,7 @@ Refer: 109 176 S 1 0 0 1 0 0 2
 Refer: 41 70 N 1 0 0 1 500 0 2
 EndChar
 
-StartChar: uni2116
+StartChar: numero
 Encoding: 8470 8470 266
 Width: 1400
 Flags: MW
