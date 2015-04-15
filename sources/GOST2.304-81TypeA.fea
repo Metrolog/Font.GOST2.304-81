@@ -1,0 +1,390 @@
+languagesystem DFLT dflt;
+languagesystem cyrl dflt;
+languagesystem grek dflt;
+languagesystem latn dflt;
+languagesystem latn ENG ;
+languagesystem latn LTH ;
+languagesystem latn ROM ;
+languagesystem latn RUS ;
+languagesystem latn TRK ;
+
+
+# GSUB 
+
+
+lookup AlternativeThree {
+  lookupflag 0;
+    sub \three by \three.AltThree ;
+#!!!    sub \uni2083 by \uni2083.AltThree ;
+#!!!    sub \uni00B3 by \uni00B3.AltThree ;
+} AlternativeThree;
+
+lookup SlashedZero {
+  lookupflag 0;
+    sub \zero by \zero.SlashedZero ;
+#!!!    sub \uni2080 by \uni2080.SlashedZero ;
+#!!!    sub \uni2070 by \uni2070.SlashedZero ;
+} SlashedZero;
+
+lookup AlternativeRomanV {
+  lookupflag 0;
+    sub \uni2164 by \uni2164.AltRomanV ;
+} AlternativeRomanV;
+
+lookup DotlessForms {
+  lookupflag 0;
+    sub \i by \dotlessi ;
+    sub \j by \uni0237 ;
+} DotlessForms;
+
+lookup StandardLigatures {
+  lookupflag 0;
+    sub \uni2160 \uni2160  by \uni2161;
+    sub \uni2160 \uni2160 \uni2160  by \uni2162;
+#!!!    sub \uni2170 \uni2170  by \uni2171;
+#!!!    sub \uni2170 \uni2170 \uni2170  by \uni2172;
+} StandardLigatures;
+
+feature cv01 {
+
+ script DFLT;
+     language dflt ;
+      lookup AlternativeThree;
+
+ script cyrl;
+     language dflt ;
+      lookup AlternativeThree;
+
+ script grek;
+     language dflt ;
+      lookup AlternativeThree;
+
+ script latn;
+     language dflt ;
+      lookup AlternativeThree;
+     language LTH  exclude_dflt;
+      lookup AlternativeThree;
+     language ROM  exclude_dflt;
+      lookup AlternativeThree;
+     language TRK  exclude_dflt;
+      lookup AlternativeThree;
+} cv01;
+
+feature zero {
+
+ script DFLT;
+     language dflt ;
+      lookup SlashedZero;
+
+ script cyrl;
+     language dflt ;
+      lookup SlashedZero;
+
+ script grek;
+     language dflt ;
+      lookup SlashedZero;
+
+ script latn;
+     language dflt ;
+      lookup SlashedZero;
+     language LTH  exclude_dflt;
+      lookup SlashedZero;
+     language ROM  exclude_dflt;
+      lookup SlashedZero;
+     language TRK  exclude_dflt;
+      lookup SlashedZero;
+} zero;
+
+feature cv02 {
+
+ script latn;
+     language dflt ;
+      lookup AlternativeRomanV;
+     language ROM  exclude_dflt;
+      lookup AlternativeRomanV;
+} cv02;
+
+feature dtls {
+
+ script DFLT;
+     language dflt ;
+      lookup DotlessForms;
+
+ script cyrl;
+     language dflt ;
+      lookup DotlessForms;
+
+ script grek;
+     language dflt ;
+      lookup DotlessForms;
+
+ script latn;
+     language dflt ;
+      lookup DotlessForms;
+     language LTH  exclude_dflt;
+      lookup DotlessForms;
+     language ROM  exclude_dflt;
+      lookup DotlessForms;
+     language TRK  exclude_dflt;
+      lookup DotlessForms;
+} dtls;
+
+feature liga {
+
+ script DFLT;
+     language dflt ;
+      lookup StandardLigatures;
+
+ script cyrl;
+     language dflt ;
+      lookup StandardLigatures;
+
+ script grek;
+     language dflt ;
+      lookup StandardLigatures;
+
+ script latn;
+     language dflt ;
+      lookup StandardLigatures;
+     language ENG  exclude_dflt;
+     language LTH  exclude_dflt;
+      lookup StandardLigatures;
+     language ROM  exclude_dflt;
+      lookup StandardLigatures;
+     language RUS  exclude_dflt;
+     language TRK  exclude_dflt;
+      lookup StandardLigatures;
+} liga;
+
+# GPOS 
+
+
+lookup Marks {
+  lookupflag 0;
+  markClass [\uni0315 ] <anchor 0 1350> @TopRight;
+  markClass [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
+  markClass [\tildecomb ] <anchor 0 1325> @Top;
+  pos base [\space ] <anchor 300 1350> mark @Top;
+  pos base [\A \G \Y ] <anchor 500 1650> mark @Top;
+  pos base [\B \C \D \E \R \uni0415 \uni042D ] <anchor 400 1650> mark @Top;
+  pos base [\H \N \S \T \Z \uni0413 \uni0418 \uni041A \uni0423 \uni0427 ] <anchor 450 1650> mark @Top;
+  pos base [\I \b \h \k ] <anchor 150 1650> mark @Top;
+  pos base [\L \l ] <anchor 351 1350> mark @TopRight
+	<anchor 150 1650> mark @Top;
+  pos base [\M ] <anchor 550 1650> mark @Top;
+  pos base [\O \U ] <anchor 950 1350> mark @TopRight
+	<anchor 450 1650> mark @Top;
+  pos base [\W ] <anchor 700 1650> mark @Top;
+  pos base [\a \e \g \n \s \x \y \z \uni0430 \uni0433 \uni0435 \uni0438 \uni043A \uni043E \uni0443 \uni0447 \eth ] <anchor 400 1350> mark @Top;
+  pos base [\c \j \r \uni0237 ] <anchor 350 1350> mark @Top;
+  pos base [\d ] <anchor 850 1350> mark @TopRight
+	<anchor 650 1650> mark @Top;
+  pos base [\i \dotlessi ] <anchor 150 1350> mark @Top;
+  pos base [\m ] <anchor 550 1350> mark @Top;
+  pos base [\o \u ] <anchor 850 950> mark @TopRight
+	<anchor 400 1350> mark @Top;
+  pos base [\t ] <anchor 450 1350> mark @TopRight
+	<anchor 250 1650> mark @Top;
+  pos base [\w ] <anchor 600 1350> mark @Top;
+  pos base [\uni0436 ] <anchor 500 1350> mark @Top;
+  pos base [\uni0437 \uni044D ] <anchor 375 1350> mark @Top;
+  pos base [\uni044B ] <anchor 450 1350> mark @Top;
+  subtable;
+  markClass [\uni0328 ] <anchor 0 0> @Ogonek;
+  markClass [\uni0326 \uni0316 \uni0317 ] <anchor 0 -150> @Bottom;
+  pos base [\space ] <anchor 50 0> mark @Ogonek;
+  pos base [\A \G ] <anchor 500 -150> mark @Bottom
+	<anchor 850 0> mark @Ogonek;
+  pos base [\B \D \E \R \a \b \d \e \h \k \s ] <anchor 400 -150> mark @Bottom;
+  pos base [\H \K \N \S \T ] <anchor 450 -150> mark @Bottom;
+  pos base [\I \i ] <anchor 150 0> mark @Ogonek;
+  pos base [\L ] <anchor 350 -150> mark @Bottom;
+  pos base [\M \m ] <anchor 550 -150> mark @Bottom;
+  pos base [\O \U ] <anchor 350 0> mark @Ogonek;
+  pos base [\W ] <anchor 700 -150> mark @Bottom;
+  pos base [\l ] <anchor 300 -150> mark @Bottom;
+  pos base [\n ] <anchor 401 -150> mark @Bottom;
+  pos base [\r ] <anchor 150 -150> mark @Bottom;
+  pos base [\t ] <anchor 250 -150> mark @Bottom;
+  pos base [\u ] <anchor 650 0> mark @Ogonek;
+  pos base [\y ] <anchor 650 -150> mark @Bottom;
+  pos base [\eth ] <anchor 300 0> mark @Ogonek;
+  subtable;
+  markClass [\periodcentered ] <anchor 150 500> @Right;
+  pos base [\L \l ] <anchor 350 750> mark @Right;
+  subtable;
+  markClass [\uni20DD ] <anchor 0 900> @Center;
+  markClass [\uni0337 ] <anchor 0 500> @Center;
+  markClass [\uni0338 ] <anchor 0 700> @Center;
+  pos base [\o ] <anchor 400 500> mark @Center;
+  pos base [\existential ] <anchor 400 700> mark @Center;
+} Marks;
+
+lookup GreekMarks {
+  lookupflag 0;
+  markClass [\tonos ] <anchor 250 1350> @Tonos;
+  pos base [\Alpha ] <anchor 300 1350> mark @Tonos;
+  pos base [\Epsilon \Eta \Iota \Upsilon ] <anchor -50 1350> mark @Tonos;
+  pos base [\Omicron \uni03A9 ] <anchor 100 1350> mark @Tonos;
+} GreekMarks;
+
+lookup Marksabovemarks {
+  lookupflag 0;
+  markClass [\uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @TopMark;
+  markClass [\acutecomb ] <anchor 0 1650> @TopMark;
+  markClass [\tonos ] <anchor 150 1150> @TopMark;
+  pos mark [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
+  pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
+} Marksabovemarks;
+
+lookup Kern {
+  lookupflag IgnoreMarks;
+    pos \uni2160 \uni2169 -100;
+    pos \uni2160 \uni2164 -100;
+    pos \uni2160 \uni2164.AltRomanV -100;
+    pos \uni2164 \uni2162 -100;
+    pos \uni2164 \uni2161 -100;
+    pos \uni2164 \uni2160 -100;
+    pos \uni2169 \uni2162 -100;
+    pos \uni2169 \uni2161 -100;
+    pos \uni2169 \uni2160 -100;
+    pos \uni2164.AltRomanV \uni2162 -100;
+    pos \uni2164.AltRomanV \uni2161 -100;
+    pos \uni2164.AltRomanV \uni2160 -100;
+#!!!    pos \uni2170 <0 0 -100 0> \uniFFFFFFFF  <0 0 -100 0>;
+#!!!    pos \uni2170 <0 0 -100 0> \uni2174  <0 0 -100 0>;
+#!!!    pos \uni2170 <0 0 -100 0> \uni2179  <0 0 -100 0>;
+#!!!    pos \uni2174 \uni2170 -100;
+#!!!    pos \uni2174 \uni2171 -100;
+#!!!    pos \uni2174 \uni2172 -100;
+#!!!    pos \uni2179 \uni2170 -100;
+#!!!    pos \uni2179 \uni2171 -100;
+#!!!    pos \uni2179 \uni2172 -100;
+} Kern;
+
+feature mark {
+
+ script DFLT;
+     language dflt ;
+      lookup Marks;
+
+ script cyrl;
+     language dflt ;
+      lookup Marks;
+
+ script grek;
+     language dflt ;
+      lookup Marks;
+      lookup GreekMarks;
+
+ script latn;
+     language dflt ;
+      lookup Marks;
+     language LTH  exclude_dflt;
+      lookup Marks;
+     language ROM  exclude_dflt;
+      lookup Marks;
+     language TRK  exclude_dflt;
+      lookup Marks;
+} mark;
+
+feature mkmk {
+
+ script DFLT;
+     language dflt ;
+      lookup Marksabovemarks;
+
+ script cyrl;
+     language dflt ;
+      lookup Marksabovemarks;
+
+ script grek;
+     language dflt ;
+      lookup Marksabovemarks;
+
+ script latn;
+     language dflt ;
+      lookup Marksabovemarks;
+     language LTH  exclude_dflt;
+      lookup Marksabovemarks;
+     language ROM  exclude_dflt;
+      lookup Marksabovemarks;
+     language TRK  exclude_dflt;
+      lookup Marksabovemarks;
+} mkmk;
+
+feature kern {
+
+ script cyrl;
+     language dflt ;
+      lookup Kern;
+
+ script grek;
+     language dflt ;
+      lookup Kern;
+
+ script latn;
+     language dflt ;
+      lookup Kern;
+     language LTH  exclude_dflt;
+      lookup Kern;
+     language ROM  exclude_dflt;
+      lookup Kern;
+     language TRK  exclude_dflt;
+      lookup Kern;
+} kern;
+#Mark attachment classes (defined in GDEF, used in lookupflags)
+
+@GDEF_Simple = [\uni26AC \nonmarkingreturn \space \exclam \quotedbl \numbersign 
+	\dollar \percent \ampersand \quotesingle \parenleft \parenright \asterisk \plus 
+	\comma \hyphen \period \slash \zero \one \two \three \four \five \six \seven \eight 
+	\nine \colon \semicolon \less \equal \greater \question \at \A \B \C \D \E \F \G \H \I \J 
+	\K \L \M \N \O \P \Q \R \S \T \U \V \W \X \Y \Z \bracketleft \backslash \bracketright 
+	\underscore \a \b \c \d \e \f \g \h \i \j \k \l \m \n \o \p \q \r \s \t \u \v \w \x \y \z 
+	\braceleft \bar \braceright \asciitilde \exclamdown \cent \sterling \currency 
+	\yen \brokenbar \section \copyright \ordfeminine \guillemotleft \logicalnot 
+	\uni00AD \registered \degree \plusminus \mu \paragraph \uni00A0 \ordmasculine 
+	\guillemotright \multiply \Alpha \Beta \Gamma \uni0394 \Epsilon \Zeta \Eta \Theta 
+	\Iota \Kappa \Lambda \Mu \Nu \Xi \Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi 
+	\uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
+	\uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
+	\uni0401 \uni0410 \uni0411 \uni0412 \uni0413 \uni0414 \uni0415 \uni0416 \uni0417 
+	\uni0418 \uni0419 \uni041A \uni041B \uni041C \uni041D \uni041E \uni041F \uni0420 
+	\uni0421 \uni0422 \uni0423 \uni0424 \uni0425 \uni0426 \uni0427 \uni0428 \uni0429 
+	\uni042A \uni042B \uni042C \uni042D \uni042E \uni042F \uni0430 \uni0431 \uni0432 
+	\uni0433 \uni0434 \uni0435 \uni0436 \uni0437 \uni0438 \uni0439 \uni043A \uni043B 
+	\uni043C \uni043D \uni043E \uni043F \uni0440 \uni0441 \uni0442 \uni0443 \uni0444 
+	\uni0445 \uni0446 \uni0447 \uni0448 \uni0449 \uni044A \uni044B \uni044C \uni044D 
+	\uni044E \uni044F \uni0451 \uni2010 \uni2011 \endash \emdash \uni2016 \quoteleft 
+	\quoteright \quotesinglbase \quotereversed \quotedblleft \quotedblright 
+	\quotedblbase \uni201F \bullet \onedotenleader \twodotenleader \ellipsis 
+	\perthousand \uni2031 \minute \second \uni2034 \guilsinglleft \guilsinglright 
+	\exclamdbl \uni2042 \fraction \uni2047 \uni2048 \uni2049 \Euro \uni2103 \uni2109 
+	\trademark \Omega \uni2160 \uni2163 \uni2164 \uni2165 \uni2166 \uni2167 \uni2168 
+	\uni2169 \uni216A \uni216B \uni216C \uni216D \uni216E \uni216F \emptyset \Delta 
+	\gradient \minus \uni2213 \uni2215 \uni2216 \asteriskmath \uni2218 \uni2219 
+	\radical \proportional \infinity \orthogonal \angle \uni2221 \uni2222 \uni2223 
+	\uni2225 \integral \uni222E \uni2236 \similar \uni223D \uni223E \uni223F 
+	\uni2242 \uni2243 \congruent \approxequal \uni2250 \uni2251 \uni2252 \uni2253 
+	\uni2254 \equivalence \lessequal \greaterequal \uni226A \uni226B 
+	\perpendicular \uni2300 \revlogicalnot \uni2316 \uni232D \uni232F \uni23E4 
+	\uni23E5 \circle \uni25CE \uni25EF \uni27C2 \uni2027 \uni2015 \figuredash 
+	\uni2029 \uni2028 \universal \uni2201 \partialdiff \existential \uni2204 
+	\product \uni2210 \summation \uni222C \uni222D \uni222F \uni2230 \uni2237 
+	\uni225D \uni225E \uni2263 \integraltp \integralbt \uni239B \uni239C \uni239D 
+	\uni239E \uni239F \uni23A0 \uni23A1 \uni23A2 \uni23A3 \uni23A4 \uni23A5 \uni23A6 
+	\uni23A7 \uni23A8 \uni23A9 \uni23AA \uni23AB \uni23AC \uni23AD \uni23AE \uni2A7D 
+	\uni2A7E \dotlessi \uni0237 \questiondown \AE \ae \uni1D3F \divide \Oslash 
+	\oslash \Thorn \germandbls \eth \thorn \uni2E32 \uni20BD \kgreenlandic \ldot 
+	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.SlashedZero 
+	\three.AltThree \uni2164.AltRomanV \uni0332 \uni0333 \uni033F \uni0305];
+@GDEF_Ligature = [\uni2116 \uni2161 \uni2162];
+@GDEF_Mark = [\periodcentered \uni20DD \uni0308 \uni0304 \uni0306 \tildecomb 
+	\uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E 
+	\uni0340 \uni0341 \uni0311 \uni0337 \uni0338 \uni0326 \uni0328 \uni0312 \uni030D 
+	\uni030F \uni0313 \uni0314 \uni0315 \uni0316 \uni0317 \tonos ];
+
+table GDEF {
+  GlyphClassDef @GDEF_Simple, @GDEF_Ligature, @GDEF_Mark, ;
+
+} GDEF;

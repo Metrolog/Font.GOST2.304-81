@@ -81,9 +81,9 @@ FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
 FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
 FFBUILDSTROKEDSFDPRE:= $(foreach file, numero.fea roman.fea, $(TOOLSDIR)$(file))
 
-$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(AUXDIR)/dirstate
+$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
-	$(PY) $(FFBUILDSTROKEDSFD) $< $@ $(VERSION)
+	$(PY) $(FFBUILDSTROKEDSFD) $< $(<:.sfd=.fea) $@ $(VERSION)
 
 # generate aux regular .sfd file
 

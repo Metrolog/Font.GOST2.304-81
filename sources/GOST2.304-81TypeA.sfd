@@ -18,14 +18,12 @@ Layer: 1 0 "Fore" 0
 StrokedFont: 1
 UniqueID: 4500000
 UseUniqueID: 1
-BaseHoriz: 4 'ideo' 'idtp' 'math' 'romn'
-BaseScript: 'DFLT' 3  -400 1400 0 0
 FSType: 0
 OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1429091185
+ModificationTime: 1429092767
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -59,15 +57,6 @@ OS2CapHeight: 1400
 OS2XHeight: 1000
 OS2FamilyClass: 2048
 OS2Vendor: 'PfEd'
-Lookup: 4 0 1 "Standard Ligatures" { "Standard Ligatures"  } ['liga' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 1 0 0 "Alternative Three" { "Alternative Three" ("AltThree") } ['cv01' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 1 0 0 "Slashed Zero" { "Slashed Zero" ("SlashedZero") } ['zero' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 1 0 0 "Alternative Roman V" { "Alternative Roman V" ("AltRomanV") } ['cv02' ('latn' <'ROM ' 'dflt' > ) ]
-Lookup: 1 0 0 "Dotless Forms" { "Dotless Forms"  } ['dtls' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 260 0 0 "Marks" { "Top"  "Bottom"  "Right"  "Center"  } ['mark' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 260 0 0 "GreekMarks" { "Tonos"  } ['mark' ('grek' <'dflt' > ) ]
-Lookup: 262 0 0 "Marks above marks" { "MarksAboveMarks"  } ['mkmk' ('DFLT' <'dflt' > 'cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
-Lookup: 258 8 0 "Kern" { "Kern" [330,33,0] } ['kern' ('cyrl' <'dflt' > 'grek' <'dflt' > 'latn' <'LTH ' 'ROM ' 'TRK ' 'dflt' > ) ]
 MarkAttachClasses: 1
 DEI: 91125
 LangName: 1033 "" "" "Regular" "" "GOST 2.304-81 Type A" "01.00.0000" "" "" "" "Sergei S. Betke"
@@ -137,7 +126,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 19 19 14
+WinInfo: 190 19 14
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -327,7 +316,6 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
-AnchorClass2: "Center" "Center" "Tonos" "Tonos" "TopMark" "MarksAboveMarks" "Ogonek" "Bottom" "TopRight" "Top" "Right" "Right" "Bottom" "Bottom" "Top" "Top" 
 BeginChars: 1114117 442
 
 StartChar: .notdef
@@ -375,8 +363,6 @@ StartChar: space
 Encoding: 32 32 3
 Width: 600
 Flags: MW
-AnchorPoint: "Ogonek" 50 0 basechar 0
-AnchorPoint: "Top" 300 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -610,7 +596,6 @@ SplineSet
  150 350 l 2
  150 186 286 50 450 50 c 131
 EndSplineSet
-Substitution2: "Slashed Zero" zero.SlashedZero
 EndChar
 
 StartChar: one
@@ -664,7 +649,6 @@ SplineSet
  650 202 494 50 300 50 c 2
  150 50 l 1049
 EndSplineSet
-Substitution2: "Alternative Three" three.AltThree
 EndChar
 
 StartChar: four
@@ -870,9 +854,6 @@ StartChar: A
 Encoding: 65 65 36
 Width: 1000
 Flags: MW
-AnchorPoint: "Bottom" 500 -150 basechar 0
-AnchorPoint: "Ogonek" 850 0 basechar 0
-AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -890,8 +871,6 @@ StartChar: B
 Encoding: 66 66 37
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -912,7 +891,6 @@ StartChar: C
 Encoding: 67 67 38
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -930,8 +908,6 @@ StartChar: D
 Encoding: 68 68 39
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -950,9 +926,6 @@ StartChar: E
 Encoding: 69 69 40
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Ogonek" 650 0 basechar 0
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -986,8 +959,6 @@ StartChar: G
 Encoding: 71 71 42
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 500 -150 basechar 0
-AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1007,8 +978,6 @@ StartChar: H
 Encoding: 72 72 43
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 450 -150 basechar 0
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1026,8 +995,6 @@ StartChar: I
 Encoding: 73 73 44
 Width: 300
 Flags: MW
-AnchorPoint: "Ogonek" 150 0 basechar 0
-AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1056,7 +1023,6 @@ StartChar: K
 Encoding: 75 75 46
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 450 -150 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1074,10 +1040,6 @@ StartChar: L
 Encoding: 76 76 47
 Width: 700
 Flags: MW
-AnchorPoint: "Right" 350 750 basechar 0
-AnchorPoint: "TopRight" 351 1350 basechar 0
-AnchorPoint: "Bottom" 350 -150 basechar 0
-AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1092,8 +1054,6 @@ StartChar: M
 Encoding: 77 77 48
 Width: 1100
 Flags: MW
-AnchorPoint: "Top" 550 1650 basechar 0
-AnchorPoint: "Bottom" 550 -150 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1113,8 +1073,6 @@ StartChar: N
 Encoding: 78 78 49
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 450 -150 basechar 0
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1132,9 +1090,6 @@ StartChar: O
 Encoding: 79 79 50
 Width: 900
 Flags: MW
-AnchorPoint: "TopRight" 950 1350 basechar 0
-AnchorPoint: "Ogonek" 350 0 basechar 0
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1176,8 +1131,6 @@ StartChar: R
 Encoding: 82 82 53
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1192,9 +1145,6 @@ StartChar: S
 Encoding: 83 83 54
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
-AnchorPoint: "TopRight" 950 1350 basechar 0
-AnchorPoint: "Bottom" 450 -150 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1214,8 +1164,6 @@ StartChar: T
 Encoding: 84 84 55
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
-AnchorPoint: "Bottom" 450 -150 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1231,9 +1179,6 @@ StartChar: U
 Encoding: 85 85 56
 Width: 900
 Flags: MW
-AnchorPoint: "TopRight" 950 1350 basechar 0
-AnchorPoint: "Ogonek" 350 0 basechar 0
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1265,8 +1210,6 @@ StartChar: W
 Encoding: 87 87 58
 Width: 1400
 Flags: MW
-AnchorPoint: "Bottom" 700 -150 basechar 0
-AnchorPoint: "Top" 700 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1301,7 +1244,6 @@ StartChar: Y
 Encoding: 89 89 60
 Width: 1000
 Flags: MW
-AnchorPoint: "Top" 500 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1318,7 +1260,6 @@ StartChar: Z
 Encoding: 90 90 61
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1384,9 +1325,6 @@ StartChar: a
 Encoding: 97 97 66
 Width: 900
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Ogonek" 750 0 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1409,8 +1347,6 @@ StartChar: b
 Encoding: 98 98 67
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1421,7 +1357,6 @@ StartChar: c
 Encoding: 99 99 68
 Width: 700
 Flags: MW
-AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1439,9 +1374,6 @@ StartChar: d
 Encoding: 100 100 69
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "TopRight" 850 1350 basechar 0
-AnchorPoint: "Top" 650 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1460,9 +1392,6 @@ StartChar: e
 Encoding: 101 101 70
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Ogonek" 650 0 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1500,7 +1429,6 @@ StartChar: g
 Encoding: 103 103 72
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1521,8 +1449,6 @@ StartChar: h
 Encoding: 104 104 73
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1541,35 +1467,28 @@ StartChar: i
 Encoding: 105 105 74
 Width: 300
 Flags: MW
-AnchorPoint: "Top" 150 1350 basechar 0
-AnchorPoint: "Ogonek" 150 0 basechar 0
 LayerCount: 2
 Back
 Fore
 Refer: 389 775 N 1 0 0 1 150 0 2
 Refer: 394 305 N 1 0 0 1 0 0 3
-Substitution2: "Dotless Forms" dotlessi
 EndChar
 
 StartChar: j
 Encoding: 106 106 75
 Width: 500
 Flags: MW
-AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
 Fore
 Refer: 389 775 N 1 0 0 1 350 0 2
 Refer: 395 567 N 1 0 0 1 0 0 3
-Substitution2: "Dotless Forms" uni0237
 EndChar
 
 StartChar: k
 Encoding: 107 107 76
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1587,10 +1506,6 @@ StartChar: l
 Encoding: 108 108 77
 Width: 500
 Flags: MW
-AnchorPoint: "Right" 350 750 basechar 0
-AnchorPoint: "TopRight" 351 1350 basechar 0
-AnchorPoint: "Bottom" 300 -150 basechar 0
-AnchorPoint: "Top" 150 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1606,8 +1521,6 @@ StartChar: m
 Encoding: 109 109 78
 Width: 1100
 Flags: MW
-AnchorPoint: "Bottom" 550 -150 basechar 0
-AnchorPoint: "Top" 550 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1626,8 +1539,6 @@ StartChar: n
 Encoding: 110 110 79
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 401 -150 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1644,9 +1555,6 @@ StartChar: o
 Encoding: 111 111 80
 Width: 800
 Flags: MW
-AnchorPoint: "Center" 400 500 basechar 0
-AnchorPoint: "TopRight" 850 950 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1685,8 +1593,6 @@ StartChar: r
 Encoding: 114 114 83
 Width: 700
 Flags: MW
-AnchorPoint: "Bottom" 150 -150 basechar 0
-AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1702,8 +1608,6 @@ StartChar: s
 Encoding: 115 115 84
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 400 -150 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1723,9 +1627,6 @@ StartChar: t
 Encoding: 116 116 85
 Width: 600
 Flags: MW
-AnchorPoint: "Bottom" 250 -150 basechar 0
-AnchorPoint: "TopRight" 450 1350 basechar 0
-AnchorPoint: "Top" 250 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1741,9 +1642,6 @@ StartChar: u
 Encoding: 117 117 86
 Width: 800
 Flags: MW
-AnchorPoint: "TopRight" 850 950 basechar 0
-AnchorPoint: "Ogonek" 650 0 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1769,7 +1667,6 @@ StartChar: w
 Encoding: 119 119 88
 Width: 1200
 Flags: MW
-AnchorPoint: "Top" 600 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1789,7 +1686,6 @@ StartChar: x
 Encoding: 120 120 89
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1805,8 +1701,6 @@ StartChar: y
 Encoding: 121 121 90
 Width: 800
 Flags: MW
-AnchorPoint: "Bottom" 650 -150 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -1823,7 +1717,6 @@ StartChar: z
 Encoding: 122 122 91
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2180,7 +2073,6 @@ StartChar: periodcentered
 Encoding: 183 183 114
 Width: 300
 Flags: MW
-AnchorPoint: "Right" 150 500 mark 0
 LayerCount: 2
 Back
 Fore
@@ -2235,7 +2127,6 @@ StartChar: Alpha
 Encoding: 913 913 118
 Width: 1000
 Flags: MW
-AnchorPoint: "Tonos" 300 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2283,7 +2174,6 @@ StartChar: Epsilon
 Encoding: 917 917 122
 Width: 800
 Flags: MW
-AnchorPoint: "Tonos" -50 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2304,7 +2194,6 @@ StartChar: Eta
 Encoding: 919 919 124
 Width: 900
 Flags: MW
-AnchorPoint: "Tonos" -50 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2329,7 +2218,6 @@ StartChar: Iota
 Encoding: 921 921 126
 Width: 300
 Flags: MW
-AnchorPoint: "Tonos" -50 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2402,7 +2290,6 @@ StartChar: Omicron
 Encoding: 927 927 132
 Width: 900
 Flags: MW
-AnchorPoint: "Tonos" 100 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2459,7 +2346,6 @@ StartChar: Upsilon
 Encoding: 933 933 137
 Width: 1000
 Flags: MW
-AnchorPoint: "Tonos" -50 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -2518,7 +2404,6 @@ StartChar: uni03A9
 Encoding: 937 937 141
 Width: 1000
 Flags: MW
-AnchorPoint: "Tonos" 100 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3058,7 +2943,6 @@ StartChar: uni0413
 Encoding: 1043 1043 171
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3092,7 +2976,6 @@ StartChar: uni0415
 Encoding: 1045 1045 173
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3142,7 +3025,6 @@ StartChar: uni0418
 Encoding: 1048 1048 176
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3164,7 +3046,6 @@ StartChar: uni041A
 Encoding: 1050 1050 178
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3265,7 +3146,6 @@ StartChar: uni0423
 Encoding: 1059 1059 187
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3332,7 +3212,6 @@ StartChar: uni0427
 Encoding: 1063 1063 191
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3433,7 +3312,6 @@ StartChar: uni042D
 Encoding: 1069 1069 197
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 400 1650 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3485,7 +3363,6 @@ StartChar: uni0430
 Encoding: 1072 1072 200
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3541,7 +3418,6 @@ StartChar: uni0433
 Encoding: 1075 1075 203
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3572,7 +3448,6 @@ StartChar: uni0435
 Encoding: 1077 1077 205
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3583,7 +3458,6 @@ StartChar: uni0436
 Encoding: 1078 1078 206
 Width: 1000
 Flags: MW
-AnchorPoint: "Top" 500 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3603,7 +3477,6 @@ StartChar: uni0437
 Encoding: 1079 1079 207
 Width: 750
 Flags: MW
-AnchorPoint: "Top" 375 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3624,7 +3497,6 @@ StartChar: uni0438
 Encoding: 1080 1080 208
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3646,7 +3518,6 @@ StartChar: uni043A
 Encoding: 1082 1082 210
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3716,7 +3587,6 @@ StartChar: uni043E
 Encoding: 1086 1086 214
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3767,7 +3637,6 @@ StartChar: uni0443
 Encoding: 1091 1091 219
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3835,7 +3704,6 @@ StartChar: uni0447
 Encoding: 1095 1095 223
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3895,7 +3763,6 @@ StartChar: uni044B
 Encoding: 1099 1099 227
 Width: 900
 Flags: MW
-AnchorPoint: "Top" 450 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -3934,7 +3801,6 @@ StartChar: uni044D
 Encoding: 1101 1101 229
 Width: 800
 Flags: MW
-AnchorPoint: "Top" 375 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -4436,7 +4302,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 44 73 N 1 0 0 1 0 0 3
-Kerns2: 278 -100 "Kern" 273 -100 "Kern" 437 -100 "Kern"
 EndChar
 
 StartChar: uni2161
@@ -4481,8 +4346,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 57 86 N 1 0 0 1 0 0 3
-Kerns2: 271 -100 "Kern" 270 -100 "Kern" 269 -100 "Kern"
-Substitution2: "Alternative Roman V" uni2164.AltRomanV
 EndChar
 
 StartChar: uni2165
@@ -4540,7 +4403,6 @@ LayerCount: 2
 Back
 Fore
 Refer: 59 88 N 1 0 0 1 0 0 3
-Kerns2: 271 -100 "Kern" 270 -100 "Kern" 269 -100 "Kern"
 EndChar
 
 StartChar: uni216A
@@ -5423,7 +5285,6 @@ StartChar: existential
 Encoding: 8707 8707 345
 Width: 800
 Flags: MW
-AnchorPoint: "Center" 400 700 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -5453,7 +5314,6 @@ StartChar: uni20DD
 Encoding: 8413 8413 347
 Width: 0
 Flags: MW
-AnchorPoint: "Center" 0 900 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5886,8 +5746,6 @@ StartChar: uni0308
 Encoding: 776 776 383
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5899,9 +5757,6 @@ StartChar: uni0304
 Encoding: 772 772 384
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5915,9 +5770,6 @@ StartChar: uni0306
 Encoding: 774 774 385
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5932,8 +5784,6 @@ StartChar: tildecomb
 Encoding: 771 771 386
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1525 basemark 0
-AnchorPoint: "Top" 0 1325 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5949,9 +5799,6 @@ StartChar: uni030B
 Encoding: 779 779 387
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5963,9 +5810,6 @@ StartChar: uni030A
 Encoding: 778 778 388
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -5982,9 +5826,6 @@ StartChar: uni0307
 Encoding: 775 775 389
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6000,9 +5841,6 @@ StartChar: uni0302
 Encoding: 770 770 390
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6017,9 +5855,6 @@ StartChar: uni030C
 Encoding: 780 780 391
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6034,8 +5869,6 @@ StartChar: acutecomb
 Encoding: 769 769 392
 Width: 0
 Flags: MW
-AnchorPoint: "Top" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6049,8 +5882,6 @@ StartChar: gravecomb
 Encoding: 768 768 393
 Width: 0
 Flags: MW
-AnchorPoint: "Top" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6064,7 +5895,6 @@ StartChar: dotlessi
 Encoding: 305 305 394
 Width: 300
 Flags: MW
-AnchorPoint: "Top" 150 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -6078,7 +5908,6 @@ StartChar: uni0237
 Encoding: 567 567 395
 Width: 500
 Flags: MW
-AnchorPoint: "Top" 350 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -6094,9 +5923,6 @@ StartChar: uni030E
 Encoding: 782 782 396
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6108,8 +5934,6 @@ StartChar: uni0340
 Encoding: 832 832 397
 Width: 0
 Flags: MW
-AnchorPoint: "Top" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6120,8 +5944,6 @@ StartChar: uni0341
 Encoding: 833 833 398
 Width: 0
 Flags: MW
-AnchorPoint: "Top" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6132,9 +5954,6 @@ StartChar: uni0311
 Encoding: 785 785 399
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6145,7 +5964,6 @@ StartChar: uni0337
 Encoding: 823 823 400
 Width: 0
 Flags: MW
-AnchorPoint: "Center" 0 500 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6159,7 +5977,6 @@ StartChar: uni0338
 Encoding: 824 824 401
 Width: 0
 Flags: MW
-AnchorPoint: "Center" 0 700 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6173,7 +5990,6 @@ StartChar: uni0326
 Encoding: 806 806 402
 Width: 0
 Flags: MW
-AnchorPoint: "Bottom" 0 -150 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6306,7 +6122,6 @@ StartChar: uni0328
 Encoding: 808 808 410
 Width: 0
 Flags: MW
-AnchorPoint: "Ogonek" 0 0 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6320,9 +6135,6 @@ StartChar: uni0312
 Encoding: 786 786 411
 Width: 0
 Flags: MW
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6374,8 +6186,6 @@ StartChar: eth
 Encoding: 240 240 414
 Width: 800
 Flags: MW
-AnchorPoint: "Ogonek" 300 0 basechar 0
-AnchorPoint: "Top" 400 1350 basechar 0
 LayerCount: 2
 Back
 Fore
@@ -6552,9 +6362,6 @@ StartChar: uni030D
 Encoding: 781 781 424
 Width: 0
 Flags: W
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6568,9 +6375,6 @@ StartChar: uni030F
 Encoding: 783 783 425
 Width: 0
 Flags: W
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6582,9 +6386,6 @@ StartChar: uni0313
 Encoding: 787 787 426
 Width: 0
 Flags: W
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6595,9 +6396,6 @@ StartChar: uni0314
 Encoding: 788 788 427
 Width: 0
 Flags: W
-AnchorPoint: "TopMark" 0 1350 mark 0
-AnchorPoint: "TopMark" 0 1650 basemark 0
-AnchorPoint: "Top" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6618,7 +6416,6 @@ StartChar: uni0315
 Encoding: 789 789 429
 Width: 0
 Flags: W
-AnchorPoint: "TopRight" 0 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6632,7 +6429,6 @@ StartChar: uni0316
 Encoding: 790 790 430
 Width: 0
 Flags: W
-AnchorPoint: "Bottom" 0 -150 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6643,7 +6439,6 @@ StartChar: uni0317
 Encoding: 791 791 431
 Width: 0
 Flags: W
-AnchorPoint: "Bottom" 0 -150 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6654,8 +6449,6 @@ StartChar: tonos
 Encoding: 900 900 432
 Width: 400
 Flags: W
-AnchorPoint: "TopMark" 150 1150 mark 0
-AnchorPoint: "Tonos" 250 1350 mark 0
 LayerCount: 2
 Back
 Fore
@@ -6737,7 +6530,6 @@ SplineSet
  350 1350 l 1049
 EndSplineSet
 Refer: 273 8548 N 1 0 0 1 100 0 2
-Kerns2: 271 -100 "Kern" 270 -100 "Kern" 269 -100 "Kern"
 EndChar
 
 StartChar: uni0332

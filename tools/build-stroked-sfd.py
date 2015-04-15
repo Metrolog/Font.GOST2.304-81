@@ -6,8 +6,9 @@ import sys, os, re
 
 toolsdir = os.path.dirname(os.path.abspath(sys.argv[0])) + '/'
 sourcefile = sys.argv[1]
-destfile = sys.argv[2]
-version = sys.argv[3]
+sourceFeaturesFile = sys.argv[2]
+destfile = sys.argv[3]
+version = sys.argv[4]
 
 font = fontforge.open (sourcefile)
 
@@ -18,6 +19,8 @@ for glyph in font.glyphs():
 		glyph.layers[0] = fontforge.layer()
 
 font.is_quadratic = False
+
+font.mergeFeature (sourceFeaturesFile)
 
 kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
 
@@ -117,11 +120,11 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.SlashedZero') > -1:
 	subGlyph.transform (subscriptTransform)
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-	subtableName = "Slashed Zero"
-	if font.getLookupOfSubtable (subtableName) is not None:
-		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
-		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
-		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
+#	subtableName = "Slashed Zero"
+#	if font.getLookupOfSubtable (subtableName) is not None:
+#		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
+#		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
+#		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
 # add alternative 3 support for subscript and superscript
 normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[3] )]
@@ -136,11 +139,11 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.AltThree') > -1:
 	subGlyph.transform (subscriptTransform)
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-	subtableName = "Alternative Three"
-	if font.getLookupOfSubtable (subtableName) is not None:
-		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
-		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
-		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
+#	subtableName = "Alternative Three"
+#	if font.getLookupOfSubtable (subtableName) is not None:
+#		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
+#		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
+#		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
 # build capitalized roman digits
 if font.findEncodingSlot (0x2160) not in font:
