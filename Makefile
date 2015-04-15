@@ -79,7 +79,7 @@ dirstate:;
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
 FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
-FFBUILDSTROKEDSFDPRE:= $(foreach file, numero.fea roman.fea, $(TOOLSDIR)$(file))
+FFBUILDSTROKEDSFDPRE:= $(foreach file, roman.fea, $(TOOLSDIR)$(file))
 
 $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)

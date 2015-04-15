@@ -168,8 +168,4 @@ if font.findEncodingSlot (0x2170) not in font:
 # roman ligatures
 font.mergeFeature ( toolsdir + 'roman.fea')
 
-# add numero № ligatures
-# http://en.wikipedia.org/wiki/Numero_sign
-font.mergeFeature ( toolsdir + 'numero.fea')
-
 font.save (destfile)

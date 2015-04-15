@@ -9,9 +9,6 @@ languagesystem latn RUS ;
 languagesystem latn TRK ;
 
 
-# GSUB 
-
-
 lookup AlternativeThree {
   lookupflag 0;
     sub \three by \three.AltThree ;
@@ -156,7 +153,31 @@ feature liga {
       lookup StandardLigatures;
 } liga;
 
-# GPOS 
+# лигатуры для №
+# http://en.wikipedia.org/wiki/Numero_sign
+feature liga {
+	lookup Numero {
+		lookupflag 0;
+		sub N ordmasculine by uni2116;
+		sub N degree by uni2116;
+	} Numero;
+
+	lookup NumeroENG {
+		lookupflag 0;
+		sub N o period by uni2116;
+	} NumeroENG;
+
+	script DFLT;
+		language dflt ;
+			lookup Numero;
+
+	script latn;
+		language ENG exclude_dflt;
+			lookup NumeroENG;
+		language RUS exclude_dflt;
+			lookup NumeroENG;
+} liga;
+
 
 
 lookup Marks {
