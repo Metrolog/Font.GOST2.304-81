@@ -12,7 +12,7 @@
     mainfontsize = 3.5mm,
     %zero = slashed,
     %digit-three = alternative,
-    roman-V = serif,
+    %roman-V = serif,
     math = true
   ]
   {gost2.304}
@@ -210,7 +210,7 @@
     \slshape
     \DrawChars{
       1234567890
-      \fontspec{GOST2.304-81TypeA-Slanted.ttf} \addfontfeature{Numbers=SlashedZero} 0
+      \addfontfeature{Numbers=SlashedZero} 0
       \addfontfeature{CharacterVariant={1}} 3
     }
   }
@@ -224,7 +224,8 @@
       \setcounter{digit}{6}\Roman{digit}
       \setcounter{digit}{8}\Roman{digit}
       \setcounter{digit}{9}\Roman{digit}
-      %\fontspec{GOST2.304-81TypeA-Regular.ttf} \addfontfeature{CharacterVariant={2}} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{CharacterVariant={2}} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{CharacterVariant={1, 2}} \setcounter{digit}{5}\Roman{digit} 3
     }
     \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}
   }
@@ -238,7 +239,7 @@
       \setcounter{digit}{6}\Roman{digit}
       \setcounter{digit}{8}\Roman{digit}
       \setcounter{digit}{9}\Roman{digit}
-      %\fontspec{GOST2.304-81TypeA-Slanted.ttf} \addfontfeature{CharacterVariant={2}} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{CharacterVariant={2}} \setcounter{digit}{5}\Roman{digit} 3
     }
   }
 
