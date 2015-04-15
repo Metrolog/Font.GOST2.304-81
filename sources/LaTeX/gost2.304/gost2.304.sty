@@ -10,6 +10,8 @@
 % NFSS идентификатор шрифта
 \tl_const:Nn \c_eskdfont_mainfont_tl {eskdfont}
 \tl_const:Nn \c_eskdfont_mathfont_tl {eskdfont}
+\tl_const:Nn \c_eskdfont_mainfont_NFSSFamily_tl {eskdfontfamily}
+\tl_const:Nn \c_eskdfont_mathfont_NFSSFamily_tl {eskdfontfamily}
 
 % ряд размеров шрифтов h по ГОСТ 2.304
 % применяемые размеры шрифта h=2,5; 3,5; 5,0; 7,0; 10,0; 14,0; 20,0; 28,0; 40,0 мм
@@ -291,7 +293,7 @@
             \normalsize
             \setmainfont { \tl_use:N \c_eskdfont_mainfont_tl }
               [
-                NFSSFamily = \tl_use:N \c_eskdfont_mainfont_tl,
+                % NFSSFamily = \tl_use:N \c_eskdfont_mainfont_NFSSFamily_tl,
                 \tl_use:N \g__eskdfont_mainfont_features_tl
               ]
             \msg_log:nn { gost2.304 } { mainfont }
@@ -393,7 +395,7 @@
 \group_begin:
   \fontspec { \tl_use:N \c_eskdfont_mainfont_tl }
     [
-      NFSSFamily = \tl_use:N \c_eskdfont_mainfont_tl,
+      % NFSSFamily = \tl_use:N \c_eskdfont_mainfont_NFSSFamily_tl,
       \tl_use:N \g__eskdfont_font_features_tl
     ]
   \fontsize { 100pt } { 100pt } \selectfont
@@ -448,7 +450,7 @@
 \tl_gset:Nx \g__eskdfont_mainfont_features_tl { \tl_use:N \g__eskdfont_font_features_tl }
 \newfontfamily \eskdfont { \tl_use:N \c_eskdfont_mainfont_tl }
   [
-    NFSSFamily = \tl_use:N \c_eskdfont_mainfont_tl,
+    % NFSSFamily = \tl_use:N \c_eskdfont_mainfont_NFSSFamily_tl,
     \tl_use:N \g__eskdfont_mainfont_features_tl
   ]
 
@@ -491,16 +493,23 @@
 \bool_if:NT \g__eskdfont_mainfontsize_bool
   { \__eskdfont_normalsize_gset: }
 
+% предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
+\prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
+  {
+    \tl_if_in:NnTF \f@family {eskdfont} %\c_eskdfont_mainfont_tl
+	  { \prg_return_true: } { \prg_return_false: }
+  }
+
 % опционально используем только заглавные римские цифры, как предусмотрено ГОСТ 2.304
 \cs_new_nopar:Nn \eskdfont_int_to_Roman:n
   {
-    \tl_if_eq:NNTF \c_eskdfont_mainfont_tl \f@family
+    \eskdfont_if_eskdfont:TF
       { \__eskdfont_int_to_Roman_aux:n {#1} }
       { \int_to_Roman:n {#1} }
   }
 \cs_new_nopar:Nn \eskdfont_int_to_roman:n
   {
-    \tl_if_eq:NNTF \c_eskdfont_mainfont_tl \f@family
+    \eskdfont_if_eskdfont:TF
       { \__eskdfont_int_to_Roman_aux:n {#1} }
       { \int_to_roman:n {#1} }
   }
@@ -607,8 +616,6 @@
 % переопределяем шрифты операторов
 \cs_new:Nn \__eskdfont_operators_set:
   {
-    \SetSymbolFont {operators} {eskd} { \tl_use:N \g_fontspec_encoding_tl } {eskdfont} \mddefault \updefault
-
     % должен быть "022C5, но этого символа нет в шрифте
     % * сознательно перевожу в знак умножения в виде точки
     \__eskdfont_math_symbol_declare:nNnn {*} \mathbin {operators} {"000B7} %{"002DA} {"02217} {"022C5}
@@ -678,7 +685,7 @@
   }
 
 \cs_new_nopar:Nn \__eskdfont_math_font_family:n
-  {\tl_to_str:N \c_eskdfont_mathfont_tl #1}
+  {\tl_to_str:N \c_eskdfont_mathfont_NFSSFamily_tl #1}
 
 \cs_generate_variant:Nn \fontspec_set_family:cnn { cxx }
 
