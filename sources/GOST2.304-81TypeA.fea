@@ -180,6 +180,20 @@ feature liga {
 			lookup NumeroENG;
 } liga;
 
+# лигатуры для germandbls
+
+lookup germandbls {
+	lookupflag 0;
+	sub s s by germandbls;
+} germandbls;
+
+feature liga {
+	script latn;
+		language DEU exclude_dflt;
+			lookup germandbls;
+} liga;
+
+
 lookup Marks {
   lookupflag 0;
   markClass [\uni0315 ] <anchor 0 1350> @TopRight;
