@@ -10,63 +10,27 @@ languagesystem latn RUS ;
 languagesystem latn TRK ;
 
 
-lookup AlternativeThree {
-  lookupflag 0;
-    sub \three by \three.AltThree ;
-#!!!    sub \uni2083 by \uni2083.AltThree ;
-#!!!    sub \uni00B3 by \uni00B3.AltThree ;
-} AlternativeThree;
-
 lookup SlashedZero {
-  lookupflag 0;
     sub \zero by \zero.SlashedZero ;
 #!!!    sub \uni2080 by \uni2080.SlashedZero ;
 #!!!    sub \uni2070 by \uni2070.SlashedZero ;
 } SlashedZero;
 
 lookup AlternativeRomanV {
-  lookupflag 0;
     sub \uni2164 by \uni2164.AltRomanV ;
 } AlternativeRomanV;
 
 lookup DotlessForms {
-  lookupflag 0;
     sub \i by \dotlessi ;
     sub \j by \uni0237 ;
 } DotlessForms;
 
 lookup StandardLigatures {
-  lookupflag 0;
     sub \uni2160 \uni2160  by \uni2161;
     sub \uni2160 \uni2160 \uni2160  by \uni2162;
 #!!!    sub \uni2170 \uni2170  by \uni2171;
 #!!!    sub \uni2170 \uni2170 \uni2170  by \uni2172;
 } StandardLigatures;
-
-feature cv01 {
-
- script DFLT;
-     language dflt ;
-      lookup AlternativeThree;
-
- script cyrl;
-     language dflt ;
-      lookup AlternativeThree;
-
- script grek;
-     language dflt ;
-      lookup AlternativeThree;
-
- script latn;
-     language dflt ;
-      lookup AlternativeThree;
-     language LTH  exclude_dflt;
-      lookup AlternativeThree;
-     language ROM  exclude_dflt;
-      lookup AlternativeThree;
-     language TRK  exclude_dflt;
-      lookup AlternativeThree;
-} cv01;
 
 feature zero {
 
@@ -153,6 +117,16 @@ feature liga {
      language TRK  exclude_dflt;
       lookup StandardLigatures;
 } liga;
+
+# альтернативное начертание цифры 3
+
+feature cv01 {
+	lookup Digit3Alt {
+		sub \three by \three.AltThree ;
+		# sub \uni2083 by \uni2083.AltThree ;
+		# sub \uni00B3 by \uni00B3.AltThree ;
+	} Digit3Alt;
+} cv01;
 
 # лигатуры для №
 # http://en.wikipedia.org/wiki/Numero_sign
