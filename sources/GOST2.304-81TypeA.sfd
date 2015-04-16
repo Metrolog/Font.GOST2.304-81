@@ -6513,7 +6513,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni2164.AltRomanV
+StartChar: uni2164.alt
 Encoding: 1114116 -1 437
 Width: 1200
 UnlinkRmOvrlpSave: 1

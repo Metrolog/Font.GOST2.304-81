@@ -16,10 +16,6 @@ lookup SlashedZero {
 #!!!    sub \uni2070 by \uni2070.SlashedZero ;
 } SlashedZero;
 
-lookup AlternativeRomanV {
-    sub \uni2164 by \uni2164.AltRomanV ;
-} AlternativeRomanV;
-
 lookup DotlessForms {
     sub \i by \dotlessi ;
     sub \j by \uni0237 ;
@@ -56,15 +52,6 @@ feature zero {
      language TRK  exclude_dflt;
       lookup SlashedZero;
 } zero;
-
-feature cv02 {
-
- script latn;
-     language dflt ;
-      lookup AlternativeRomanV;
-     language ROM  exclude_dflt;
-      lookup AlternativeRomanV;
-} cv02;
 
 feature dtls {
 
@@ -124,10 +111,17 @@ feature liga {
 @three.alt = [ three.alt ];
 
 feature cv01 {
-	lookup three.alt {
-		sub @three by @three.alt;
-	} three.alt;
+	sub @three by @three.alt;
 } cv01;
+
+# альтернативное начертание римской V
+
+@romanV = [ uni2164 ];
+@romanV.alt = [ uni2164.alt ];
+
+feature cv02 {
+	sub @romanV by @romanV.alt;
+} cv02;
 
 # лигатуры для №
 # http://en.wikipedia.org/wiki/Numero_sign
@@ -248,16 +242,16 @@ lookup Kern {
   lookupflag IgnoreMarks;
     pos \uni2160 \uni2169 -100;
     pos \uni2160 \uni2164 -100;
-    pos \uni2160 \uni2164.AltRomanV -100;
+    pos \uni2160 \uni2164.alt -100;
     pos \uni2164 \uni2162 -100;
     pos \uni2164 \uni2161 -100;
     pos \uni2164 \uni2160 -100;
     pos \uni2169 \uni2162 -100;
     pos \uni2169 \uni2161 -100;
     pos \uni2169 \uni2160 -100;
-    pos \uni2164.AltRomanV \uni2162 -100;
-    pos \uni2164.AltRomanV \uni2161 -100;
-    pos \uni2164.AltRomanV \uni2160 -100;
+    pos \uni2164.alt \uni2162 -100;
+    pos \uni2164.alt \uni2161 -100;
+    pos \uni2164.alt \uni2160 -100;
 #!!!    pos \uni2170 <0 0 -100 0> \uniFFFFFFFF  <0 0 -100 0>;
 #!!!    pos \uni2170 <0 0 -100 0> \uni2174  <0 0 -100 0>;
 #!!!    pos \uni2170 <0 0 -100 0> \uni2179  <0 0 -100 0>;
@@ -384,7 +378,7 @@ feature kern {
 	\uni2A7E \dotlessi \uni0237 \questiondown \AE \ae \uni1D3F \divide \Oslash 
 	\oslash \Thorn \germandbls \eth \thorn \uni2E32 \uni20BD \kgreenlandic \ldot 
 	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.SlashedZero 
-	\three.AltThree \uni2164.AltRomanV \uni0332 \uni0333 \uni033F \uni0305];
+	\three.alt \uni2164.alt \uni0332 \uni0333 \uni033F \uni0305];
 @GDEF_Ligature = [\numero \uni2161 \uni2162];
 @GDEF_Mark = [\periodcentered \uni20DD \uni0308 \uni0304 \uni0306 \tildecomb 
 	\uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E 
