@@ -120,12 +120,13 @@ feature liga {
 
 # альтернативное начертание цифры 3
 
+@three = [ three ];
+@three.alt = [ three.alt ];
+
 feature cv01 {
-	lookup Digit3Alt {
-		sub \three by \three.AltThree ;
-		# sub \uni2083 by \uni2083.AltThree ;
-		# sub \uni00B3 by \uni00B3.AltThree ;
-	} Digit3Alt;
+	lookup three.alt {
+		sub @three by @three.alt;
+	} three.alt;
 } cv01;
 
 # лигатуры для №

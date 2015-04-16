@@ -128,12 +128,12 @@ if font.findEncodingSlot (normalSourceGlyph.glyphname + '.SlashedZero') > -1:
 
 # add alternative 3 support for subscript and superscript
 normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[3] )]
-if font.findEncodingSlot (normalSourceGlyph.glyphname + '.AltThree') > -1:
-	sourceGlyph = font[normalSourceGlyph.glyphname + '.AltThree']
+if font.findEncodingSlot (normalSourceGlyph.glyphname + '.alt') > -1:
+	sourceGlyph = font[normalSourceGlyph.glyphname + '.alt']
 	normalSubGlyph = font[fontforge.nameFromUnicode( subUnicode[3] )]
-	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.AltThree' )
+	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.alt' )
 	normalSuperGlyph = font[fontforge.nameFromUnicode( superUnicode[3] )]
-	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.AltThree' )
+	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.alt' )
 	subGlyph.width = sourceGlyph.width
 	subGlyph.addReference (sourceGlyph.glyphname)
 	subGlyph.transform (subscriptTransform)

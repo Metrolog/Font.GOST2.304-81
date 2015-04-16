@@ -6495,7 +6495,7 @@ Refer: 401 824 N 1 0 0 1 450 0 2
 Refer: 19 48 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: three.AltThree
+StartChar: three.alt
 Encoding: 1114115 -1 436
 Width: 800
 Flags: W
