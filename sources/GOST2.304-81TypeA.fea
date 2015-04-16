@@ -238,31 +238,6 @@ lookup Marksabovemarks {
   pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
 } Marksabovemarks;
 
-lookup Kern {
-  lookupflag IgnoreMarks;
-    pos \uni2160 \uni2169 -100;
-    pos \uni2160 \uni2164 -100;
-    pos \uni2160 \uni2164.alt -100;
-    pos \uni2164 \uni2162 -100;
-    pos \uni2164 \uni2161 -100;
-    pos \uni2164 \uni2160 -100;
-    pos \uni2169 \uni2162 -100;
-    pos \uni2169 \uni2161 -100;
-    pos \uni2169 \uni2160 -100;
-    pos \uni2164.alt \uni2162 -100;
-    pos \uni2164.alt \uni2161 -100;
-    pos \uni2164.alt \uni2160 -100;
-#!!!    pos \uni2170 <0 0 -100 0> \uniFFFFFFFF  <0 0 -100 0>;
-#!!!    pos \uni2170 <0 0 -100 0> \uni2174  <0 0 -100 0>;
-#!!!    pos \uni2170 <0 0 -100 0> \uni2179  <0 0 -100 0>;
-#!!!    pos \uni2174 \uni2170 -100;
-#!!!    pos \uni2174 \uni2171 -100;
-#!!!    pos \uni2174 \uni2172 -100;
-#!!!    pos \uni2179 \uni2170 -100;
-#!!!    pos \uni2179 \uni2171 -100;
-#!!!    pos \uni2179 \uni2172 -100;
-} Kern;
-
 feature mark {
 
  script DFLT;
@@ -314,26 +289,35 @@ feature mkmk {
       lookup Marksabovemarks;
 } mkmk;
 
+# кернинг
+
 feature kern {
-
- script cyrl;
-     language dflt ;
-      lookup Kern;
-
- script grek;
-     language dflt ;
-      lookup Kern;
-
- script latn;
-     language dflt ;
-      lookup Kern;
-     language LTH  exclude_dflt;
-      lookup Kern;
-     language ROM  exclude_dflt;
-      lookup Kern;
-     language TRK  exclude_dflt;
-      lookup Kern;
+	lookup Kern {
+		lookupflag IgnoreMarks;
+		pos \uni2160 \uni2169 -100;
+		pos \uni2160 \uni2164 -100;
+		pos \uni2160 \uni2164.alt -100;
+		pos \uni2164 \uni2162 -100;
+		pos \uni2164 \uni2161 -100;
+		pos \uni2164 \uni2160 -100;
+		pos \uni2169 \uni2162 -100;
+		pos \uni2169 \uni2161 -100;
+		pos \uni2169 \uni2160 -100;
+		pos \uni2164.alt \uni2162 -100;
+		pos \uni2164.alt \uni2161 -100;
+		pos \uni2164.alt \uni2160 -100;
+		#!!!    pos \uni2170 <0 0 -100 0> \uniFFFFFFFF  <0 0 -100 0>;
+		#!!!    pos \uni2170 <0 0 -100 0> \uni2174  <0 0 -100 0>;
+		#!!!    pos \uni2170 <0 0 -100 0> \uni2179  <0 0 -100 0>;
+		#!!!    pos \uni2174 \uni2170 -100;
+		#!!!    pos \uni2174 \uni2171 -100;
+		#!!!    pos \uni2174 \uni2172 -100;
+		#!!!    pos \uni2179 \uni2170 -100;
+		#!!!    pos \uni2179 \uni2171 -100;
+		#!!!    pos \uni2179 \uni2172 -100;
+	} Kern;
 } kern;
+
 #Mark attachment classes (defined in GDEF, used in lookupflags)
 
 @GDEF_Simple = [\uni26AC \nonmarkingreturn \space \exclam \quotedbl \numbersign 
