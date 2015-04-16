@@ -158,13 +158,11 @@ feature liga {
 # http://en.wikipedia.org/wiki/Numero_sign
 
 lookup Numero {
-	lookupflag 0;
 	sub N ordmasculine by numero;
 	sub N degree by numero;
 } Numero;
 
 lookup NumeroENG {
-	lookupflag 0;
 	sub N o period by numero;
 } NumeroENG;
 
@@ -183,7 +181,6 @@ feature liga {
 # лигатуры для germandbls
 
 lookup germandbls {
-	lookupflag 0;
 	sub s s by germandbls;
 } germandbls;
 
