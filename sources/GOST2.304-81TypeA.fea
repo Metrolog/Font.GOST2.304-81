@@ -10,42 +10,12 @@ languagesystem latn RUS ;
 languagesystem latn TRK ;
 
 
-lookup DotlessForms {
-    sub \i by \dotlessi ;
-    sub \j by \uni0237 ;
-} DotlessForms;
-
 lookup StandardLigatures {
     sub \uni2160 \uni2160  by \uni2161;
     sub \uni2160 \uni2160 \uni2160  by \uni2162;
 #!!!    sub \uni2170 \uni2170  by \uni2171;
 #!!!    sub \uni2170 \uni2170 \uni2170  by \uni2172;
 } StandardLigatures;
-
-feature dtls {
-
- script DFLT;
-     language dflt ;
-      lookup DotlessForms;
-
- script cyrl;
-     language dflt ;
-      lookup DotlessForms;
-
- script grek;
-     language dflt ;
-      lookup DotlessForms;
-
- script latn;
-     language dflt ;
-      lookup DotlessForms;
-     language LTH  exclude_dflt;
-      lookup DotlessForms;
-     language ROM  exclude_dflt;
-      lookup DotlessForms;
-     language TRK  exclude_dflt;
-      lookup DotlessForms;
-} dtls;
 
 feature liga {
 
@@ -82,6 +52,13 @@ feature liga {
 feature zero {
 	sub @zero by @zero.slash;
 } zero;
+
+# dotless формы для i, j
+
+feature dtls {
+	sub i by dotlessi;
+	sub j by dotlessj;
+} dtls;
 
 # альтернативное начертание цифры 3
 
@@ -155,7 +132,7 @@ lookup Marks {
 	<anchor 450 1650> mark @Top;
   pos base [\W ] <anchor 700 1650> mark @Top;
   pos base [\a \e \g \n \s \x \y \z \uni0430 \uni0433 \uni0435 \uni0438 \uni043A \uni043E \uni0443 \uni0447 \eth ] <anchor 400 1350> mark @Top;
-  pos base [\c \j \r \uni0237 ] <anchor 350 1350> mark @Top;
+  pos base [\c \j \r \dotlessj ] <anchor 350 1350> mark @Top;
   pos base [\d ] <anchor 850 1350> mark @TopRight
 	<anchor 650 1650> mark @Top;
   pos base [\i \dotlessi ] <anchor 150 1350> mark @Top;
@@ -337,7 +314,7 @@ feature kern {
 	\uni225D \uni225E \uni2263 \integraltp \integralbt \uni239B \uni239C \uni239D 
 	\uni239E \uni239F \uni23A0 \uni23A1 \uni23A2 \uni23A3 \uni23A4 \uni23A5 \uni23A6 
 	\uni23A7 \uni23A8 \uni23A9 \uni23AA \uni23AB \uni23AC \uni23AD \uni23AE \uni2A7D 
-	\uni2A7E \dotlessi \uni0237 \questiondown \AE \ae \uni1D3F \divide \Oslash 
+	\uni2A7E \dotlessi \dotlessj \questiondown \AE \ae \uni1D3F \divide \Oslash 
 	\oslash \Thorn \germandbls \eth \thorn \uni2E32 \uni20BD \kgreenlandic \ldot 
 	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.slash 
 	\three.alt \uni2164.alt \uni0332 \uni0333 \uni033F \uni0305];

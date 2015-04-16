@@ -5904,7 +5904,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni0237
+StartChar: dotlessj
 Encoding: 567 567 395
 Width: 500
 Flags: MW
