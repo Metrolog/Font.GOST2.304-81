@@ -6483,7 +6483,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: zero.SlashedZero
+StartChar: zero.slash
 Encoding: 1114114 -1 435
 Width: 900
 UnlinkRmOvrlpSave: 1

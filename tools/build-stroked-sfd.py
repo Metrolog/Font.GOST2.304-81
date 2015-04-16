@@ -109,12 +109,12 @@ for i in range(len(sourceUnicode)):
 
 # add slashed zero support for subscript and superscript
 normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[0] )]
-if font.findEncodingSlot (normalSourceGlyph.glyphname + '.SlashedZero') > -1:
-	sourceGlyph = font[normalSourceGlyph.glyphname + '.SlashedZero']
+if font.findEncodingSlot (normalSourceGlyph.glyphname + '.slash') > -1:
+	sourceGlyph = font[normalSourceGlyph.glyphname + '.slash']
 	normalSubGlyph = font[fontforge.nameFromUnicode( subUnicode[0] )]
-	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.SlashedZero' )
+	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.slash' )
 	normalSuperGlyph = font[fontforge.nameFromUnicode( superUnicode[0] )]
-	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.SlashedZero' )
+	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.slash' )
 	subGlyph.width = sourceGlyph.width
 	subGlyph.addReference (sourceGlyph.glyphname)
 	subGlyph.transform (subscriptTransform)

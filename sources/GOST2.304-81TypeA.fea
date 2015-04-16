@@ -10,12 +10,6 @@ languagesystem latn RUS ;
 languagesystem latn TRK ;
 
 
-lookup SlashedZero {
-    sub \zero by \zero.SlashedZero ;
-#!!!    sub \uni2080 by \uni2080.SlashedZero ;
-#!!!    sub \uni2070 by \uni2070.SlashedZero ;
-} SlashedZero;
-
 lookup DotlessForms {
     sub \i by \dotlessi ;
     sub \j by \uni0237 ;
@@ -27,31 +21,6 @@ lookup StandardLigatures {
 #!!!    sub \uni2170 \uni2170  by \uni2171;
 #!!!    sub \uni2170 \uni2170 \uni2170  by \uni2172;
 } StandardLigatures;
-
-feature zero {
-
- script DFLT;
-     language dflt ;
-      lookup SlashedZero;
-
- script cyrl;
-     language dflt ;
-      lookup SlashedZero;
-
- script grek;
-     language dflt ;
-      lookup SlashedZero;
-
- script latn;
-     language dflt ;
-      lookup SlashedZero;
-     language LTH  exclude_dflt;
-      lookup SlashedZero;
-     language ROM  exclude_dflt;
-      lookup SlashedZero;
-     language TRK  exclude_dflt;
-      lookup SlashedZero;
-} zero;
 
 feature dtls {
 
@@ -104,6 +73,15 @@ feature liga {
      language TRK  exclude_dflt;
       lookup StandardLigatures;
 } liga;
+
+# перечёркнутый ноль
+
+@zero = [ zero ];
+@zero.slash = [ zero.slash ];
+
+feature zero {
+	sub @zero by @zero.slash;
+} zero;
 
 # альтернативное начертание цифры 3
 
@@ -361,7 +339,7 @@ feature kern {
 	\uni23A7 \uni23A8 \uni23A9 \uni23AA \uni23AB \uni23AC \uni23AD \uni23AE \uni2A7D 
 	\uni2A7E \dotlessi \uni0237 \questiondown \AE \ae \uni1D3F \divide \Oslash 
 	\oslash \Thorn \germandbls \eth \thorn \uni2E32 \uni20BD \kgreenlandic \ldot 
-	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.SlashedZero 
+	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.slash 
 	\three.alt \uni2164.alt \uni0332 \uni0333 \uni033F \uni0305];
 @GDEF_Ligature = [\numero \uni2161 \uni2162];
 @GDEF_Mark = [\periodcentered \uni20DD \uni0308 \uni0304 \uni0306 \tildecomb 
