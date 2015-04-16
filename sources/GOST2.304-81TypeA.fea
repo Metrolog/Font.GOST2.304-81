@@ -9,41 +9,6 @@ languagesystem latn ROM ;
 languagesystem latn RUS ;
 languagesystem latn TRK ;
 
-
-lookup StandardLigatures {
-    sub \uni2160 \uni2160  by \uni2161;
-    sub \uni2160 \uni2160 \uni2160  by \uni2162;
-#!!!    sub \uni2170 \uni2170  by \uni2171;
-#!!!    sub \uni2170 \uni2170 \uni2170  by \uni2172;
-} StandardLigatures;
-
-feature liga {
-
- script DFLT;
-     language dflt ;
-      lookup StandardLigatures;
-
- script cyrl;
-     language dflt ;
-      lookup StandardLigatures;
-
- script grek;
-     language dflt ;
-      lookup StandardLigatures;
-
- script latn;
-     language dflt ;
-      lookup StandardLigatures;
-     language ENG  exclude_dflt;
-     language LTH  exclude_dflt;
-      lookup StandardLigatures;
-     language ROM  exclude_dflt;
-      lookup StandardLigatures;
-     language RUS  exclude_dflt;
-     language TRK  exclude_dflt;
-      lookup StandardLigatures;
-} liga;
-
 # перечёркнутый ноль
 
 @zero = [ zero ];
@@ -68,6 +33,15 @@ feature dtls {
 feature cv01 {
 	sub @three by @three.alt;
 } cv01;
+
+# римские цифры
+
+feature rlig {
+	sub uni2160 uni2160 by uni2161;
+	sub uni2160 uni2160 uni2160 by uni2162;
+	#!!!    sub \uni2170 \uni2170  by \uni2171;
+	#!!!    sub \uni2170 \uni2170 \uni2170  by \uni2172;
+} rlig;
 
 # альтернативное начертание римской V
 
