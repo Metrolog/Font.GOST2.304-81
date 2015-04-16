@@ -33,6 +33,7 @@
 \dim_new:N \g__eskdfont_huge_dim
 \dim_new:N \g__eskdfont_Huge_dim
 
+\tl_new:N \g__eskdfont_language_tl
 \bool_new:N \g__eskdfont_slashed_zero_bool
 \bool_gset_false:N \g__eskdfont_slashed_zero_bool
 \tl_new:N \g__eskdfont_digit_three_variant_tl
@@ -73,6 +74,9 @@
           }
           { \msg_fatal:nnn { gost2.304 } {invalid-font-size} {#1} }
       },
+
+    language .tl_gset:N = \g__eskdfont_language_tl,
+    language .initial:n = Russian,
 
     zero .choice:,
     zero / basic .code:n =
@@ -355,7 +359,10 @@
     ,Extension = .ttf
     ,UprightFont = \tl_use:N \c__eskdfont_type_A_tl
     ,OpticalSize = 0
+    ,Language = \tl_use:N \g__eskdfont_language_tl
     ,Mapping = tex-text
+    ,Ligatures = { Common, TeX }
+    ,Kerning = On
     ,Numbers =
       {
         \bool_if:NT \g__eskdfont_slashed_zero_bool { SlashedZero }
@@ -378,8 +385,6 @@
       {
         \tl_use:N \l__eskdfont_type_B_slanted_features_tl
       }
-    ,Ligatures = { Common, TeX }
-    ,Kerning = On
   }
 
 % определяем масштаб для шрифта
