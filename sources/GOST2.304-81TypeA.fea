@@ -114,134 +114,83 @@ feature liga {
 			lookup germandbls;
 } liga;
 
-
-lookup Marks {
-  lookupflag 0;
-  markClass [\uni0315 ] <anchor 0 1350> @TopRight;
-  markClass [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
-  markClass [\tildecomb ] <anchor 0 1325> @Top;
-  pos base [\space ] <anchor 300 1350> mark @Top;
-  pos base [\A \G \Y ] <anchor 500 1650> mark @Top;
-  pos base [\B \C \D \E \R \uni0415 \uni042D ] <anchor 400 1650> mark @Top;
-  pos base [\H \N \S \T \Z \uni0413 \uni0418 \uni041A \uni0423 \uni0427 ] <anchor 450 1650> mark @Top;
-  pos base [\I \b \h \k ] <anchor 150 1650> mark @Top;
-  pos base [\L \l ] <anchor 351 1350> mark @TopRight
-	<anchor 150 1650> mark @Top;
-  pos base [\M ] <anchor 550 1650> mark @Top;
-  pos base [\O \U ] <anchor 950 1350> mark @TopRight
-	<anchor 450 1650> mark @Top;
-  pos base [\W ] <anchor 700 1650> mark @Top;
-  pos base [\a \e \g \n \s \x \y \z \uni0430 \uni0433 \uni0435 \uni0438 \uni043A \uni043E \uni0443 \uni0447 \eth ] <anchor 400 1350> mark @Top;
-  pos base [\c \j \r \dotlessj ] <anchor 350 1350> mark @Top;
-  pos base [\d ] <anchor 850 1350> mark @TopRight
-	<anchor 650 1650> mark @Top;
-  pos base [\i \dotlessi ] <anchor 150 1350> mark @Top;
-  pos base [\m ] <anchor 550 1350> mark @Top;
-  pos base [\o \u ] <anchor 850 950> mark @TopRight
-	<anchor 400 1350> mark @Top;
-  pos base [\t ] <anchor 450 1350> mark @TopRight
-	<anchor 250 1650> mark @Top;
-  pos base [\w ] <anchor 600 1350> mark @Top;
-  pos base [\uni0436 ] <anchor 500 1350> mark @Top;
-  pos base [\uni0437 \uni044D ] <anchor 375 1350> mark @Top;
-  pos base [\uni044B ] <anchor 450 1350> mark @Top;
-  subtable;
-  markClass [\uni0328 ] <anchor 0 0> @Ogonek;
-  markClass [\uni0326 \uni0316 \uni0317 ] <anchor 0 -150> @Bottom;
-  pos base [\space ] <anchor 50 0> mark @Ogonek;
-  pos base [\A \G ] <anchor 500 -150> mark @Bottom
-	<anchor 850 0> mark @Ogonek;
-  pos base [\B \D \E \R \a \b \d \e \h \k \s ] <anchor 400 -150> mark @Bottom;
-  pos base [\H \K \N \S \T ] <anchor 450 -150> mark @Bottom;
-  pos base [\I \i ] <anchor 150 0> mark @Ogonek;
-  pos base [\L ] <anchor 350 -150> mark @Bottom;
-  pos base [\M \m ] <anchor 550 -150> mark @Bottom;
-  pos base [\O \U ] <anchor 350 0> mark @Ogonek;
-  pos base [\W ] <anchor 700 -150> mark @Bottom;
-  pos base [\l ] <anchor 300 -150> mark @Bottom;
-  pos base [\n ] <anchor 401 -150> mark @Bottom;
-  pos base [\r ] <anchor 150 -150> mark @Bottom;
-  pos base [\t ] <anchor 250 -150> mark @Bottom;
-  pos base [\u ] <anchor 650 0> mark @Ogonek;
-  pos base [\y ] <anchor 650 -150> mark @Bottom;
-  pos base [\eth ] <anchor 300 0> mark @Ogonek;
-  subtable;
-  markClass [\periodcentered ] <anchor 150 500> @Right;
-  pos base [\L \l ] <anchor 350 750> mark @Right;
-  subtable;
-  markClass [\uni20DD ] <anchor 0 900> @Center;
-  markClass [\uni0337 ] <anchor 0 500> @Center;
-  markClass [\uni0338 ] <anchor 0 700> @Center;
-  pos base [\o ] <anchor 400 500> mark @Center;
-  pos base [\existential ] <anchor 400 700> mark @Center;
-} Marks;
-
-lookup GreekMarks {
-  lookupflag 0;
-  markClass [\tonos ] <anchor 250 1350> @Tonos;
-  pos base [\Alpha ] <anchor 300 1350> mark @Tonos;
-  pos base [\Epsilon \Eta \Iota \Upsilon ] <anchor -50 1350> mark @Tonos;
-  pos base [\Omicron \uni03A9 ] <anchor 100 1350> mark @Tonos;
-} GreekMarks;
-
-lookup Marksabovemarks {
-  lookupflag 0;
-  markClass [\uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @TopMark;
-  markClass [\acutecomb ] <anchor 0 1650> @TopMark;
-  markClass [\tonos ] <anchor 150 1150> @TopMark;
-  pos mark [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
-  pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
-} Marksabovemarks;
+# диакритические знаки
 
 feature mark {
+	lookup Marks {
+		markClass [\uni0315 ] <anchor 0 1350> @TopRight;
+		markClass [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
+		markClass [\tildecomb ] <anchor 0 1325> @Top;
+		pos base [\space ] <anchor 300 1350> mark @Top;
+		pos base [\A \G \Y ] <anchor 500 1650> mark @Top;
+		pos base [\B \C \D \E \R \uni0415 \uni042D ] <anchor 400 1650> mark @Top;
+		pos base [\H \N \S \T \Z \uni0413 \uni0418 \uni041A \uni0423 \uni0427 ] <anchor 450 1650> mark @Top;
+		pos base [\I \b \h \k ] <anchor 150 1650> mark @Top;
+		pos base [\L \l ] <anchor 351 1350> mark @TopRight
+		<anchor 150 1650> mark @Top;
+		pos base [\M ] <anchor 550 1650> mark @Top;
+		pos base [\O \U ] <anchor 950 1350> mark @TopRight
+		<anchor 450 1650> mark @Top;
+		pos base [\W ] <anchor 700 1650> mark @Top;
+		pos base [\a \e \g \n \s \x \y \z \uni0430 \uni0433 \uni0435 \uni0438 \uni043A \uni043E \uni0443 \uni0447 \eth ] <anchor 400 1350> mark @Top;
+		pos base [\c \j \r \dotlessj ] <anchor 350 1350> mark @Top;
+		pos base [\d ] <anchor 850 1350> mark @TopRight
+		<anchor 650 1650> mark @Top;
+		pos base [\i \dotlessi ] <anchor 150 1350> mark @Top;
+		pos base [\m ] <anchor 550 1350> mark @Top;
+		pos base [\o \u ] <anchor 850 950> mark @TopRight
+		<anchor 400 1350> mark @Top;
+		pos base [\t ] <anchor 450 1350> mark @TopRight
+		<anchor 250 1650> mark @Top;
+		pos base [\w ] <anchor 600 1350> mark @Top;
+		pos base [\uni0436 ] <anchor 500 1350> mark @Top;
+		pos base [\uni0437 \uni044D ] <anchor 375 1350> mark @Top;
+		pos base [\uni044B ] <anchor 450 1350> mark @Top;
+		subtable;
+		markClass [\uni0328 ] <anchor 0 0> @Ogonek;
+		markClass [\uni0326 \uni0316 \uni0317 ] <anchor 0 -150> @Bottom;
+		pos base [\space ] <anchor 50 0> mark @Ogonek;
+		pos base [\A \G ] <anchor 500 -150> mark @Bottom
+		<anchor 850 0> mark @Ogonek;
+		pos base [\B \D \E \R \a \b \d \e \h \k \s ] <anchor 400 -150> mark @Bottom;
+		pos base [\H \K \N \S \T ] <anchor 450 -150> mark @Bottom;
+		pos base [\I \i ] <anchor 150 0> mark @Ogonek;
+		pos base [\L ] <anchor 350 -150> mark @Bottom;
+		pos base [\M \m ] <anchor 550 -150> mark @Bottom;
+		pos base [\O \U ] <anchor 350 0> mark @Ogonek;
+		pos base [\W ] <anchor 700 -150> mark @Bottom;
+		pos base [\l ] <anchor 300 -150> mark @Bottom;
+		pos base [\n ] <anchor 401 -150> mark @Bottom;
+		pos base [\r ] <anchor 150 -150> mark @Bottom;
+		pos base [\t ] <anchor 250 -150> mark @Bottom;
+		pos base [\u ] <anchor 650 0> mark @Ogonek;
+		pos base [\y ] <anchor 650 -150> mark @Bottom;
+		pos base [\eth ] <anchor 300 0> mark @Ogonek;
+		subtable;
+		markClass [\periodcentered ] <anchor 150 500> @Right;
+		pos base [\L \l ] <anchor 350 750> mark @Right;
+		subtable;
+		markClass [\uni20DD ] <anchor 0 900> @Center;
+		markClass [\uni0337 ] <anchor 0 500> @Center;
+		markClass [\uni0338 ] <anchor 0 700> @Center;
+		pos base [\o ] <anchor 400 500> mark @Center;
+		pos base [\existential ] <anchor 400 700> mark @Center;
+	} Marks;
 
- script DFLT;
-     language dflt ;
-      lookup Marks;
-
- script cyrl;
-     language dflt ;
-      lookup Marks;
-
- script grek;
-     language dflt ;
-      lookup Marks;
-      lookup GreekMarks;
-
- script latn;
-     language dflt ;
-      lookup Marks;
-     language LTH  exclude_dflt;
-      lookup Marks;
-     language ROM  exclude_dflt;
-      lookup Marks;
-     language TRK  exclude_dflt;
-      lookup Marks;
+	lookup GreekMarks {
+		markClass [\tonos ] <anchor 250 1350> @Tonos;
+		pos base [\Alpha ] <anchor 300 1350> mark @Tonos;
+		pos base [\Epsilon \Eta \Iota \Upsilon ] <anchor -50 1350> mark @Tonos;
+		pos base [\Omicron \uni03A9 ] <anchor 100 1350> mark @Tonos;
+	} GreekMarks;
 } mark;
 
 feature mkmk {
-
- script DFLT;
-     language dflt ;
-      lookup Marksabovemarks;
-
- script cyrl;
-     language dflt ;
-      lookup Marksabovemarks;
-
- script grek;
-     language dflt ;
-      lookup Marksabovemarks;
-
- script latn;
-     language dflt ;
-      lookup Marksabovemarks;
-     language LTH  exclude_dflt;
-      lookup Marksabovemarks;
-     language ROM  exclude_dflt;
-      lookup Marksabovemarks;
-     language TRK  exclude_dflt;
-      lookup Marksabovemarks;
+	markClass [\uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @TopMark;
+	markClass [\acutecomb ] <anchor 0 1650> @TopMark;
+	markClass [\tonos ] <anchor 150 1150> @TopMark;
+	pos mark [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
+	pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
 } mkmk;
 
 # кернинг
