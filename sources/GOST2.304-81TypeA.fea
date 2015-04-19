@@ -171,6 +171,8 @@ feature mkmk {
 	pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
 } mkmk;
 
+# замена i и j при добавлении диакритических знаков
+
 feature ccmp {
 	lookupflag MarkAttachmentType @TopMarks;
 	sub [i j]' @TopMarks by [dotlessi dotlessj];
