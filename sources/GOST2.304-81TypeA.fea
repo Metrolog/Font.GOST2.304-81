@@ -90,6 +90,10 @@ feature liga {
 
 # диакритические знаки
 
+@TopMarks = [gravecomb acutecomb uni0302 tildecomb uni0304 uni0305 
+	uni0306 uni0307 uni0308 uni030A uni030B uni030C uni030D uni030E 
+	uni030F uni0311 uni0312 uni0313 uni0314];
+
 feature mark {
 	lookup Marks {
 		markClass [\uni0315 ] <anchor 0 1350> @TopRight;
@@ -166,6 +170,11 @@ feature mkmk {
 	pos mark [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
 	pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
 } mkmk;
+
+feature ccmp {
+	lookupflag MarkAttachmentType @TopMarks;
+	sub [i j]' @TopMarks by [dotlessi dotlessj];
+} ccmp;
 
 # кернинг
 
