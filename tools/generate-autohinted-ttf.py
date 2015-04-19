@@ -12,7 +12,12 @@ for glyph in font.glyphs():
 		glyph.layerrefs[1] += glyph.layerrefs[0]
 		glyph.layers[0] = fontforge.layer()
 
+xheight = font.os2_xheight
+capheight = font.os2_capheight
+scale = 1024 / font.em
 font.em = 1024
+font.os2_xheight = xheight * scale
+font.os2_capheight = capheight * scale
 
 fontforge.setPrefs ('GenerateHintWidthEqualityTolerance', 4)
 fontforge.setPrefs ('StandardSlopeError', 3)
