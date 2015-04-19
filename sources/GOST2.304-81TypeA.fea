@@ -2,11 +2,13 @@ languagesystem DFLT dflt;
 languagesystem cyrl dflt;
 languagesystem grek dflt;
 languagesystem latn dflt;
-languagesystem latn ENG ;
+languagesystem latn CSY ;
 languagesystem latn DEU ;
+languagesystem latn ENG ;
 languagesystem latn LTH ;
 languagesystem latn ROM ;
 languagesystem latn RUS ;
+languagesystem latn SKY ;
 languagesystem latn TRK ;
 
 # перечёркнутый ноль
@@ -91,13 +93,13 @@ feature liga {
 # диакритические знаки
 
 @TopMarks = [gravecomb acutecomb uni0302 tildecomb uni0304 uni0305 
-	uni0306 uni0307 uni0308 uni030A uni030B uni030C uni030D uni030E 
+	uni0306 uni0307 uni0308 uni030A uni030B caroncomb uni030D uni030E 
 	uni030F uni0311 uni0312 uni0313 uni0314];
 
 feature mark {
 	lookup Marks {
-		markClass [\uni0315 ] <anchor 0 1350> @TopRight;
-		markClass [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
+		markClass [\apostrophecomb ] <anchor 0 1350> @TopRight;
+		markClass [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \caroncomb \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
 		markClass [\tildecomb ] <anchor 0 1325> @Top;
 		pos base [\space ] <anchor 300 1350> mark @Top;
 		pos base [\A \G \Y ] <anchor 500 1650> mark @Top;
@@ -164,10 +166,10 @@ feature mark {
 } mark;
 
 feature mkmk {
-	markClass [\uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @TopMark;
+	markClass [\uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \caroncomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @TopMark;
 	markClass [\acutecomb ] <anchor 0 1650> @TopMark;
 	markClass [\tonos ] <anchor 150 1150> @TopMark;
-	pos mark [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \uni030C \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
+	pos mark [\uni0308 \uni0304 \uni0306 \uni030B \uni030A \uni0307 \uni0302 \caroncomb \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
 	pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
 } mkmk;
 
@@ -176,6 +178,21 @@ feature mkmk {
 feature ccmp {
 	lookupflag MarkAttachmentType @TopMarks;
 	sub [i j]' @TopMarks by [dotlessi dotlessj];
+} ccmp;
+
+# замена диакритического знака для lcaron, Lcaron, dcaron, tcaron
+
+lookup caron_to_apostrophe {
+	lookupflag IgnoreLigatures;
+	sub [l L d t] caroncomb' by apostrophecomb;
+} caron_to_apostrophe;
+
+feature ccmp {
+	script latn;
+		language CSY exclude_dflt required;
+			lookup caron_to_apostrophe;
+		language SKY exclude_dflt required;
+			lookup caron_to_apostrophe;
 } ccmp;
 
 # кернинг
@@ -254,9 +271,9 @@ feature kern {
 	\three.alt \uni2164.alt \uni0332 \uni0333 \uni033F \uni0305];
 @GDEF_Ligature = [\numero \uni2161 \uni2162];
 @GDEF_Mark = [\periodcentered \uni20DD \uni0308 \uni0304 \uni0306 \tildecomb 
-	\uni030B \uni030A \uni0307 \uni0302 \uni030C \acutecomb \gravecomb \uni030E 
+	\uni030B \uni030A \uni0307 \uni0302 \caroncomb \acutecomb \gravecomb \uni030E 
 	\uni0340 \uni0341 \uni0311 \uni0337 \uni0338 \uni0326 \uni0328 \uni0312 \uni030D 
-	\uni030F \uni0313 \uni0314 \uni0315 \uni0316 \uni0317 \tonos ];
+	\uni030F \uni0313 \uni0314 \apostrophecomb \uni0316 \uni0317 \tonos ];
 
 table GDEF {
   GlyphClassDef @GDEF_Simple, @GDEF_Ligature, @GDEF_Mark, ;

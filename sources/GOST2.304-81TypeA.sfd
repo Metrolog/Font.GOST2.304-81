@@ -126,7 +126,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 190 19 14
+WinInfo: 76 19 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -5851,7 +5851,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni030C
+StartChar: caroncomb
 Encoding: 780 780 391
 Width: 0
 Flags: MW
@@ -6412,7 +6412,7 @@ Fore
 Refer: 15 44 N -1 0 0 1 300 0 3
 EndChar
 
-StartChar: uni0315
+StartChar: apostrophecomb
 Encoding: 789 789 429
 Width: 0
 Flags: W
