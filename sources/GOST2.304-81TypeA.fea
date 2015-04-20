@@ -6,6 +6,7 @@ languagesystem latn CSY ;
 languagesystem latn DEU ;
 languagesystem latn ENG ;
 languagesystem latn LTH ;
+languagesystem latn PLK ;
 languagesystem latn ROM ;
 languagesystem latn RUS ;
 languagesystem latn SKY ;
@@ -96,6 +97,21 @@ feature liga {
 	brevecomb uni0307 diaeresiscomb uni030A uni030B caroncomb uni030D uni030E 
 	uni030F uni0311 uni0312 uni0313 uni0314];
 
+lookup ogonek {
+	subtable;
+	markClass [ogonekcomb] <anchor 0 0> @Ogonek;
+	pos base [\space] <anchor 50 0> mark @Ogonek;
+	pos base [A] <anchor 850 0> mark @Ogonek;
+	pos base [a] <anchor 750 0> mark @Ogonek;
+	pos base [E e] <anchor 650 0> mark @Ogonek;
+} ogonek;
+
+feature mark {
+	#script latn;
+	#	language PLK exclude_dflt required;
+			lookup ogonek;
+} mark;
+
 feature mark {
 	subtable;
 	markClass [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
@@ -119,15 +135,6 @@ feature mark {
 	pos base [uni0436] <anchor 500 1350> mark @Top;
 	pos base [uni0437 uni044D] <anchor 375 1350> mark @Top;
 	pos base [uni044B] <anchor 450 1350> mark @Top;
-
-	subtable;
-	markClass [uni0328] <anchor 0 0> @Ogonek;
-	pos base [\space] <anchor 50 0> mark @Ogonek;
-	pos base [A G] <anchor 850 0> mark @Ogonek;
-	pos base [I i] <anchor 150 0> mark @Ogonek;
-	pos base [O U] <anchor 350 0> mark @Ogonek;
-	pos base [u] <anchor 650 0> mark @Ogonek;
-	pos base [\eth] <anchor 300 0> mark @Ogonek;
 
 	subtable;
 	markClass [uni0326 uni0316 uni0317] <anchor 0 -150> @Bottom;
@@ -299,7 +306,7 @@ feature kern {
 @GDEF_Ligature = [\numero uni2161 uni2162];
 @GDEF_Mark = [\periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
 	uni030B uni030A uni0307 uni0302 caroncomb acutecomb gravecomb uni030E 
-	uni0340 uni0341 uni0311 uni0337 uni0338 uni0326 uni0328 uni0312 uni030D 
+	uni0340 uni0341 uni0311 uni0337 uni0338 uni0326 ogonekcomb uni0312 uni030D 
 	uni030F uni0313 uni0314 apostrophecomb uni0316 uni0317 \tonos];
 
 table GDEF {
