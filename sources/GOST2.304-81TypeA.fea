@@ -98,14 +98,6 @@ feature liga {
 
 feature mark {
 	subtable;
-	markClass [apostrophecomb] <anchor 0 1350> @TopRight;
-	pos base [L l] <anchor 350 1350> mark @TopRight;
-	pos base [O U] <anchor 950 1350> mark @TopRight;
-	pos base [o u] <anchor 850 950> mark @TopRight;
-	pos base [d] <anchor 850 1350> mark @TopRight;
-	pos base [t] <anchor 450 1350> mark @TopRight;
-	
-	subtable;
 	markClass [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
 	pos base [\space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
@@ -198,6 +190,14 @@ feature ccmp {
 		language SKY exclude_dflt required;
 			lookup caron_to_apostrophe;
 } ccmp;
+
+feature mark {
+	subtable;
+	markClass [apostrophecomb] <anchor 0 1350> @Apostrophe;
+	pos base [L l] <anchor 350 1350> mark @Apostrophe;
+	pos base [d] <anchor 850 1350> mark @Apostrophe;
+	pos base [t] <anchor 450 1350> mark @Apostrophe;
+} mark;
 
 # Й, й
 
