@@ -93,17 +93,17 @@ feature liga {
 # диакритические знаки
 
 @TopMarks = [gravecomb acutecomb uni0302 tildecomb macroncomb uni0305 
-	brevecomb uni0307 uni0308 uni030A uni030B caroncomb uni030D uni030E 
+	brevecomb uni0307 diaeresiscomb uni030A uni030B caroncomb uni030D uni030E 
 	uni030F uni0311 uni0312 uni0313 uni0314];
 
 feature mark {
 	lookup Marks {
 		markClass [\apostrophecomb ] <anchor 0 1350> @TopRight;
-		markClass [\uni0308 \macroncomb \brevecomb \uni030B \uni030A \uni0307 \uni0302 \caroncomb \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
+		markClass [diaeresiscomb \macroncomb \brevecomb \uni030B \uni030A \uni0307 \uni0302 \caroncomb \acutecomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @Top;
 		markClass [\tildecomb ] <anchor 0 1325> @Top;
 		pos base [\space ] <anchor 300 1350> mark @Top;
 		pos base [\A \G \Y ] <anchor 500 1650> mark @Top;
-		pos base [\B \C \D \E \R \uni0415 \uni042D ] <anchor 400 1650> mark @Top;
+		pos base [\B \C \D \E \R CYRE \uni042D ] <anchor 400 1650> mark @Top;
 		pos base [\H \N \S \T \Z \uni0413 \cyrI \uni041A \uni0423 \uni0427 ] <anchor 450 1650> mark @Top;
 		pos base [\I \b \h \k ] <anchor 150 1650> mark @Top;
 		pos base [\L \l ] <anchor 351 1350> mark @TopRight
@@ -112,7 +112,7 @@ feature mark {
 		pos base [\O \U ] <anchor 950 1350> mark @TopRight
 		<anchor 450 1650> mark @Top;
 		pos base [\W ] <anchor 700 1650> mark @Top;
-		pos base [\a \e \g \n \s \x \y \z \uni0430 \uni0433 \uni0435 \cyri \uni043A \uni043E \uni0443 \uni0447 \eth ] <anchor 400 1350> mark @Top;
+		pos base [\a \e \g \n \s \x \y \z \uni0430 \uni0433 cyre \cyri \uni043A \uni043E \uni0443 \uni0447 \eth ] <anchor 400 1350> mark @Top;
 		pos base [\c \j \r \dotlessj ] <anchor 350 1350> mark @Top;
 		pos base [\d ] <anchor 850 1350> mark @TopRight
 		<anchor 650 1650> mark @Top;
@@ -169,7 +169,7 @@ feature mkmk {
 	markClass [\macroncomb \brevecomb \uni030B \uni030A \uni0307 \uni0302 \caroncomb \gravecomb \uni030E \uni0340 \uni0341 \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1350> @TopMark;
 	markClass [\acutecomb ] <anchor 0 1650> @TopMark;
 	markClass [\tonos ] <anchor 150 1150> @TopMark;
-	pos mark [\uni0308 \macroncomb \brevecomb \uni030B \uni030A \uni0307 \uni0302 \caroncomb \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
+	pos mark [diaeresiscomb \macroncomb \brevecomb \uni030B \uni030A \uni0307 \uni0302 \caroncomb \uni030E \uni0311 \uni0312 \uni030D \uni030F \uni0313 \uni0314 ] <anchor 0 1650> mark @TopMark;
 	pos mark [\tildecomb ] <anchor 0 1525> mark @TopMark;
 } mkmk;
 
@@ -201,10 +201,22 @@ feature ccmp {
 	sub [cyri cyrI] brevecomb' by macroncomb;
 } ccmp;
 
-feature rlig {
+feature liga {
 	sub cyri macroncomb by cyrishrt;
 	sub cyrI macroncomb by cyrIshrt;
+} liga;
+
+feature rlig {
+	sub cyri brevecomb by cyrishrt;
+	sub cyrI brevecomb by cyrIshrt;
 } rlig;
+
+# Ё, ё
+
+feature liga {
+	sub cyre diaeresiscomb by cyryo;
+	sub CYRE diaeresiscomb by CYRYO;
+} liga;
 
 # кернинг
 
@@ -250,14 +262,14 @@ feature kern {
 	\Iota \Kappa \Lambda \Mu \Nu \Xi \Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi 
 	\uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
 	\uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
-	\uni0401 \uni0410 \uni0411 \uni0412 \uni0413 \uni0414 \uni0415 \uni0416 \uni0417 
+	CYRYO \uni0410 \uni0411 \uni0412 \uni0413 \uni0414 CYRE \uni0416 \uni0417 
 	\cyrI \cyrIshrt \uni041A \uni041B \uni041C \uni041D \uni041E \uni041F \uni0420 
 	\uni0421 \uni0422 \uni0423 \uni0424 \uni0425 \uni0426 \uni0427 \uni0428 \uni0429 
 	\uni042A \uni042B \uni042C \uni042D \uni042E \uni042F \uni0430 \uni0431 \uni0432 
-	\uni0433 \uni0434 \uni0435 \uni0436 \uni0437 \cyri \cyrishrt \uni043A \uni043B 
+	\uni0433 \uni0434 cyre \uni0436 \uni0437 \cyri \cyrishrt \uni043A \uni043B 
 	\uni043C \uni043D \uni043E \uni043F \uni0440 \uni0441 \uni0442 \uni0443 \uni0444 
 	\uni0445 \uni0446 \uni0447 \uni0448 \uni0449 \uni044A \uni044B \uni044C \uni044D 
-	\uni044E \uni044F \uni0451 \uni2010 \uni2011 \endash \emdash \uni2016 \quoteleft 
+	\uni044E \uni044F cyryo \uni2010 \uni2011 \endash \emdash \uni2016 \quoteleft 
 	\quoteright \quotesinglbase \quotereversed \quotedblleft \quotedblright 
 	\quotedblbase \uni201F \bullet \onedotenleader \twodotenleader \ellipsis 
 	\perthousand \uni2031 \minute \second \uni2034 \guilsinglleft \guilsinglright 
@@ -281,7 +293,7 @@ feature kern {
 	\Lslash \lslash \OE \oe \uni2E41 \dotmath \uni2332 \zero.slash 
 	\three.alt \uni2164.alt \uni0332 \uni0333 \uni033F \uni0305];
 @GDEF_Ligature = [\numero \uni2161 \uni2162];
-@GDEF_Mark = [\periodcentered \uni20DD \uni0308 \macroncomb \brevecomb \tildecomb 
+@GDEF_Mark = [\periodcentered \uni20DD diaeresiscomb \macroncomb \brevecomb \tildecomb 
 	\uni030B \uni030A \uni0307 \uni0302 \caroncomb \acutecomb \gravecomb \uni030E 
 	\uni0340 \uni0341 \uni0311 \uni0337 \uni0338 \uni0326 \uni0328 \uni0312 \uni030D 
 	\uni030F \uni0313 \uni0314 \apostrophecomb \uni0316 \uni0317 \tonos ];
