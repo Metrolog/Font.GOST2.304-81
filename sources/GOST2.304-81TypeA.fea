@@ -152,7 +152,6 @@ feature mark {
 } mark;
 
 feature mark {
-	subtable;
 	markClass [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
 	pos base [\space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
@@ -175,7 +174,6 @@ feature mark {
 	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
 	pos base [cyrery] <anchor 450 1350> mark @Top;
 
-	subtable;
 	markClass [uni0326 uni0316 uni0317] <anchor 0 -150> @Bottom;
 	pos base [A G] <anchor 500 -150> mark @Bottom;
 	pos base [B D E R a b d e h k s] <anchor 400 -150> mark @Bottom;
@@ -189,18 +187,15 @@ feature mark {
 	pos base [t] <anchor 250 -150> mark @Bottom;
 	pos base [y] <anchor 650 -150> mark @Bottom;
 
-	subtable;
 	markClass [\periodcentered] <anchor 150 500> @Right;
 	pos base [L l] <anchor 350 750> mark @Right;
 
-	subtable;
 	markClass [uni20DD] <anchor 0 900> @Center;
 	markClass [uni0337] <anchor 0 500> @Center;
 	markClass [uni0338] <anchor 0 700> @Center;
 	pos base [o] <anchor 400 500> mark @Center;
 	pos base [existential] <anchor 400 700> mark @Center;
 
-	subtable;
 	markClass [\tonos] <anchor 250 1350> @Tonos;
 	pos base [Alpha] <anchor 300 1350> mark @Tonos;
 	pos base [Epsilon Eta Iota Upsilon] <anchor -50 1350> mark @Tonos;
