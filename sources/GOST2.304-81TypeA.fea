@@ -147,8 +147,8 @@ feature mark {
 	markClass [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
 	pos base [\space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
-	pos base [B C D E R CYRE uni042D] <anchor 400 1650> mark @Top;
-	pos base [H N S T Z uni0413 CYRI uni041A uni0423 uni0427] <anchor 450 1650> mark @Top;
+	pos base [B C D E R CYRE CYREREV] <anchor 400 1650> mark @Top;
+	pos base [H N S T Z CYRG CYRI CYRK CYRU CYRCH] <anchor 450 1650> mark @Top;
 	pos base [I b h k] <anchor 150 1650> mark @Top;
 	pos base [L l] <anchor 150 1650> mark @Top;
 	pos base [M] <anchor 550 1650> mark @Top;
@@ -311,10 +311,10 @@ feature kern {
 	Iota Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi 
 	uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
 	uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
-	CYRYO uni0410 uni0411 uni0412 uni0413 uni0414 CYRE uni0416 uni0417 
-	\CYRI \CYRISHRT uni041A uni041B uni041C uni041D uni041E uni041F uni0420 
-	uni0421 uni0422 uni0423 uni0424 uni0425 uni0426 uni0427 uni0428 uni0429 
-	uni042A uni042B uni042C uni042D uni042E uni042F uni0430 uni0431 uni0432 
+	CYRYO CYRA CYRB CYRV CYRG CYRD CYRE CYRZH CYRZ 
+	CYRI CYRISHRT CYRK CYRL CYRM CYRN CYRO CYRP CYRR 
+	CYRS CYRT CYRU CYRF CYRH CYRC CYRCH CYRSH CYRSHCH 
+	CYRHRDSN CYRERY CYRSFTSN CYREREV CYRYU CYRYA uni0430 uni0431 uni0432 
 	uni0433 uni0434 cyre uni0436 uni0437 \cyri \cyrishrt uni043A uni043B 
 	uni043C uni043D uni043E uni043F uni0440 uni0441 uni0442 uni0443 uni0444 
 	uni0445 uni0446 uni0447 uni0448 uni0449 uni044A uni044B uni044C uni044D 
