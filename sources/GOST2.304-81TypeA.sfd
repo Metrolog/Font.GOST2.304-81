@@ -3021,7 +3021,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni0418
+StartChar: cyrI
 Encoding: 1048 1048 176
 Width: 900
 Flags: MW
@@ -3031,7 +3031,7 @@ Fore
 Refer: 49 78 S 1 0 0 -1 0 1400 2
 EndChar
 
-StartChar: uni0419
+StartChar: cyrIshrt
 Encoding: 1049 1049 177
 Width: 900
 Flags: MW
@@ -3493,7 +3493,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni0438
+StartChar: cyri
 Encoding: 1080 1080 208
 Width: 800
 Flags: MW
@@ -3503,7 +3503,7 @@ Fore
 Refer: 79 110 N -1 0 0 -1 800 1000 2
 EndChar
 
-StartChar: uni0439
+StartChar: cyrishrt
 Encoding: 1081 1081 209
 Width: 800
 Flags: MW
@@ -5753,7 +5753,7 @@ Refer: 389 775 N 1 0 0 1 -150 0 2
 Refer: 389 775 N 1 0 0 1 150 0 2
 EndChar
 
-StartChar: uni0304
+StartChar: macroncomb
 Encoding: 772 772 384
 Width: 0
 Flags: MW
@@ -5766,7 +5766,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni0306
+StartChar: brevecomb
 Encoding: 774 774 385
 Width: 0
 Flags: MW
