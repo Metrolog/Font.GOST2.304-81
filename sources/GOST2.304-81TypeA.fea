@@ -198,12 +198,20 @@ feature ccmp {
 			lookup caron_to_apostrophe;
 } ccmp;
 
-feature mark {
+lookup apostrophe {
 	subtable;
 	markClass [apostrophecomb] <anchor 0 1350> @Apostrophe;
 	pos base [L l] <anchor 350 1350> mark @Apostrophe;
 	pos base [d] <anchor 850 1350> mark @Apostrophe;
 	pos base [t] <anchor 450 1350> mark @Apostrophe;
+} apostrophe;
+
+feature mark {
+	#script latn;
+	#	language CSY exclude_dflt required;
+	#		lookup apostrophe;
+	#	language SKY exclude_dflt required;
+			lookup apostrophe;
 } mark;
 
 # Й, й
