@@ -154,7 +154,7 @@ feature mark {
 	pos base [M] <anchor 550 1650> mark @Top;
 	pos base [O U] <anchor 450 1650> mark @Top;
 	pos base [W] <anchor 700 1650> mark @Top;
-	pos base [a e g n s x y z uni0430 uni0433 cyre cyri uni043A uni043E uni0443 uni0447 \eth] <anchor 400 1350> mark @Top;
+	pos base [a e g n s x y z cyra cyrg cyre cyri cyrk cyro cyru cyrch \eth] <anchor 400 1350> mark @Top;
 	pos base [c j r dotlessj] <anchor 350 1350> mark @Top;
 	pos base [d] <anchor 650 1650> mark @Top;
 	pos base [i dotlessi] <anchor 150 1350> mark @Top;
@@ -162,9 +162,9 @@ feature mark {
 	pos base [o u] <anchor 400 1350> mark @Top;
 	pos base [t] <anchor 250 1650> mark @Top;
 	pos base [w] <anchor 600 1350> mark @Top;
-	pos base [uni0436] <anchor 500 1350> mark @Top;
-	pos base [uni0437 uni044D] <anchor 375 1350> mark @Top;
-	pos base [uni044B] <anchor 450 1350> mark @Top;
+	pos base [cyrzh] <anchor 500 1350> mark @Top;
+	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
+	pos base [cyrery] <anchor 450 1350> mark @Top;
 
 	subtable;
 	markClass [uni0326 uni0316 uni0317] <anchor 0 -150> @Bottom;
@@ -314,11 +314,11 @@ feature kern {
 	CYRYO CYRA CYRB CYRV CYRG CYRD CYRE CYRZH CYRZ 
 	CYRI CYRISHRT CYRK CYRL CYRM CYRN CYRO CYRP CYRR 
 	CYRS CYRT CYRU CYRF CYRH CYRC CYRCH CYRSH CYRSHCH 
-	CYRHRDSN CYRERY CYRSFTSN CYREREV CYRYU CYRYA uni0430 uni0431 uni0432 
-	uni0433 uni0434 cyre uni0436 uni0437 \cyri \cyrishrt uni043A uni043B 
-	uni043C uni043D uni043E uni043F uni0440 uni0441 uni0442 uni0443 uni0444 
-	uni0445 uni0446 uni0447 uni0448 uni0449 uni044A uni044B uni044C uni044D 
-	uni044E uni044F cyryo uni2010 uni2011 \endash \emdash uni2016 \quoteleft 
+	CYRHRDSN CYRERY CYRSFTSN CYREREV CYRYU CYRYA cyra cyrb cyrv 
+	cyrg cyrd cyre cyrzh cyrz cyri cyrishrt cyrk cyrl 
+	cyrm cyrn cyro cyrp cyrr cyrs cyrt cyru cyrf 
+	cyrh cyrc cyrch cyrsh cyrshch cyrhrdsn cyrery cyrsftsn cyrerev 
+	cyryu cyrya cyryo uni2010 uni2011 \endash \emdash uni2016 \quoteleft 
 	\quoteright \quotesinglbase \quotereversed \quotedblleft \quotedblright 
 	\quotedblbase uni201F \bullet \onedotenleader \twodotenleader \ellipsis 
 	\perthousand uni2031 \minute \second uni2034 \guilsinglleft \guilsinglright 
