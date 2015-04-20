@@ -104,7 +104,7 @@ feature mark {
 		pos base [\space ] <anchor 300 1350> mark @Top;
 		pos base [\A \G \Y ] <anchor 500 1650> mark @Top;
 		pos base [\B \C \D \E \R CYRE \uni042D ] <anchor 400 1650> mark @Top;
-		pos base [\H \N \S \T \Z \uni0413 \cyrI \uni041A \uni0423 \uni0427 ] <anchor 450 1650> mark @Top;
+		pos base [\H \N \S \T \Z \uni0413 \CYRI \uni041A \uni0423 \uni0427 ] <anchor 450 1650> mark @Top;
 		pos base [\I \b \h \k ] <anchor 150 1650> mark @Top;
 		pos base [\L \l ] <anchor 351 1350> mark @TopRight
 		<anchor 150 1650> mark @Top;
@@ -198,17 +198,17 @@ feature ccmp {
 # Й, й
 
 feature ccmp {
-	sub [cyri cyrI] brevecomb' by macroncomb;
+	sub [cyri CYRI] brevecomb' by macroncomb;
 } ccmp;
 
 feature liga {
 	sub cyri macroncomb by cyrishrt;
-	sub cyrI macroncomb by cyrIshrt;
+	sub CYRI macroncomb by CYRISHRT;
 } liga;
 
 feature rlig {
 	sub cyri brevecomb by cyrishrt;
-	sub cyrI brevecomb by cyrIshrt;
+	sub CYRI brevecomb by CYRISHRT;
 } rlig;
 
 # Ё, ё
@@ -263,7 +263,7 @@ feature kern {
 	\uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
 	\uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
 	CYRYO \uni0410 \uni0411 \uni0412 \uni0413 \uni0414 CYRE \uni0416 \uni0417 
-	\cyrI \cyrIshrt \uni041A \uni041B \uni041C \uni041D \uni041E \uni041F \uni0420 
+	\CYRI \CYRISHRT \uni041A \uni041B \uni041C \uni041D \uni041E \uni041F \uni0420 
 	\uni0421 \uni0422 \uni0423 \uni0424 \uni0425 \uni0426 \uni0427 \uni0428 \uni0429 
 	\uni042A \uni042B \uni042C \uni042D \uni042E \uni042F \uni0430 \uni0431 \uni0432 
 	\uni0433 \uni0434 cyre \uni0436 \uni0437 \cyri \cyrishrt \uni043A \uni043B 

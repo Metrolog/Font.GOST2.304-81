@@ -3018,7 +3018,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: cyrI
+StartChar: CYRI
 Encoding: 1048 1048 176
 Width: 900
 Flags: MW
@@ -3028,7 +3028,7 @@ Fore
 Refer: 49 78 S 1 0 0 -1 0 1400 2
 EndChar
 
-StartChar: cyrIshrt
+StartChar: CYRISHRT
 Encoding: 1049 1049 177
 Width: 900
 Flags: MW
