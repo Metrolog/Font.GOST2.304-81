@@ -5,8 +5,12 @@ languagesystem latn dflt;
 languagesystem latn CSY ;
 languagesystem latn DEU ;
 languagesystem latn ENG ;
+languagesystem latn ESP ;
+languagesystem latn GAL ;
+languagesystem latn ITA ;
 languagesystem latn LTH ;
 languagesystem latn PLK ;
+languagesystem latn PTG ;
 languagesystem latn ROM ;
 languagesystem latn RUS ;
 languagesystem latn SKY ;
@@ -37,13 +41,15 @@ feature cv01 {
 	sub @three by @three.alt;
 } cv01;
 
+@Digits = [zero zero.slash one two three three.alt four five six seven eight nine];
+
 # римские цифры
 
 feature rlig {
 	sub uni2160 uni2160 by uni2161;
 	sub uni2160 uni2160 uni2160 by uni2162;
-	#!!!    sub uni2170 uni2170  by uni2171;
-	#!!!    sub uni2170 uni2170 uni2170  by uni2172;
+	#!!!    sub uni2170 uni2170 by uni2171;
+	#!!!    sub uni2170 uni2170 uni2170 by uni2172;
 } rlig;
 
 # альтернативное начертание римской V
@@ -85,6 +91,22 @@ feature ordn {
 			lookup NumeroRUS;
 		language RUS include_dflt;
 			lookup NumeroRUS;
+} ordn;
+
+lookup ordn_ao {
+	sub @Digits [a o]' by [ordfeminine ordmasculine];
+} ordn_ao;
+
+feature ordn {
+	script latn;
+		language ESP include_dflt;
+			lookup ordn_ao;
+		language GAL include_dflt;
+			lookup ordn_ao;
+		language ITA include_dflt;
+			lookup ordn_ao;
+		language PTG include_dflt;
+			lookup ordn_ao;
 } ordn;
 
 # лигатуры для germandbls
