@@ -98,13 +98,12 @@ feature liga {
 
 feature mark {
 	lookup Marks {
-		markClass [apostrophecomb ] <anchor 0 1350> @TopRight;
-		markClass [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314 ] <anchor 0 1350> @Top;
-		markClass [tildecomb ] <anchor 0 1325> @Top;
+		markClass [apostrophecomb] <anchor 0 1350> @TopRight;
+		markClass [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
 		pos base [\space ] <anchor 300 1350> mark @Top;
 		pos base [A G Y ] <anchor 500 1650> mark @Top;
 		pos base [B C D E R CYRE uni042D ] <anchor 400 1650> mark @Top;
-		pos base [H N S T Z uni0413 \CYRI uni041A uni0423 uni0427 ] <anchor 450 1650> mark @Top;
+		pos base [H N S T Z uni0413 CYRI uni041A uni0423 uni0427 ] <anchor 450 1650> mark @Top;
 		pos base [I b h k ] <anchor 150 1650> mark @Top;
 		pos base [L l ] <anchor 351 1350> mark @TopRight
 		<anchor 150 1650> mark @Top;
@@ -112,7 +111,7 @@ feature mark {
 		pos base [O U ] <anchor 950 1350> mark @TopRight
 		<anchor 450 1650> mark @Top;
 		pos base [W ] <anchor 700 1650> mark @Top;
-		pos base [a e g n s x y z uni0430 uni0433 cyre \cyri uni043A uni043E uni0443 uni0447 \eth ] <anchor 400 1350> mark @Top;
+		pos base [a e g n s x y z uni0430 uni0433 cyre cyri uni043A uni043E uni0443 uni0447 \eth ] <anchor 400 1350> mark @Top;
 		pos base [c j r dotlessj ] <anchor 350 1350> mark @Top;
 		pos base [d ] <anchor 850 1350> mark @TopRight
 		<anchor 650 1650> mark @Top;
