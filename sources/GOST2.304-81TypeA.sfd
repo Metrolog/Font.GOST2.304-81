@@ -126,7 +126,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 38 19 9
+WinInfo: 133 19 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -3511,7 +3511,7 @@ Refer: 384 772 S 1 0 0 1 400 0 2
 Refer: 208 1080 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni043A
+StartChar: cyrk
 Encoding: 1082 1082 210
 Width: 800
 Flags: MW
@@ -4291,7 +4291,7 @@ Fore
 Refer: 141 937 S 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni2160
+StartChar: ROMANI
 Encoding: 8544 8544 269
 Width: 300
 Flags: MW
@@ -4301,7 +4301,7 @@ Fore
 Refer: 44 73 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni2161
+StartChar: ROMANII
 Encoding: 8545 8545 270
 Width: 600
 Flags: MW
@@ -4312,7 +4312,7 @@ Refer: 44 73 N 1 0 0 1 300 0 2
 Refer: 44 73 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2162
+StartChar: ROMANIII
 Encoding: 8546 8546 271
 Width: 800
 Flags: MW
@@ -4324,7 +4324,7 @@ Refer: 44 73 N 1 0 0 1 250 0 2
 Refer: 44 73 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2163
+StartChar: ROMANIV
 Encoding: 8547 8547 272
 Width: 1200
 Flags: MW
@@ -4335,7 +4335,7 @@ Refer: 57 86 N 1 0 0 1 200 0 2
 Refer: 44 73 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2164
+StartChar: ROMANV
 Encoding: 8548 8548 273
 Width: 1000
 Flags: MW
@@ -4345,7 +4345,7 @@ Fore
 Refer: 57 86 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni2165
+StartChar: ROMANVI
 Encoding: 8549 8549 274
 Width: 1200
 Flags: MW
@@ -4356,7 +4356,7 @@ Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 57 86 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2166
+StartChar: ROMANVII
 Encoding: 8550 8550 275
 Width: 1500
 Flags: MW
@@ -4368,7 +4368,7 @@ Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 57 86 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2167
+StartChar: ROMANVIII
 Encoding: 8551 8551 276
 Width: 1700
 Flags: MW
@@ -4381,7 +4381,7 @@ Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 57 86 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2168
+StartChar: ROMANIX
 Encoding: 8552 8552 277
 Width: 1200
 Flags: MW
@@ -4392,7 +4392,7 @@ Refer: 59 88 N 1 0 0 1 200 0 2
 Refer: 44 73 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni2169
+StartChar: ROMANX
 Encoding: 8553 8553 278
 Width: 1000
 Flags: MW
@@ -4402,7 +4402,7 @@ Fore
 Refer: 59 88 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni216A
+StartChar: ROMANXI
 Encoding: 8554 8554 279
 Width: 1200
 Flags: MW
@@ -4413,7 +4413,7 @@ Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 59 88 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni216B
+StartChar: ROMANXII
 Encoding: 8555 8555 280
 Width: 1500
 Flags: MW
@@ -4425,7 +4425,7 @@ Refer: 44 73 N 1 0 0 1 900 0 2
 Refer: 59 88 N 1 0 0 1 0 0 2
 EndChar
 
-StartChar: uni216C
+StartChar: ROMANL
 Encoding: 8556 8556 281
 Width: 700
 Flags: MW
@@ -4435,7 +4435,7 @@ Fore
 Refer: 47 76 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni216D
+StartChar: ROMANC
 Encoding: 8557 8557 282
 Width: 800
 Flags: MW
@@ -4445,7 +4445,7 @@ Fore
 Refer: 38 67 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni216E
+StartChar: ROMAND
 Encoding: 8558 8558 283
 Width: 900
 Flags: MW
@@ -4455,7 +4455,7 @@ Fore
 Refer: 39 68 N 1 0 0 1 0 0 3
 EndChar
 
-StartChar: uni216F
+StartChar: ROMANM
 Encoding: 8559 8559 284
 Width: 1100
 Flags: MW
@@ -6510,7 +6510,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni2164.alt
+StartChar: ROMANV.alt
 Encoding: 1114116 -1 437
 Width: 1200
 UnlinkRmOvrlpSave: 1

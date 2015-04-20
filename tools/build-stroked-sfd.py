@@ -150,22 +150,4 @@ if font.findEncodingSlot (0x2160) not in font:
 	font.selection.select ( ['ranges', 'unicode'], 0x2160, 0x216F )
 	font.build()
 
-# create small roman digits as a copy of capitalized roman digits
-if font.findEncodingSlot (0x2170) not in font:
-	sourceUnicode = range(0x2160, 0x2170)
-	destUnicode = range(0x2170, 0x2180)
-	for i in range(len(sourceUnicode)):
-		sourceGlyph = font[ fontforge.nameFromUnicode( sourceUnicode[i] ) ]
-		destGlyph = font.createMappedChar ( destUnicode[i] )
-		destGlyph.addReference (sourceGlyph.glyphname)
-		destGlyph.useRefsMetrics (sourceGlyph.glyphname)
-		for k in reduce( lambda a, b: a + b, [ sourceGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
-			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
-			if ( pairGlyphUnicode >= 0x2160 ) and ( pairGlyphUnicode <= 0x216F ):
-				pairGlyphUnicode += 0x10
-			destGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ), k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
-
-# roman ligatures
-font.mergeFeature ( toolsdir + 'roman.fea')
-
 font.save (destfile)

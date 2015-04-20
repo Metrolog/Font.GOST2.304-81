@@ -349,10 +349,13 @@
 \newopentypefeature { DigitThree } { alternative } { +cv01 }
 \newopentypefeature { DigitThree } { basic } { -cv01 }
 
+\newopentypefeature { RomanNumeral } { On } { +cv03 }
+\newopentypefeature { RomanNumeral } { Off } { -cv03 }
+
 \newopentypefeature { RomanV } { alternative } { +cv02 }
 \newopentypefeature { RomanV } { serif } { +cv02 }
 \newopentypefeature { RomanV } { basic } { -cv02 }
-  
+
 \tl_gset:Nn \g__eskdfont_font_features_tl
   {
     Path = 
@@ -502,31 +505,16 @@
 % опционально используем только заглавные римские цифры, как предусмотрено ГОСТ 2.304
 \cs_new_nopar:Nn \eskdfont_int_to_Roman:n
   {
-    \eskdfont_if_eskdfont:TF
-      { \__eskdfont_int_to_Roman_aux:n {#1} }
-      { \int_to_Roman:n {#1} }
+    \group_begin:
+    \eskdfont_if_eskdfont:T { \addfontfeature{ RomanNumeral = On } }
+    \int_to_Roman:n {#1}
+    \group_end:
   }
 \cs_new_nopar:Nn \eskdfont_int_to_roman:n
   {
-    \eskdfont_if_eskdfont:TF
-      { \__eskdfont_int_to_Roman_aux:n {#1} }
-      { \int_to_roman:n {#1} }
-  }
-
-\dim_new:N \l__eskdfont_romannumeral_kern_dim
-
-\cs_generate_variant:Nn \tl_if_eq:nnTF {xx}
-\cs_new_nopar:Nn \__eskdfont_int_to_Roman_aux:n
-  {
     \group_begin:
-      \cs_set_nopar:Npn \__int_to_Roman_i:w { \symbol{\string"2160} }
-      \cs_set_nopar:Npn \__int_to_Roman_v:w { \symbol{\string"2164} }
-      \cs_set_nopar:Npn \__int_to_Roman_x:w { \symbol{\string"2169} }
-      \cs_set_nopar:Npn \__int_to_Roman_l:w { \symbol{\string"216C} }
-      \cs_set_nopar:Npn \__int_to_Roman_c:w { \symbol{\string"216D} }
-      \cs_set_nopar:Npn \__int_to_Roman_d:w { \symbol{\string"216E} }
-      \cs_set_nopar:Npn \__int_to_Roman_m:w { \symbol{\string"216F} }
-      \int_to_Roman:n {#1}
+    \eskdfont_if_eskdfont:T { \addfontfeature{ RomanNumeral = On } }
+    \int_to_roman:n {#1}
     \group_end:
   }
 

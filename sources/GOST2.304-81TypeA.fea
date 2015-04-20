@@ -45,20 +45,29 @@ feature cv01 {
 
 # римские цифры
 
+@RomanDigits = [ROMANI ROMANII ROMANIII ROMANIV ROMANV ROMANV.alt ROMANVI ROMANVII ROMANVIII ROMANIX ROMANX ROMANXI ROMANXII ROMANL ROMANC ROMAND ROMANM];
+
+feature cv03 {
+	sub [I V X L C D M] by [ROMANI ROMANV ROMANX ROMANL ROMANC ROMAND ROMANM];
+	sub [i v x l c d m] by [ROMANI ROMANV ROMANX ROMANL ROMANC ROMAND ROMANM];
+} cv03;
+
 feature rlig {
-	sub uni2160 uni2160 by uni2161;
-	sub uni2160 uni2160 uni2160 by uni2162;
-	#!!!    sub uni2170 uni2170 by uni2171;
-	#!!!    sub uni2170 uni2170 uni2170 by uni2172;
+	sub ROMANI ROMANI by ROMANII;
+	sub ROMANI ROMANI ROMANI by ROMANIII;
 } rlig;
+
+feature kern {
+	lookupflag IgnoreMarks;
+	pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
+	pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
+	pos ROMANX [ROMANI ROMANII ROMANIII] -100;
+} kern;
 
 # альтернативное начертание римской V
 
-@romanV = [uni2164];
-@romanV.alt = [uni2164.alt];
-
 feature cv02 {
-	sub @romanV by @romanV.alt;
+	sub ROMANV by ROMANV.alt;
 } cv02;
 
 # лигатуры для №
@@ -269,39 +278,13 @@ feature liga {
 
 # кернинг
 
-feature kern {
-	lookup Kern {
-		lookupflag IgnoreMarks;
-		pos uni2160 uni2169 -100;
-		pos uni2160 uni2164 -100;
-		pos uni2160 uni2164.alt -100;
-		pos uni2164 uni2162 -100;
-		pos uni2164 uni2161 -100;
-		pos uni2164 uni2160 -100;
-		pos uni2169 uni2162 -100;
-		pos uni2169 uni2161 -100;
-		pos uni2169 uni2160 -100;
-		pos uni2164.alt uni2162 -100;
-		pos uni2164.alt uni2161 -100;
-		pos uni2164.alt uni2160 -100;
-		#!!!    pos uni2170 <0 0 -100 0> uniFFFFFFFF  <0 0 -100 0>;
-		#!!!    pos uni2170 <0 0 -100 0> uni2174  <0 0 -100 0>;
-		#!!!    pos uni2170 <0 0 -100 0> uni2179  <0 0 -100 0>;
-		#!!!    pos uni2174 uni2170 -100;
-		#!!!    pos uni2174 uni2171 -100;
-		#!!!    pos uni2174 uni2172 -100;
-		#!!!    pos uni2179 uni2170 -100;
-		#!!!    pos uni2179 uni2171 -100;
-		#!!!    pos uni2179 uni2172 -100;
-	} Kern;
-} kern;
-
 #Mark attachment classes (defined in GDEF, used in lookupflags)
 
 @GDEF_Simple = [uni26AC \nonmarkingreturn \space \exclam \quotedbl \numbersign 
 	\dollar \percent \ampersand \quotesingle \parenleft \parenright \asterisk \plus 
-	\comma \hyphen \period \slash \zero \one \two \three \four \five \six \seven \eight 
-	\nine \colon \semicolon \less \equal \greater \question \at A B C D E F G H I J 
+	\comma \hyphen \period \slash 
+	numero @Digits
+	\colon \semicolon \less \equal \greater \question \at A B C D E F G H I J 
 	K L M N O P Q R S T U V W X Y Z \bracketleft \backslash \bracketright 
 	\underscore a b c d e f g h i j k l m n o p q r s t u v w x y z 
 	\braceleft \bar \braceright \asciitilde \exclamdown \cent \sterling \currency 
@@ -323,8 +306,9 @@ feature kern {
 	\quotedblbase uni201F \bullet \onedotenleader \twodotenleader \ellipsis 
 	\perthousand uni2031 \minute \second uni2034 \guilsinglleft \guilsinglright 
 	\exclamdbl uni2042 \fraction uni2047 uni2048 uni2049 Euro uni2103 uni2109 
-	\trademark Omega uni2160 uni2163 uni2164 uni2165 uni2166 uni2167 uni2168 
-	uni2169 uni216A uni216B uni216C uni216D uni216E uni216F \emptyset Delta 
+	\trademark Omega
+	@RomanDigits 
+	\emptyset Delta 
 	\gradient \minus uni2213 uni2215 uni2216 \asteriskmath uni2218 uni2219 
 	\radical \proportional \infinity \orthogonal \angle uni2221 uni2222 uni2223 
 	uni2225 \integral uni222E uni2236 \similar uni223D uni223E uni223F 
@@ -339,9 +323,8 @@ feature kern {
 	uni23A7 uni23A8 uni23A9 uni23AA uni23AB uni23AC uni23AD uni23AE uni2A7D 
 	uni2A7E dotlessi dotlessj \questiondown \AE \ae uni1D3F \divide Oslash 
 	\oslash Thorn \germandbls \eth \thorn uni2E32 uni20BD \kgreenlandic \ldot 
-	Lslash \lslash \OE \oe uni2E41 \dotmath uni2332 \zero.slash 
-	\three.alt uni2164.alt uni0332 uni0333 uni033F uni0305];
-@GDEF_Ligature = [\numero uni2161 uni2162];
+	Lslash \lslash \OE \oe uni2E41 \dotmath uni2332	uni0332 uni0333 uni033F uni0305];
+@GDEF_Ligature = [];
 @GDEF_Mark = [\periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
 	doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb acutecomb gravecomb uni030E 
 	uni0340 uni0341 uni0311 uni0337 uni0338 uni0326 ogonekcomb uni0312 uni030D 
