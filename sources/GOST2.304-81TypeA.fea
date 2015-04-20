@@ -63,21 +63,29 @@ lookup Numero {
 	sub N degree by numero;
 } Numero;
 
-lookup NumeroENG {
+lookup NumeroRUS {
 	sub N o period by numero;
-} NumeroENG;
+} NumeroRUS;
 
 feature liga {
-	script DFLT;
-		language dflt ;
-			lookup Numero;
+	lookup Numero;
 
 	script latn;
-		language ENG exclude_dflt;
-			lookup NumeroENG;
-		language RUS exclude_dflt;
-			lookup NumeroENG;
+		language ENG include_dflt;
+			lookup NumeroRUS;
+		language RUS include_dflt;
+			lookup NumeroRUS;
 } liga;
+
+feature ordn {
+	lookup Numero;
+
+	script latn;
+		language ENG include_dflt;
+			lookup NumeroRUS;
+		language RUS include_dflt;
+			lookup NumeroRUS;
+} ordn;
 
 # лигатуры для germandbls
 
