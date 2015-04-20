@@ -56,7 +56,7 @@ OS2StrikeYPos: 500
 OS2CapHeight: 1400
 OS2XHeight: 1000
 OS2FamilyClass: 2048
-OS2Vendor: 'PfEd'
+OS2Vendor: 'NCSM'
 MarkAttachClasses: 1
 DEI: 91125
 LangName: 1033 "" "" "Regular" "" "GOST 2.304-81 Type A" "01.00.0000" "" "" "" "Sergei S. Betke"

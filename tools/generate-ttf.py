@@ -19,6 +19,9 @@ font.em = 1024
 font.os2_xheight = xheight * scale
 font.os2_capheight = capheight * scale
 
+fontforge.setPrefs ('FoundryName', 'NCSM'); 
+fontforge.setPrefs ('TTFFoundry', 'NCSM') 
+
 fontforge.setPrefs ('AutoHint', 0)
 
 font.selection.all ()

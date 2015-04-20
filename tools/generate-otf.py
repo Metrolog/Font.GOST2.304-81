@@ -14,6 +14,8 @@ for glyph in font.glyphs():
 
 font.em = 1000
 
+fontforge.setPrefs ('FoundryName', 'NCSM'); 
+
 fontforge.setPrefs ('AutoHint', 0)
 
 font.selection.all ()

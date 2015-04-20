@@ -14,6 +14,8 @@ for glyph in font.glyphs():
 
 font.em = 1000
 
+fontforge.setPrefs ('FoundryName', 'NCSM'); 
+
 fontforge.setPrefs ('GenerateHintWidthEqualityTolerance', 4)
 fontforge.setPrefs ('StandardSlopeError', 3)
 fontforge.setPrefs ('HintBoundingBoxes', 1)
