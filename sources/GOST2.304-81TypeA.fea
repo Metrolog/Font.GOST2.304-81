@@ -123,8 +123,8 @@ feature liga {
 
 # диакритические знаки
 
-@TopMarks = [gravecomb acutecomb uni0302 tildecomb macroncomb uni0305 
-	brevecomb uni0307 diaeresiscomb uni030A uni030B caroncomb uni030D uni030E 
+@TopMarks = [gravecomb acutecomb circumflexcomb tildecomb macroncomb uni0305 
+	brevecomb dotabovecomb diaeresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
 	uni030F uni0311 uni0312 uni0313 uni0314];
 
 lookup ogonek {
@@ -144,7 +144,7 @@ feature mark {
 
 feature mark {
 	subtable;
-	markClass [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
+	markClass [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
 	pos base [\space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
 	pos base [B C D E R CYRE CYREREV] <anchor 400 1650> mark @Top;
@@ -199,10 +199,10 @@ feature mark {
 } mark;
 
 feature mkmk {
-	markClass [macroncomb brevecomb uni030B uni030A uni0307 uni0302 caroncomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
+	markClass [macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
 	markClass [acutecomb] <anchor 0 1650> @TopMark;
 	markClass [\tonos] <anchor 150 1150> @TopMark;
-	pos mark [diaeresiscomb macroncomb brevecomb uni030B uni030A uni0307 uni0302 caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
+	pos mark [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
 	pos mark [tildecomb] <anchor 0 1525> mark @TopMark;
 } mkmk;
 
@@ -343,7 +343,7 @@ feature kern {
 	\three.alt uni2164.alt uni0332 uni0333 uni033F uni0305];
 @GDEF_Ligature = [\numero uni2161 uni2162];
 @GDEF_Mark = [\periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
-	uni030B uni030A uni0307 uni0302 caroncomb acutecomb gravecomb uni030E 
+	doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb acutecomb gravecomb uni030E 
 	uni0340 uni0341 uni0311 uni0337 uni0338 uni0326 ogonekcomb uni0312 uni030D 
 	uni030F uni0313 uni0314 apostrophecomb uni0316 uni0317 \tonos];
 
