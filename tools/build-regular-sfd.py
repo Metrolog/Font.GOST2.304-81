@@ -15,4 +15,6 @@ for glyph in font.glyphs():
 		glyph.layerrefs[1] += glyph.layerrefs[0]
 		glyph.layers[0] = fontforge.layer()
 
+font.macstyle = 0
+
 font.save (destfile)
