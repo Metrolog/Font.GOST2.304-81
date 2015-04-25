@@ -18,12 +18,64 @@ languagesystem latn TRK ;
 
 # перечёркнутый ноль
 
-@zero = [zero];
-@zero.slash = [zero.slash];
+@zero = [zero zero.sub zero.sup];
+@zero.slash = [zero.slash zero.sub.slash zero.sup.slash];
 
 feature zero {
 	sub @zero by @zero.slash;
 } zero;
+
+# альтернативное начертание цифры 3
+
+@three = [three three.sub three.sup];
+@three.alt = [three.alt three.sub.alt three.sup.alt];
+
+feature cv01 {
+	sub @three by @three.alt;
+} cv01;
+
+@Digits = [zero one two three four five six seven eight nine];
+@Digits.all = [@Digits zero.slash three.alt];
+@Digits.sub = [zero.sub one.sub two.sub three.sub four.sub five.sub six.sub seven.sub eight.sub nine.sub];
+@Digits.sub.all = [@Digits.sub zero.sub.slash three.sub.alt];
+@Digits.sup = [zero.sup one.sup two.sup three.sup four.sup five.sup six.sup seven.sup eight.sup nine.sup];
+@Digits.sup.all = [@Digits.sup zero.sup.slash three.sup.alt];
+
+# inline дроби
+
+@fraction = [fraction slash];
+
+feature frac {
+	sub @Digits.all' @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @fraction @Digits.all @Digits.all @Digits.all by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
+	sub [@Digits.all @Digits.sup.all] slash' @Digits.all by fraction;
+	sub fraction @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+} frac;
+
+feature numr {
+	sub @Digits.all by @Digits.sup.all;
+} numr;
+
+feature dnom {
+	sub @Digits.all by @Digits.sub.all;
+} dnom;
 
 # dotless формы для i, j
 
@@ -31,17 +83,6 @@ feature dtls {
 	sub i by dotlessi;
 	sub j by dotlessj;
 } dtls;
-
-# альтернативное начертание цифры 3
-
-@three = [three];
-@three.alt = [three.alt];
-
-feature cv01 {
-	sub @three by @three.alt;
-} cv01;
-
-@Digits = [zero zero.slash one two three three.alt four five six seven eight nine];
 
 # римские цифры
 
@@ -103,7 +144,7 @@ feature ordn {
 } ordn;
 
 lookup ordn_ao {
-	sub @Digits [a o]' by [ordfeminine ordmasculine];
+	sub @Digits.all [a o]' by [ordfeminine ordmasculine];
 } ordn_ao;
 
 feature ordn {
@@ -278,7 +319,7 @@ feature liga {
 @GDEF_Simple = [uni26AC \nonmarkingreturn \space \exclam \quotedbl \numbersign 
 	\dollar \percent \ampersand \quotesingle \parenleft \parenright \asterisk \plus 
 	\comma \hyphen \period \slash 
-	numero @Digits
+	numero @Digits.all
 	\colon \semicolon \less \equal \greater \question \at A B C D E F G H I J 
 	K L M N O P Q R S T U V W X Y Z \bracketleft \backslash \bracketright 
 	\underscore a b c d e f g h i j k l m n o p q r s t u v w x y z 
