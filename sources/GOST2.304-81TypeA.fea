@@ -43,38 +43,80 @@ feature cv01 {
 
 # inline дроби
 
-@fraction = [fraction slash];
+@figures = @Digits.all;
+@numerators = @Digits.sup.all;
+@denominators = @Digits.sub.all;
 
 feature frac {
-	sub @Digits.all' @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @fraction @Digits.all @Digits.all @Digits.all by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub @Digits.all' @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @Digits.all @fraction by @Digits.sup.all;
-	sub [@Digits.all @Digits.sup.all] slash' @Digits.all by fraction;
-	sub fraction @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
-	sub fraction @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.sub.all @Digits.all' by @Digits.sub.all;
+	lookup FractionBar {
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures slash';
+		ignore sub slash' @figures @figures slash ;
+		ignore sub slash  @figures slash';
+		ignore sub slash' @figures slash ;
+
+		sub @figures slash' @figures by fraction;
+	} FractionBar;
+
+	lookup Numerator1 {
+		sub @figures' fraction by @numerators;
+	} Numerator1;
+	lookup Numerator2 {
+		sub @figures' @numerators fraction by @numerators;
+	} Numerator2;
+	lookup Numerator3 {
+		sub @figures' @numerators @numerators fraction by @numerators;
+	} Numerator3;
+	lookup Numerator4 {
+		sub @figures' @numerators @numerators @numerators fraction by @numerators;
+	} Numerator4;
+	lookup Numerator5 {
+		sub @figures' @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator5;
+	lookup Numerator6 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator6;
+	lookup Numerator7 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator7;
+	lookup Numerator8 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator8;
+	lookup Numerator9 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator9;
+	lookup Numerator10 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator10;
+
+	lookup Denominator {
+		sub [fraction @denominators] @figures' by @denominators;
+	} Denominator;
+
+	#sub @figures space' @numerators by thinspace;
 } frac;
 
 feature numr {
-	sub @Digits.all by @Digits.sup.all;
+	sub @figures by @numerators;
 } numr;
 
 feature dnom {
-	sub @Digits.all by @Digits.sub.all;
+	sub @figures by @denominators;
 } dnom;
 
 # dotless формы для i, j
