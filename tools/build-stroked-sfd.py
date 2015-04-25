@@ -20,10 +20,6 @@ for glyph in font.glyphs():
 
 font.is_quadratic = False
 
-font.mergeFeature (sourceFeaturesFile)
-
-kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
-
 # set font version
 font.version = version
 ver = re.search('^(?P<major>\d+)\.(?P<minor>\d+)(\.(?P<release>\d+)(\.(?P<build>\d+))?)?', version)
@@ -66,10 +62,10 @@ for markData in [
 	, [0x0332, 0x005F] # low line
 	, [0x0333, 0x2017] # double low line
 	]:
-	if font.findEncodingSlot (markData[0]) > -1:
+	if markData[0] in font:
 		sourceGlyph = font[markData[0]]
 		for i in range(1, len(markData)):
-			if font.findEncodingSlot ( markData[i] ) not in font:
+			if markData[i] not in font:
 				markGlyph = font.createMappedChar ( markData[i] )
 				markGlyph.width =  font.strokewidth + sourceGlyph.width - sourceGlyph.right_side_bearing - sourceGlyph.left_side_bearing
 				markGlyph.addReference ( sourceGlyph.glyphname, psMat.translate( font.strokewidth / 2 - sourceGlyph.left_side_bearing, 0 ) )
@@ -82,72 +78,77 @@ sourceUnicode = range(0x30, 0x3A) + [0x002B, 0x2212, 0x003D, 0x0028, 0x0029]
 subUnicode = range(0x2080, 0x208F)
 superUnicode = [0x2070, 0x00B9, 0x00B2, 0x00B3] + range( 0x2074, 0x207F )
 for i in range(len(sourceUnicode)):
-	sourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[i] )]
-	if font.findEncodingSlot ( subUnicode[i] ) not in font:
-		subGlyph = font.createMappedChar ( subUnicode[i] )
+	sourceGlyph = font.createChar( sourceUnicode[i] )
+	if subUnicode[i] not in font:
+		subGlyph = font.createChar ( subUnicode[i], sourceGlyph.glyphname + '.sub' )
+		subGlyph.glyphname = sourceGlyph.glyphname + '.sub'
 		subGlyph.width = sourceGlyph.width
 		subGlyph.addReference (sourceGlyph.glyphname)
 		subGlyph.transform (subscriptTransform)
-		for k in reduce( lambda a, b: a + b, [ sourceGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
-			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
-			if pairGlyphUnicode in sourceUnicode:
-				pairGlyphUnicode = subUnicode[ sourceUnicode.index( pairGlyphUnicode ) ]
-				subGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ),
-					k[3] * subscriptScale, k[4] * subscriptScale, k[5] * subscriptScale, k[6] * subscriptScale,
-					k[7] * subscriptScale, k[8] * subscriptScale, k[9] * subscriptScale, k[10] * subscriptScale )
-	if font.findEncodingSlot ( superUnicode[i] ) not in font:
-		subGlyph = font.createMappedChar ( subUnicode[i] )
-		superGlyph = font.createMappedChar ( superUnicode[i] )
+	if superUnicode[i] not in font:
+		subGlyph = font.createChar ( subUnicode[i], sourceGlyph.glyphname + '.sub' )
+		superGlyph = font.createChar ( superUnicode[i], sourceGlyph.glyphname + '.sup' )
+		superGlyph.glyphname = sourceGlyph.glyphname + '.sup'
 		superGlyph.width = subGlyph.width
 		superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-		for k in reduce( lambda a, b: a + b, [ subGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
-			pairGlyphUnicode = fontforge.unicodeFromName ( k[2] )
-			if pairGlyphUnicode in subUnicode:
-				pairGlyphUnicode = superUnicode[ subUnicode.index( pairGlyphUnicode ) ]
-				superGlyph.addPosSub ( k[0], fontforge.nameFromUnicode( pairGlyphUnicode ),
-					k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
 
 # add slashed zero support for subscript and superscript
-normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[0] )]
-if font.findEncodingSlot (normalSourceGlyph.glyphname + '.slash') > -1:
-	sourceGlyph = font[normalSourceGlyph.glyphname + '.slash']
-	normalSubGlyph = font[fontforge.nameFromUnicode( subUnicode[0] )]
+normalSourceGlyph = font.createChar( sourceUnicode[0] )
+if ( normalSourceGlyph.glyphname + '.slash' ) in font:
+	sourceGlyph = font[ normalSourceGlyph.glyphname + '.slash' ]
+	normalSubGlyph = font.createChar( subUnicode[0] )
 	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.slash' )
-	normalSuperGlyph = font[fontforge.nameFromUnicode( superUnicode[0] )]
+	subGlyph.glyphname = normalSubGlyph.glyphname + '.slash'
+	normalSuperGlyph = font.createChar( superUnicode[0] )
 	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.slash' )
+	superGlyph.glyphname = normalSuperGlyph.glyphname + '.slash'
 	subGlyph.width = sourceGlyph.width
 	subGlyph.addReference (sourceGlyph.glyphname)
 	subGlyph.transform (subscriptTransform)
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-#	subtableName = "Slashed Zero"
-#	if font.getLookupOfSubtable (subtableName) is not None:
-#		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
-#		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
-#		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
 # add alternative 3 support for subscript and superscript
-normalSourceGlyph = font[fontforge.nameFromUnicode( sourceUnicode[3] )]
-if font.findEncodingSlot (normalSourceGlyph.glyphname + '.alt') > -1:
-	sourceGlyph = font[normalSourceGlyph.glyphname + '.alt']
-	normalSubGlyph = font[fontforge.nameFromUnicode( subUnicode[3] )]
+normalSourceGlyph = font.createChar( sourceUnicode[3] )
+if ( normalSourceGlyph.glyphname + '.alt' ) in font:
+	sourceGlyph = font[ normalSourceGlyph.glyphname + '.alt' ]
+	normalSubGlyph = font.createChar( subUnicode[3] )
 	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.alt' )
-	normalSuperGlyph = font[fontforge.nameFromUnicode( superUnicode[3] )]
+	subGlyph.glyphname = normalSubGlyph.glyphname + '.alt'
+	normalSuperGlyph = font.createChar( superUnicode[3] )
 	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.alt' )
+	superGlyph.glyphname = normalSuperGlyph.glyphname + '.alt'
 	subGlyph.width = sourceGlyph.width
 	subGlyph.addReference (sourceGlyph.glyphname)
 	subGlyph.transform (subscriptTransform)
 	superGlyph.width = subGlyph.width
 	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-#	subtableName = "Alternative Three"
-#	if font.getLookupOfSubtable (subtableName) is not None:
-#		normalSourceGlyph.addPosSub (subtableName, sourceGlyph.glyphname)
-#		normalSubGlyph.addPosSub (subtableName, subGlyph.glyphname)
-#		normalSuperGlyph.addPosSub (subtableName, superGlyph.glyphname)
 
-# build capitalized roman digits
-if font.findEncodingSlot (0x2160) not in font:
+# build roman digits
+if 0x2160 not in font:
 	font.selection.select ( ['ranges', 'unicode'], 0x2160, 0x216F )
 	font.build()
+
+font.mergeFeature (sourceFeaturesFile)
+
+kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
+
+for i in range(len(sourceUnicode)):
+	sourceGlyph = font.createChar( sourceUnicode[i] )
+	subGlyph = font.createChar ( subUnicode[i] )
+	for k in reduce( lambda a, b: a + b, [ sourceGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
+		pairGlyph = font[ k[2] ]
+		if pairGlyph.unicode in sourceUnicode:
+			pairSubGlyph = font.createChar( subUnicode[ sourceUnicode.index( pairGlyph.unicode ) ] )
+			subGlyph.addPosSub ( k[0], pairSubGlyph.glyphname,
+				k[3] * subscriptScale, k[4] * subscriptScale, k[5] * subscriptScale, k[6] * subscriptScale,
+				k[7] * subscriptScale, k[8] * subscriptScale, k[9] * subscriptScale, k[10] * subscriptScale )
+	superGlyph = font.createChar ( superUnicode[i] )
+	for k in reduce( lambda a, b: a + b, [ subGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
+		pairGlyph = font[ k[2] ]
+		if pairGlyph.unicode in subUnicode:
+			pairSuperGlyph = font.createChar( superUnicode[ subUnicode.index( pairGlyph.unicode ) ] )
+			superGlyph.addPosSub ( k[0], pairSuperGlyph.glyphname,
+				k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
 
 font.save (destfile)
