@@ -43,9 +43,9 @@ feature cv01 {
 
 # inline дроби
 
-@figures = @Digits.all;
-@numerators = @Digits.sup.all;
-@denominators = @Digits.sub.all;
+@figures = @Digits; # .all;
+@numerators = [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr]; # zero.sup.slash three.sup.alt];
+@denominators = [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom]; # zero.sup.slash three.sup.alt];
 
 feature frac {
 	lookup FractionBar {

@@ -79,18 +79,38 @@ subUnicode = range(0x2080, 0x208F)
 superUnicode = [0x2070, 0x00B9, 0x00B2, 0x00B3] + range( 0x2074, 0x207F )
 for i in range(len(sourceUnicode)):
 	sourceGlyph = font.createChar( sourceUnicode[i] )
+	subGlyphName = sourceGlyph.glyphname + '.sub'
 	if subUnicode[i] not in font:
-		subGlyph = font.createChar ( subUnicode[i], sourceGlyph.glyphname + '.sub' )
-		subGlyph.glyphname = sourceGlyph.glyphname + '.sub'
+		subGlyph = font.createChar ( subUnicode[i], subGlyphName )
+		subGlyph.glyphname = subGlyphName
 		subGlyph.width = sourceGlyph.width
 		subGlyph.addReference (sourceGlyph.glyphname)
 		subGlyph.transform (subscriptTransform)
+	superGlyphName = sourceGlyph.glyphname + '.sup'
 	if superUnicode[i] not in font:
-		subGlyph = font.createChar ( subUnicode[i], sourceGlyph.glyphname + '.sub' )
-		superGlyph = font.createChar ( superUnicode[i], sourceGlyph.glyphname + '.sup' )
-		superGlyph.glyphname = sourceGlyph.glyphname + '.sup'
+		subGlyph = font.createChar ( subUnicode[i], subGlyphName )
+		superGlyph = font.createChar ( superUnicode[i], superGlyphName )
+		superGlyph.glyphname = superGlyphName
 		superGlyph.width = subGlyph.width
 		superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+
+digitsNames = [ ( font.createChar( code ) ).glyphname for code in range(0x30, 0x3A) ]
+allDigitsNames = digitsNames # + [ 'three.alt', 'zero.slash' ]
+subToDnomTransform = psMat.translate(0, 500)
+supToNumrTransform = psMat.translate(0, 0)
+for glyphname in allDigitsNames:
+	subGlyph = font[ glyphname + '.sub' ]
+	supGlyph = font[ glyphname + '.sup' ]
+	dnomGlyphName = glyphname + '.dnom'
+	if dnomGlyphName not in font:
+		dnomGlyph = font.createChar ( -1, dnomGlyphName )
+		dnomGlyph.width = subGlyph.width
+		dnomGlyph.addReference (subGlyph.glyphname, subToDnomTransform)
+	numrGlyphName = glyphname + '.numr'
+	if numrGlyphName not in font:
+		numrGlyph = font.createChar ( -1, numrGlyphName )
+		numrGlyph.width = supGlyph.width
+		numrGlyph.addReference (supGlyph.glyphname, supToNumrTransform)
 
 # add slashed zero support for subscript and superscript
 normalSourceGlyph = font.createChar( sourceUnicode[0] )
