@@ -18,34 +18,28 @@ languagesystem latn TRK ;
 
 # перечёркнутый ноль
 
-@zero = [zero zero.sub zero.sup];
-@zero.slash = [zero.slash zero.sub.slash zero.sup.slash];
-
 feature zero {
-	sub @zero by @zero.slash;
+	sub [zero zero.sub zero.sup zero.numr zero.dnom] by [zero.slash zero.slash.sub zero.slash.sup zero.slash.numr zero.slash.dnom];
 } zero;
 
 # альтернативное начертание цифры 3
 
-@three = [three three.sub three.sup];
-@three.alt = [three.alt three.sub.alt three.sup.alt];
-
 feature cv01 {
-	sub @three by @three.alt;
+	sub [three three.sub three.sup three.numr three.dnom] by [three.alt three.alt.sub three.alt.sup three.alt.numr three.alt.dnom];
 } cv01;
 
 @Digits = [zero one two three four five six seven eight nine];
 @Digits.all = [@Digits zero.slash three.alt];
 @Digits.sub = [zero.sub one.sub two.sub three.sub four.sub five.sub six.sub seven.sub eight.sub nine.sub];
-@Digits.sub.all = [@Digits.sub zero.sub.slash three.sub.alt];
+@Digits.sub.all = [@Digits.sub zero.slash.sub three.alt.sub];
 @Digits.sup = [zero.sup one.sup two.sup three.sup four.sup five.sup six.sup seven.sup eight.sup nine.sup];
-@Digits.sup.all = [@Digits.sup zero.sup.slash three.sup.alt];
+@Digits.sup.all = [@Digits.sup zero.slash.sup three.alt.sup];
 
 # inline дроби
 
-@figures = @Digits; # .all;
-@numerators = [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr]; # zero.sup.slash three.sup.alt];
-@denominators = [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom]; # zero.sup.slash three.sup.alt];
+@figures = @Digits.all;
+@numerators = [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr];
+@denominators = [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom zero.slash.dnom three.alt.dnom];
 
 feature frac {
 	lookup FractionBar {

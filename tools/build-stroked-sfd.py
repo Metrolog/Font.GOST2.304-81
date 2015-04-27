@@ -4,6 +4,40 @@
 import fontforge, psMat
 import sys, os, re
 
+def copyGlyphs ( font, sourceGlyphs, newGlyphs = None, transform = psMat.identity(), suffix = '' ) :
+	for i, sourceGlyphName in enumerate( sourceGlyphs ):
+		sourceGlyph = font[ sourceGlyphName ]
+		newGlyphUnicode = -1
+		newGlyphName = ''
+		if newGlyphs:
+			newGlyphItem = newGlyphs[i]
+			if type( newGlyphItem ) is tuple:
+				newGlyphUnicode = newGlyphItem[0]
+				newGlyphName = newGlyphItem[1]
+				newGlyphId = newGlyphName
+			else:
+				if type( newGlyphItem ) is str:
+					newGlyphName = newGlyphItem
+					newGlyphId = newGlyphName
+				else:
+					if type( newGlyphItem ) is int:
+						newGlyphUnicode = newGlyphItem
+						newGlyphId = newGlyphUnicode
+		else:
+			newGlyphName = sourceGlyph.glyphname + suffix
+			newGlyphId = newGlyphName
+		if newGlyphId not in font:
+			newGlyph = font.createChar( newGlyphUnicode, newGlyphName )
+			if suffix:
+				newGlyph.glyphname = sourceGlyph.glyphname + suffix
+			else:
+				newGlyph.glyphname = newGlyphName
+			newGlyph.width = sourceGlyph.width
+			newGlyph.addReference( sourceGlyph.glyphname )
+			newGlyph.transform( transform )
+	# to-do: copy kern data
+
+
 toolsdir = os.path.dirname(os.path.abspath(sys.argv[0])) + '/'
 sourcefile = sys.argv[1]
 sourceFeaturesFile = sys.argv[2]
@@ -77,72 +111,15 @@ subToSuperscriptTransform = psMat.translate(0, 1400)
 sourceUnicode = range(0x30, 0x3A) + [0x002B, 0x2212, 0x003D, 0x0028, 0x0029]
 subUnicode = range(0x2080, 0x208F)
 superUnicode = [0x2070, 0x00B9, 0x00B2, 0x00B3] + range( 0x2074, 0x207F )
-for i in range(len(sourceUnicode)):
-	sourceGlyph = font.createChar( sourceUnicode[i] )
-	subGlyphName = sourceGlyph.glyphname + '.sub'
-	if subUnicode[i] not in font:
-		subGlyph = font.createChar ( subUnicode[i], subGlyphName )
-		subGlyph.glyphname = subGlyphName
-		subGlyph.width = sourceGlyph.width
-		subGlyph.addReference (sourceGlyph.glyphname)
-		subGlyph.transform (subscriptTransform)
-	superGlyphName = sourceGlyph.glyphname + '.sup'
-	if superUnicode[i] not in font:
-		subGlyph = font.createChar ( subUnicode[i], subGlyphName )
-		superGlyph = font.createChar ( superUnicode[i], superGlyphName )
-		superGlyph.glyphname = superGlyphName
-		superGlyph.width = subGlyph.width
-		superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+copyGlyphs( font, sourceUnicode + [ 'zero.slash', 'three.alt' ], subUnicode + [ -1, -1 ], subscriptTransform, suffix = '.sub' )
+copyGlyphs( font, subUnicode + [ 'zero.slash.sub', 'three.alt.sub' ],
+	[ ( code, font[ sourceUnicode[i] ].glyphname + '.sup' ) for i, code in enumerate( superUnicode ) ] + [ 'zero.slash.sup', 'three.alt.sup' ],
+	subToSuperscriptTransform )
 
-digitsNames = [ ( font.createChar( code ) ).glyphname for code in range(0x30, 0x3A) ]
-allDigitsNames = digitsNames # + [ 'three.alt', 'zero.slash' ]
-subToDnomTransform = psMat.translate(0, 500)
-supToNumrTransform = psMat.translate(0, 0)
-for glyphname in allDigitsNames:
-	subGlyph = font[ glyphname + '.sub' ]
-	supGlyph = font[ glyphname + '.sup' ]
-	dnomGlyphName = glyphname + '.dnom'
-	if dnomGlyphName not in font:
-		dnomGlyph = font.createChar ( -1, dnomGlyphName )
-		dnomGlyph.width = subGlyph.width
-		dnomGlyph.addReference (subGlyph.glyphname, subToDnomTransform)
-	numrGlyphName = glyphname + '.numr'
-	if numrGlyphName not in font:
-		numrGlyph = font.createChar ( -1, numrGlyphName )
-		numrGlyph.width = supGlyph.width
-		numrGlyph.addReference (supGlyph.glyphname, supToNumrTransform)
-
-# add slashed zero support for subscript and superscript
-normalSourceGlyph = font.createChar( sourceUnicode[0] )
-if ( normalSourceGlyph.glyphname + '.slash' ) in font:
-	sourceGlyph = font[ normalSourceGlyph.glyphname + '.slash' ]
-	normalSubGlyph = font.createChar( subUnicode[0] )
-	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.slash' )
-	subGlyph.glyphname = normalSubGlyph.glyphname + '.slash'
-	normalSuperGlyph = font.createChar( superUnicode[0] )
-	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.slash' )
-	superGlyph.glyphname = normalSuperGlyph.glyphname + '.slash'
-	subGlyph.width = sourceGlyph.width
-	subGlyph.addReference (sourceGlyph.glyphname)
-	subGlyph.transform (subscriptTransform)
-	superGlyph.width = subGlyph.width
-	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
-
-# add alternative 3 support for subscript and superscript
-normalSourceGlyph = font.createChar( sourceUnicode[3] )
-if ( normalSourceGlyph.glyphname + '.alt' ) in font:
-	sourceGlyph = font[ normalSourceGlyph.glyphname + '.alt' ]
-	normalSubGlyph = font.createChar( subUnicode[3] )
-	subGlyph = font.createChar ( -1, normalSubGlyph.glyphname + '.alt' )
-	subGlyph.glyphname = normalSubGlyph.glyphname + '.alt'
-	normalSuperGlyph = font.createChar( superUnicode[3] )
-	superGlyph = font.createChar ( -1, normalSuperGlyph.glyphname + '.alt' )
-	superGlyph.glyphname = normalSuperGlyph.glyphname + '.alt'
-	subGlyph.width = sourceGlyph.width
-	subGlyph.addReference (sourceGlyph.glyphname)
-	subGlyph.transform (subscriptTransform)
-	superGlyph.width = subGlyph.width
-	superGlyph.addReference (subGlyph.glyphname, subToSuperscriptTransform)
+digitsNames = [ font[ code ].glyphname for code in range(0x30, 0x3A) ]
+allDigitsNames = digitsNames + [ 'three.alt', 'zero.slash' ]
+copyGlyphs( font, [ name + '.sub' for name in allDigitsNames ], [ name + '.dnom' for name in allDigitsNames ], psMat.translate(0, 500) )
+copyGlyphs( font, [ name + '.sup' for name in allDigitsNames ], [ name + '.numr' for name in allDigitsNames ] )
 
 # build roman digits
 if 0x2160 not in font:
