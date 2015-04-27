@@ -113,6 +113,13 @@ feature dnom {
 	sub @figures by @denominators;
 } dnom;
 
+feature kern {
+	pos fraction [zero.dnom one.dnom two.dnom four.dnom six.dnom eight.dnom nine.dnom zero.slash.dnom] -450;
+	pos fraction [three.dnom five.dnom seven.dnom three.alt.dnom] -350;
+	pos [zero.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr] fraction -450;
+	pos [one.numr two.numr] fraction -350;
+} kern;
+
 # dotless формы для i, j
 
 feature dtls {
