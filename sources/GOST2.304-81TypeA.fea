@@ -357,7 +357,14 @@ feature liga {
 
 # кернинг
 
-#Mark attachment classes (defined in GDEF, used in lookupflags)
+feature kern {
+	lookup common_kerning {
+		lookupflag IgnoreMarks;
+		pos .notdef .notdef 0; # заглушка для генерации таблицы
+	} common_kerning;
+} kern;
+
+# Mark attachment classes (defined in GDEF, used in lookupflags)
 
 @GDEF_Simple = [uni26AC \nonmarkingreturn \space \exclam \quotedbl \numbersign 
 	\dollar \percent \ampersand \quotesingle \parenleft \parenright \asterisk \plus 

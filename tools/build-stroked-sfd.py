@@ -128,24 +128,4 @@ if 0x2160 not in font:
 
 font.mergeFeature (sourceFeaturesFile)
 
-kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
-
-for i in range(len(sourceUnicode)):
-	sourceGlyph = font.createChar( sourceUnicode[i] )
-	subGlyph = font.createChar ( subUnicode[i] )
-	for k in reduce( lambda a, b: a + b, [ sourceGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
-		pairGlyph = font[ k[2] ]
-		if pairGlyph.unicode in sourceUnicode:
-			pairSubGlyph = font.createChar( subUnicode[ sourceUnicode.index( pairGlyph.unicode ) ] )
-			subGlyph.addPosSub ( k[0], pairSubGlyph.glyphname,
-				k[3] * subscriptScale, k[4] * subscriptScale, k[5] * subscriptScale, k[6] * subscriptScale,
-				k[7] * subscriptScale, k[8] * subscriptScale, k[9] * subscriptScale, k[10] * subscriptScale )
-	superGlyph = font.createChar ( superUnicode[i] )
-	for k in reduce( lambda a, b: a + b, [ subGlyph.getPosSub( kernSubtable ) for kernSubtable in kernSubtables ]):
-		pairGlyph = font[ k[2] ]
-		if pairGlyph.unicode in subUnicode:
-			pairSuperGlyph = font.createChar( superUnicode[ subUnicode.index( pairGlyph.unicode ) ] )
-			superGlyph.addPosSub ( k[0], pairSuperGlyph.glyphname,
-				k[3], k[4], k[5], k[6], k[7], k[8], k[9], k[10] )
-
 font.save (destfile)

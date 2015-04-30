@@ -111,10 +111,18 @@ $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 	$(info Expand stroke font to outline font "$@"...)
 	$(PY) $(FFEXPANDSTROKE) $< $@
 
+# autokern outline font
+
+FFAUTOKERN		:= $(TOOLSDIR)autokern-sfd.py
+
+$(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(AUXDIR)/dirstate
+	$(info Auto kerning outline font "$@"...)
+	$(PY) $(FFAUTOKERN) $< $@
+
 # all FontForge aux projects
 
 FONTVARIANTS		:= Regular Slanted
-FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-outline.sfd)
+FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-autokern.sfd)
 
 # build True Type fonts
 
@@ -126,7 +134,7 @@ $(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 ifeq ($(AUTOHINT),ttfautohint)
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(AUXDIR)/dirstate
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(AUXDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
 	
@@ -140,7 +148,7 @@ ifeq ($(AUTOHINT),fontforge)
 FFGENERATETTF		:= $(TOOLSDIR)generate-autohinted-ttf.py
 endif
 
-$(TTFDIR)/%.ttf: $(AUXDIR)/%-outline.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
+$(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
 
@@ -180,7 +188,7 @@ OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT)
 
 $(OTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
-$(OTFDIR)/%.otf: $(AUXDIR)/%-outline.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
+$(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
 	$(info Generate .otf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
 
