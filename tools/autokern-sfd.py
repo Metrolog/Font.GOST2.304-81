@@ -21,8 +21,6 @@ digitsNames = [ font[ code ].glyphname for code in range(0x30, 0x3A) ]
 allDigitsNames = digitsNames + [ 'three.alt', 'zero.slash' ]
 font.autoKern( kernSubtable, 300, allDigitsNames, allDigitsNames, minKern = 20, onlyCloser = True, touch = False )
 
-# kernSubtables = reduce (lambda a, b: a + b , [ font.getLookupSubtables(lookup) for lookup in font.gpos_lookups if font.getLookupInfo( lookup )[0] == 'gpos_pair' ] )
-
 for glyph in font.glyphs():
 	for k in glyph.getPosSub( kernSubtable ):
 		glyph.addPosSub ( kernSubtable, k[2], -100 if k[5] < -100 else k[5] )
