@@ -58,9 +58,9 @@
   \textbf{С}
   {\slshape\bfseries С}
 
-  \NewDocumentCommand \DrawChars {m} {
+  \NewDocumentCommand \DrawChars {m O{20mm} } {
     \begin{tikzpicture}
-    \papergraduate (-5mm,0mm) (160mm,20mm);
+    \papergraduate (-5mm,0mm) (160mm,#2);
     \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
     {
       #1
@@ -205,6 +205,30 @@
       \addfontfeature{Numbers=SlashedZero} 0
       \addfontfeature{DigitThree=alternative} 3
     }
+  }
+  {
+    \eskdfontsize{5mm}
+    \DrawChars{
+      01020304050607080900
+      11213141516171819
+    }[5mm]
+    \DrawChars{
+      223242526272829
+      33343536373839
+      44546474849
+    }[5mm]
+    \DrawChars{
+      556575859
+      6676869
+      77879
+      889
+      99
+    }[5mm]
+    \DrawChars{
+      \addfontfeature{Numbers=SlashedZero, DigitThree=alternative}
+      01020304050607080900
+      313233343536373839
+    }[5mm]
   }
   {
     \eskdfontsize{14mm}
