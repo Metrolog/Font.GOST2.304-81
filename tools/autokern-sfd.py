@@ -22,29 +22,41 @@ def autoKern ( font, glyphs, rightGlyps = None, kernSize = 200, minKern = 20, on
 		rightGlyps = glyphs
 	font.autoKern( kernSubtable, kernSize, glyphs, rightGlyps, minKern = minKern, onlyCloser = onlyCloser, touch = touch )
 
+def glyphNamesInRange ( font, unicodeRange ):
+	return [ font[ code ].glyphname for code in unicodeRange if code in font ]
+
 digits = [ font[ code ].glyphname for code in range(0x30, 0x3A) ]
 allDigits = digits + [ 'three.alt', 'zero.slash' ]
 
 ordGlyphs = [ 'ordfeminine', 'ordmasculine' ]
 digitSeparators = [ 'period', 'comma' ]
-primes = [ font[ code ].glyphname for code in [ 0x2032, 0x2033, 0x2034 ] ]
+primes = glyphNamesInRange( font, [ 0x2032, 0x2033, 0x2034 ] )
 
-leftBrackets = [ font[ code ].glyphname for code in [ 0x0028, 0x005B, 0x007B ] ]
-rightBrackets = [ font[ code ].glyphname for code in [ 0x0029, 0x005D, 0x007D ] ]
+leftBrackets = glyphNamesInRange( font, [ 0x0028, 0x005B, 0x007B ] )
+rightBrackets = glyphNamesInRange( font, [ 0x0029, 0x005D, 0x007D ] )
 
-latinCapitalLetters = [ font[ code ].glyphname for code in range( font['A'].unicode, font['Z'].unicode + 1 ) ]
+latinCapitalLetters = glyphNamesInRange( font, range( font['A'].unicode, font['Z'].unicode + 1 ) )
 latinAllCapitalLetters = latinCapitalLetters + [ 'AE', 'Oslash', 'OE', 'Lslash' ]
-latinSmallLetters = [ font[ code ].glyphname for code in range( font['a'].unicode, font['z'].unicode + 1 ) ]
+latinSmallLetters = glyphNamesInRange( font, range( font['a'].unicode, font['z'].unicode + 1 ) )
 latinAllSmallLetters = latinSmallLetters + [ 'germandbls', 'ae', 'oslash', 'oe', 'dotlessi', 'lslash' ] + [ font[ code ].glyphname for code in [ 0x0237 ] ]
 latinLetters = latinCapitalLetters + latinSmallLetters
 latinAllLetters = latinAllCapitalLetters + latinAllSmallLetters
 
-cyrCapitalLetters = [ font[ code ].glyphname for code in range( 0x0410, 0x042F + 1 ) + [ 0x0401 ] ]
+cyrCapitalLetters = glyphNamesInRange( font, range( 0x0410, 0x042F + 1 ) + [ 0x0401 ] )
 cyrAllCapitalLetters =  cyrCapitalLetters
-cyrSmallLetters = [ font[ code ].glyphname for code in range( 0x0430, 0x044F + 1 ) + [ 0x0451 ] ]
+cyrSmallLetters = glyphNamesInRange( font, range( 0x0430, 0x044F + 1 ) + [ 0x0451 ] )
 cyrAllSmallLetters = cyrSmallLetters
 cyrLetters = cyrCapitalLetters + cyrSmallLetters
 cyrAllLetters = cyrAllCapitalLetters + cyrAllSmallLetters
+
+greekCapitalLetters = glyphNamesInRange( font, range( 0x0391, 0x03A9 + 1 ) )
+greekAllCapitalLetters =  greekCapitalLetters
+greekSmallLetters = glyphNamesInRange( font, range( 0x03B1, 0x03C9 + 1 ) )
+greekAllSmallLetters = greekSmallLetters
+greekLetters = greekCapitalLetters + greekSmallLetters
+greekAllLetters = greekAllCapitalLetters + greekAllSmallLetters
+
+allLetters = cyrAllLetters + latinAllLetters + greekAllLetters
 
 punctuation = [ 'period', 'comma' ]
 
@@ -53,15 +65,16 @@ autoKern( font, allDigits, ordGlyphs )
 autoKern( font, allDigits, [ 'percent', 'perthousand', 'uni2031' ] )
 autoKern( font, allDigits, primes + [ 'degree' ] )
 autoKern( font, leftBrackets, allDigits )
-autoKern( font, leftBrackets, latinAllLetters + cyrAllLetters )
+autoKern( font, leftBrackets, allLetters )
 autoKern( font, allDigits, rightBrackets )
-autoKern( font, latinAllLetters + cyrAllLetters, rightBrackets )
+autoKern( font, allLetters, rightBrackets )
 autoKern( font, latinAllLetters )
 autoKern( font, latinAllLetters, punctuation )
 autoKern( font, latinAllCapitalLetters, allDigits )
 autoKern( font, cyrAllLetters )
 autoKern( font, cyrAllLetters, punctuation )
 autoKern( font, cyrAllCapitalLetters, allDigits )
+autoKern( font, latinAllLetters + greekAllLetters, primes )
 
 for glyph in font.glyphs():
 	for k in glyph.getPosSub( kernSubtable ):
