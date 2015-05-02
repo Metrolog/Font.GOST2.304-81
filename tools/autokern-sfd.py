@@ -29,6 +29,9 @@ ordGlyphs = [ 'ordfeminine', 'ordmasculine' ]
 digitSeparators = [ 'period', 'comma' ]
 primes = [ font[ code ].glyphname for code in [ 0x2032, 0x2033, 0x2034 ] ]
 
+leftBrackets = [ font[ code ].glyphname for code in [ 0x0028, 0x005B, 0x007B ] ]
+rightBrackets = [ font[ code ].glyphname for code in [ 0x0029, 0x005D, 0x007D ] ]
+
 latinCapitalLetters = [ font[ code ].glyphname for code in range( font['A'].unicode, font['Z'].unicode + 1 ) ]
 latinAllCapitalLetters = latinCapitalLetters + [ 'AE', 'Oslash', 'OE', 'Lslash' ]
 latinSmallLetters = [ font[ code ].glyphname for code in range( font['a'].unicode, font['z'].unicode + 1 ) ]
@@ -49,6 +52,10 @@ autoKern( font, allDigits + digitSeparators )
 autoKern( font, allDigits, ordGlyphs )
 autoKern( font, allDigits, [ 'percent', 'perthousand', 'uni2031' ] )
 autoKern( font, allDigits, primes + [ 'degree' ] )
+autoKern( font, leftBrackets, allDigits )
+autoKern( font, leftBrackets, latinAllLetters + cyrAllLetters )
+autoKern( font, allDigits, rightBrackets )
+autoKern( font, latinAllLetters + cyrAllLetters, rightBrackets )
 autoKern( font, latinAllLetters )
 autoKern( font, latinAllLetters, punctuation )
 autoKern( font, latinAllCapitalLetters, allDigits )
