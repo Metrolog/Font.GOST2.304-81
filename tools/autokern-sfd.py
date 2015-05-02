@@ -24,21 +24,17 @@ def autoKern ( font, glyphs, rightGlyps = None, kernSize = 200, minKern = 20, on
 
 digits = [ font[ code ].glyphname for code in range(0x30, 0x3A) ]
 allDigits = digits + [ 'three.alt', 'zero.slash' ]
+
+ordGlyphs = [ 'ordfeminine', 'ordmasculine' ]
 digitSeparators = [ 'period', 'comma' ]
-autoKern( font, allDigits + digitSeparators )
+primes = [ font[ code ].glyphname for code in [ 0x2032, 0x2033, 0x2034 ] ]
 
 latinCapitalLetters = [ font[ code ].glyphname for code in range( font['A'].unicode, font['Z'].unicode + 1 ) ]
-latinAllCapitalLetters = latinCapitalLetters
+latinAllCapitalLetters = latinCapitalLetters + [ 'AE', 'Oslash', 'OE', 'Lslash' ]
 latinSmallLetters = [ font[ code ].glyphname for code in range( font['a'].unicode, font['z'].unicode + 1 ) ]
-latinAllSmallLetters = latinSmallLetters
+latinAllSmallLetters = latinSmallLetters + [ 'germandbls', 'ae', 'oslash', 'oe', 'dotlessi', 'lslash' ] + [ font[ code ].glyphname for code in [ 0x0237 ] ]
 latinLetters = latinCapitalLetters + latinSmallLetters
 latinAllLetters = latinAllCapitalLetters + latinAllSmallLetters
-
-punctuation = [ 'period', 'comma' ]
-
-autoKern( font, latinAllLetters )
-autoKern( font, latinAllLetters, punctuation )
-autoKern( font, latinAllCapitalLetters, allDigits )
 
 cyrCapitalLetters = [ font[ code ].glyphname for code in range( 0x0410, 0x042F + 1 ) + [ 0x0401 ] ]
 cyrAllCapitalLetters =  cyrCapitalLetters
@@ -47,6 +43,15 @@ cyrAllSmallLetters = cyrSmallLetters
 cyrLetters = cyrCapitalLetters + cyrSmallLetters
 cyrAllLetters = cyrAllCapitalLetters + cyrAllSmallLetters
 
+punctuation = [ 'period', 'comma' ]
+
+autoKern( font, allDigits + digitSeparators )
+autoKern( font, allDigits, ordGlyphs )
+autoKern( font, allDigits, [ 'percent', 'perthousand', 'uni2031' ] )
+autoKern( font, allDigits, primes + [ 'degree' ] )
+autoKern( font, latinAllLetters )
+autoKern( font, latinAllLetters, punctuation )
+autoKern( font, latinAllCapitalLetters, allDigits )
 autoKern( font, cyrAllLetters )
 autoKern( font, cyrAllLetters, punctuation )
 autoKern( font, cyrAllCapitalLetters, allDigits )
