@@ -114,10 +114,12 @@ feature dnom {
 } dnom;
 
 feature kern {
-	pos fraction [zero.dnom one.dnom two.dnom four.dnom six.dnom eight.dnom nine.dnom zero.slash.dnom] -450;
-	pos fraction [three.dnom five.dnom seven.dnom three.alt.dnom] -350;
-	pos [zero.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr] fraction -450;
-	pos [one.numr two.numr] fraction -350;
+	lookup frac_kerning {
+		pos fraction [zero.dnom one.dnom two.dnom four.dnom six.dnom eight.dnom nine.dnom zero.slash.dnom] -450;
+		pos fraction [three.dnom five.dnom seven.dnom three.alt.dnom] -350;
+		pos [zero.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr] fraction -450;
+		pos [one.numr two.numr] fraction -350;
+	} frac_kerning;
 } kern;
 
 # dotless формы для i, j
@@ -143,9 +145,9 @@ feature rlig {
 
 feature kern {
 	lookupflag IgnoreMarks;
-	pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
-	pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
-	pos ROMANX [ROMANI ROMANII ROMANIII] -100;
+	enum pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
+	enum pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
+	enum pos ROMANX [ROMANI ROMANII ROMANIII] -100;
 } kern;
 
 # альтернативное начертание римской V
@@ -246,7 +248,7 @@ feature mark {
 	pos base [M] <anchor 550 1650> mark @Top;
 	pos base [O U] <anchor 450 1650> mark @Top;
 	pos base [W] <anchor 700 1650> mark @Top;
-	pos base [a e g n s x y z cyra cyrg cyre cyri cyrk cyro cyru cyrch \eth] <anchor 400 1350> mark @Top;
+	pos base [a e g n s x y z cyra cyrg cyre cyri cyrk cyro cyru cyrch] <anchor 400 1350> mark @Top;
 	pos base [c j r dotlessj] <anchor 350 1350> mark @Top;
 	pos base [d] <anchor 650 1650> mark @Top;
 	pos base [i dotlessi] <anchor 150 1350> mark @Top;
@@ -408,8 +410,8 @@ feature kern {
 	uni239E uni239F uni23A0 uni23A1 uni23A2 uni23A3 uni23A4 uni23A5 uni23A6 
 	uni23A7 uni23A8 uni23A9 uni23AA uni23AB uni23AC uni23AD uni23AE uni2A7D 
 	uni2A7E dotlessi dotlessj \questiondown \AE \ae uni1D3F \divide Oslash 
-	\oslash Thorn \germandbls \eth \thorn uni2E32 uni20BD \kgreenlandic \ldot 
-	Lslash \lslash \OE \oe uni2E41 \dotmath uni2332	uni0332 uni0333 uni033F uni0305];
+	oslash germandbls uni2E32 uni20BD
+	Lslash lslash OE oe uni2E41 dotmath uni2332	uni0332 uni0333 uni033F uni0305];
 @GDEF_Ligature = [];
 @GDEF_Mark = [\periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
 	doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb acutecomb gravecomb uni030E 
