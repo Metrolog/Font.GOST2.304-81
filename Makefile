@@ -113,7 +113,7 @@ $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 
 # autokern outline font
 
-FFAUTOKERN		:= $(TOOLSDIR)autokern-sfd.py
+FFAUTOKERN		:= $(TOOLSDIR)autokern-classes-sfd.py
 
 $(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(AUXDIR)/dirstate
 	$(info Auto kerning outline font "$@"...)
