@@ -19,10 +19,13 @@ for glyph in font.glyphs():
 
 kernLookup = 'common_kerning'
 kernSize = 200
-minKern = 20
+minKern = 40
 classDiff = 10
 onlyCloser = True
 touch = False 
+
+def kernOffsetPostProcessing ( offset ):
+	return ( -100 if offset <= -55 else 0 )
 
 def glyphNamesInRange ( font, unicodeRange ):
 	return [ font[ code ].glyphname for code in unicodeRange if code in font ]
@@ -35,6 +38,7 @@ digitSeparators = [ 'period', 'comma' ]
 primes = glyphNamesInRange( font, ( 0x2032, 0x2033, 0x2034 ) )
 degree = [ 'degree' ]
 degreeAll = degree
+percents = [ 'percent', 'perthousand', 'uni2031' ]
 
 leftBrackets = glyphNamesInRange( font, ( 0x0028, 0x005B, 0x007B ) )
 rightBrackets = glyphNamesInRange( font, ( 0x0029, 0x005D, 0x007D ) )
@@ -64,18 +68,36 @@ allLetters = cyrAllLetters + latinAllLetters + greekAllLetters
 
 punctuation = [ 'period', 'comma' ]
 
-font.addKerningClass( kernLookup, 'numbers_kerning', kernSize, classDiff, allDigits + digitSeparators, allDigits + digitSeparators, onlyCloser, True )
-font.addKerningClass( kernLookup, 'digits_ord_kerning', kernSize, classDiff, allDigits, ordGlyphs, onlyCloser, True )
-font.addKerningClass( kernLookup, 'digits_percent_kerning', kernSize, classDiff, allDigits, ( 'percent', 'perthousand', 'uni2031' ), onlyCloser, True )
-font.addKerningClass( kernLookup, 'primes_kerning', kernSize, classDiff, allDigits + latinAllLetters + greekAllLetters, primes, onlyCloser, True )
-font.addKerningClass( kernLookup, 'digits_degree_kerning', kernSize, classDiff, allDigits, degreeAll, onlyCloser, True )
-font.addKerningClass( kernLookup, 'brackets_left_kerning', kernSize, classDiff, leftBrackets, allDigits + allLetters, onlyCloser, True )
-font.addKerningClass( kernLookup, 'brackets_right_kerning', kernSize, classDiff, allDigits + allLetters, rightBrackets, onlyCloser, True )
-font.addKerningClass( kernLookup, 'latin_kerning', kernSize, classDiff, latinAllLetters, latinAllLetters + punctuation, onlyCloser, True )
-font.addKerningClass( kernLookup, 'cyr_kerning', kernSize, classDiff, cyrAllLetters, cyrAllLetters + punctuation, onlyCloser, True )
-
-def kernOffsetPostProcessing ( offset ):
-	return ( -100 if offset < -60 else 0 )
+font.addKerningClass(
+	kernLookup, 'numbers_kerning', kernSize, classDiff,
+	allDigits + digitSeparators,
+	allDigits + digitSeparators + ordGlyphs + percents + degree + primes + rightBrackets,
+	onlyCloser, True
+)
+font.addKerningClass(
+	kernLookup, 'latin_kerning', kernSize, classDiff,
+	latinAllLetters,
+	latinAllLetters + punctuation + allDigits + primes + rightBrackets,
+	onlyCloser, True
+)
+font.addKerningClass(
+	kernLookup, 'cyr_kerning', kernSize, classDiff,
+	cyrAllLetters,
+	cyrAllLetters + punctuation + rightBrackets,
+	onlyCloser, True
+)
+font.addKerningClass(
+	kernLookup, 'brackets_kerning', kernSize, classDiff,
+	leftBrackets,
+	allDigits + allLetters,
+	onlyCloser, True
+)
+font.addKerningClass(
+	kernLookup, 'greek_kerning', kernSize, classDiff,
+	greekAllLetters,
+	punctuation + primes + rightBrackets,
+	onlyCloser, True
+)
 
 KerningClass = collections.namedtuple( 'KerningClass', [ 'glyphs', 'offsets' ] )
 
@@ -84,10 +106,10 @@ def reduceDupClasses ( classes ):
 	for cls in classes:
 		isDupClass = False
 		for i, exCls in enumerate( newClasses ):
-			if ( cls.offsets == exCls.offsets ):
+			if ( ( cls.offsets == exCls.offsets ) and ( cls.glyphs is not None ) and ( exCls.glyphs is not None ) ):
 				isDupClass = True
 				newClasses[i] = KerningClass(
-					glyphs = None if ( ( exCls.glyphs is None ) or ( cls.glyphs is None ) ) else cls.glyphs + exCls.glyphs,
+					glyphs = cls.glyphs + exCls.glyphs,
 					offsets = exCls.offsets
 				)
 		if ( not isDupClass ):
