@@ -18,6 +18,11 @@ for glyph in font.glyphs():
 		glyph.layerrefs[1] += glyph.layerrefs[0]
 		glyph.layers[0] = fontforge.layer()
 
+for glyph in font.glyphs():
+	for ref in glyph.references:
+		if ( ( ref[1][0] < 0 ) or ( ref[1][1] != 0 ) or ( ref[1][2] != 0 ) or ( ref[1][3] != ref[1][0] ) ):
+			glyph.unlinkRef ()
+
 slantAngle = 75-90
 
 transformation = psMat.skew ( math.radians (-slantAngle) )

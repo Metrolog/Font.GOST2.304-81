@@ -34,6 +34,8 @@ digits = [ font[ code ].glyphname for code in xrange(0x30, 0x3A) ]
 allDigits = digits + [ 'three.alt', 'zero.slash' ]
 allDigitsSub = [ glyphname + '.sub' for glyphname in allDigits ]
 allDigitsSup = [ glyphname + '.sup' for glyphname in allDigits ]
+allDigitsNumr = [ glyphname + '.numr' for glyphname in allDigits ]
+allDigitsDnom = [ glyphname + '.dnom' for glyphname in allDigits ]
 
 ordGlyphs = [ 'ordfeminine', 'ordmasculine' ]
 digitSeparators = [ 'period', 'comma' ]
@@ -109,6 +111,18 @@ font.addKerningClass(
 	punctuation + allDigitsSub + allDigitsSup + primes + rightBrackets,
 	onlyCloser, True
 )
+#font.addKerningClass(
+#	kernLookup, 'numr_kerning', kernSize, classDiff,
+#	allDigitsNumr,
+#	allDigitsNumr + [ 'fraction' ],
+#	onlyCloser, True
+#)
+#font.addKerningClass(
+#	kernLookup, 'frac_kerning', kernSize, classDiff,
+#	allDigitsDnom + [ 'fraction' ],
+#	allDigitsDnom,
+#	onlyCloser, True
+#)
 
 KerningClass = collections.namedtuple( 'KerningClass', [ 'glyphs', 'offsets' ] )
 

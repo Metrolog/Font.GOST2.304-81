@@ -16,6 +16,9 @@ for glyph in font.glyphs():
 		glyph.layers[0] = fontforge.layer()
 
 for glyph in font.glyphs():
+	if ( ( glyph.unlinkRmOvrlpSave ) or ( ( len( glyph.foreground ) > 0 ) and ( len( glyph.references ) > 0 ) ) ):
+		glyph.unlinkRef ()
+		glyph.unlinkRmOvrlpSave = False
 	glyph.stroke ('circular', 100, 'round', 'round', [])
 	glyph.removeOverlap ()
 	glyph.correctDirection ()

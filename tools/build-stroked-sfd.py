@@ -64,15 +64,6 @@ if ver is not None:
 			font.appendSFNTName (name[0], name[1], '')
 	font.appendSFNTName ( 'English (US)', 'Version', font.version )
 
-# unlink transformed references
-for glyph in font.glyphs():
-	for ref in glyph.references:
-		if ( (ref[1][0]!=1) or (ref[1][1]!=0) or (ref[1][2]!=0) or (ref[1][3]!=1)):
-			glyph.unlinkRef ()
-	if ( (glyph.unlinkRmOvrlpSave) or ( (len(glyph.foreground)>0) and (len(glyph.references)>0) ) ):
-		glyph.unlinkRef ()
-		glyph.unlinkRmOvrlpSave = False
-
 font.encoding = 'unicode'
 
 # additional glyphs for marks
