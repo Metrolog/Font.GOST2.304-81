@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import fontforge, psMat
-import sys, os, re
+import sys, os, re, math
 from itertools import groupby
 import collections
 
@@ -25,7 +25,7 @@ onlyCloser = True
 touch = False 
 
 def kernOffsetPostProcessing ( offset ):
-	return ( -100 if offset <= -55 else 0 )
+	return ( -100 if offset < -50 else 0 )
 
 def glyphNamesInRange ( font, unicodeRange ):
 	return [ font[ code ].glyphname for code in unicodeRange if code in font ]
@@ -67,6 +67,15 @@ greekAllLetters = greekAllCapitalLetters + greekAllSmallLetters
 allLetters = cyrAllLetters + latinAllLetters + greekAllLetters
 
 punctuation = [ 'period', 'comma' ]
+
+italicangle = font.italicangle
+deitalize = psMat.skew ( math.radians( italicangle ) )
+for glyph in font.glyphs():
+	glyph.unlinkRef ()
+	glyph.transform ( deitalize )
+	glyph.italicCorrection = 0
+	glyph.horizontalComponentItalicCorrection = 0
+font.italicangle = 0
 
 font.addKerningClass(
 	kernLookup, 'numbers_kerning', kernSize, classDiff,
@@ -147,8 +156,8 @@ for subtable in font.getLookupSubtables( kernLookup ):
 			reduce( list.__add__, [ [ cls.offsets[i] for cls in glyphClasses ] for i in range( len( clKern[0] ) ) ] )
 		)
 	else:
-		newKernPairs = ()
 		for glyph in font.glyphs():
+			newKernPairs = ()
 			for k in glyph.getPosSub( subtable ):
 				newKern = kernOffsetPostProcessing( k[5] )
 				if ( newKern != 0 ):
@@ -156,5 +165,16 @@ for subtable in font.getLookupSubtables( kernLookup ):
 			glyph.removePosSub( subtable )
 			for kernPair in newKernPairs:
 				glyph.addPosSub ( subtable, kernPair[0], kernPair[1] )
+
+tempFeatureFile = destfile.replace( '.sfd', '.fea' )
+font.generateFeatureFile( tempFeatureFile, kernLookup )
+font.close()
+font = fontforge.open (sourcefile)
+for glyph in font.glyphs():
+#	if not ( glyph.background.isEmpty() ):
+		glyph.layers[1] += glyph.background
+		glyph.layerrefs[1] += glyph.layerrefs[0]
+		glyph.layers[0] = fontforge.layer()
+font.mergeFeature( tempFeatureFile )
 
 font.save (destfile)
