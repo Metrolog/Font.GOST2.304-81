@@ -32,6 +32,8 @@ def glyphNamesInRange ( font, unicodeRange ):
 
 digits = [ font[ code ].glyphname for code in xrange(0x30, 0x3A) ]
 allDigits = digits + [ 'three.alt', 'zero.slash' ]
+allDigitsSub = [ glyphname + '.sub' for glyphname in allDigits ]
+allDigitsSup = [ glyphname + '.sup' for glyphname in allDigits ]
 
 ordGlyphs = [ 'ordfeminine', 'ordmasculine' ]
 digitSeparators = [ 'period', 'comma' ]
@@ -80,13 +82,13 @@ font.italicangle = 0
 font.addKerningClass(
 	kernLookup, 'numbers_kerning', kernSize, classDiff,
 	allDigits + digitSeparators,
-	allDigits + digitSeparators + ordGlyphs + percents + degree + primes + rightBrackets,
+	allDigits + digitSeparators + allDigitsSub + allDigitsSup + ordGlyphs + percents + degree + primes + rightBrackets,
 	onlyCloser, True
 )
 font.addKerningClass(
 	kernLookup, 'latin_kerning', kernSize, classDiff,
 	latinAllLetters,
-	latinAllLetters + punctuation + allDigits + primes + rightBrackets,
+	latinAllLetters + punctuation + allDigits + allDigitsSub + allDigitsSup + primes + rightBrackets,
 	onlyCloser, True
 )
 font.addKerningClass(
@@ -104,7 +106,7 @@ font.addKerningClass(
 font.addKerningClass(
 	kernLookup, 'greek_kerning', kernSize, classDiff,
 	greekAllLetters,
-	punctuation + primes + rightBrackets,
+	punctuation + allDigitsSub + allDigitsSup + primes + rightBrackets,
 	onlyCloser, True
 )
 
@@ -175,6 +177,7 @@ for glyph in font.glyphs():
 		glyph.layers[1] += glyph.background
 		glyph.layerrefs[1] += glyph.layerrefs[0]
 		glyph.layers[0] = fontforge.layer()
+font.removeLookup( kernLookup )
 font.mergeFeature( tempFeatureFile )
 
 font.save (destfile)
