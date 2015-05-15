@@ -23,7 +23,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1431374737
+ModificationTime: 1431722271
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -384,7 +384,7 @@ EndChar
 
 StartChar: quotedbl
 Encoding: 34 34 5
-Width: 450
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
@@ -462,7 +462,7 @@ EndChar
 
 StartChar: quotesingle
 Encoding: 39 39 10
-Width: 250
+Width: 300
 Flags: MW
 LayerCount: 2
 Back
@@ -1957,12 +1957,12 @@ EndChar
 
 StartChar: guillemotleft
 Encoding: 171 171 105
-Width: 850
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 255 8249 S 1 0 0 1 300 0 2
+Refer: 255 8249 N 1 0 0 1 350 0 2
 Refer: 255 8249 N 1 0 0 1 0 0 2
 EndChar
 
@@ -2099,12 +2099,12 @@ EndChar
 
 StartChar: guillemotright
 Encoding: 187 187 116
-Width: 850
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 256 8250 N 1 0 0 1 300 0 2
+Refer: 256 8250 N 1 0 0 1 350 0 2
 Refer: 256 8250 N 1 0 0 1 0 0 2
 EndChar
 
@@ -2424,7 +2424,7 @@ EndChar
 
 StartChar: alpha
 Encoding: 945 945 142
-Width: 950
+Width: 1000
 Flags: MW
 LayerCount: 2
 Back
@@ -2438,7 +2438,7 @@ SplineSet
  150 860 239 950 350 950 c 0
  436 950 521 887 542 809 c 2
  750 50 l 9
- 800 50 l 1053
+ 800 50 l 1049
 EndSplineSet
 EndChar
 
@@ -2586,7 +2586,7 @@ EndChar
 
 StartChar: iota
 Encoding: 953 953 150
-Width: 550
+Width: 600
 Flags: MW
 LayerCount: 2
 Back
@@ -2601,7 +2601,7 @@ EndChar
 
 StartChar: kappa
 Encoding: 954 954 151
-Width: 950
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -2621,7 +2621,7 @@ EndChar
 
 StartChar: lambda
 Encoding: 955 955 152
-Width: 850
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -2632,7 +2632,7 @@ SplineSet
  317 1250 l 26
  298 1317 259 1350 200 1350 c 1048
 400 950 m 9
- 150 50 l 1045
+ 150 50 l 1041
 EndSplineSet
 EndChar
 
@@ -2780,7 +2780,7 @@ EndChar
 
 StartChar: tau
 Encoding: 964 964 161
-Width: 850
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -2790,7 +2790,7 @@ SplineSet
  657 967 607 950 550 950 c 2
  150 950 l 1025
 400 950 m 25
- 400 150 l 6
+ 400 150 l 2
  400 95 445 50 500 50 c 10
  550 50 l 1049
 EndSplineSet
@@ -3472,21 +3472,21 @@ EndChar
 
 StartChar: cyrz
 Encoding: 1079 1079 207
-Width: 750
+Width: 800
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-400 500 m 0
- 504 500 600 618 600 728 c 0
- 600 873 510 950 350 950 c 3
- 302 950 252 925 200 875 c 1048
-350 500 m 1
- 400 500 l 2
- 504 500 600 382 600 272 c 0
- 600 127 510 50 350 50 c 3
- 269 50 202 75 150 125 c 1048
+450 500 m 0
+ 554 500 650 618 650 728 c 0
+ 650 873 560 950 400 950 c 3
+ 352 950 302 925 250 875 c 1048
+400 500 m 1
+ 450 500 l 2
+ 554 500 650 382 650 272 c 0
+ 650 127 560 50 400 50 c 3
+ 319 50 252 75 200 125 c 1048
 EndSplineSet
 EndChar
 
@@ -3924,7 +3924,7 @@ EndChar
 
 StartChar: quoteleft
 Encoding: 8216 8216 238
-Width: 250
+Width: 300
 Flags: MW
 LayerCount: 2
 Back
@@ -3934,7 +3934,7 @@ EndChar
 
 StartChar: quoteright
 Encoding: 8217 8217 239
-Width: 250
+Width: 300
 Flags: MW
 LayerCount: 2
 Back
@@ -3944,7 +3944,7 @@ EndChar
 
 StartChar: quotesinglbase
 Encoding: 8218 8218 240
-Width: 250
+Width: 300
 Flags: MW
 LayerCount: 2
 Back
@@ -3954,7 +3954,7 @@ EndChar
 
 StartChar: quotereversed
 Encoding: 8219 8219 241
-Width: 250
+Width: 300
 Flags: MW
 LayerCount: 2
 Back
@@ -3964,7 +3964,7 @@ EndChar
 
 StartChar: quotedblleft
 Encoding: 8220 8220 242
-Width: 450
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
@@ -3975,18 +3975,18 @@ EndChar
 
 StartChar: quotedblright
 Encoding: 8221 8221 243
-Width: 450
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 239 8217 S 1 0 0 1 0 0 2
-Refer: 239 8217 N 1 0 0 1 200 0 2
+Refer: 239 8217 N 1 0 0 1 50 0 2
+Refer: 239 8217 N 1 0 0 1 250 0 2
 EndChar
 
 StartChar: quotedblbase
 Encoding: 8222 8222 244
-Width: 450
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
@@ -3997,13 +3997,13 @@ EndChar
 
 StartChar: uni201F
 Encoding: 8223 8223 245
-Width: 450
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 241 8219 N 1 0 0 1 0 0 2
-Refer: 241 8219 N 1 0 0 1 200 0 2
+Refer: 241 8219 N 1 0 0 1 50 0 2
+Refer: 241 8219 N 1 0 0 1 250 0 2
 EndChar
 
 StartChar: bullet
@@ -4079,20 +4079,20 @@ EndChar
 
 StartChar: minute
 Encoding: 8242 8242 252
-Width: 250
+Width: 300
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
 150 1350 m 25
- 100 1050 l 1053
+ 100 1050 l 1049
 EndSplineSet
 EndChar
 
 StartChar: second
 Encoding: 8243 8243 253
-Width: 450
+Width: 500
 Flags: MW
 LayerCount: 2
 Back
@@ -4103,7 +4103,7 @@ EndChar
 
 StartChar: uni2034
 Encoding: 8244 8244 254
-Width: 650
+Width: 700
 Flags: MW
 LayerCount: 2
 Back
@@ -4115,26 +4115,26 @@ EndChar
 
 StartChar: guilsinglleft
 Encoding: 8249 8249 255
-Width: 550
+Width: 600
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-400 850 m 25
- 150 500 l 25
- 400 150 l 1053
+450 850 m 25
+ 200 500 l 25
+ 450 150 l 1049
 EndSplineSet
 EndChar
 
 StartChar: guilsinglright
 Encoding: 8250 8250 256
-Width: 550
+Width: 600
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 255 8249 N -1 0 0 -1 550 1000 2
+Refer: 255 8249 S -1 0 0 -1 600 1000 2
 EndChar
 
 StartChar: exclamdbl
@@ -4590,13 +4590,14 @@ EndChar
 
 StartChar: proportional
 Encoding: 8733 8733 296
-Width: 1050
+Width: 1100
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-900 650 m 256
+950 650 m 25
+ 930 650 920 650 900 650 c 272
  871 650 839 640 804 619 c 258
  396 380 l 258
  362 360 330 350 300 350 c 256
@@ -4604,7 +4605,8 @@ SplineSet
  150 583 217 650 300 650 c 256
  330 650 359 642 388 625 c 266
  803 383 l 274
- 840 362 872 351 900 350 c 1280
+ 840 362 872 350 900 350 c 256
+ 919.02629759 350 930 350 950 350 c 1049
 EndSplineSet
 EndChar
 
@@ -4632,7 +4634,7 @@ EndChar
 
 StartChar: orthogonal
 Encoding: 8735 8735 298
-Width: 950
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -4640,13 +4642,13 @@ Fore
 SplineSet
 150 1000 m 25
  150 350 l 25
- 800 350 l 1049
+ 750 350 l 1049
 EndSplineSet
 EndChar
 
 StartChar: angle
 Encoding: 8736 8736 299
-Width: 950
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -4655,31 +4657,31 @@ SplineSet
 150 350 m 25
  800 350 l 1049
 800 750 m 25
- 150 351 l 1053
+ 150 351 l 1049
 EndSplineSet
 EndChar
 
 StartChar: uni2221
 Encoding: 8737 8737 300
-Width: 950
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-450 750 m 4
- 558 670 650 524 650 350 c 4
- 650 297 643 247 628 200 c 1028
-150 350 m 29
- 800 350 l 1029
-800 750 m 29
- 150 351 l 1029
+450 750 m 0
+ 558 670 650 524 650 350 c 0
+ 650 297 643 247 628 200 c 1024
+150 350 m 25
+ 800 350 l 1025
+800 750 m 25
+ 150 351 l 1025
 EndSplineSet
 EndChar
 
 StartChar: uni2222
 Encoding: 8738 8738 301
-Width: 950
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -4961,23 +4963,23 @@ EndChar
 
 StartChar: uni226A
 Encoding: 8810 8810 323
-Width: 1250
+Width: 1300
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 31 60 N 1 0 0 1 450 0 2
+Refer: 31 60 N 1 0 0 1 500 0 2
 Refer: 31 60 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni226B
 Encoding: 8811 8811 324
-Width: 1250
+Width: 1300
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 33 62 N 1 0 0 1 450 0 2
+Refer: 33 62 N 1 0 0 1 500 0 2
 Refer: 33 62 N 1 0 0 1 0 0 2
 EndChar
 
@@ -5104,18 +5106,18 @@ EndChar
 
 StartChar: uni23E5
 Encoding: 9189 9189 332
-Width: 3150
+Width: 3100
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-150 51 m 25
- 900 1350 l 29
- 3000 1350 l 1049
-3000 1349 m 25
- 2250 50 l 25
- 150 50 l 1049
+100 51 m 25
+ 850 1350 l 25
+ 2950 1350 l 1049
+2950 1349 m 25
+ 2200 50 l 25
+ 100 50 l 1049
 EndSplineSet
 EndChar
 
@@ -5223,7 +5225,7 @@ EndChar
 
 StartChar: uni2028
 Encoding: 8232 8232 341
-Width: 850
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -5232,8 +5234,8 @@ SplineSet
 450 350 m 25
  150 50 l 25
  450 -250 l 1049
-700 950 m 25
- 700 50 l 25
+750 950 m 25
+ 750 50 l 25
  150 50 l 1049
 EndSplineSet
 EndChar
@@ -5355,61 +5357,61 @@ EndChar
 
 StartChar: uni222C
 Encoding: 8748 8748 351
-Width: 1350
+Width: 1400
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 304 8747 N 1 0 0 1 250 0 2
+Refer: 304 8747 N 1 0 0 1 300 0 2
 Refer: 304 8747 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni222D
 Encoding: 8749 8749 352
-Width: 1600
+Width: 1700
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 304 8747 N 1 0 0 1 500 0 2
-Refer: 304 8747 N 1 0 0 1 250 0 2
+Refer: 304 8747 N 1 0 0 1 600 0 2
+Refer: 304 8747 N 1 0 0 1 300 0 2
 Refer: 304 8747 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni222F
 Encoding: 8751 8751 353
-Width: 1350
+Width: 1400
 UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-675 400 m 256
- 475 400 325 551 325 750 c 256
- 325 946 480 1100 675 1100 c 256
- 871 1100 1025 946 1025 750 c 256
- 1025 550 875 400 675 400 c 256
+700 400 m 260
+ 500 400 350 551 350 750 c 260
+ 350 946 505 1100 700 1100 c 260
+ 896 1100 1050 946 1050 750 c 260
+ 1050 550 900 400 700 400 c 260
 EndSplineSet
 Refer: 351 8748 N 1 0 0 1 0 0 2
 EndChar
 
 StartChar: uni2230
 Encoding: 8752 8752 354
-Width: 1600
+Width: 1700
 UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
 SplineSet
-200 750 m 256
- 200 946 355 1100 550 1100 c 266
- 1050 1100 l 274
- 1246 1100 1400 946 1400 750 c 256
- 1400 550 1250 400 1050 400 c 262
- 550 400 l 258
- 350 400 200 551 200 750 c 256
+250 750 m 260
+ 250 946 405 1100 600 1100 c 270
+ 1100 1100 l 278
+ 1296 1100 1450 946 1450 750 c 260
+ 1450 550 1300 400 1100 400 c 262
+ 600 400 l 262
+ 400 400 250 551 250 750 c 260
 EndSplineSet
 Refer: 352 8749 N 1 0 0 1 0 0 2
 EndChar
