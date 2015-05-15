@@ -129,6 +129,13 @@ feature dtls {
 	sub j by dotlessj;
 } dtls;
 
+# замена греческих символов на математические операторы
+
+feature mgrk {
+	sub Sigma by summation;
+	sub Pi by product;
+} mgrk;
+
 # римские цифры
 
 @RomanDigits = [ROMANI ROMANII ROMANIII ROMANIV ROMANV ROMANV.alt ROMANVI ROMANVII ROMANVIII ROMANIX ROMANX ROMANXI ROMANXII ROMANL ROMANC ROMAND ROMANM];
