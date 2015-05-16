@@ -132,8 +132,9 @@ feature dtls {
 # замена греческих символов на математические операторы
 
 feature mgrk {
-	sub Sigma by summation;
-	sub Pi by product;
+	script grek;
+		sub Sigma by summation;
+		sub Pi by product;
 } mgrk;
 
 # римские цифры
