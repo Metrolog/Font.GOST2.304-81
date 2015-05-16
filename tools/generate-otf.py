@@ -21,4 +21,4 @@ fontforge.setPrefs ('AutoHint', 0)
 font.selection.all ()
 font.round ()
 
-font.generate ( destfile, flags=['afm', 'composites-in-afm', 'short-post', 'opentype'] ) #, 'TeX-table'] )
+font.generate ( destfile, flags=['afm', 'composites-in-afm', 'short-post', 'opentype', 'TeX-table'] )
