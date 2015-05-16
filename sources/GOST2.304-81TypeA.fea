@@ -152,10 +152,12 @@ feature rlig {
 } rlig;
 
 feature kern {
-	lookupflag IgnoreMarks;
-	enum pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
-	enum pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
-	enum pos ROMANX [ROMANI ROMANII ROMANIII] -100;
+	lookup roman_kerning {
+		lookupflag IgnoreMarks;
+		enum pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
+		enum pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
+		enum pos ROMANX [ROMANI ROMANII ROMANIII] -100;
+	} roman_kerning;
 } kern;
 
 # альтернативное начертание римской V
