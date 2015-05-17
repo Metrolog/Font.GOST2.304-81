@@ -301,7 +301,7 @@ feature mark {
 feature mkmk {
 	markClass [macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
 	markClass [acutecomb] <anchor 0 1650> @TopMark;
-	markClass [\tonos] <anchor 150 1150> @TopMark;
+	markClass [tonos] <anchor 150 1150> @TopMark;
 	pos mark [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
 	pos mark [tildecomb] <anchor 0 1525> mark @TopMark;
 } mkmk;
@@ -347,25 +347,19 @@ feature mark {
 # Й, й
 
 feature ccmp {
+	#script cyrl;
 	sub [cyri CYRI] brevecomb' by macroncomb;
+	sub cyri [brevecomb macroncomb] by cyrishrt;
+	sub CYRI [brevecomb macroncomb] by CYRISHRT;
 } ccmp;
-
-feature liga {
-	sub cyri macroncomb by cyrishrt;
-	sub CYRI macroncomb by CYRISHRT;
-} liga;
-
-feature rlig {
-	sub cyri brevecomb by cyrishrt;
-	sub CYRI brevecomb by CYRISHRT;
-} rlig;
 
 # Ё, ё
 
-feature liga {
+feature ccmp {
+	#script cyrl;
 	sub cyre diaeresiscomb by cyryo;
 	sub CYRE diaeresiscomb by CYRYO;
-} liga;
+} ccmp;
 
 # кернинг
 
