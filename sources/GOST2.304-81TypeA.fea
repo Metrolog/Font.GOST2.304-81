@@ -228,13 +228,11 @@ feature liga {
 
 # диакритические знаки
 
-@TopMarks = [gravecomb acutecomb circumflexcomb tildecomb macroncomb uni0305 
-	brevecomb dotabovecomb diaeresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
-	uni030F uni0311 uni0312 uni0313 uni0314];
+@OgonekMark = [ogonekcomb];
 
 lookup ogonek {
-	subtable;
-	markClass [ogonekcomb] <anchor 0 0> @Ogonek;
+	lookupflag MarkAttachmentType @OgonekMark;
+	markClass @OgonekMark <anchor 0 0> @Ogonek;
 	pos base [\space] <anchor 50 0> mark @Ogonek;
 	pos base [A] <anchor 850 0> mark @Ogonek;
 	pos base [a] <anchor 750 0> mark @Ogonek;
@@ -247,7 +245,12 @@ feature mark {
 			lookup ogonek;
 } mark;
 
-feature mark {
+@TopMarks = [gravecomb acutecomb circumflexcomb tildecomb macroncomb uni0305 
+	brevecomb dotabovecomb diaeresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
+	uni030F uni0311 uni0312 uni0313 uni0314];
+
+lookup topMark {
+	lookupflag MarkAttachmentType @TopMarks;
 	markClass [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
 	pos base [\space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
@@ -269,8 +272,13 @@ feature mark {
 	pos base [cyrzh] <anchor 500 1350> mark @Top;
 	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
 	pos base [cyrery] <anchor 450 1350> mark @Top;
+} topMark;
 
-	markClass [uni0326 uni0316 uni0317] <anchor 0 -150> @Bottom;
+@BottomMarks = [uni0326 uni0316 uni0317];
+
+lookup bottomMark {
+	lookupflag MarkAttachmentType @BottomMarks;
+	markClass @BottomMarks <anchor 0 -150> @Bottom;
 	pos base [A G] <anchor 500 -150> mark @Bottom;
 	pos base [B D E R a b d e h k s] <anchor 400 -150> mark @Bottom;
 	pos base [H K N S T] <anchor 450 -150> mark @Bottom;
@@ -282,28 +290,56 @@ feature mark {
 	pos base [r] <anchor 150 -150> mark @Bottom;
 	pos base [t] <anchor 250 -150> mark @Bottom;
 	pos base [y] <anchor 650 -150> mark @Bottom;
+} bottomMark;
 
-	markClass [\periodcentered] <anchor 150 500> @Right;
+@RightMarks = [periodcentered];
+
+lookup rightMark {
+	lookupflag MarkAttachmentType @RightMarks;
+	markClass @RightMarks <anchor 150 500> @Right;
 	pos base [L l] <anchor 350 750> mark @Right;
+} rightMark;
 
+@CenterMarks = [uni20DD uni0337 uni0338];
+
+lookup centerMark {
+	lookupflag MarkAttachmentType @CenterMarks;
 	markClass [uni20DD] <anchor 0 900> @Center;
 	markClass [uni0337] <anchor 0 500> @Center;
 	markClass [uni0338] <anchor 0 700> @Center;
 	pos base [o] <anchor 400 500> mark @Center;
 	pos base [existential] <anchor 400 700> mark @Center;
+} centerMark;
 
-	markClass [\tonos] <anchor 250 1350> @Tonos;
+@TonosMarks = [tonos];
+
+lookup tonosMark {
+	lookupflag MarkAttachmentType @TonosMarks;
+	markClass @TonosMarks <anchor 250 1350> @Tonos;
 	pos base [Alpha] <anchor 300 1350> mark @Tonos;
 	pos base [Epsilon Eta Iota Upsilon] <anchor -50 1350> mark @Tonos;
 	pos base [Omicron uni03A9] <anchor 100 1350> mark @Tonos;
+} tonosMark;
+
+feature mark {
+	lookup topMark;
+	lookup bottomMark;
+	lookup rightMark;
+	lookup centerMark;
+	lookup tonosMark;
 } mark;
 
-feature mkmk {
+lookup topMarkToMark {
+	lookupflag MarkAttachmentType @TopMarks;
 	markClass [macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
 	markClass [acutecomb] <anchor 0 1650> @TopMark;
 	markClass [tonos] <anchor 150 1150> @TopMark;
 	pos mark [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
 	pos mark [tildecomb] <anchor 0 1525> mark @TopMark;
+} topMarkToMark;
+
+feature mkmk {
+	lookup topMarkToMark;
 } mkmk;
 
 # замена i и j при добавлении диакритических знаков
