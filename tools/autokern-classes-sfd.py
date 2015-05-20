@@ -48,9 +48,19 @@ leftBrackets = glyphNamesInRange( font, ( 0x0028, 0x005B, 0x007B ) )
 rightBrackets = glyphNamesInRange( font, ( 0x0029, 0x005D, 0x007D ) )
 
 latinCapitalLetters = glyphNamesInRange( font, xrange( font['A'].unicode, font['Z'].unicode + 1 ) )
-latinAllCapitalLetters = latinCapitalLetters + [ 'AE', 'Oslash', 'OE', 'Lslash' ]
+latinAllCapitalLetters = latinCapitalLetters + [
+	'AE', 'Oslash', 'OE', 'Lslash',
+	'Aacute', 'Eacute', 'Iacute', 'Oacute', 'Odieresis', 'Ohungarumlaut', 'Uacute', 'Udieresis', 'Uhungarumlaut', 'Aogonek',
+	'Cacute', 'Eogonek', 'Nacute', 'Sacute', 'Zdotaccent', 'Zacute', 'Acircumflex', 'Abreve', 'Icircumflex', 'Scommabelow',
+	'Tcommabelow', 'Ccaron', 'Dcaron', 'Ecaron', 'Lacute', 'Lcaron', 'Ncaron', 'Ocircumflex', 'Rcaron', 'Racute', 'Scaron', 'Tcaron', 'Uring', 'Yacute', 'Zcaron']
+
 latinSmallLetters = glyphNamesInRange( font, xrange( font['a'].unicode, font['z'].unicode + 1 ) )
-latinAllSmallLetters = latinSmallLetters + [ 'germandbls', 'ae', 'oslash', 'oe', 'dotlessi', 'lslash' ] + glyphNamesInRange( font, [ 0x0237 ] )
+latinAllSmallLetters = latinSmallLetters + glyphNamesInRange( font, [ 0x0237 ] ) + [
+	'germandbls', 'ae', 'oslash', 'oe', 'dotlessi', 'lslash',
+	'aacute', 'eacute', 'iacute', 'oacute', 'odieresis', 'ohungarumlaut', 'uacute', 'udieresis', 'uhungarumlaut', 'aogonek',
+	'cacute', 'eogonek', 'nacute', 'sacute', 'zdotaccent', 'zacute', 'acircumflex', 'abreve', 'icircumflex', 'scommabelow',
+	'tcommabelow', 'ccaron', 'dcaron', 'ecaron', 'lacute', 'lcaron', 'ncaron', 'ocircumflex', 'rcaron', 'racute', 'scaron', 'tcaron', 'uring', 'yacute', 'zcaron']
+
 latinLetters = latinCapitalLetters + latinSmallLetters
 latinAllLetters = latinAllCapitalLetters + latinAllSmallLetters
 

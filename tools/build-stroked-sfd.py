@@ -95,6 +95,48 @@ for markData in [
 				markGlyph.width =  font.strokewidth + sourceGlyph.width - sourceGlyph.right_side_bearing - sourceGlyph.left_side_bearing
 				markGlyph.addReference ( sourceGlyph.glyphname, psMat.translate( font.strokewidth / 2 - sourceGlyph.left_side_bearing, 0 ) )
 
+# build accented glyphs
+accentedGlyphs = [
+	[0x00C1, 'Aacute'],        [0x00E1, 'aacute'],
+	[0x00C9, 'Eacute'],        [0x00E9, 'eacute'],
+	[0x00CD, 'Iacute'],        [0x00ED, 'iacute'],
+	[0x00D3, 'Oacute'],        [0x00F3, 'oacute'],
+	[0x00D6, 'Odieresis'],     [0x00F6, 'odieresis'],
+	[0x0150, 'Ohungarumlaut'], [0x0151, 'ohungarumlaut'],
+	[0x00DA, 'Uacute'],        [0x00FA, 'uacute'],
+	[0x00DC, 'Udieresis'],     [0x00FC, 'udieresis'],
+	[0x0170, 'Uhungarumlaut'], [0x0171, 'uhungarumlaut'],
+	[0x0104, 'Aogonek'],       [0x0105, 'aogonek'],
+	[0x0106, 'Cacute'],        [0x0107, 'cacute'],
+	[0x0118, 'Eogonek'],       [0x0119, 'eogonek'],
+	[0x0143, 'Nacute'],        [0x0144, 'nacute'],
+	[0x015A, 'Sacute'],        [0x015B, 'sacute'],
+	[0x017B, 'Zdotaccent'],    [0x017C, 'zdotaccent'],
+	[0x0179, 'Zacute'],        [0x017A, 'zacute'],
+	[0x00C2, 'Acircumflex'],   [0x00E2, 'acircumflex'],
+	[0x0102, 'Abreve'],        [0x0103, 'abreve'],
+	[0x00CE, 'Icircumflex'],   [0x00EE, 'icircumflex'],
+	[0x0218, 'Scommabelow'],   [0x0219, 'scommabelow'],
+	[0x021A, 'Tcommabelow'],   [0x021B, 'tcommabelow'],
+	[0x010C, 'Ccaron'],        [0x010D, 'ccaron'],
+	[0x010E, 'Dcaron'],        [0x010F, 'dcaron'],
+	[0x011A, 'Ecaron'],        [0x011B, 'ecaron'],
+	[0x0139, 'Lacute'],        [0x013A, 'lacute'],
+	[0x013D, 'Lcaron'],        [0x013E, 'lcaron'],
+	[0x0147, 'Ncaron'],        [0x0148, 'ncaron'],
+	[0x00D4, 'Ocircumflex'],   [0x00F4, 'ocircumflex'],
+	[0x0158, 'Rcaron'],        [0x0159, 'rcaron'],
+	[0x0154, 'Racute'],        [0x0155, 'racute'],
+	[0x0160, 'Scaron'],        [0x0161, 'scaron'],
+	[0x0164, 'Tcaron'],        [0x0165, 'tcaron'],
+	[0x016E, 'Uring'],         [0x016F, 'uring'],
+	[0x00DD, 'Yacute'],        [0x00FD, 'yacute'],
+	[0x017D, 'Zcaron'],        [0x017E, 'zcaron'],
+]
+for glyphUnicode, glyphname in accentedGlyphs:
+	if glyphUnicode not in font:
+		glyph = font.createChar( glyphUnicode, glyphname )
+
 # add 0-9, +-=() subscript, superscript
 subscriptScale = 10.0/14
 subscriptTransform = psMat.compose ( psMat.scale(subscriptScale), psMat.translate(0, -500) )
@@ -118,5 +160,12 @@ if 0x2160 not in font:
 	font.build()
 
 font.mergeFeature (sourceFeaturesFile)
+
+# rebuild accented glyphs with anchor positions from features file
+font.strokedfont = False
+for glyphUnicode, glyphname in accentedGlyphs:
+	glyph = font.createChar( glyphUnicode, glyphname )
+	glyph.build()
+font.strokedfont = True
 
 font.save (destfile)
