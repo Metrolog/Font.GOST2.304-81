@@ -391,7 +391,7 @@ feature ccmp {
 # Й, й
 
 feature ccmp {
-	#script cyrl;
+	script cyrl;
 	sub [cyri CYRI] brevecomb' by macroncomb;
 	sub cyri [brevecomb macroncomb] by cyrishrt;
 	sub CYRI [brevecomb macroncomb] by CYRISHRT;
@@ -400,9 +400,95 @@ feature ccmp {
 # Ё, ё
 
 feature ccmp {
-	#script cyrl;
+	script cyrl;
 	sub cyre diaeresiscomb by cyryo;
 	sub CYRE diaeresiscomb by CYRYO;
+} ccmp;
+
+# прочие комбинированные глифы
+
+feature ccmp {
+	script latn;
+	sub A acutecomb by Aacute;
+	sub a acutecomb by aacute;
+	sub C acutecomb by Cacute;
+	sub c acutecomb by cacute;
+	sub E acutecomb by Eacute;
+	sub e acutecomb by eacute;
+	sub I acutecomb by Iacute;
+	sub i acutecomb by iacute;
+	sub L acutecomb by Lacute;
+	sub l acutecomb by lacute;
+	sub N acutecomb by Nacute;
+	sub n acutecomb by nacute;
+	sub O acutecomb by Oacute;
+	sub o acutecomb by oacute;
+	sub R acutecomb by Racute;
+	sub r acutecomb by racute;
+	sub U acutecomb by Uacute;
+	sub u acutecomb by uacute;
+	sub S acutecomb by Sacute;
+	sub s acutecomb by sacute;
+	sub Y acutecomb by Yacute;
+	sub y acutecomb by yacute;
+	sub Z acutecomb by Zacute;
+	sub z acutecomb by zacute;
+	
+	sub C caroncomb by Ccaron;
+	sub c caroncomb by ccaron;
+	sub D caroncomb by Dcaron;
+	sub E caroncomb by Ecaron;
+	sub e caroncomb by ecaron;
+	sub N caroncomb by Ncaron;
+	sub n caroncomb by ncaron;
+	sub R caroncomb by Rcaron;
+	sub r caroncomb by rcaron;
+	sub S caroncomb by Scaron;
+	sub s caroncomb by scaron;
+	sub T caroncomb by Tcaron;
+	sub Z caroncomb by Zcaron;
+	sub z caroncomb by zcaron;
+	
+	sub d apostrophecomb by dcaron;
+	sub L apostrophecomb by Lcaron;
+	sub l apostrophecomb by lcaron;
+	sub t apostrophecomb by tcaron;
+
+	sub A ogonekcomb by Aogonek;
+	sub a ogonekcomb by aogonek;
+	sub E ogonekcomb by Eogonek;
+	sub e ogonekcomb by eogonek;
+
+	sub A circumflexcomb by Acircumflex;
+	sub a circumflexcomb by acircumflex;
+	sub I circumflexcomb by Icircumflex;
+	sub i circumflexcomb by icircumflex;
+	sub O circumflexcomb by Ocircumflex;
+	sub o circumflexcomb by ocircumflex;
+
+	sub O diaeresiscomb by Odiaeresis;
+	sub o diaeresiscomb by odiaeresis;
+	sub U diaeresiscomb by Udiaeresis;
+	sub u diaeresiscomb by udiaeresis;
+
+	sub O doubleacutecomb by Ohungarumlaut;
+	sub o doubleacutecomb by ohungarumlaut;
+	sub U doubleacutecomb by Uhungarumlaut;
+	sub u doubleacutecomb by uhungarumlaut;
+
+	sub A brevecomb by Abreve;
+	sub a brevecomb by abreve;
+
+	sub U ringcomb by Uring;
+	sub u ringcomb by uring;
+
+	sub S uni0326 by Scommabelow;
+	sub s uni0326 by scommabelow;
+	sub T uni0326 by Tcommabelow;
+	sub t uni0326 by tcommabelow;
+
+	sub Z dotabovecomb by Zdotaccent;
+	sub z dotabovecomb by zdotaccent;
 } ccmp;
 
 # кернинг
