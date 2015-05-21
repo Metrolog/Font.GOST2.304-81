@@ -233,36 +233,36 @@ feature liga {
 lookup ogonek {
 	lookupflag MarkAttachmentType @OgonekMark;
 	markClass @OgonekMark <anchor 0 0> @Ogonek;
-	pos base [\space] <anchor 50 0> mark @Ogonek;
+	markClass [ogonek] <anchor 50 0> @Ogonek;
+	pos base [space] <anchor 50 0> mark @Ogonek;
 	pos base [A] <anchor 850 0> mark @Ogonek;
 	pos base [a] <anchor 750 0> mark @Ogonek;
 	pos base [E e] <anchor 650 0> mark @Ogonek;
 } ogonek;
 
-feature mark {
-	#script latn;
-	#	language PLK exclude_dflt required;
-			lookup ogonek;
-} mark;
-
 @TopMarks = [gravecomb acutecomb circumflexcomb tildecomb macroncomb uni0305 
 	brevecomb dotabovecomb diaeresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
-	uni030F uni0311 uni0312 uni0313 uni0314];
+	uni030F uni0311 uni0312 uni0313 uni0314 uni0340 uni0341];
 
 lookup topMark {
 	lookupflag MarkAttachmentType @TopMarks;
-	markClass [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb tildecomb caroncomb acutecomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @Top;
-	pos base [\space] <anchor 300 1350> mark @Top;
+	markClass [@TopMarks] <anchor 0 1350> @Top;
+	markClass [dotaccent] <anchor 150 1350> @Top;
+	markClass [circumflex caron macron breve ring] <anchor 250 1350> @Top;
+	markClass [uni02CA grave] <anchor 200 1350> @Top;
+	markClass [tilde dieresis] <anchor 300 1350> @Top;
+	markClass [hungarumlaut] <anchor 300 1350> @Top;
+	pos base [space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
-	pos base [B C D E R CYRE CYREREV] <anchor 400 1650> mark @Top;
-	pos base [H N S T Z CYRG CYRI CYRK CYRU CYRCH] <anchor 450 1650> mark @Top;
+	pos base [B D E R CYRE CYREREV] <anchor 400 1650> mark @Top;
+	pos base [C H N S T Z CYRG CYRI CYRK CYRU CYRCH] <anchor 450 1650> mark @Top;
 	pos base [I b h k] <anchor 150 1650> mark @Top;
 	pos base [L l] <anchor 150 1650> mark @Top;
 	pos base [M] <anchor 550 1650> mark @Top;
 	pos base [O U] <anchor 450 1650> mark @Top;
 	pos base [W] <anchor 700 1650> mark @Top;
-	pos base [a e g n s x y z cyra cyrg cyre cyri cyrk cyro cyru cyrch] <anchor 400 1350> mark @Top;
-	pos base [c j r dotlessj] <anchor 350 1350> mark @Top;
+	pos base [c e g n s x y z cyra cyrg cyre cyri cyrk cyro cyru cyrch] <anchor 400 1350> mark @Top;
+	pos base [j r dotlessj] <anchor 350 1350> mark @Top;
 	pos base [d] <anchor 650 1650> mark @Top;
 	pos base [i dotlessi] <anchor 150 1350> mark @Top;
 	pos base [m] <anchor 550 1350> mark @Top;
@@ -271,8 +271,19 @@ lookup topMark {
 	pos base [w] <anchor 600 1350> mark @Top;
 	pos base [cyrzh] <anchor 500 1350> mark @Top;
 	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
-	pos base [cyrery] <anchor 450 1350> mark @Top;
+	pos base [a cyrery] <anchor 450 1350> mark @Top;
 } topMark;
+
+@ApostropheMarks = [apostrophecomb];
+
+lookup apostrophe {
+	lookupflag MarkAttachmentType @ApostropheMarks;
+	markClass [@ApostropheMarks] <anchor 0 1350> @Apostrophe;
+	markClass [uni02BC] <anchor 150 1350> @Apostrophe;
+	pos base [L l] <anchor 350 1350> mark @Apostrophe;
+	pos base [d] <anchor 850 1350> mark @Apostrophe;
+	pos base [t] <anchor 450 1350> mark @Apostrophe;
+} apostrophe;
 
 @BottomMarks = [uni0326 uni0316 uni0317];
 
@@ -322,11 +333,24 @@ lookup tonosMark {
 } tonosMark;
 
 feature mark {
-	lookup topMark;
-	lookup bottomMark;
-	lookup rightMark;
-	lookup centerMark;
-	lookup tonosMark;
+	#script latn;
+			lookup topMark;
+	#script latn;
+			lookup bottomMark;
+	#script latn;
+			lookup rightMark;
+	#script latn;
+			lookup centerMark;
+	#script grek;
+			lookup tonosMark;
+	#script latn;
+	#	language CSY exclude_dflt required;
+	#		lookup apostrophe;
+	#	language SKY exclude_dflt required;
+			lookup apostrophe;
+	#script latn;
+	#	language PLK exclude_dflt required;
+			lookup ogonek;
 } mark;
 
 lookup topMarkToMark {
@@ -364,22 +388,6 @@ feature ccmp {
 			lookup caron_to_apostrophe;
 } ccmp;
 
-lookup apostrophe {
-	subtable;
-	markClass [apostrophecomb] <anchor 0 1350> @Apostrophe;
-	pos base [L l] <anchor 350 1350> mark @Apostrophe;
-	pos base [d] <anchor 850 1350> mark @Apostrophe;
-	pos base [t] <anchor 450 1350> mark @Apostrophe;
-} apostrophe;
-
-feature mark {
-	#script latn;
-	#	language CSY exclude_dflt required;
-	#		lookup apostrophe;
-	#	language SKY exclude_dflt required;
-			lookup apostrophe;
-} mark;
-
 # Й, й
 
 feature ccmp {
@@ -401,7 +409,6 @@ feature ccmp {
 
 feature kern {
 	lookup common_kerning {
-		lookupflag IgnoreMarks;
 		pos .notdef .notdef 0; # заглушка для генерации таблицы
 	} common_kerning;
 } kern;
@@ -453,12 +460,11 @@ feature kern {
 	oslash germandbls uni2E32 uni20BD
 	Lslash lslash OE oe uni2E41 dotmath uni2332	uni0332 uni0333 uni033F uni0305];
 @GDEF_Ligature = [];
-@GDEF_Mark = [\periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
+@GDEF_Mark = [periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
 	doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb acutecomb gravecomb uni030E 
 	uni0340 uni0341 uni0311 uni0337 uni0338 uni0326 ogonekcomb uni0312 uni030D 
-	uni030F uni0313 uni0314 apostrophecomb uni0316 uni0317 \tonos];
+	uni030F uni0313 uni0314 apostrophecomb uni0316 uni0317 tonos];
 
 table GDEF {
-  GlyphClassDef @GDEF_Simple, @GDEF_Ligature, @GDEF_Mark, ;
-
+	GlyphClassDef @GDEF_Simple, @GDEF_Ligature, @GDEF_Mark, ;
 } GDEF;
