@@ -75,7 +75,7 @@ for markData in [
 	, [0x0304, 0x00AF, 0x02C9] # macron
 	, [0x0306, 0x02D8] # breve
 	, [0x0307, 0x02D9] # dot above
-	, [0x0308, 0x00A8] # diaeresis
+	, [0x0308, 0x00A8] # dieresis
 	, [0x030A, 0x02DA] # ring above
 	, [0x030B, 0x02DD] # double acute
 	, [0x030C, 0x02C7] # caron
@@ -98,6 +98,7 @@ for markData in [
 # build accented glyphs
 accentedGlyphs = [
 	[0x00C1, 'Aacute'],        [0x00E1, 'aacute'],
+	[0x00C4, 'Adieresis'],     [0x00E4, 'adieresis'],
 	[0x00C9, 'Eacute'],        [0x00E9, 'eacute'],
 	[0x00CD, 'Iacute'],        [0x00ED, 'iacute'],
 	[0x00D3, 'Oacute'],        [0x00F3, 'oacute'],
@@ -162,10 +163,8 @@ if 0x2160 not in font:
 font.mergeFeature (sourceFeaturesFile)
 
 # rebuild accented glyphs with anchor positions from features file
-font.strokedfont = False
 for glyphUnicode, glyphname in accentedGlyphs:
 	glyph = font.createChar( glyphUnicode, glyphname )
 	glyph.build()
-font.strokedfont = True
 
 font.save (destfile)

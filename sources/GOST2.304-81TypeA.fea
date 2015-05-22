@@ -151,14 +151,12 @@ feature rlig {
 	sub ROMANI ROMANI ROMANI by ROMANIII;
 } rlig;
 
-feature kern {
-	lookup roman_kerning {
-		lookupflag IgnoreMarks;
-		enum pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
-		enum pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
-		enum pos ROMANX [ROMANI ROMANII ROMANIII] -100;
-	} roman_kerning;
-} kern;
+lookup roman_kerning {
+	lookupflag IgnoreMarks;
+	enum pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
+	enum pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
+	enum pos ROMANX [ROMANI ROMANII ROMANIII] -100;
+} roman_kerning;
 
 # альтернативное начертание римской V
 
@@ -220,11 +218,11 @@ lookup germandbls {
 	sub s s by germandbls;
 } germandbls;
 
-feature liga {
+feature rlig {
 	script latn;
 		language DEU exclude_dflt;
 			lookup germandbls;
-} liga;
+} rlig;
 
 # диакритические знаки
 
@@ -241,7 +239,7 @@ lookup ogonek {
 } ogonek;
 
 @TopMarks = [gravecomb acutecomb circumflexcomb tildecomb macroncomb uni0305 
-	brevecomb dotabovecomb diaeresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
+	brevecomb dotabovecomb dieresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
 	uni030F uni0311 uni0312 uni0313 uni0314 uni0340 uni0341];
 
 lookup topMark {
@@ -254,14 +252,14 @@ lookup topMark {
 	markClass [hungarumlaut] <anchor 300 1350> @Top;
 	pos base [space] <anchor 300 1350> mark @Top;
 	pos base [A G Y] <anchor 500 1650> mark @Top;
-	pos base [B D E R CYRE CYREREV] <anchor 400 1650> mark @Top;
-	pos base [C H N S T Z CYRG CYRI CYRK CYRU CYRCH] <anchor 450 1650> mark @Top;
+	pos base [B D E R] <anchor 400 1650> mark @Top;
+	pos base [C H N S T Z] <anchor 450 1650> mark @Top;
 	pos base [I b h k] <anchor 150 1650> mark @Top;
 	pos base [L l] <anchor 150 1650> mark @Top;
 	pos base [M] <anchor 550 1650> mark @Top;
 	pos base [O U] <anchor 450 1650> mark @Top;
 	pos base [W] <anchor 700 1650> mark @Top;
-	pos base [c e g n s x y z cyra cyrg cyre cyri cyrk cyro cyru cyrch] <anchor 400 1350> mark @Top;
+	pos base [c e g n s x y z] <anchor 400 1350> mark @Top;
 	pos base [j r dotlessj] <anchor 350 1350> mark @Top;
 	pos base [d] <anchor 650 1650> mark @Top;
 	pos base [i dotlessi] <anchor 150 1350> mark @Top;
@@ -269,9 +267,13 @@ lookup topMark {
 	pos base [o u] <anchor 400 1350> mark @Top;
 	pos base [t] <anchor 250 1650> mark @Top;
 	pos base [w] <anchor 600 1350> mark @Top;
+	pos base [a] <anchor 450 1350> mark @Top;
+	pos base [CYRE CYREREV] <anchor 400 1650> mark @Top;
+	pos base [CYRG CYRI CYRK CYRU CYRCH] <anchor 450 1650> mark @Top;
+	pos base [cyra cyrg cyre cyri cyrk cyro cyru cyrch] <anchor 400 1350> mark @Top;
 	pos base [cyrzh] <anchor 500 1350> mark @Top;
 	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
-	pos base [a cyrery] <anchor 450 1350> mark @Top;
+	pos base [cyrery] <anchor 450 1350> mark @Top;
 } topMark;
 
 @ApostropheMarks = [apostrophecomb];
@@ -333,24 +335,13 @@ lookup tonosMark {
 } tonosMark;
 
 feature mark {
-	#script latn;
-			lookup topMark;
-	#script latn;
-			lookup bottomMark;
-	#script latn;
-			lookup rightMark;
-	#script latn;
-			lookup centerMark;
-	#script grek;
-			lookup tonosMark;
-	#script latn;
-	#	language CSY exclude_dflt required;
-	#		lookup apostrophe;
-	#	language SKY exclude_dflt required;
-			lookup apostrophe;
-	#script latn;
-	#	language PLK exclude_dflt required;
-			lookup ogonek;
+	lookup topMark;
+	lookup bottomMark;
+	lookup rightMark;
+	lookup centerMark;
+	lookup ogonek;
+	lookup apostrophe;
+	lookup tonosMark;
 } mark;
 
 lookup topMarkToMark {
@@ -358,7 +349,7 @@ lookup topMarkToMark {
 	markClass [macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
 	markClass [acutecomb] <anchor 0 1650> @TopMark;
 	markClass [tonos] <anchor 150 1150> @TopMark;
-	pos mark [diaeresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
+	pos mark [dieresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
 	pos mark [tildecomb] <anchor 0 1525> mark @TopMark;
 } topMarkToMark;
 
@@ -368,154 +359,197 @@ feature mkmk {
 
 # замена i и j при добавлении диакритических знаков
 
-feature ccmp {
-	lookupflag MarkAttachmentType @TopMarks;
+lookup ij_to_dotless {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
 	sub [i j]' @TopMarks by [dotlessi dotlessj];
-} ccmp;
+} ij_to_dotless;
 
-# замена диакритического знака для lcaron, Lcaron, dcaron, tcaron
+# Й, й, Ё, ё
 
-lookup caron_to_apostrophe {
-	lookupflag IgnoreLigatures;
-	sub [l L d t] caroncomb' by apostrophecomb;
-} caron_to_apostrophe;
-
-feature ccmp {
-	script latn;
-		language CSY exclude_dflt required;
-			lookup caron_to_apostrophe;
-		language SKY exclude_dflt required;
-			lookup caron_to_apostrophe;
-} ccmp;
-
-# Й, й
-
-feature ccmp {
-	script cyrl;
-	sub [cyri CYRI] brevecomb' by macroncomb;
+lookup cyr_accented_rus {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	#sub [cyri CYRI] brevecomb' by macroncomb;
 	sub cyri [brevecomb macroncomb] by cyrishrt;
 	sub CYRI [brevecomb macroncomb] by CYRISHRT;
-} ccmp;
-
-# Ё, ё
-
-feature ccmp {
-	script cyrl;
-	sub cyre diaeresiscomb by cyryo;
-	sub CYRE diaeresiscomb by CYRYO;
-} ccmp;
+	sub cyre dieresiscomb by cyryo;
+	sub CYRE dieresiscomb by CYRYO;
+} cyr_accented_rus;
 
 # прочие комбинированные глифы
 
-feature ccmp {
-	script latn;
+lookup latin_accented_hun {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
 	sub A acutecomb by Aacute;
 	sub a acutecomb by aacute;
-	sub C acutecomb by Cacute;
-	sub c acutecomb by cacute;
 	sub E acutecomb by Eacute;
 	sub e acutecomb by eacute;
 	sub I acutecomb by Iacute;
 	sub i acutecomb by iacute;
-	sub L acutecomb by Lacute;
-	sub l acutecomb by lacute;
+	sub O acutecomb by Oacute;
+	sub o acutecomb by oacute;
+	sub O dieresiscomb by Odieresis;
+	sub o dieresiscomb by odieresis;
+	sub O doubleacutecomb by Ohungarumlaut;
+	sub o doubleacutecomb by ohungarumlaut;
+	sub U acutecomb by Uacute;
+	sub u acutecomb by uacute;
+	sub U dieresiscomb by Udieresis;
+	sub u dieresiscomb by udieresis;
+	sub U doubleacutecomb by Uhungarumlaut;
+	sub u doubleacutecomb by uhungarumlaut;
+} latin_accented_hun;
+
+lookup latin_accented_deu {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	sub A dieresiscomb by Adieresis;
+	sub a dieresiscomb by adieresis;
+	sub O dieresiscomb by Odieresis;
+	sub o dieresiscomb by odieresis;
+	sub U dieresiscomb by Udieresis;
+	sub u dieresiscomb by udieresis;
+} latin_accented_deu;
+
+lookup latin_accented_plk {
+	lookupflag IgnoreLigatures;
+	sub A ogonekcomb by Aogonek;
+	sub a ogonekcomb by aogonek;
+	sub C acutecomb by Cacute;
+	sub c acutecomb by cacute;
+	sub E ogonekcomb by Eogonek;
+	sub e ogonekcomb by eogonek;
 	sub N acutecomb by Nacute;
 	sub n acutecomb by nacute;
 	sub O acutecomb by Oacute;
 	sub o acutecomb by oacute;
-	sub R acutecomb by Racute;
-	sub r acutecomb by racute;
-	sub U acutecomb by Uacute;
-	sub u acutecomb by uacute;
 	sub S acutecomb by Sacute;
 	sub s acutecomb by sacute;
-	sub Y acutecomb by Yacute;
-	sub y acutecomb by yacute;
+	sub Z dotabovecomb by Zdotaccent;
+	sub z dotabovecomb by zdotaccent;
 	sub Z acutecomb by Zacute;
 	sub z acutecomb by zacute;
-	
-	sub C caroncomb by Ccaron;
-	sub c caroncomb by ccaron;
-	sub D caroncomb by Dcaron;
-	sub E caroncomb by Ecaron;
-	sub e caroncomb by ecaron;
-	sub N caroncomb by Ncaron;
-	sub n caroncomb by ncaron;
-	sub R caroncomb by Rcaron;
-	sub r caroncomb by rcaron;
-	sub S caroncomb by Scaron;
-	sub s caroncomb by scaron;
-	sub T caroncomb by Tcaron;
-	sub Z caroncomb by Zcaron;
-	sub z caroncomb by zcaron;
-	
-	sub d apostrophecomb by dcaron;
-	sub L apostrophecomb by Lcaron;
-	sub l apostrophecomb by lcaron;
-	sub t apostrophecomb by tcaron;
+} latin_accented_plk;
 
-	sub A ogonekcomb by Aogonek;
-	sub a ogonekcomb by aogonek;
-	sub E ogonekcomb by Eogonek;
-	sub e ogonekcomb by eogonek;
-
+lookup latin_accented_rom {
+	lookupflag IgnoreLigatures;
 	sub A circumflexcomb by Acircumflex;
 	sub a circumflexcomb by acircumflex;
-	sub I circumflexcomb by Icircumflex;
-	sub i circumflexcomb by icircumflex;
-	sub O circumflexcomb by Ocircumflex;
-	sub o circumflexcomb by ocircumflex;
-
-	sub O diaeresiscomb by Odiaeresis;
-	sub o diaeresiscomb by odiaeresis;
-	sub U diaeresiscomb by Udiaeresis;
-	sub u diaeresiscomb by udiaeresis;
-
-	sub O doubleacutecomb by Ohungarumlaut;
-	sub o doubleacutecomb by ohungarumlaut;
-	sub U doubleacutecomb by Uhungarumlaut;
-	sub u doubleacutecomb by uhungarumlaut;
-
 	sub A brevecomb by Abreve;
 	sub a brevecomb by abreve;
-
-	sub U ringcomb by Uring;
-	sub u ringcomb by uring;
-
+	sub I circumflexcomb by Icircumflex;
+	sub i circumflexcomb by icircumflex;
 	sub S uni0326 by Scommabelow;
 	sub s uni0326 by scommabelow;
 	sub T uni0326 by Tcommabelow;
 	sub t uni0326 by tcommabelow;
+} latin_accented_rom;
 
-	sub Z dotabovecomb by Zdotaccent;
-	sub z dotabovecomb by zdotaccent;
+lookup latin_accented_csy {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	sub A acutecomb by Aacute;
+	sub a acutecomb by aacute;
+	sub A dieresiscomb by Adieresis;
+	sub A dieresiscomb by Adieresis;
+	sub C caroncomb by Ccaron;
+	sub c caroncomb by ccaron;
+	sub D caroncomb by Dcaron;
+	#sub d caroncomb' by apostrophecomb;
+	sub d [caroncomb apostrophecomb] by dcaron;
+	sub E acutecomb by Eacute;
+	sub e acutecomb by eacute;
+	sub E caroncomb by Ecaron;
+	sub e caroncomb by ecaron;
+	sub I acutecomb by Iacute;
+	sub i acutecomb by iacute;
+	sub L acutecomb by Lacute;
+	sub l acutecomb by lacute;
+	#sub [l L] caroncomb' by apostrophecomb;
+	sub L [caroncomb apostrophecomb] by Lcaron;
+	sub l [caroncomb apostrophecomb] by lcaron;
+	sub N caroncomb by Ncaron;
+	sub n caroncomb by ncaron;
+	sub O acutecomb by Oacute;
+	sub o acutecomb by oacute;
+	sub O circumflexcomb by Ocircumflex;
+	sub o circumflexcomb by ocircumflex;
+	sub R caroncomb by Rcaron;
+	sub r caroncomb by rcaron;
+	sub R acutecomb by Racute;
+	sub r acutecomb by racute;
+	sub S caroncomb by Scaron;
+	sub s caroncomb by scaron;
+	sub T caroncomb by Tcaron;
+	#sub t caroncomb' by apostrophecomb;
+	sub t [caroncomb apostrophecomb] by tcaron;
+	sub U acutecomb by Uacute;
+	sub u acutecomb by uacute;
+	sub U ringcomb by Uring;
+	sub u ringcomb by uring;
+	sub Y acutecomb by Yacute;
+	sub y acutecomb by yacute;
+	sub Z caroncomb by Zcaron;
+	sub z caroncomb by zcaron;
+} latin_accented_csy;
+
+feature ccmp {
+	script DFLT;
+			lookup latin_accented_hun;
+			lookup ij_to_dotless;
+			lookup latin_accented_deu;
+			lookup latin_accented_plk;
+			lookup latin_accented_rom;
+			lookup latin_accented_csy;
+			lookup cyr_accented_rus;
+	script latn;
+		language HUN;
+			lookup latin_accented_hun;
+			lookup ij_to_dotless;
+		language DEU;
+			lookup latin_accented_deu;
+		language PLK;
+			lookup latin_accented_plk;
+		language ROM;
+			lookup latin_accented_rom;
+			lookup ij_to_dotless;
+		language CSY exclude_dflt;
+			lookup latin_accented_csy;
+			lookup ij_to_dotless;
+		language SKY exclude_dflt;
+			lookup latin_accented_csy;
+			lookup ij_to_dotless;
+	script cyrl;
+		language RUS;
+			lookup cyr_accented_rus;
 } ccmp;
 
 # кернинг
 
+lookup common_kerning {
+	lookupflag IgnoreMarks;
+	pos .notdef .notdef 0; # заглушка для генерации таблицы
+} common_kerning;
+
 feature kern {
-	lookup common_kerning {
-		pos .notdef .notdef 0; # заглушка для генерации таблицы
-	} common_kerning;
+			lookup common_kerning;
+			lookup roman_kerning;
 } kern;
 
 # Mark attachment classes (defined in GDEF, used in lookupflags)
 
-@GDEF_Simple = [uni26AC \nonmarkingreturn \space \exclam \quotedbl \numbersign 
-	\dollar \percent \ampersand \quotesingle \parenleft \parenright \asterisk \plus 
-	\comma \hyphen \period \slash 
+@GDEF_Simple = [uni26AC nonmarkingreturn space exclam quotedbl numbersign 
+	dollar percent ampersand quotesingle parenleft parenright asterisk plus
+	comma hyphen period slash 
 	numero @Digits.all
-	\colon \semicolon \less \equal \greater \question \at A B C D E F G H I J 
-	K L M N O P Q R S T U V W X Y Z \bracketleft \backslash \bracketright 
-	\underscore a b c d e f g h i j k l m n o p q r s t u v w x y z 
-	\braceleft \bar \braceright \asciitilde \exclamdown \cent \sterling \currency 
+	colon semicolon less equal greater question at A B C D E F G H I J 
+	K L M N O P Q R S T U V W X Y Z bracketleft backslash bracketright 
+	underscore a b c d e f g h i j k l m n o p q r s t u v w x y z 
+	braceleft bar braceright asciitilde exclamdown cent sterling currency 
 	\yen \brokenbar \section \copyright \ordfeminine \guillemotleft \logicalnot 
 	uni00AD \registered \degree \plusminus \mu \paragraph uni00A0 \ordmasculine 
 	\guillemotright \multiply Alpha Beta Gamma uni0394 Epsilon Zeta Eta Theta 
 	Iota Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi 
 	uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
 	uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
-	CYRYO CYRA CYRB CYRV CYRG CYRD CYRE CYRZH CYRZ 
+	CYRYO CYRA CYRB CYRV CYRG CYRD CYRE CYRZH CYRZ
 	CYRI CYRISHRT CYRK CYRL CYRM CYRN CYRO CYRP CYRR 
 	CYRS CYRT CYRU CYRF CYRH CYRC CYRCH CYRSH CYRSHCH 
 	CYRHRDSN CYRERY CYRSFTSN CYREREV CYRYU CYRYA cyra cyrb cyrv 
@@ -545,11 +579,8 @@ feature kern {
 	uni2A7E dotlessi dotlessj \questiondown \AE \ae uni1D3F \divide Oslash 
 	oslash germandbls uni2E32 uni20BD
 	Lslash lslash OE oe uni2E41 dotmath uni2332	uni0332 uni0333 uni033F uni0305];
-@GDEF_Ligature = [];
-@GDEF_Mark = [periodcentered uni20DD diaeresiscomb macroncomb brevecomb tildecomb 
-	doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb acutecomb gravecomb uni030E 
-	uni0340 uni0341 uni0311 uni0337 uni0338 uni0326 ogonekcomb uni0312 uni030D 
-	uni030F uni0313 uni0314 apostrophecomb uni0316 uni0317 tonos];
+@GDEF_Ligature = [germandbls];
+@GDEF_Mark = [@OgonekMark @TopMarks @ApostropheMarks @BottomMarks @RightMarks @CenterMarks @TonosMarks];
 
 table GDEF {
 	GlyphClassDef @GDEF_Simple, @GDEF_Ligature, @GDEF_Mark, ;
