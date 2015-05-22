@@ -90,9 +90,13 @@ $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKE
 REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
 FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.py
 
-$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
+#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
+#	$(info Build stroked regular font .sfd file "$@"...)
+#	$(PY) $(FFBUILDREGULARSFD) $< $@
+
+$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(AUXDIR)/dirstate
 	$(info Build stroked regular font .sfd file "$@"...)
-	$(PY) $(FFBUILDREGULARSFD) $< $@
+	cp $< $@
 
 # generate aux slanted .sfd file
 
