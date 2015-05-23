@@ -114,14 +114,12 @@ feature dnom {
 	sub @figures by @denominators;
 } dnom;
 
-feature kern {
-	lookup frac_kerning {
-		pos fraction [zero.dnom one.dnom two.dnom four.dnom six.dnom eight.dnom nine.dnom zero.slash.dnom] -71;
-		# pos fraction [three.dnom five.dnom seven.dnom three.alt.dnom] 0;
-		pos [zero.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr] fraction -71;
-		# pos [one.numr two.numr] fraction 0;
-	} frac_kerning;
-} kern;
+lookup frac_kerning {
+	pos fraction [zero.dnom one.dnom two.dnom four.dnom six.dnom eight.dnom nine.dnom zero.slash.dnom] -71;
+	# pos fraction [three.dnom five.dnom seven.dnom three.alt.dnom] 0;
+	pos [zero.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr] fraction -71;
+	# pos [one.numr two.numr] fraction 0;
+} frac_kerning;
 
 # dotless формы для i, j
 
@@ -234,6 +232,27 @@ feature rlig {
 	script latn;
 		language DEU exclude_dflt;
 			lookup germandbls;
+} rlig;
+
+# .., ...
+
+lookup period_to_dot_leader {
+	sub period' period period period by onedotenleader;
+	sub onedotenleader period' by onedotenleader;
+} period_to_dot_leader;
+
+lookup dot_leaders {
+	sub period period by twodotenleader;
+	sub period period period by ellipsis;
+} dot_leaders;
+
+lookup dot_leaders_kerning {
+	enum pos [onedotenleader twodotenleader ellipsis] [onedotenleader twodotenleader ellipsis] -100;
+} dot_leaders_kerning;
+
+feature rlig {
+			lookup period_to_dot_leader;
+			lookup dot_leaders;
 } rlig;
 
 # диакритические знаки
@@ -541,8 +560,10 @@ lookup common_kerning {
 } common_kerning;
 
 feature kern {
-			lookup common_kerning;
+			lookup frac_kerning;
+			lookup dot_leaders_kerning;
 			lookup roman_kerning;
+			lookup common_kerning;
 } kern;
 
 # Mark attachment classes (defined in GDEF, used in lookupflags)
@@ -552,7 +573,7 @@ feature kern {
 	comma hyphen period slash 
 	numero @Digits.all
 	colon semicolon less equal greater question at A B C D E F G H I J 
-	K L M N O P Q R S T U V W X Y Z bracketleft backslash bracketright 
+	K L M N O P Q R S T U V W X Y Z bracketleft backslash bracketright
 	underscore a b c d e f g h i j k l m n o p q r s t u v w x y z 
 	braceleft bar braceright asciitilde exclamdown cent sterling currency 
 	\yen \brokenbar \section \copyright \ordfeminine \guillemotleft \logicalnot 
