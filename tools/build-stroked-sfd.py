@@ -120,7 +120,7 @@ accentedGlyphs = [
 	[0x0218, 'Scommabelow'],   [0x0219, 'scommabelow'],
 	[0x021A, 'Tcommabelow'],   [0x021B, 'tcommabelow'],
 	[0x010C, 'Ccaron'],        [0x010D, 'ccaron'],
-	[0x010E, 'Dcaron'],        [0x010F, 'dcaron'],
+	[0x010E, 'Dcaron'],        # [0x010F, 'dcaron'],
 	[0x011A, 'Ecaron'],        [0x011B, 'ecaron'],
 	[0x0139, 'Lacute'],        [0x013A, 'lacute'],
 	[0x013D, 'Lcaron'],        [0x013E, 'lcaron'],
