@@ -126,7 +126,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 216 27 9
+WinInfo: 0 27 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -316,7 +316,7 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
-BeginChars: 1114118 457
+BeginChars: 1114118 458
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -334,20 +334,13 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: uni26AC
-Encoding: 9900 9900 1
-Width: 800
+StartChar: .null
+Encoding: 0 0 1
+Width: 0
 Flags: MW
 LayerCount: 2
 Back
 Fore
-SplineSet
-400 850 m 135
- 263 850 150 962 150 1099 c 135
- 150 1236 263 1350 400 1350 c 135
- 537 1350 650 1236 650 1099 c 135
- 650 962 537 850 400 850 c 135
-EndSplineSet
 EndChar
 
 StartChar: nonmarkingreturn
@@ -434,8 +427,8 @@ LayerCount: 2
 Back
 Fore
 Refer: 18 47 N 1 0 0 1 300 0 2
-Refer: 1 9900 N 1 0 0 1 0 0 2
-Refer: 1 9900 N 1 0 0 1 900 -800 2
+Refer: 457 9900 N 1 0 0 1 0 0 2
+Refer: 457 9900 N 1 0 0 1 900 -800 2
 EndChar
 
 StartChar: ampersand
@@ -4064,7 +4057,7 @@ LayerCount: 2
 Back
 Fore
 Refer: 8 37 N 1 0 0 1 0 0 2
-Refer: 1 9900 N 1 0 0 1 1600 -800 2
+Refer: 457 9900 N 1 0 0 1 1600 -800 2
 EndChar
 
 StartChar: uni2031
@@ -4075,7 +4068,7 @@ LayerCount: 2
 Back
 Fore
 Refer: 250 8240 N 1 0 0 1 0 0 2
-Refer: 1 9900 N 1 0 0 1 2300 -800 2
+Refer: 457 9900 N 1 0 0 1 2300 -800 2
 EndChar
 
 StartChar: minute
@@ -6705,6 +6698,22 @@ LayerCount: 2
 Back
 Fore
 Refer: 449 8201 S 1 0 0 1 0 0 3
+EndChar
+
+StartChar: uni26AC
+Encoding: 9900 9900 457
+Width: 800
+Flags: MW
+LayerCount: 2
+Back
+Fore
+SplineSet
+400 850 m 135
+ 263 850 150 962 150 1099 c 135
+ 150 1236 263 1350 400 1350 c 135
+ 537 1350 650 1236 650 1099 c 135
+ 650 962 537 850 400 850 c 135
+EndSplineSet
 EndChar
 EndChars
 EndSplineFont
