@@ -23,7 +23,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1432414755
+ModificationTime: 1432423360
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -336,6 +336,7 @@ EndChar
 
 StartChar: .null
 Encoding: 0 0 1
+AltUni2: 000000.ffffffff.0 000008.ffffffff.0 00001d.ffffffff.0
 Width: 0
 Flags: MW
 LayerCount: 2
