@@ -27,4 +27,6 @@ fontforge.setPrefs ('AutoHint', 0)
 font.selection.all ()
 font.round ()
 
+font.sfntRevision = 1.0
+
 font.generate ( destfile, flags=['short-post', 'opentype', 'omit-instructions', 'TeX-table'] )
