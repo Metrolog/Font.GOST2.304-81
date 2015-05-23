@@ -213,6 +213,17 @@ feature ordn {
 			lookup ordn_ao;
 } ordn;
 
+# градусы Цельсия, Фаренгейта
+
+lookup degrees {
+	sub degree C by uni2103;
+	sub degree F by uni2109;
+} degrees;
+
+feature rlig {
+			lookup degrees;
+} rlig;
+
 # лигатуры для germandbls
 
 lookup germandbls {
