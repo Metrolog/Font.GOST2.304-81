@@ -320,6 +320,7 @@ BeginChars: 1114118 458
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
+AltUni2: 000001.ffffffff.0 000002.ffffffff.0 000003.ffffffff.0 000004.ffffffff.0 000005.ffffffff.0 000006.ffffffff.0 000007.ffffffff.0 00000A.ffffffff.0 00000B.ffffffff.0 00000C.ffffffff.0 00000D.ffffffff.0 00000E.ffffffff.0 00000F.ffffffff.0 000010.ffffffff.0 000011.ffffffff.0 000012.ffffffff.0 000013.ffffffff.0 000014.ffffffff.0 000015.ffffffff.0 000016.ffffffff.0 000017.ffffffff.0 000018.ffffffff.0 000019.ffffffff.0 00001A.ffffffff.0 00001B.ffffffff.0 00001C.ffffffff.0 00001E.ffffffff.0 00001F.ffffffff.0 00007F.ffffffff.0
 Width: 900
 Flags: MW
 LayerCount: 2
