@@ -23,7 +23,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1432381952
+ModificationTime: 1432394722
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -126,7 +126,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 81 27 9
+WinInfo: 0 27 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -316,7 +316,7 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
-BeginChars: 1114118 439
+BeginChars: 1114118 457
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
@@ -361,7 +361,7 @@ EndChar
 
 StartChar: space
 Encoding: 32 32 3
-Width: 600
+Width: 900
 Flags: MW
 LayerCount: 2
 Back
@@ -2061,12 +2061,13 @@ EndChar
 
 StartChar: uni00A0
 Encoding: 160 160 113
-Width: 600
+Width: 900
+UnlinkRmOvrlpSave: 1
 Flags: MW
 LayerCount: 2
 Back
 Fore
-Refer: 3 32 N 1 0 0 1 0 0 2
+Refer: 3 32 S 1 0 0 1 0 0 3
 EndChar
 
 StartChar: periodcentered
@@ -6522,6 +6523,188 @@ Back
 Fore
 Refer: 424 789 N 1 0 0 1 850 0 2
 Refer: 69 100 N 1 0 0 1 0 0 2
+EndChar
+
+StartChar: uniFEFF
+Encoding: 65279 65279 439
+Width: 0
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2000
+Encoding: 8192 8192 440
+Width: 1100
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2001
+Encoding: 8193 8193 441
+Width: 2200
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2002
+Encoding: 8194 8194 442
+Width: 1100
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2003
+Encoding: 8195 8195 443
+Width: 2200
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2004
+Encoding: 8196 8196 444
+Width: 700
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2005
+Encoding: 8197 8197 445
+Width: 500
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2006
+Encoding: 8198 8198 446
+Width: 400
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2007
+Encoding: 8199 8199 447
+Width: 900
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2008
+Encoding: 8200 8200 448
+Width: 300
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2009
+Encoding: 8201 8201 449
+Width: 200
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni200A
+Encoding: 8202 8202 450
+Width: 100
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni200B
+Encoding: 8203 8203 451
+Width: 0
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni200C
+Encoding: 8204 8204 452
+Width: 0
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni200D
+Encoding: 8205 8205 453
+Width: 0
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni205F
+Encoding: 8287 8287 454
+Width: 500
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni2060
+Encoding: 8288 8288 455
+Width: 0
+VWidth: 0
+Flags: W
+LayerCount: 2
+Back
+Fore
+EndChar
+
+StartChar: uni202F
+Encoding: 8239 8239 456
+Width: 200
+VWidth: 0
+UnlinkRmOvrlpSave: 1
+Flags: W
+LayerCount: 2
+Back
+Fore
+Refer: 449 8201 S 1 0 0 1 0 0 3
 EndChar
 EndChars
 EndSplineFont
