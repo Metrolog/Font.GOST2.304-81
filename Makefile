@@ -20,6 +20,7 @@ SRCDIR				:= sources/
 OUTPUTDIR			:= release
 AUXDIR				:= obj
 TOOLSDIR			:= tools/
+TOOLSLIBS			:= tools/itgFontLib.py
 
 # setup tools
 
@@ -81,7 +82,7 @@ FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
 FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
 FFBUILDSTROKEDSFDPRE:=
 
-$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(AUXDIR)/dirstate
+$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(TOOLSLIBS) $(AUXDIR)/dirstate
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
 	$(PY) $(FFBUILDSTROKEDSFD) $< $(<:.sfd=.fea) $@ $(VERSION)
 
@@ -90,7 +91,7 @@ $(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKE
 REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
 FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.py
 
-#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(AUXDIR)/dirstate
+#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(TOOLSLIBS) $(AUXDIR)/dirstate
 #	$(info Build stroked regular font .sfd file "$@"...)
 #	$(PY) $(FFBUILDREGULARSFD) $< $@
 
@@ -103,7 +104,7 @@ $(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(AUXDIR)/dirstate
 SLANTEDFONTSFD		:= $(AUXDIR)/$(FONT)-Slanted.sfd
 FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.py
 
-$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
+$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(TOOLSLIBS) $(AUXDIR)/dirstate
 	$(info Build stroked slanted font .sfd file "$@"...)
 	$(PY) $(FFBUILDSLANTEDSFD) $< $@
 
@@ -111,7 +112,7 @@ $(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(AUXDIR)/dirstate
 
 FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke-sfd.py
 
-$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
+$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(TOOLSLIBS) $(AUXDIR)/dirstate
 	$(info Expand stroke font to outline font "$@"...)
 	$(PY) $(FFEXPANDSTROKE) $< $@
 
@@ -119,7 +120,7 @@ $(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(AUXDIR)/dirstate
 
 FFAUTOKERN		:= $(TOOLSDIR)autokern-classes-sfd.py
 
-$(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(AUXDIR)/dirstate
+$(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(TOOLSLIBS) $(AUXDIR)/dirstate
 	$(info Auto kerning outline font "$@"...)
 	$(PY) $(FFAUTOKERN) $< $@
 
@@ -138,7 +139,7 @@ $(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
 ifeq ($(AUTOHINT),ttfautohint)
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(AUXDIR)/dirstate
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS) $(AUXDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
 	
@@ -152,7 +153,7 @@ ifeq ($(AUTOHINT),fontforge)
 FFGENERATETTF		:= $(TOOLSDIR)generate-autohinted-ttf.py
 endif
 
-$(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TTFDIR)/dirstate
+$(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS) $(TTFDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
 
@@ -164,7 +165,7 @@ ttf: $(TTFTARGETS)
 
 FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
 
-$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TTFDIR)/dirstate
+$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TOOLSLIBS) $(TTFDIR)/dirstate
 	$(info Generate .ttc collection "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
 
@@ -178,7 +179,7 @@ WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIAN
 
 $(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
-$(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(WOFFDIR)/dirstate
+$(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(TOOLSLIBS) $(WOFFDIR)/dirstate
 	$(info Generate .woff font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEWOFF) $< $@
 
@@ -192,7 +193,7 @@ OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT)
 
 $(OTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
 
-$(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(OTFDIR)/dirstate
+$(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(TOOLSLIBS) $(OTFDIR)/dirstate
 	$(info Generate .otf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
 

@@ -1,16 +1,14 @@
 import fontforge
 import sys
+import itgFontLib
 
 sourcefile = sys.argv[1]
 destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
+itgFontLib.fontPreProcessing( font )
 
-for glyph in font.glyphs():
-#	if not ( glyph.background.isEmpty() ):
-		glyph.layers[1] += glyph.background
-		glyph.layerrefs[1] += glyph.layerrefs[0]
-		glyph.layers[0] = fontforge.layer()
+itgFontLib.removeFlippedRefs( font )
 
 font.em = 1000
 

@@ -3,6 +3,7 @@
 
 import fontforge, psMat
 import sys, os, re
+import itgFontLib
 
 def copyGlyphs ( font, sourceGlyphs, newGlyphs = None, transform = psMat.identity(), suffix = '' ) :
 	for i, sourceGlyphName in enumerate( sourceGlyphs ):
@@ -46,11 +47,7 @@ version = sys.argv[4]
 
 font = fontforge.open (sourcefile)
 
-for glyph in font.glyphs():
-#	if not ( glyph.background.isEmpty() ):
-		glyph.layers[1] += glyph.background
-		glyph.layerrefs[1] += glyph.layerrefs[0]
-		glyph.layers[0] = fontforge.layer()
+itgFontLib.fontPreProcessing( font )
 
 font.is_quadratic = False
 

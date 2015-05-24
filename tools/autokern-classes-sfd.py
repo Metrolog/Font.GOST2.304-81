@@ -5,17 +5,13 @@ import fontforge, psMat
 import sys, os, re, math
 from itertools import groupby
 import collections
+import itgFontLib
 
 sourcefile = sys.argv[1]
 destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
-
-for glyph in font.glyphs():
-#	if not ( glyph.background.isEmpty() ):
-		glyph.layers[1] += glyph.background
-		glyph.layerrefs[1] += glyph.layerrefs[0]
-		glyph.layers[0] = fontforge.layer()
+itgFontLib.fontPreProcessing( font )
 
 kernLookup = 'common_kerning'
 kernSize = 200
