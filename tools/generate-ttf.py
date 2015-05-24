@@ -7,15 +7,10 @@ destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
 itgFontLib.fontPreProcessing( font )
-
+itgFontLib.resetGlyphNames( font )
 itgFontLib.removeFlippedRefs( font )
 
-xheight = font.os2_xheight
-capheight = font.os2_capheight
-scale = 1024 / font.em
-font.em = 1024
-font.os2_xheight = xheight * scale
-font.os2_capheight = capheight * scale
+itgFontLib.scaleEM ( font, 1024 )
 
 fontforge.setPrefs ('FoundryName', 'NCSM'); 
 fontforge.setPrefs ('TTFFoundry', 'NCSM') 
@@ -25,4 +20,4 @@ fontforge.setPrefs ('AutoHint', 0)
 font.selection.all ()
 font.round ()
 
-font.generate ( destfile, flags=['short-post', 'opentype', 'omit-instructions', 'TeX-table'] )
+font.generate ( destfile, flags=[ 'short-post', 'opentype', 'omit-instructions', 'TeX-table' ] )

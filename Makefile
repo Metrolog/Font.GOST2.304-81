@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf ttc woff otf tex-pkg tex-tests
+all: ttf ttc woff otf ps0 tex-pkg tex-tests
 
-.PHONY: all clean ttf ttc woff otf tex-pkg tex-tests
+.PHONY: all clean ttf ttc woff otf ps0 tex-pkg tex-tests
 
 .SECONDARY:;
 
@@ -198,6 +198,22 @@ $(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(TOOLSLIBS) $(OTFDIR
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
 
 otf: $(OTFTARGETS)
+
+# build PS Type 0 fonts
+
+PSDIR				:= $(OUTPUTDIR)/ps
+PS0DIR				:= $(PSDIR)/ps0
+FFGENERATEPS0		:= $(TOOLSDIR)generate-ps0.py
+PS0TARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(PS0DIR)/$(FONT)-$(VARIANT).ps)
+
+$(PSDIR)/dirstate: $(OUTPUTDIR)/dirstate
+$(PS0DIR)/dirstate: $(PSDIR)/dirstate
+
+$(PS0DIR)/%.ps: $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS) $(PS0DIR)/dirstate
+	$(info Generate PS Type 0 font "$@"...)
+	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEPS0) $< $@
+
+ps0: $(PS0TARGETS)
 
 # build latex style gost2.304.sty
 

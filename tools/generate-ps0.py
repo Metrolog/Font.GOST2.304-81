@@ -26,4 +26,4 @@ font.selection.all ()
 font.round ()
 font.autoHint ()
 
-font.generate ( destfile, flags=['afm', 'composites-in-afm', 'short-post', 'opentype', 'TeX-table'] )
+font.generate ( destfile, flags = [ 'afm', 'composites-in-afm', 'pfm', 'tfm', 'round' ] )

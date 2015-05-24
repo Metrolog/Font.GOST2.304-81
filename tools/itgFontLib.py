@@ -22,3 +22,16 @@ def removeFlippedRefs ( font ) :
 			glyph.round ()
 			glyph.canonicalStart ()
 			glyph.canonicalContours ()
+
+def scaleEM ( font, em ) :
+	xheight = font.os2_xheight
+	capheight = font.os2_capheight
+	scale = em / font.em
+	font.em = em
+	font.os2_xheight = xheight * scale
+	font.os2_capheight = capheight * scale
+
+def resetGlyphNames ( font, names = 'AGL For New Fonts' ) :
+	for glyph in font :
+		if font[ glyph ].unicode != -1 :
+			font[ glyph ].glyphname = fontforge.nameFromUnicode( font[ glyph ].unicode, names )
