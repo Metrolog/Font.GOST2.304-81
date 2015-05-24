@@ -23,7 +23,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1432423360
+ModificationTime: 1432425731
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
@@ -126,7 +126,7 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 1
-WinInfo: 0 27 9
+WinInfo: 54 27 9
 BeginPrivate: 11
 BlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
 FamilyBlueValues 44 [-5 0 495 505 1000 1005 1400 1405 1595 1600]
@@ -316,11 +316,11 @@ Grid
  1500 1950 l 1024
 EndSplineSet
 TeXData: 2 0 0 285975 142988 95325 476625 667276 95325 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 238313
-BeginChars: 1114118 458
+BeginChars: 1114118 459
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
-AltUni2: 000001.ffffffff.0 000002.ffffffff.0 000003.ffffffff.0 000004.ffffffff.0 000005.ffffffff.0 000006.ffffffff.0 000007.ffffffff.0 00000A.ffffffff.0 00000B.ffffffff.0 00000C.ffffffff.0 00000D.ffffffff.0 00000E.ffffffff.0 00000F.ffffffff.0 000010.ffffffff.0 000011.ffffffff.0 000012.ffffffff.0 000013.ffffffff.0 000014.ffffffff.0 000015.ffffffff.0 000016.ffffffff.0 000017.ffffffff.0 000018.ffffffff.0 000019.ffffffff.0 00001A.ffffffff.0 00001B.ffffffff.0 00001C.ffffffff.0 00001E.ffffffff.0 00001F.ffffffff.0 00007F.ffffffff.0
+AltUni2: 000001.ffffffff.0 000002.ffffffff.0 000003.ffffffff.0 000004.ffffffff.0 000005.ffffffff.0 000006.ffffffff.0 000007.ffffffff.0 00000a.ffffffff.0 00000b.ffffffff.0 00000c.ffffffff.0 00000d.ffffffff.0 00000e.ffffffff.0 00000f.ffffffff.0 000010.ffffffff.0 000011.ffffffff.0 000012.ffffffff.0 000013.ffffffff.0 000014.ffffffff.0 000015.ffffffff.0 000016.ffffffff.0 000017.ffffffff.0 000018.ffffffff.0 000019.ffffffff.0 00001a.ffffffff.0 00001b.ffffffff.0 00001c.ffffffff.0 00001e.ffffffff.0 00001f.ffffffff.0 00007f.ffffffff.0
 Width: 900
 Flags: MW
 LayerCount: 2
@@ -6716,6 +6716,17 @@ SplineSet
  537 1350 650 1236 650 1099 c 135
  650 962 537 850 400 850 c 135
 EndSplineSet
+EndChar
+
+StartChar: uni0009
+Encoding: 9 9 458
+Width: 600
+UnlinkRmOvrlpSave: 1
+Flags: W
+LayerCount: 2
+Back
+Fore
+Refer: 3 32 N 1 0 0 1 0 0 3
 EndChar
 EndChars
 EndSplineFont
