@@ -39,6 +39,4 @@ font.is_quadratic = True
 font.autoHint ()
 font.autoInstr ()
 
-font.sfntRevision = 1.0
-
 font.generate ( destfile, flags=['short-post', 'opentype', 'TeX-table'] )

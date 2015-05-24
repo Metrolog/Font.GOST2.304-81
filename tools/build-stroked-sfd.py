@@ -62,6 +62,7 @@ if ver is not None:
 		if name[1] == 'Version':
 			font.appendSFNTName (name[0], name[1], '')
 	font.appendSFNTName ( 'English (US)', 'Version', font.version )
+	font.sfntRevision = float( ver.expand( '\g<major>.\g<minor>' ) )
 
 font.encoding = 'unicode'
 
