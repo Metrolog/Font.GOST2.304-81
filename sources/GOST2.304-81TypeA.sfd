@@ -23,18 +23,18 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 1
 OS2_UseTypoMetrics: 0
 CreationTime: 1422632559
-ModificationTime: 1432425731
+ModificationTime: 1432464282
 PfmFamily: 33
 TTFWeight: 400
 TTFWidth: 5
-LineGap: 0
+LineGap: 100
 VLineGap: 0
 Panose: 2 0 5 3 0 0 2 4 0 3
 OS2TypoAscent: 1800
 OS2TypoAOffset: 0
 OS2TypoDescent: -400
 OS2TypoDOffset: 0
-OS2TypoLinegap: 0
+OS2TypoLinegap: 100
 OS2WinAscent: 1800
 OS2WinAOffset: 0
 OS2WinDescent: 500
@@ -320,7 +320,7 @@ BeginChars: 1114118 459
 
 StartChar: .notdef
 Encoding: 1114112 -1 0
-AltUni2: 000001.ffffffff.0 000002.ffffffff.0 000003.ffffffff.0 000004.ffffffff.0 000005.ffffffff.0 000006.ffffffff.0 000007.ffffffff.0 00000a.ffffffff.0 00000b.ffffffff.0 00000c.ffffffff.0 00000e.ffffffff.0 00000f.ffffffff.0 000010.ffffffff.0 000011.ffffffff.0 000012.ffffffff.0 000013.ffffffff.0 000014.ffffffff.0 000015.ffffffff.0 000016.ffffffff.0 000017.ffffffff.0 000018.ffffffff.0 000019.ffffffff.0 00001a.ffffffff.0 00001b.ffffffff.0 00001c.ffffffff.0 00001e.ffffffff.0 00001f.ffffffff.0 00007f.ffffffff.0
+AltUni2: 00007f.ffffffff.0 00001f.ffffffff.0 00001e.ffffffff.0 00001c.ffffffff.0 00001b.ffffffff.0 00001a.ffffffff.0 000019.ffffffff.0 000018.ffffffff.0 000017.ffffffff.0 000016.ffffffff.0 000015.ffffffff.0 000014.ffffffff.0 000013.ffffffff.0 000012.ffffffff.0 000011.ffffffff.0 000010.ffffffff.0 00000f.ffffffff.0 00000e.ffffffff.0 00000c.ffffffff.0 00000b.ffffffff.0 00000a.ffffffff.0 000007.ffffffff.0 000006.ffffffff.0 000005.ffffffff.0 000004.ffffffff.0 000003.ffffffff.0 000002.ffffffff.0 000001.ffffffff.0
 Width: 900
 Flags: MW
 LayerCount: 2
@@ -337,7 +337,7 @@ EndChar
 
 StartChar: .null
 Encoding: 0 0 1
-AltUni2: 000008.ffffffff.0 00001d.ffffffff.0
+AltUni2: 00001d.ffffffff.0 000008.ffffffff.0
 Width: 0
 Flags: MW
 LayerCount: 2
