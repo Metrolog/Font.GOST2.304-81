@@ -305,6 +305,20 @@ lookup topMark {
 	pos base [cyrzh] <anchor 500 1350> mark @Top;
 	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
 	pos base [cyrery] <anchor 450 1350> mark @Top;
+	pos base [Alpha uni0394 Delta Lambda Upsilon Phi Chi Psi uni03A9] <anchor 500 1650> mark @Top;
+	pos base [Beta Gamma Epsilon Rho] <anchor 400 1650> mark @Top;
+	pos base [Zeta Eta Theta Kappa Nu Xi Omicron Pi Sigma Tau] <anchor 450 1650> mark @Top;
+	pos base [Iota] <anchor 150 1650> mark @Top;
+	pos base [Mu] <anchor 550 1650> mark @Top;
+	pos base [alpha beta gamma sigma1] <anchor 350 1350> mark @Top;
+	pos base [delta zeta xi] <anchor 400 1650> mark @Top;
+	pos base [epsilon uni03BC omicron rho sigma tau upsilon] <anchor 400 1350> mark @Top;
+	pos base [eta pi phi psi] <anchor 500 1350> mark @Top;
+	pos base [theta] <anchor 650 1650> mark @Top;
+	pos base [iota] <anchor 150 1350> mark @Top;
+	pos base [kappa nu chi] <anchor 450 1350> mark @Top;
+	pos base [lambda] <anchor 300 1650> mark @Top;
+	pos base [omega] <anchor 550 1350> mark @Top;
 } topMark;
 
 @ApostropheMarks = [apostrophecomb];
