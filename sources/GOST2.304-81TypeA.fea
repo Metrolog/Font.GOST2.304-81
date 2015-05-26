@@ -257,7 +257,7 @@ feature rlig {
 
 # диакритические знаки
 
-@OgonekMark = [ogonekcomb];
+@OgonekMark = [uni0328];
 
 lookup ogonek {
 	lookupflag MarkAttachmentType @OgonekMark;
@@ -269,8 +269,8 @@ lookup ogonek {
 	pos base [E e] <anchor 650 0> mark @Ogonek;
 } ogonek;
 
-@TopMarks = [gravecomb acutecomb circumflexcomb tildecomb macroncomb uni0305 
-	brevecomb dotabovecomb dieresiscomb ringcomb doubleacutecomb caroncomb uni030D uni030E 
+@TopMarks = [gravecomb acutecomb uni0302 tildecomb uni0304 uni0305 
+	uni0306 uni0307 uni0308 uni030A uni030B uni030C uni030D uni030E 
 	uni030F uni0311 uni0312 uni0313 uni0314 uni0340 uni0341];
 
 lookup topMark {
@@ -321,7 +321,7 @@ lookup topMark {
 	pos base [omega] <anchor 550 1350> mark @Top;
 } topMark;
 
-@ApostropheMarks = [apostrophecomb];
+@ApostropheMarks = [uni0315];
 
 lookup apostrophe {
 	lookupflag MarkAttachmentType @ApostropheMarks;
@@ -391,10 +391,10 @@ feature mark {
 
 lookup topMarkToMark {
 	lookupflag MarkAttachmentType @TopMarks;
-	markClass [macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
+	markClass [uni0304 uni0306 uni030B uni030A uni0307 uni0302 uni030C gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
 	markClass [acutecomb] <anchor 0 1650> @TopMark;
 	markClass [tonos] <anchor 150 1150> @TopMark;
-	pos mark [dieresiscomb macroncomb brevecomb doubleacutecomb ringcomb dotabovecomb circumflexcomb caroncomb uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
+	pos mark [uni0308 uni0304 uni0306 uni030B uni030A uni0307 uni0302 uni030C uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
 	pos mark [tildecomb] <anchor 0 1525> mark @TopMark;
 } topMarkToMark;
 
@@ -413,11 +413,11 @@ lookup ij_to_dotless {
 
 lookup cyr_accented_rus {
 	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
-	#sub [cyri CYRI] brevecomb' by macroncomb;
-	sub cyri [brevecomb macroncomb] by cyrishrt;
-	sub CYRI [brevecomb macroncomb] by CYRISHRT;
-	sub cyre dieresiscomb by cyryo;
-	sub CYRE dieresiscomb by CYRYO;
+	#sub [cyri CYRI] uni0306' by uni0304;
+	sub cyri [uni0306 uni0304] by cyrishrt;
+	sub CYRI [uni0306 uni0304] by CYRISHRT;
+	sub cyre uni0308 by cyryo;
+	sub CYRE uni0308 by CYRYO;
 } cyr_accented_rus;
 
 # прочие комбинированные глифы
@@ -432,56 +432,56 @@ lookup latin_accented_hun {
 	sub i acutecomb by iacute;
 	sub O acutecomb by Oacute;
 	sub o acutecomb by oacute;
-	sub O dieresiscomb by Odieresis;
-	sub o dieresiscomb by odieresis;
-	sub O doubleacutecomb by Ohungarumlaut;
-	sub o doubleacutecomb by ohungarumlaut;
+	sub O uni0308 by Odieresis;
+	sub o uni0308 by odieresis;
+	sub O uni030B by Ohungarumlaut;
+	sub o uni030B by ohungarumlaut;
 	sub U acutecomb by Uacute;
 	sub u acutecomb by uacute;
-	sub U dieresiscomb by Udieresis;
-	sub u dieresiscomb by udieresis;
-	sub U doubleacutecomb by Uhungarumlaut;
-	sub u doubleacutecomb by uhungarumlaut;
+	sub U uni0308 by Udieresis;
+	sub u uni0308 by udieresis;
+	sub U uni030B by Uhungarumlaut;
+	sub u uni030B by uhungarumlaut;
 } latin_accented_hun;
 
 lookup latin_accented_deu {
 	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
-	sub A dieresiscomb by Adieresis;
-	sub a dieresiscomb by adieresis;
-	sub O dieresiscomb by Odieresis;
-	sub o dieresiscomb by odieresis;
-	sub U dieresiscomb by Udieresis;
-	sub u dieresiscomb by udieresis;
+	sub A uni0308 by Adieresis;
+	sub a uni0308 by adieresis;
+	sub O uni0308 by Odieresis;
+	sub o uni0308 by odieresis;
+	sub U uni0308 by Udieresis;
+	sub u uni0308 by udieresis;
 } latin_accented_deu;
 
 lookup latin_accented_plk {
 	lookupflag IgnoreLigatures;
-	sub A ogonekcomb by Aogonek;
-	sub a ogonekcomb by aogonek;
+	sub A uni0328 by Aogonek;
+	sub a uni0328 by aogonek;
 	sub C acutecomb by Cacute;
 	sub c acutecomb by cacute;
-	sub E ogonekcomb by Eogonek;
-	sub e ogonekcomb by eogonek;
+	sub E uni0328 by Eogonek;
+	sub e uni0328 by eogonek;
 	sub N acutecomb by Nacute;
 	sub n acutecomb by nacute;
 	sub O acutecomb by Oacute;
 	sub o acutecomb by oacute;
 	sub S acutecomb by Sacute;
 	sub s acutecomb by sacute;
-	sub Z dotabovecomb by Zdotaccent;
-	sub z dotabovecomb by zdotaccent;
+	sub Z uni0307 by Zdotaccent;
+	sub z uni0307 by zdotaccent;
 	sub Z acutecomb by Zacute;
 	sub z acutecomb by zacute;
 } latin_accented_plk;
 
 lookup latin_accented_rom {
 	lookupflag IgnoreLigatures;
-	sub A circumflexcomb by Acircumflex;
-	sub a circumflexcomb by acircumflex;
-	sub A brevecomb by Abreve;
-	sub a brevecomb by abreve;
-	sub I circumflexcomb by Icircumflex;
-	sub i circumflexcomb by icircumflex;
+	sub A uni0302 by Acircumflex;
+	sub a uni0302 by acircumflex;
+	sub A uni0306 by Abreve;
+	sub a uni0306 by abreve;
+	sub I uni0302 by Icircumflex;
+	sub i uni0302 by icircumflex;
 	sub S uni0326 by Scommabelow;
 	sub s uni0326 by scommabelow;
 	sub T uni0326 by Tcommabelow;
@@ -492,47 +492,47 @@ lookup latin_accented_csy {
 	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
 	sub A acutecomb by Aacute;
 	sub a acutecomb by aacute;
-	sub A dieresiscomb by Adieresis;
-	sub A dieresiscomb by Adieresis;
-	sub C caroncomb by Ccaron;
-	sub c caroncomb by ccaron;
-	sub D caroncomb by Dcaron;
-	#sub d caroncomb' by apostrophecomb;
-	sub d [caroncomb apostrophecomb] by dcaron;
+	sub A uni0308 by Adieresis;
+	sub A uni0308 by Adieresis;
+	sub C uni030C by Ccaron;
+	sub c uni030C by ccaron;
+	sub D uni030C by Dcaron;
+	#sub d uni030C' by uni0315;
+	sub d [uni030C uni0315] by dcaron;
 	sub E acutecomb by Eacute;
 	sub e acutecomb by eacute;
-	sub E caroncomb by Ecaron;
-	sub e caroncomb by ecaron;
+	sub E uni030C by Ecaron;
+	sub e uni030C by ecaron;
 	sub I acutecomb by Iacute;
 	sub i acutecomb by iacute;
 	sub L acutecomb by Lacute;
 	sub l acutecomb by lacute;
-	#sub [l L] caroncomb' by apostrophecomb;
-	sub L [caroncomb apostrophecomb] by Lcaron;
-	sub l [caroncomb apostrophecomb] by lcaron;
-	sub N caroncomb by Ncaron;
-	sub n caroncomb by ncaron;
+	#sub [l L] uni030C' by uni0315;
+	sub L [uni030C uni0315] by Lcaron;
+	sub l [uni030C uni0315] by lcaron;
+	sub N uni030C by Ncaron;
+	sub n uni030C by ncaron;
 	sub O acutecomb by Oacute;
 	sub o acutecomb by oacute;
-	sub O circumflexcomb by Ocircumflex;
-	sub o circumflexcomb by ocircumflex;
-	sub R caroncomb by Rcaron;
-	sub r caroncomb by rcaron;
+	sub O uni0302 by Ocircumflex;
+	sub o uni0302 by ocircumflex;
+	sub R uni030C by Rcaron;
+	sub r uni030C by rcaron;
 	sub R acutecomb by Racute;
 	sub r acutecomb by racute;
-	sub S caroncomb by Scaron;
-	sub s caroncomb by scaron;
-	sub T caroncomb by Tcaron;
-	#sub t caroncomb' by apostrophecomb;
-	sub t [caroncomb apostrophecomb] by tcaron;
+	sub S uni030C by Scaron;
+	sub s uni030C by scaron;
+	sub T uni030C by Tcaron;
+	#sub t uni030C' by uni0315;
+	sub t [uni030C uni0315] by tcaron;
 	sub U acutecomb by Uacute;
 	sub u acutecomb by uacute;
-	sub U ringcomb by Uring;
-	sub u ringcomb by uring;
+	sub U uni030A by Uring;
+	sub u uni030A by uring;
 	sub Y acutecomb by Yacute;
 	sub y acutecomb by yacute;
-	sub Z caroncomb by Zcaron;
-	sub z caroncomb by zcaron;
+	sub Z uni030C by Zcaron;
+	sub z uni030C by zcaron;
 } latin_accented_csy;
 
 feature ccmp {
