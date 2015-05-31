@@ -103,7 +103,9 @@ feature frac {
 		sub [fraction @denominators] @figures' by @denominators;
 	} Denominator;
 
-	#sub @figures space' @numerators by thinspace;
+	lookup FracSpace {
+		sub @figures space' @numerators by uni200D; # zero width word joiner
+	} FracSpace;
 } frac;
 
 feature numr {
