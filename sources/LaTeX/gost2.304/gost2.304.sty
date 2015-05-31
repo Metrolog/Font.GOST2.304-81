@@ -40,6 +40,7 @@
 \tl_new:N \g__eskdfont_roman_V_variant_tl
 \bool_new:N \g__eskdfont_romannumeral_check_bool
 \bool_gset_false:N \g__eskdfont_romannumeral_check_bool
+\tl_new:N \g__eskdfont_fractions_tl
 \bool_new:N \g__eskdfont_math_support_bool
 \bool_gset_false:N \g__eskdfont_math_support_bool
 
@@ -100,6 +101,11 @@
       { \tl_gset_eq:NN \g__eskdfont_roman_V_variant_tl \l_keys_choice_tl },
     roman-V .initial:n = { basic },
     
+    fractions .choices:nn = { On, Off }
+      { \tl_gset_eq:NN \g__eskdfont_fractions_tl \l_keys_choice_tl },
+    fractions .default:n = { On },
+    fractions .initial:n = { On },
+
     math .choice:,
     math / true .code:n =
       {
@@ -372,6 +378,7 @@
       }
     ,DigitThree = \tl_use:N \g__eskdfont_digit_three_variant_tl
     ,RomanV = \tl_use:N \g__eskdfont_roman_V_variant_tl
+	,Fractions = \g__eskdfont_fractions_tl
     ,UprightFeatures =
       {
         \tl_use:N \l__eskdfont_type_A_features_tl
