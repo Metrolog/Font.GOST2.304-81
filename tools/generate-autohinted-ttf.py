@@ -1,15 +1,19 @@
 import fontforge
 import sys
+import itgFontLib
 
 sourcefile = sys.argv[1]
 destfile = sys.argv[2]
 
 font = fontforge.open (sourcefile)
+itgFontLib.fontPreProcessing( font )
 
-for glyph in font.glyphs():
-	glyph.foreground += glyph.background
+itgFontLib.removeFlippedRefs( font )
+itgFontLib.resetGlyphNames( font )
+itgFontLib.scaleEM ( font, 1000 )
 
-font.em = 1024
+fontforge.setPrefs ('FoundryName', 'NCSM'); 
+fontforge.setPrefs ('TTFFoundry', 'NCSM') 
 
 fontforge.setPrefs ('GenerateHintWidthEqualityTolerance', 4)
 fontforge.setPrefs ('StandardSlopeError', 3)
@@ -28,4 +32,4 @@ font.is_quadratic = True
 font.autoHint ()
 font.autoInstr ()
 
-font.generate ( destfile, flags=['short-post', 'apple', 'opentype', 'old-kern'] ) #, 'TeX-table'] )
+font.generate ( destfile, flags=[ 'short-post', 'opentype', 'TeX-table' ] )

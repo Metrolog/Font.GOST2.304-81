@@ -17,7 +17,10 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 - [FontForge][]
 - [TTFAutoHint][]
+- [GNUWin32 Core Utils][]
 - [GNU make][]
+- [latexmk][] (только для сборки TeX пакетов и документов)
+- [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
 
 Сборка проекта осуществляется следующим образом:
 
@@ -62,6 +65,26 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Данная цель требует предварительной сборки цели `ttf`.
 
+#### Стилевой пакет для LaTeX gost2.304 - `tex-pkg`
+
+Сборка стилевого пакета осуществляется следующим образом:
+
+	make tex-pkg
+
+Данная цель требует предварительной сборки цели `ttf`.
+
+#### Тестовый .pdf файл на базе LaTeX и стилевого пакета gost2.304 - `tex-tests`
+
+Сборка стилевого пакета осуществляется следующим образом:
+
+	make tex-tests
+
+Данная цель требует предварительной сборки цели `tex-pkg`.
+По умолчанию собранный .pdf не отображается. Однако, следующая командная строка
+
+	make VIEWPDF=yes
+
+откроет .pdf на просмотр после удачной сборки.
 
 Версии
 ------
@@ -69,8 +92,17 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 В качестве версии при сборке подставляю автоматом имя ветки репозитория.
 Поэтому разработку и сборку следует вести в ветках типа "0.1", "0.2", "1.0".
 
+Лицензионное соглашение
+-----------------------
+
+Полный текст лицензионного соглашения включён в файлы шрифта, а также размещён по указанной ссылке: <http://scripts.sil.org/OFL>.
+Наименование шрифта, в том числе - локализованные наименования шрифта, не зарезервированы и не защищены.
+
 [FontForge]: https://github.com/fontforge/fontforge
-[TTFAutoHint]: http://www.freetype.org/ttfautohint
 [GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
-[WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
+[GNUWin32 Core Utils]: http://gnuwin32.sourceforge.net/packages/coreutils.htm
+[latexmk]: https://www.ctan.org/pkg/latexmk/ "latexmk – Fully automated LaTeX document generation"
+[Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
+[TTFAutoHint]: http://www.freetype.org/ttfautohint
+[WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"

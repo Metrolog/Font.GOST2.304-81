@@ -1,0 +1,503 @@
+\documentclass[trace=off]{article}
+
+% !TeX spellcheck = ru_RU
+% !TeX program = xelatex
+
+\usepackage{interfaces}
+\usepackage{tikz}
+\usepackage{interfaces-tikz}
+\usepackage[a4 paper, portrait, tmargin=10mm, bmargin=10mm, inner=20mm, outer=20mm, headheight=0mm, headsep=0mm, footskip=0mm]{geometry}
+\usepackage
+  [
+    mainfontsize = 3.5mm,
+    %zero = slashed,
+    %digit-three = alternative,
+    %roman-V = serif,
+	fractions = Off,
+    math = true
+  ]
+  {gost2.304}
+
+\begin{document}
+
+  \parindent=0pt\relax
+  \raggedright
+  \papergraduate
+
+  \makeatletter
+  \f@family\,\f@series\,\@roman{4}\, \eskdfont \f@family\,\@roman{4}\,\@roman{6}\,\@roman{12}
+
+  \eskdfontsize{1.8mm}\selectfont
+  Tiny 999 \bfseries Tiny 999 - должны быть одинаково утолщёнными (1.8 мм - допустим только для шрифта Б \f@series)
+  f@size=\f@size.\,
+  \eskdfontsize{1mm}\selectfont И это - не 1 мм, а 1.8 мм.
+  f@size=\f@size.
+
+  \normalsize\upshape\mdseries Нормальный
+  \small small
+  \footnotesize Footnotesize
+  \scriptsize Scriptsize
+  \tiny Tiny
+  \large large
+  \Large Large
+  \LARGE LARGE
+  \huge huge
+  \Huge Huge
+  
+  \eskdfontsize{5mm}\selectfont
+  \newlength\ldn
+  \ldn=1em 1\,em равен \the\ldn,
+  \ldn=1.4ex 1.4\,ex равен \the\ldn,
+  \ldn=5mm 5\,mm равно \the\ldn.
+  \f@family
+  
+  № No. { \addfontfeature{Language=German} No.}
+  { \addfontfeature{ VerticalPosition = Ordinal, Language = Italian } a ba ab 55a o bo ob 55o. }
+  
+  \eskdfontsize{40mm}\selectfont С
+  {\slshape С}
+  \textbf{С}
+  {\slshape\bfseries С}
+
+  \NewDocumentCommand \DrawChars {m O{20mm} } {
+    \begin{tikzpicture}
+    \papergraduate (-5mm,0mm) (160mm,#2);
+    \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
+    {
+      #1
+    };
+    \end{tikzpicture}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Раздел 3 ГОСТ 2.304-81. Шрифт типа А
+  
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ Ё \"Е}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя ё \"е}
+  }
+
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ Ё \"Е}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя ё \"е}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \eskdfontsize{10mm}
+    \slshape
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ Ё \"Е}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя ё \"е}
+  }
+
+  {
+    \eskdfontsize{10mm}
+    \DrawChars{АБВГДЕЖЗИЙКЛМНОПР}
+    \DrawChars{СТУФХЦЧШЩЪЫЬЭЮЯ Ё \"Е}
+    \DrawChars{абвгдежзийклмнопрст}
+    \DrawChars{уфхцчшщъыьэюя ё \"е}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Раздел 4 ГОСТ 2.304-81. Шрифт типа А
+
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{ABCDEFGHIJKLMN}
+    \DrawChars{OPQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnop}
+    \DrawChars{qrstuvwxyz}
+  }
+
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{ABCDEFGHIJKLMNO}
+    \DrawChars{PQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnopq}
+    \DrawChars{rstuvwxyz}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \eskdfontsize{10mm}
+    \slshape
+    \DrawChars{ABCDEFGHIJKLMN}
+    \DrawChars{OPQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnop}
+    \DrawChars{qrstuvwxyz}
+  }
+
+  {
+    \eskdfontsize{10mm}
+    \DrawChars{ABCDEFGHIJKLMN}
+    \DrawChars{OPQRSTUVWXYZ}
+    \DrawChars{abcdefghijklmnopq}
+    \DrawChars{rstuvwxyz}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Раздел 5 ГОСТ 2.304-81. Шрифт типа А
+
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu \Xi}
+    \DrawChars{\Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu}
+    \DrawChars{\xi \omicron \pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu \Xi \Omicron}
+    \DrawChars{\Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu \xi \omicron}
+    \DrawChars{\pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \eskdfontsize{10mm}
+    \slshape
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu}
+    \DrawChars{\Xi \Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu}
+    \DrawChars{\nu \xi \omicron \pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  {
+    \eskdfontsize{10mm}
+    \DrawChars{\Alpha \Beta \Gamma \Delta \Epsilon \Zeta \Eta \Theta \Iota \Kappa \Lambda \Mu \Nu}
+    \DrawChars{\Xi \Omicron \Pi \Rho \Sigma \Tau \Upsilon \Phi \Chi \Psi \Omega}
+    \DrawChars{\alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda \mu \nu}
+    \DrawChars{\xi \omicron \pi \rho \sigma \tau \upsilon \phi \chi \psi \omega}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Раздел 6 ГОСТ 2.304-81. Шрифт типа А
+
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{
+      1234567890
+      \addfontfeature{Numbers=SlashedZero} 0
+      \addfontfeature{DigitThree=alternative} 3
+    }
+  }
+  {
+    \eskdfontsize{5mm}\selectfont
+      01020304050607080900
+      11213141516171819
+
+      223242526272829
+      33343536373839
+      44546474849
+
+      556575859
+      6676869
+      77879
+      889
+      99
+
+      \addfontfeature{Numbers=SlashedZero, DigitThree=alternative}
+      01020304050607080900
+      313233343536373839
+  }
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{
+      1234567890
+      \addfontfeature{Numbers=SlashedZero} 0
+      \addfontfeature{DigitThree=alternative} 3
+    }
+  }
+  \newcounter{digit}%
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{%
+      \setcounter{digit}{1}\roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+      \addfontfeature{RomanV=alternative} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{DigitThree=alternative} \Roman{digit} 3
+    }
+    \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}
+  }
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{%
+      \setcounter{digit}{1}\Roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+      \addfontfeature{RomanV=alternative} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{DigitThree=alternative} \Roman{digit} 3
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \eskdfontsize{10mm}
+    \DrawChars{1234567890}
+  }
+  {
+    \eskdfontsize{10mm}
+    \slshape
+    \DrawChars{1234567890}
+  }
+  {
+    \eskdfontsize{10mm}
+    \DrawChars{%
+      \setcounter{digit}{1}\Roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+      \addfontfeature{RomanV=alternative} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{DigitThree=alternative} \Roman{digit} 3
+    }
+    \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}
+  }
+  {
+    \eskdfontsize{10mm}
+    \slshape
+    \DrawChars{%
+      \setcounter{digit}{1}\Roman{digit}
+      \setcounter{digit}{3}\Roman{digit}
+      \setcounter{digit}{4}\Roman{digit}
+      \setcounter{digit}{6}\Roman{digit}
+      \setcounter{digit}{8}\Roman{digit}
+      \setcounter{digit}{9}\Roman{digit}
+      \addfontfeature{RomanV=alternative} \setcounter{digit}{5}\Roman{digit} 3
+      \addfontfeature{DigitThree=alternative} \Roman{digit} 3
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Раздел 8 ГОСТ 2.304-81. Степени и дроби
+  
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{
+      55/13 1/3 23/796
+    }
+    \addfontfeature{ Fractions = On }
+    \DrawChars{103/30 15 23/796}
+    \DrawChars{22 / 33 12/10/1976}
+    \DrawChars{
+      \addfontfeature{ DigitThree = alternative, Numbers = SlashedZero }
+      13 103/30
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  \%, градусы и прочие "ненаклоняемые" символы в наклонных шрифтах
+  
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{
+      0\% 7\% 6\% 4\% 5\%
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+
+  \papergraduate
+  %\mathversion{eskd}
+
+  f@size=\f@size,
+  %\@tempdima=10mm\relax10 mm=\the\@tempdima\,
+  \@ifundefined{S@\f@size}
+    {math size doesn't definded.}
+    {math size definded.}
+
+  \[m = 1.23 * \left(а+б+в_{Гл}\right)\times a_{b_c}\]
+
+  \[m = \frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\times 2 \times 10^{23}\]
+
+  \begin{eqnarray}
+    m &=& 1,23 * \left(а+б+в_{Гл}\right)\\
+    E &=& mc^2\\
+    m &=& \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\times 2.34 \cdot 10^{23}\\
+    z &=& \sum_{i=0}^{10}a^i\sigma\left( x_i \right) \times \pi\\
+  \end{eqnarray}
+
+  \newpage
+  \papergraduate
+  \eskdfont \eskdfontsize{14mm} \selectfont\mdseries
+  f@size=\f@size
+  \[A_{B_{C_{D_{E_{F}}}}}\]
+  \[b=\sqrt[3]{222} \cdot 10^{23} \] %\cdot \XeTeXradical 3 "0221A{222}\]
+  \[m = 1,23 * \left(а+в_{Гл}\right) \times A_{B_C}\]
+  \[m = \frac{a}{a}\times\frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\]
+
+  \eskdfont \eskdfontsize{10mm} \selectfont\bfseries
+  f@size=\f@size
+  \[m = \frac{a}{a}\times\frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\]
+
+  \eskdfont \eskdfontsize{3.5mm} \selectfont\mdseries
+  f@size=\f@size
+  \[m = 1.23 * \left(а+в_{Гл}\right) \times A_{B_C}\]
+  \[m = \frac{a}{a}\times\frac{a_{12}}{a_{21}} \times \frac{m_0}{\sqrt{1-\frac{v^2}{c^2}}}\]
+  
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Приложение ГОСТ 2.304-81. Диакритические знаки. Шрифт типа А
+
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}
+    \DrawChars{\"A\"O\"U \"a\"o\"u \ss{} ss \addfontfeature{Language=German}ss}
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}
+    {
+      \addfontfeature{Language=Slovak}
+      \DrawChars{\'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O \addfontfeature{Language=Russian}\v{L}}
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}
+      \DrawChars{\'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o \char"013E \addfontfeature{Language=Russian}\v{d}\v{l}\v{t}}
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}
+    }
+
+    \DrawChars{aa\'aaa aa\"aaa aa\v{a}aa \r{a}}
+    \DrawChars{\r{\Delta} \'\Delta \r{\delta}}
+  }
+
+  {
+    \eskdfontsize{14mm}
+    \slshape
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}
+    \DrawChars{\"A\"O\"U \"a\"o\"u \ss ss \addfontfeature{Language=German}ss}
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}
+    {
+      \addfontfeature{Language=Czech}
+      \DrawChars{\'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O \addfontfeature{Language=Russian}\v{L}}
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}
+      \DrawChars{\'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o \addfontfeature{Language=Russian}\v{d}\v{l}\v{t}}
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm}\selectfont\bfseries
+  Шрифт типа Б
+
+  {
+    \eskdfontsize{10mm}
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}
+    \DrawChars{\"A\"O\"U \"a\"o\"u \ss ss \addfontfeature{Language=German}ss}
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}
+    {
+      \addfontfeature{Language=Slovak}
+      \DrawChars{\'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O \addfontfeature{Language=Russian}\v{L}}
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}
+      \DrawChars{\'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o \addfontfeature{Language=Russian}\v{d}\v{l}\v{t}}
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}
+    }
+  }
+
+  {
+    \eskdfontsize{10mm}
+    \slshape
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}
+    \DrawChars{\"A\"O\"U \"a\"o\"u \ss ss \addfontfeature{Language=German}ss}
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}
+    {
+      \addfontfeature{Language=Czech}
+      \DrawChars{\'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O \addfontfeature{Language=Russian}\v{L}}
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}
+      \DrawChars{\'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o \addfontfeature{Language=Russian}\v{d}\v{l}\v{t}}
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}
+    }
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Прочие тесты
+
+  {
+    \eskdfontsize{14mm}
+    \DrawChars{. .. ... .... ..... .,.}
+  }
+
+  \newpage
+  \eskdfont \eskdfontsize{7mm} \selectfont\mdseries
+  Проба всего размерного ряда шрифтов
+
+  \NewDocumentCommand \DrawSize {m} {
+    \par
+    \begin{tikzpicture}
+    \papergraduate (-5mm,0mm) (160mm,#1+5mm);
+    \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
+    {
+      \eskdfontsize{#1}\selectfont
+      \upshape\mdseries SIZE=#1,\,
+      \bfseries SIZE=#1,\,
+      \slshape\mdseries SIZE=#1,\,
+      \bfseries SIZE=#1.
+    };
+    \end{tikzpicture}
+    \par
+  }
+
+  \DrawSize{1mm}
+  \DrawSize{1.8mm}
+  \DrawSize{2.5mm}
+  \DrawSize{3.5mm}
+  \DrawSize{5mm}
+  \DrawSize{7mm}
+  \DrawSize{10mm}
+  \DrawSize{14mm}
+  \DrawSize{20mm}
+  \DrawSize{28mm}
+  \DrawSize{40mm}
+
+\end{document}
