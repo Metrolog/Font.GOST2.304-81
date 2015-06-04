@@ -8,7 +8,7 @@ destfile = sys.argv[2]
 font = fontforge.open (sourcefile)
 itgFontLib.fontPreProcessing( font )
 
-itgFontLib.removeFlippedRefs( font )
+itgFontLib.removeRefsIf( font, itgFontLib.isFlippedOrRotatedRef )
 itgFontLib.resetGlyphNames( font )
 itgFontLib.scaleEM ( font, 1000 )
 

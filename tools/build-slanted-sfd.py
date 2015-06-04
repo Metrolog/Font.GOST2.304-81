@@ -14,10 +14,7 @@ itgFontLib.fontPreProcessing( font )
 
 font.uniqueid += 1
 
-for glyph in font.glyphs():
-	for ref in glyph.references:
-		if ( ( ref[1][0] < 0 ) or ( ref[1][1] != 0 ) or ( ref[1][2] != 0 ) or ( ref[1][3] != ref[1][0] ) ):
-			glyph.unlinkRef ()
+itgFontLib.removeRefsIf( font, itgFontLib.isFlippedOrRotatedRef )
 
 slantAngle = 75-90
 
