@@ -18,7 +18,9 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 - [FontForge][]
 - [TTFAutoHint][]
 - [GNUWin32 Core Utils][]
-- [GNU make][]
+- [GNUWin32 make][]
+- [GNUWin32 ZIP][] (для сборки архива LaTeX модуля для CTAN)
+- [GNUWin32 TAR][] (для сборки архива LaTeX модуля для CTAN)
 - [latexmk][] (только для сборки TeX пакетов и документов)
 - [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
 
@@ -65,6 +67,14 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Данная цель требует предварительной сборки цели `ttf`.
 
+#### Стилевой пакет для LaTeX gost2.304 - `ctan``
+
+Сборка архива для CTAN осуществляется следующим образом:
+
+	make ctan
+
+Данная цель требует предварительной сборки цели `ttf`.
+
 #### Стилевой пакет для LaTeX gost2.304 - `tex-pkg`
 
 Сборка стилевого пакета осуществляется следующим образом:
@@ -99,8 +109,10 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 Наименование шрифта, в том числе - локализованные наименования шрифта, не зарезервированы и не защищены.
 
 [FontForge]: https://github.com/fontforge/fontforge
-[GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
+[GNUWin32 make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
 [GNUWin32 Core Utils]: http://gnuwin32.sourceforge.net/packages/coreutils.htm
+[GNUWin32 ZIP]: http://gnuwin32.sourceforge.net/packages/zip.htm
+[GNUWin32 TAR]: http://gnuwin32.sourceforge.net/packages/gtar.htm
 [latexmk]: https://www.ctan.org/pkg/latexmk/ "latexmk – Fully automated LaTeX document generation"
 [Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
