@@ -54,7 +54,7 @@ else
 	PATHSEP			:=:
 endif
 
-MAKETARGETDIR		= $(MKDIR) -p ${@D}
+MAKETARGETDIR		= $(MKDIR) -p $(@D)
 
 ifeq ($(VIEWPDF),yes)
 	VIEWPDFOPT		:= -pv
@@ -64,11 +64,11 @@ endif
 
 TEXLUA				?= texlua
 LATEXMK				?= latexmk \
-	-lualatex \
+	-xelatex \
 	-auxdir=$(AUXDIR) \
-	-pdf -dvi- -ps- \
 	$(VIEWPDFOPT) \
 	-recorder -gg \
+	-use-make \
 	-interaction=nonstopmode \
 	-halt-on-error
 ZIP					?= zip \
@@ -263,7 +263,7 @@ $(foreach file,$(LATEXSANDBOXSOURCEFILES),$(eval $(call copyfilefrom,$(file),$(L
 $(LATEXPKGINSTALLFILES): $(LATEXSANDBOXSOURCEFILES)
 	$(info Unpack [by docstrip] package files "$@"...)
 	$(MAKETARGETDIR)
-	cd ${<D} && $(LATEXUNPACK) ${<F}
+	cd $(<D) && $(LATEXUNPACK) $(<F)
 
 .PHONY: unpack
 unpack: $(LATEXPKGINSTALLFILES)
@@ -310,43 +310,21 @@ $(LATEXCTANTARGET): $(LATEXCTANAUXDIR)/$(TDSFILE)
 dist: $(LATEXCTANTARGET)
 ctan: dist
 
-# build latex style gost2.304.sty
-
-LATEXFONTSDIR		:= $(LATEXPKGDIR)/fonts
-LATEXPKGFONTS		:= $(patsubst $(TTFDIR)/%.ttf, $(LATEXFONTSDIR)/%.ttf, $(TTFTARGETS))
-LATEXPKGPRE			:= $(LATEXPKGDIR)/$(LATEXPKG).sty $(LATEXPKGFONTS)
-
-# $(eval $(call copyfile,$(LATEXFONTSDIR)/%.ttf,$(TTFDIR)/%.ttf))
-$(LATEXFONTSDIR)/%.ttf: $(TTFDIR)/%.ttf
-	$(MAKETARGETDIR)
-	cp $< $@
-
-$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGMAINDIR)/$(LATEXPKG).sty $(LATEXPKGFONTS)
-	$(info Generate latex style package "$@"...)
-	$(MAKETARGETDIR)
-	cp $< $@
-
-export TEXINPUTS=".$(PATHSEP)$(LATEXPKGDIR)/$(PATHSEP)"
-export TEXFONTS="$(LATEXFONTSDIR)/$(PATHSEP)"
-
-.PHONY: tex-pkg
-tex-pkg: $(LATEXPKGPRE)
-
 # build latex tests
 
-LATEXPKG			:= gost2.304
-LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
 LATEXTESTSSRCDIR	:= $(LATEXSRCDIR)/tests
 LATEXTESTSOUTPUTDIR := $(AUXDIR)
 LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR)/%.pdf, $(wildcard $(LATEXTESTSSRCDIR)/*.tex))
 
-$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXPKGPRE)
+export TEXINPUTS=.$(PATHSEP)$(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)/$(PATHSEP)
+export TEXFONTS=$(LATEXTDSAUXDIR)/fonts/truetype/public/$(LATEXPKG)/$(PATHSEP)
+
+$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXTDSPKGTARGETS) $(LATEXTDSFONTSTTFTARGETS)
 	$(info Generate latex test pdf file "$@"...)
-	$(MAKETARGETDIR)
 	$(LATEXMK) -outdir=$(@D) $<
 
 .PHONY: tex-tests
-tex-tests: $(LATEXTESTSTARGETS) tex-pkg 
+tex-tests: $(LATEXTESTSTARGETS)
 
 # clean projects
 
@@ -355,5 +333,4 @@ clean:
 	$(info Erase aux and release directories...)
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)
-	$(LATEXPKGBUILDCMD) clean
 	rm -rf $(LATEXPKGBUILDDIR)
