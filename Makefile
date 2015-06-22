@@ -5,7 +5,7 @@
 .DEFAULT_GOAL		:= all
 
 .PHONY: all
-all: ttf ttc woff otf ps0 tex-pkg tex-tests
+all: ttf ttc woff otf ps0 ctan tex-pkg tex-tests
 
 .SECONDARY:;
 
@@ -249,20 +249,6 @@ LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
 LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx
 LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
 
-# build package for CTAN
-
-LATEXPKGBUILD := $(LATEXPKGMAINDIR)/build.lua
-LATEXPKGBUILDDIR := $(LATEXPKGMAINDIR)/build
-LATEXPKGBUILDCMD := cd $(dir $(LATEXPKGBUILD)) && $(TEXLUA) $(notdir $(LATEXPKGBUILD))
-LATEXPKGCTAN := $(LATEXPKGMAINDIR)/$(LATEXPKG).zip
-
-$(LATEXPKGCTAN): $(LATEXPKGBUILD) $(LATEXPKGSRCFILES)
-	$(info Build package for CTAN "$@"...)
-	$(LATEXPKGBUILDCMD) ctan
-
-.PHONY: ctan
-ctan: $(LATEXPKGCTAN)
-
 # unpack latex package files
 
 LATEXPKGUNPACKDIR := $(AUXDIR)/$(LATEXPKG)
@@ -320,8 +306,9 @@ $(LATEXCTANTARGET): $(LATEXCTANAUXDIR)/$(TDSFILE)
 	$(MAKETARGETDIR)
 	$(TAR) -c -C $(LATEXCTANAUXDIR) -f $@ $(patsubst $(LATEXCTANAUXDIR)/%, %, $^)
 
-.PHONY: dist
+.PHONY: dist ctan
 dist: $(LATEXCTANTARGET)
+ctan: dist
 
 # build latex style gost2.304.sty
 
