@@ -68,8 +68,9 @@ LATEXMK				?= latexmk \
 	-auxdir=$(AUXDIR) \
 	-pdf -dvi- -ps- \
 	$(VIEWPDFOPT) \
-	-recorder -gg
-#	-interaction=batchmode
+	-recorder -gg \
+	-interaction=nonstopmode \
+	-halt-on-error
 ZIP					?= zip \
 	-o \
 	-9
@@ -241,15 +242,19 @@ $(PS0DIR)/%.ps: $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS)
 .PHONY: ps0
 ps0: $(PS0TARGETS)
 
-# build package for CTAN
+# latex build system
 
 LATEXSRCDIR := latex
 LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
+LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx
+LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
+
+# build package for CTAN
+
 LATEXPKGBUILD := $(LATEXPKGMAINDIR)/build.lua
 LATEXPKGBUILDDIR := $(LATEXPKGMAINDIR)/build
 LATEXPKGBUILDCMD := cd $(dir $(LATEXPKGBUILD)) && $(TEXLUA) $(notdir $(LATEXPKGBUILD))
 LATEXPKGCTAN := $(LATEXPKGMAINDIR)/$(LATEXPKG).zip
-LATEXPKGSRCFILES := $(LATEXPKGMAINDIR)/$(LATEXPKG).dtx $(LATEXPKGMAINDIR)/$(LATEXPKG).ins
 
 $(LATEXPKGCTAN): $(LATEXPKGBUILD) $(LATEXPKGSRCFILES)
 	$(info Build package for CTAN "$@"...)
@@ -260,15 +265,22 @@ ctan: $(LATEXPKGCTAN)
 
 # unpack latex package files
 
-LATEXPKGUNPACKDIR := $(LATEXPKGBUILDDIR)/unpacked
+LATEXPKGUNPACKDIR := $(AUXDIR)/$(LATEXPKG)
 LATEXPKGINSTALLFILES := $(LATEXPKGUNPACKDIR)/$(LATEXPKG).sty
+LATEXUNPACK ?= latex \
+	-interaction=nonstopmode \
+	-halt-on-error
 
-$(LATEXPKGINSTALLFILES): $(LATEXPKGBUILD) $(LATEXPKGSRCFILES)
+LATEXSANDBOXSOURCEFILES := $(patsubst $(LATEXPKGMAINDIR)/%,$(LATEXPKGUNPACKDIR)/%,$(LATEXPKGSOURCEFILES))
+$(foreach file,$(LATEXSANDBOXSOURCEFILES),$(eval $(call copyfilefrom,$(file),$(LATEXPKGMAINDIR))))
+
+$(LATEXPKGINSTALLFILES): $(LATEXSANDBOXSOURCEFILES)
 	$(info Unpack [by docstrip] package files "$@"...)
-	$(LATEXPKGBUILDCMD) unpack
+	$(MAKETARGETDIR)
+	cd ${<D} && $(LATEXUNPACK) ${<F}
 
 .PHONY: unpack
-unpack: $(LATEXPKGINSTALLFILES) ttf
+unpack: $(LATEXPKGINSTALLFILES)
 
 # build TDS archive for CTAN
 
