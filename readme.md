@@ -17,6 +17,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 - [FontForge][] версии не младше 27.08.2015
 - [TTFAutoHint][]
+- [FastFont][] (для оптимизации генерируемых ttf шрифтов)
 - [GNUWin32 Core Utils][]
 - [GNU make][]
 - [latexmk][] (только для сборки TeX пакетов и документов)
@@ -105,4 +106,5 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 [Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
 [TTFAutoHint]: http://www.freetype.org/ttfautohint
+[FastFont]: http://www.microsoft.com/typography/tools/tools.aspx "FastFont"
 [WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"

@@ -43,12 +43,14 @@ ifeq ($(OS),Windows_NT)
 	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
 	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
+	FASTFONT		?= "%ProgramFiles(x86)%/FontTools/fastfont"
 	PATHSEP			:=;
 else
 	MAKETARGETDIR	= mkdir -p ${@D}
 	FONTFORGE		?= fontforge
 	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
+	FASTFONT		?= fastfont
 	PATHSEP			:=:
 endif
 ifeq ($(VIEWPDF),yes)
@@ -146,6 +148,7 @@ $(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS) $(AUXDIR
 $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
 	$(TTFAUTOHINT) $< $@
+	$(FASTFONT) $@
 
 else
 
@@ -156,6 +159,7 @@ endif
 $(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS) $(TTFDIR)/dirstate
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
+	$(FASTFONT) $@
 
 endif 
 
