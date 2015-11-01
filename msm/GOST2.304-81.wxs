@@ -15,7 +15,7 @@
 		<Package
 			Id="2115bb91-3ba2-46c0-8508-07a1288903f7"
 			Manufacturer="!(loc.Manufacturer)"
-			InstallerVersion="200"
+			InstallerVersion="450"
 			AdminImage="no"
 			Comments="!(loc.Comments)"
 			Description="!(loc.Description)"
