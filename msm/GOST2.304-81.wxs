@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+	xmlns="http://wixtoolset.org/schemas/v4/wxs"
+>
+
+	<?define FontVersion="0.6.0"?>
+	
+	<Module
+		Id="GOST2.304_81"
+		Version="$(var.FontVersion)"
+		Codepage="1251"
+		Language="1039"
+	>
+
+		<Package
+			Id="2115bb91-3ba2-46c0-8508-07a1288903f7"
+			Manufacturer="!(loc.Manufacturer)"
+			InstallerVersion="200"
+			AdminImage="no"
+			Comments="!(loc.Comments)"
+			Description="!(loc.Description)"
+			Keywords="!(loc.Keywords)"
+			ShortNames="no"
+		/>
+
+		<WixVariable Id="FontVersion" Value="$(var.FontVersion)"/>
+
+		<ComponentGroupRef Id="GOST2.304_TypeA.ttf"/>
+
+	</Module>
+</Wix>
