@@ -4,9 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
-all: ttf ttc woff otf ps0 tex-pkg tex-tests
+.PHONY: all clean ttf ttc woff otf ps0 tex-pkg tex-tests msm
 
-.PHONY: all clean ttf ttc woff otf ps0 tex-pkg tex-tests
+all: ttf ttc woff otf ps0 tex-pkg tex-tests msm
 
 .SECONDARY:;
 
@@ -257,7 +257,12 @@ $(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXPKGPRE)
 	$(info Generate latex test pdf file "$@"...)
 	$(LATEXMK) -outdir=$(@D) $<
 
-tex-tests: $(LATEXTESTSTARGETS) tex-pkg 
+tex-tests: $(LATEXTESTSTARGETS) tex-pkg
+
+# msi module
+
+msm: ttf
+	$(MAKE) -C msm
 
 # clean projects
 
@@ -265,3 +270,4 @@ clean:
 	$(info Erase aux and release directories...)
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)
+	$(MAKE) -C msm clean

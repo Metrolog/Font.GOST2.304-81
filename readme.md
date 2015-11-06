@@ -22,6 +22,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 - [GNU make][]
 - [latexmk][] (только для сборки TeX пакетов и документов)
 - [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
+- [WIX][] (только для сборки msi модулей и msi дистрибутива для установки шрифта в Windows, требуется WiX 4)
 
 Сборка проекта осуществляется следующим образом:
 
@@ -87,6 +88,14 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 откроет .pdf на просмотр после удачной сборки.
 
+#### MSI модуль (.msm файл) для включения в состав MS Installer дистрибутивов
+
+Сборка .msm файла осуществляется следующим образом:
+
+	make msm
+
+Данная цель требует предварительной сборки цели `ttf`.
+
 Версии
 ------
 
@@ -108,3 +117,4 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 [TTFAutoHint]: http://www.freetype.org/ttfautohint
 [FastFont]: http://www.microsoft.com/typography/tools/tools.aspx "FastFont"
 [WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
+[WIX]: http://wixtoolset.org/releases/ "WiX Toolset 4"
