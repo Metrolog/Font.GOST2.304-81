@@ -4,8 +4,9 @@
 
 .DEFAULT_GOAL		:= all
 
+
 .PHONY: all
-all: ttf ttc woff otf ps0 ctan tex-pkg tex-tests
+all: ttf ttc woff otf ps0 ctan tex-tests msm
 
 .SECONDARY:;
 
@@ -45,12 +46,14 @@ ifeq ($(OS),Windows_NT)
 	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
 	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
 	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
+	FASTFONT		?= "%ProgramFiles(x86)%/FontTools/fastfont"
 	PATHSEP			:=;
 else
 	MKDIR			= mkdir
 	FONTFORGE		?= fontforge
 	PY				?= python
 	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
+	FASTFONT		?= fastfont
 	PATHSEP			:=:
 endif
 
@@ -95,7 +98,9 @@ copyfilefrom = $(call copyfile,$1,$2/$(notdir $1))
 REVISION			:= $(shell git rev-parse --short HEAD)
 GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
 VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
-VERSION				:= $(lastword $(subst /, ,$(GIT_BRANCH)))
+export VERSION		:= $(lastword $(subst /, ,$(GIT_BRANCH)))
+export MAJORVERSION	:= $(firstword $(subst ., ,$(VERSION)))
+export MINORVERSION	:= $(wordlist 2,2,$(subst ., ,$(VERSION)))
 
 # generate aux .sfd files
 
@@ -170,6 +175,7 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
 	$(MAKETARGETDIR)
 	$(TTFAUTOHINT) $< $@
+	$(FASTFONT) $@
 
 else
 
@@ -181,6 +187,7 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(MAKETARGETDIR)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
+	$(FASTFONT) $@
 
 endif 
 
@@ -345,6 +352,11 @@ $(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXTDSPKGTARGETS) $(
 .PHONY: tex-tests
 tex-tests: $(LATEXTESTSTARGETS)
 
+# msi module
+
+msm: ttf
+	$(MAKE) -C msm
+
 # clean projects
 
 .PHONY: clean
@@ -353,3 +365,5 @@ clean:
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)
 	rm -rf $(LATEXPKGBUILDDIR)
+	$(MAKE) -C msm clean
+

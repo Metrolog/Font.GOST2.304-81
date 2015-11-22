@@ -4,11 +4,8 @@
 import fontforge
 
 def fontPreProcessing ( font ) :
-	for glyph in font.glyphs():
-	#	if not ( glyph.background.isEmpty() ):
-			glyph.layers[1] += glyph.background
-			glyph.layerrefs[1] += glyph.layerrefs[0]
-			glyph.layers[0] = fontforge.layer()
+	if fontforge.version() < '20150827' :
+		raise RuntimeError( 'Unsupported fontforge version. Must be 20150827 or later.' )
 
 def isFlippedRef ( ref ) :
 	return ( ( ref[1][0] != ref[1][3] ) or ( ref[1][1] != 0 ) or ( ref[1][2] != 0 ) )

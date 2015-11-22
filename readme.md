@@ -15,14 +15,16 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Для внесения изменений в пакет и повторной сборки проекта потребуются следующие продукты:
 
-- [FontForge][]
+- [FontForge][] версии не младше 27.08.2015
 - [TTFAutoHint][]
+- [FastFont][] (для оптимизации генерируемых ttf шрифтов)
 - [GNUWin32 Core Utils][]
 - [GNUWin32 make][]
 - [GNUWin32 ZIP][] (для сборки архива LaTeX модуля для CTAN)
 - [GNUWin32 TAR][] (для сборки архива LaTeX модуля для CTAN)
 - [latexmk][] (только для сборки TeX пакетов и документов)
 - [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
+- [WIX][] (только для сборки msi модулей и msi дистрибутива для установки шрифта в Windows, требуется WiX 4)
 
 Сборка проекта осуществляется следующим образом:
 
@@ -96,6 +98,14 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 откроет .pdf на просмотр после удачной сборки.
 
+#### MSI модуль (.msm файл) для включения в состав MS Installer дистрибутивов
+
+Сборка .msm файла осуществляется следующим образом:
+
+	make msm
+
+Данная цель требует предварительной сборки цели `ttf`.
+
 Версии
 ------
 
@@ -117,4 +127,6 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 [Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
 [TTFAutoHint]: http://www.freetype.org/ttfautohint
+[FastFont]: http://www.microsoft.com/typography/tools/tools.aspx "FastFont"
 [WOFF]: http://en.wikipedia.org/wiki/Web_Open_Font_Format "Web Open Font Format"
+[WIX]: http://wixtoolset.org/releases/ "WiX Toolset 4"
