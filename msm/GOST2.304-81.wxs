@@ -8,8 +8,7 @@
 	<Module
 		Id="GOST2.304_81"
 		Version="$(var.FontVersion)"
-		Codepage="1251"
-		Language="1039"
+		Language="!(loc.LCID)"
 	>
 
 		<Package
@@ -21,6 +20,7 @@
 			Description="!(loc.Description)"
 			Keywords="!(loc.Keywords)"
 			ShortNames="no"
+			SummaryCodepage="!(loc.CodePage)"
 		/>
 
 		<WixVariable Id="FontVersion" Value="$(var.FontVersion)"/>
