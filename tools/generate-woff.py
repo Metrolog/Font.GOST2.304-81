@@ -8,6 +8,6 @@ destfile = sys.argv[2]
 font = fontforge.open (sourcefile)
 itgFontLib.fontPreProcessing( font )
 itgFontLib.resetGlyphNames( font )
-itgFontLib.removeFlippedRefs( font )
+itgFontLib.removeRefsIf( font, itgFontLib.isFlippedOrRotatedRef )
 
 font.generate ( destfile ) # , flags=[None] )
