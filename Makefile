@@ -67,7 +67,9 @@ LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- $(VIEWPDFOPT) -
 REVISION			:= $(shell git rev-parse --short HEAD)
 GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
 VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
-VERSION				:= $(lastword $(subst /, ,$(GIT_BRANCH)))
+export VERSION		:= $(lastword $(subst /, ,$(GIT_BRANCH)))
+export MAJORVERSION	:= $(firstword $(subst ., ,$(VERSION)))
+export MINORVERSION	:= $(wordlist 2,2,$(subst ., ,$(VERSION)))
 
 # directories rules
 

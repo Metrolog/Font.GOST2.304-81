@@ -3,7 +3,7 @@
 	xmlns="http://wixtoolset.org/schemas/v4/wxs"
 >
 
-	<?define FontVersion="0.6.0"?>
+	<?define FontVersion="$(env.Version)"?>
 	
 	<Module
 		Id="GOST2.304_81"
