@@ -6,7 +6,7 @@
 
 
 .PHONY: all
-all: ttf ttc woff otf ps0 ctan tex-tests msm
+all: ttf ttc woff otf ps0 ctan tex-tests msm msi
 
 .SECONDARY:;
 
@@ -354,8 +354,15 @@ tex-tests: $(LATEXTESTSTARGETS)
 
 # msi module
 
+.PHONY: msm
 msm: ttf
 	$(MAKE) -C msm
+
+# msi module
+
+.PHONY: msi
+msi: msm
+	$(MAKE) -C msi
 
 # clean projects
 
@@ -366,4 +373,4 @@ clean:
 	rm -rf $(OUTPUTDIR)
 	rm -rf $(LATEXPKGBUILDDIR)
 	$(MAKE) -C msm clean
-
+	$(MAKE) -C msi clean
