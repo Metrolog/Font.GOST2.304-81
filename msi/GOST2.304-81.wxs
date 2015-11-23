@@ -80,7 +80,7 @@
 				RemoveFeatures="ALL"
 				Property="WIX_UPGRADE_DETECTED"
 				MigrateFeatures="yes"
-				IgnoreRemoveFailure="yes"
+				IgnoreRemoveFailure="no"
 			/>
 		</Upgrade>
 		<Condition Message="!(loc.NewProductVersionExists)">
