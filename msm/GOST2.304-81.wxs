@@ -10,7 +10,7 @@
 	<?endif?>
 	
 	<Module
-		Id="GOST2.304_81"
+		Id="GOST2_304_81"
 		Version="$(var.FontVersion)"
 		Language="!(loc.LCID)"
 	>

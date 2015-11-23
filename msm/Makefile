@@ -1,5 +1,5 @@
 #
-# GNU make Makefile for build ITGWixUtils
+# GNU make Makefile
 # 
 
 .DEFAULT_GOAL			:= all
