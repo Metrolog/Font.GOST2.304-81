@@ -10,7 +10,7 @@
 		Name="$(var.ProductName)"
 		Version="$(var.ProductVersion)"
 		Language="!(loc.LCID)"
-		Manufacturer="$(var.Manufacturer)"
+		Manufacturer="!(loc.Manufacturer)"
 		UpgradeCode="$(var.UpgradeCode)"
 	>
 		<Package
@@ -18,7 +18,7 @@
 			InstallScope="perMachine"
 			AdminImage="$(var.IsAdminImage)"
 			Compressed="$(var.Compressed)"
-			Manufacturer="$(var.Manufacturer)"
+			Manufacturer="!(loc.Manufacturer)"
 			ShortNames="no"
 			Description="!(loc.PackageDescription) $(var.ProductName)."
 			Comments="!(loc.PackageDescription) $(var.ProductName)."
@@ -43,15 +43,27 @@
 			Id="Product"
 			Level="1"
 			Absent="disallow"
-			Display="2"
+			Display="expand"
 			AllowAdvertise="no"
 			InstallDefault="local"
 			TypicalDefault="install"
-			Title="$(var.ProductShortName)"
-			Description="$(var.ProductName)"
+			Title="!(loc.Product.DisplayName)"
+			Description="!(loc.Product.Description)"
 		>
-			<!--<MergeRef Id="GOST2_304_81"/>-->
-			<ComponentGroupRef Id="GOST2.304_TypeA.ttf"/>
+			<Feature
+				Id="GOST_2_304_81_TTF"
+				Level="1"
+				Absent="allow"
+				Display="2"
+				AllowAdvertise="no"
+				InstallDefault="local"
+				TypicalDefault="install"
+				Title="!(loc.TTF.Title)"
+				Description="!(loc.TTF.Description)"
+			>
+				<!--<MergeRef Id="GOST_2_304_81"/>-->
+				<ComponentGroupRef Id="GOST2.304_TypeA.ttf"/>
+			</Feature>
 		</Feature>
 
 		<Upgrade Id="$(var.UpgradeCode)">
@@ -107,7 +119,7 @@
 
 		<!--<DirectoryRef Id="FontsFolder">
 			<Merge
-				Id="GOST2_304_81"
+				Id="GOST_2_304_81"
 				Language="!(loc.LCID)"
 				SourceFile="..\msm\bin\$(var.Configuration)\GOST2.304-81.msm"
 				DiskId="1"

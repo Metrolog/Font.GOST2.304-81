@@ -13,12 +13,13 @@
 		>
 
 			<Component
-				Id="GOST2.304_TypeA_Regular.ttf"
+				Id="GOST2.304_81_TypeA_Regular.ttf"
 				Guid="{45839D1E-28B1-425A-88C4-31BD9513AC60}"
 				Location="local"
 				Shared="yes"
 			>
 				<File
+					Id="GOST2.304_81_TypeA_Regular.ttf"
 					Name="GOST2.304-81TypeA-Regular.ttf"
 					ShortName="2304A.ttf"
 					DefaultVersion="!(var.FontVersion)"
@@ -29,12 +30,13 @@
 			</Component>
 
 			<Component
-				Id="GOST2.304_81TypeA_Slanted.ttf"
+				Id="GOST2.304_81_TypeA_Slanted.ttf"
 				Guid="{6941DF67-F315-4845-BDD5-9C00B8F32A29}"
 				Location="local"
 				Shared="yes"
 			>
 				<File
+					Id="GOST2.304_81_TypeA_Slanted.ttf"
 					Name="GOST2.304-81TypeA-Slanted.ttf"
 					ShortName="2304Ai.ttf"
 					DefaultVersion="!(var.FontVersion)"
