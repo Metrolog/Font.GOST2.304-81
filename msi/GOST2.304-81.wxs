@@ -123,6 +123,8 @@
 		<Property Id="INSTALLLEVEL" Value="3"/>
 		<Property Id="MSIRESTARTMANAGERCONTROL" Value="Enable"/>
 
+		<PropertyRef Id="MSIDEPLOYMENTCOMPLIANT"/>
+		
 		<MediaTemplate EmbedCab="$(var.Compressed)"/>
 
 		<?ifndef AdminImage ?>
