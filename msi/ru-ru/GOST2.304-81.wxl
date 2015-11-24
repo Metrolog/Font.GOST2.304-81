@@ -17,4 +17,7 @@
 	<String Id="TTF.Title">True Type шрифты</String>
 	<String Id="TTF.Description">True Type (.ttf) шрифты.</String>
 
+	<String Id="OTF.Title">Open Type шрифты</String>
+	<String Id="OTF.Description">Open Type (.otf) шрифты.</String>
+
 </WixLocalization>

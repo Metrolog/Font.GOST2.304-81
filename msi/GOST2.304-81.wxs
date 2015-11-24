@@ -54,7 +54,6 @@
 				Id="GOST_2_304_81_TTF"
 				Level="1"
 				Absent="allow"
-				Display="2"
 				AllowAdvertise="no"
 				InstallDefault="local"
 				TypicalDefault="install"
@@ -64,7 +63,28 @@
 				<!--<MergeRef Id="GOST_2_304_81"/>-->
 				<ComponentGroupRef Id="GOST2.304_TypeA.ttf"/>
 			</Feature>
+			<Feature
+				Id="GOST_2_304_81_OTF"
+				Level="200"
+				Absent="allow"
+				AllowAdvertise="no"
+				InstallDefault="local"
+				TypicalDefault="install"
+				Title="!(loc.OTF.Title)"
+				Description="!(loc.OTF.Description)"
+			>
+				<ComponentGroupRef Id="GOST2.304_TypeA.otf"/>
+			</Feature>
 		</Feature>
+
+		<!--<DirectoryRef Id="FontsFolder">
+			<Merge
+				Id="GOST_2_304_81"
+				Language="!(loc.LCID)"
+				SourceFile="..\msm\bin\$(var.Configuration)\GOST2.304-81.msm"
+				DiskId="1"
+			/>
+		</DirectoryRef>-->
 
 		<Upgrade Id="$(var.UpgradeCode)">
 			<UpgradeVersion
@@ -116,15 +136,6 @@
 		<!--<WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />-->
 
 		<?endif?>
-
-		<!--<DirectoryRef Id="FontsFolder">
-			<Merge
-				Id="GOST_2_304_81"
-				Language="!(loc.LCID)"
-				SourceFile="..\msm\bin\$(var.Configuration)\GOST2.304-81.msm"
-				DiskId="1"
-			/>
-		</DirectoryRef>-->
 
 	</Product>
 

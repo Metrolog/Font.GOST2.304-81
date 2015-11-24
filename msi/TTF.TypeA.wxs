@@ -24,7 +24,7 @@
 					ShortName="2304A.ttf"
 					DefaultVersion="!(var.FontVersion)"
 					KeyPath="yes"
-					Vital="no"
+					Vital="yes"
 					TrueType="yes"
 				/>
 			</Component>
@@ -41,7 +41,7 @@
 					ShortName="2304Ai.ttf"
 					DefaultVersion="!(var.FontVersion)"
 					KeyPath="yes"
-					Vital="no"
+					Vital="yes"
 					TrueType="yes"
 				/>
 			</Component>

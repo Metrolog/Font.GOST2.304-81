@@ -25,6 +25,7 @@
       <Link>
       </Link>
     </Compile>
+    <Compile Include="OTF.TypeA.wxs" />
     <Compile Include="TTF.TypeA.wxs" />
   </ItemGroup>
   <ItemGroup>

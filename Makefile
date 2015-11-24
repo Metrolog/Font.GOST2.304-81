@@ -361,7 +361,7 @@ msm: ttf
 # msi module
 
 .PHONY: msi
-msi: msm
+msi: msm ttf otf
 	$(MAKE) -C msi
 
 # clean projects
