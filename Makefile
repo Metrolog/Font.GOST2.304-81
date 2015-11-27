@@ -166,16 +166,15 @@ TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT)
 
 ifeq ($(AUTOHINT),ttfautohint)
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
+$(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(MAKETARGETDIR)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
-	
-$(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf
+
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
 	$(MAKETARGETDIR)
 	$(TTFAUTOHINT) $< $@
-	$(FASTFONT) $@
 
 else
 
@@ -183,13 +182,16 @@ ifeq ($(AUTOHINT),fontforge)
 	FFGENERATETTF	:= $(TOOLSDIR)/generate-autohinted-ttf.py
 endif
 
-$(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
-	$(MAKETARGETDIR)
 	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
-	$(FASTFONT) $@
 
 endif 
+
+$(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf
+	-$(FASTFONT) $<
+	$(MAKETARGETDIR)
+	cp $< $@
 
 .PHONY: ttf
 ttf: $(TTFTARGETS)
