@@ -1,20 +1,59 @@
+% \iffalse meta-comment
+%
+% Copyright (c) 2015 by Sergey S. Betke <sergey.s.betke@yandex.ru>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Sergey S. Betke.
+%
+% \fi
+%
 % \iffalse
 %
-%<driver>\ProvidesFile{gost2.304.dtx}
-%<*preamble>
-\ProvidesPackage{gost2.304}[2015/06/02 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные (для XeLaTeX и LuaLaTeX)]
-%</preamble>
+%<driver>\ProvidesFile{gost2.304.dtx}[2015/06/02 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
+%<style>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<style>\ProvidesPackage{gost2.304}[2015/06/02 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
 %<*driver>
 \documentclass{l3doc}
-\usepackage[
-  a4 paper,
-  portrait,
-  tmargin=10mm,
-  bmargin=10mm,
-  inner=20mm,
-  outer=10mm,
-  footskip=5mm
-]{geometry}
+\usepackage
+  [
+    a4 paper,
+    portrait,
+    tmargin=10mm,
+    bmargin=10mm,
+    inner=20mm,
+    outer=10mm,
+    footskip=5mm
+  ]
+  {geometry}
+\usepackage
+  [
+    mainfontsize = 3.5mm,
+    % zero = slashed,
+    digit-three = alternative,
+    roman-V = serif,
+	fractions = On,
+    math = true
+  ]
+  {gost2.304}
+\usepackage[russian]{babel}
+ 
+\DeclareRobustCommand \pkg {\textbf}
+% \newcommand{\pkg}[1]{\mbox{#1}}
+\newcommand{\opt}[1]{\mbox{\texttt{#1}}}
+\newcommand{\mainopt}[1]{\mbox{\textbf{#1}}}
+\providecommand{\figureversion}[1]{}
+
+\renewcommand{\theCodelineNo}%
+  {\normalfont\figureversion{tab}\scriptsize\arabic{CodelineNo}}
 
 \begin{document}
   \DocInput{gost2.304.dtx}
@@ -22,44 +61,23 @@
 %</driver>
 % \fi
 %
-% \GetFileInfo{gost2.304.dtx} 
+% \GetFileInfo{gost2.304.sty}
 %
-% \title{Experimental Unicode mathematical typesetting: The \pkg{unicode-math} package}
-% \author{Will Robertson, Philipp Stephani and Khaled Hosny\\
-%         \texttt{will.robertson@latex-project.org}}
+% \title{ГОСТ~2.304-81. ЕСКД. Шрифты чертёжные. Пакет~\pkg{gost2.304}}
+% \author{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
 % \date{\fileversion\ -- \filedate}
 % \maketitle
 % \tableofcontents
 %
-% \begin{abstract}
-% \noindent
-% This document describes the \pkg{unicode-math} package, which is
-% intended as an implementation of Unicode
-% maths for \LaTeX\ using the \XeTeX\ and Lua\TeX\ typesetting engines.
-% With this package, changing maths fonts is as easy as changing
-% text fonts --- and there are more and more maths fonts appearing now.
-% Maths input can also be simplified with Unicode since literal glyphs may be
-% entered instead of control sequences in your document source.
+% \newpage
+% \section{Введение}
 %
-% The package provides support for both \XeTeX\ and Lua\TeX. The different
-% engines provide differing levels of support for Unicode maths.
-% Please let us know of any troubles.
-%
-% Alongside this documentation file, you should be able to find a minimal
-% example demonstrating the use of the package,
-% `\texttt{unimath-example.ltx}'. It also comes with a separate document,
-% `\texttt{unimath-symbols.pdf}',
-% containing a complete listing of mathematical symbols defined by
-% \pkg{unicode-math}, including comparisons between different fonts.
-%
-% Finally, while the STIX fonts may be used with this package, accessing
-% their alphabets in their `private user area' is not yet supported.
-% (Of these additional alphabets there is a separate caligraphic design
-% distinct to the script design already included.)
-% Better support for the STIX fonts is planned for an upcoming revision of the
-% package after any problems have been ironed out with the initial version.
-%
-% \end{abstract}
+% Шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304-81.
+% Для использования в документах \LaTeX\, включите команду
+% \begin{quote}
+%   |\usepackage|\oarg{options}|{gost2.304}|
+% \end{quote}
+% в преамбулу документа.
 %
 % \newpage
 % \section{Introduction}
