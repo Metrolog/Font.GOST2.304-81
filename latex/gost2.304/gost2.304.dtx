@@ -15,17 +15,21 @@
 % The Current Maintainer of this work is Sergey S. Betke.
 %
 % \fi
-%
 % \iffalse
-%
-%<driver>\ProvidesFile{gost2.304.dtx}[2015/06/02 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
-%<style>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<style>\ProvidesPackage{gost2.304}[2015/06/02 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{gost2.304}[2016/04/03 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
+%<driver> \ProvidesFile{gost2.304.drv}
+% \fi
+%         \ProvidesFile{gost2.304.dtx}[2016/04/03 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
+% \iffalse
+%<*driver|package>
+\RequirePackage{expl3}
+%</driver|package>
 %<*driver>
-\documentclass{l3doc}
+\documentclass[a4paper,oneside]{l3doc}
 \usepackage
   [
-    a4 paper,
+    a4paper,
     portrait,
     tmargin=10mm,
     bmargin=10mm,
@@ -40,65 +44,69 @@
     % zero = slashed,
     digit-three = alternative,
     roman-V = serif,
-	fractions = On,
+    fractions = On,
     math = true
   ]
   {gost2.304}
 \usepackage[russian]{babel}
  
 \DeclareRobustCommand \pkg {\textbf}
-% \newcommand{\pkg}[1]{\mbox{#1}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
 \newcommand{\mainopt}[1]{\mbox{\textbf{#1}}}
 \providecommand{\figureversion}[1]{}
 
-\renewcommand{\theCodelineNo}%
-  {\normalfont\figureversion{tab}\scriptsize\arabic{CodelineNo}}
-
 \begin{document}
-  \DocInput{gost2.304.dtx}
+  \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
 % \fi
 %
-% \GetFileInfo{gost2.304.sty}
-%
-% \title{ГОСТ~2.304-81. ЕСКД. Шрифты чертёжные. Пакет~\pkg{gost2.304}}
-% \author{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
-% \date{\fileversion\ -- \filedate}
+% \GetFileInfo{gost2.304.dtx}
+% \DeclareRobustCommand \thispkg {\pkg\jobname}
+% \def\thisinfo{ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
+% \def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
+% \title{Пакет~\thispkg\, \thanks{Версия \fileversion, \filedate.}\\ \thisinfo}
+% \author{\thisauthor}
+% \date{\filedate}
 % \maketitle
-% \tableofcontents
 %
 % \newpage
+% \tableofcontents
+% \newpage
+%
 % \section{Введение}
 %
-% Шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304-81.
+% Пакет \thispkg{} позволяет использовать в документах \LaTeX\,
+% шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304-81.
+% В состав пакета входят как True Type шрифты, так и Open Type.
+%
+% Версия \fileversion\, пакета содержит только шрифты с начертанием типа А.
+% Шрифты с начертанием типа Б запланированы в последующих версиях пакета.
+%
 % Для использования в документах \LaTeX\, включите команду
 % \begin{quote}
-%   |\usepackage|\oarg{options}|{gost2.304}|
+%   |\usepackage|\oarg{options}|{\jobname}|
 % \end{quote}
 % в преамбулу документа.
 % О возможных опциях читайте в разделе~\ref{sec:options}.
 %
 % \section{Взаимосвязь с другими пакетами}
 %
-% Пакет \pkg{gost2.304} построен с использованием пакета \pkg{fontspec}.
+%<*package>
 %
-% \paragraph{Packages}
+% Пакет \thispkg{} построен на базе пакета \pkg{fontspec}
+% с использованием синтаксиса \LaTeX3.
 %    \begin{macrocode}
-%<*preamble>
 \RequirePackage{expl3}
 \RequirePackage{l3keys2e}
-%</preamble>
-%    \end{macrocode}
-%
-% Start using \LaTeX3 --- finally!
-%    \begin{macrocode}
-%<*preamble>
 \ExplSyntaxOn
 %    \end{macrocode}
 %
-% NFSS идентификатор шрифта
+% \section{Идентификаторы шрифтов}
+%
+% Пакет \thispkg{} определяет основной шрифт |eskdfont|
+% и математеческий шрифт |eskdfont|, а также NFSS семейства
+% шрифтов |eskdfontfamily| и соответствующие константы:
 %    \begin{macrocode}
 \tl_const:Nn \c_eskdfont_mainfont_tl {eskdfont}
 \tl_const:Nn \c_eskdfont_mathfont_tl {eskdfont}
@@ -106,16 +114,19 @@
 \tl_const:Nn \c_eskdfont_mathfont_NFSSFamily_tl {eskdfontfamily}
 %    \end{macrocode}
 %
-% Ряд размеров шрифтов h по ГОСТ 2.304
-% применяемые размеры шрифта h=2,5; 3,5; 5,0; 7,0; 10,0; 14,0; 20,0; 28,0; 40,0 мм
-% п.3.3 ГОСТ 2.105-95 - высота шрифта не менее 2,5 мм
-% ввожу в ряд 1.8mm только ради формул (индексов, прочего)
+% \section{Доступные размеры шрифтов}
+%
+% Ряд размеров шрифтов |h| определён ГОСТ~2.304.
+% По п.3.3 ГОСТ~2.105 высота шрифта |h| не менее 2,5~мм,
+% тем не менее доступен и |h|=1,8~мм - для формул (индексов, прочего).
 %    \begin{macrocode}
 \clist_const:Nn \c__eskdfont_fontsizes_clist {
   1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
 }
+%</package>
 %    \end{macrocode}
 %    \begin{macrocode}
+%<*package>
 
 \bool_new:N \g__eskdfont_mainfontsize_bool
 \bool_gset_false:N \g__eskdfont_mainfontsize_bool
@@ -263,7 +274,7 @@
       }
   }
 
-%</preamble>
+%</package>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*package>
