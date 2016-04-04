@@ -52,7 +52,6 @@
  
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg\jobname}
-\def\thisinfo{ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
 \def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
 \newcommand{\mainopt}[1]{\mbox{\textbf{#1}}}
@@ -74,7 +73,7 @@
 %
 % \DoNotIndex{}
 %
-% \title{Пакет~\thispkg\, \thanks{Версия \fileversion, \filedate.}\\ \thisinfo}
+% \title{Пакет~\thispkg\, \thanks{Версия \fileversion, \filedate.}\\ \fileinfo}
 % \author{\thisauthor}
 % \date{\filedate}
 % \maketitle
@@ -111,9 +110,14 @@
 %
 % \DescribeMacro{\YOURMACRO}
 % Put description of |\YOURMACRO| here.
+% \changes{v2.0}{2015/02/23}{Вторая версия}
 %
 % \DescribeEnv{YOURENV}
 % Put description of |YOURENV| here.
+%
+% \StopEventually{
+%   \PrintChanges
+% }
 %
 % \section{Implementation}
 %
@@ -127,7 +131,9 @@
 %
 % \section{Взаимосвязь с другими пакетами}
 %
+% \iffalse
 %<*package>
+% \fi
 %
 % Пакет \thispkg{} построен на базе пакета \pkg{fontspec}
 % с использованием синтаксиса \LaTeX3.
@@ -307,10 +313,14 @@
       }
   }
 
-%</package>
 %    \end{macrocode}
-%    \begin{macrocode}
+% \iffalse
+%</package>
+% \fi
+% \iffalse
 %<*package>
+% \fi
+%    \begin{macrocode}
 
 \ProcessKeysOptions { gost2.304 }
 
@@ -837,7 +847,9 @@
   }
 
 \ExplSyntaxOff
-%</package>
 %    \end{macrocode}
+% \iffalse
+%</package>
+% \fi
 % \Finale
 \endinput
