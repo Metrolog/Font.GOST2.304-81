@@ -27,17 +27,17 @@
 %</driver|package>
 %<*driver>
 \documentclass[a4paper,oneside]{l3doc}
-\usepackage
-  [
-    a4paper,
-    portrait,
-    tmargin=10mm,
-    bmargin=10mm,
-    inner=20mm,
-    outer=10mm,
-    footskip=5mm
-  ]
-  {geometry}
+%\usepackage
+%  [
+%    a4paper,
+%    portrait,
+%    tmargin=10mm,
+%    bmargin=10mm,
+%    inner=20mm,
+%    outer=10mm,
+%    footskip=5mm
+%  ]
+%  {geometry}
 \usepackage
   [
     mainfontsize = 3.5mm,
@@ -51,9 +51,16 @@
 \usepackage[russian]{babel}
  
 \DeclareRobustCommand \pkg {\textbf}
+\DeclareRobustCommand \thispkg {\pkg\jobname}
+\def\thisinfo{ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
+\def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
 \newcommand{\mainopt}[1]{\mbox{\textbf{#1}}}
 \providecommand{\figureversion}[1]{}
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
 
 \begin{document}
   \DocInput{\jobname.dtx}
@@ -61,24 +68,30 @@
 %</driver>
 % \fi
 %
+% \changes{v1.0}{2015/02/23}{Первоначальная версия}
+%
 % \GetFileInfo{gost2.304.dtx}
-% \DeclareRobustCommand \thispkg {\pkg\jobname}
-% \def\thisinfo{ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
-% \def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
+%
+% \DoNotIndex{}
+%
 % \title{Пакет~\thispkg\, \thanks{Версия \fileversion, \filedate.}\\ \thisinfo}
 % \author{\thisauthor}
 % \date{\filedate}
 % \maketitle
+%
+% \begin{abstract}
+%
+% Пакет \thispkg{} позволяет использовать в документах \LaTeX\,
+% шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304-81.
+% В состав пакета входят как True Type шрифты, так и Open Type.
+%
+% \end{abstract}
 %
 % \newpage
 % \tableofcontents
 % \newpage
 %
 % \section{Введение}
-%
-% Пакет \thispkg{} позволяет использовать в документах \LaTeX\,
-% шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304-81.
-% В состав пакета входят как True Type шрифты, так и Open Type.
 %
 % Версия \fileversion\, пакета содержит только шрифты с начертанием типа А.
 % Шрифты с начертанием типа Б запланированы в последующих версиях пакета.
@@ -89,6 +102,28 @@
 % \end{quote}
 % в преамбулу документа.
 % О возможных опциях читайте в разделе~\ref{sec:options}.
+%
+% \section{Introduction}
+%
+% Put text here.
+%
+% \section{Usage}
+%
+% \DescribeMacro{\YOURMACRO}
+% Put description of |\YOURMACRO| here.
+%
+% \DescribeEnv{YOURENV}
+% Put description of |YOURENV| here.
+%
+% \section{Implementation}
+%
+% \begin{macro}{\YOURMACRO}
+% Put explanation of |\YOURMACRO|'s implementation here.
+% \end{macro}
+%
+% \begin{environment}{YOURENV}
+% Put explanation of |YOURENV|'s implementation here.
+% \end{environment}
 %
 % \section{Взаимосвязь с другими пакетами}
 %
@@ -123,10 +158,8 @@
 \clist_const:Nn \c__eskdfont_fontsizes_clist {
   1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
 }
-%</package>
 %    \end{macrocode}
 %    \begin{macrocode}
-%<*package>
 
 \bool_new:N \g__eskdfont_mainfontsize_bool
 \bool_gset_false:N \g__eskdfont_mainfontsize_bool
