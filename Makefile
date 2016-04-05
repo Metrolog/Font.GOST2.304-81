@@ -17,7 +17,7 @@ all: ttf ttc woff otf ps0 ctan tex-tests msm msi
 ###
 
 FONT				:= GOST2.304-81TypeA
-LATEXPKG			:= gost2.304
+LATEXPKG			:= gost2-304
 SPACE				:= $(empty) $(empty)
 SRCDIR				:= sources
 OUTPUTDIR			:= release

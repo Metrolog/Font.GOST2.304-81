@@ -23,17 +23,17 @@
 %<package>\@ifpackagelater{expl3}{2014/09/15}
 %<package>  {}
 %<package>  {%
-%<package>    \PackageError{gost2.304}{Support package l3kernel too old}
+%<package>    \PackageError{gost2-304}{Support package l3kernel too old}
 %<package>      {%
 %<package>        Please install an up to date version of l3kernel\MessageBreak
 %<package>        using your TeX package manager or from CTAN.\MessageBreak
 %<package>        \MessageBreak
-%<package>        Loading gost2.304 will abort!%
+%<package>        Loading gost2-304 will abort!%
 %<package>      }%
 %<package>    \endinput
 %<package>  }
 % \fi
-\GetIdInfo$Id: gost2.304.dtx 0.6 2016-04-05 00:00:00Z sergey.s.betke $
+\GetIdInfo$Id: gost2-304.dtx 0.6 2016-04-05 00:00:00Z sergey.s.betke $
   {ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
 \def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
 % \iffalse
@@ -61,7 +61,7 @@
     fractions = On,
     math = true
   ]
-  {gost2.304}
+  {gost2-304}
 \usepackage[russian]{babel}
  
 \DeclareRobustCommand \pkg {\textbf}
@@ -108,7 +108,7 @@
 %
 % Для использования в документах \LaTeX\, включите команду
 % \begin{quote}
-%   |\usepackage|\oarg{options}|{gost2.304}|
+%   |\usepackage|\oarg{options}|{gost2-304}|
 % \end{quote}
 % в преамбулу документа.
 % О возможных опциях читайте в разделе~\ref{sec:options}.
@@ -208,25 +208,25 @@
 
 \cs_generate_variant:Nn \dim_to_decimal_in_unit:nn { cn }
 
-\msg_new:nnn { gost2.304 } { mainfont }
+\msg_new:nnn { gost2-304 } { mainfont }
   {
     Set~ eskdfont~ as~ main~ font.
   }
-\msg_new:nnn { gost2.304 } { invalid-font-size }
+\msg_new:nnn { gost2-304 } { invalid-font-size }
   {
     The~ font~ size~ "#1"~ is~ invalid.~
     Valid~ eskd~ font~ sizes:~ \clist_use:Nn \c__eskdfont_fontsizes_clist {,~ }.
   }
-\msg_new:nnn { gost2.304 } { invalid-mainfontsize }
+\msg_new:nnn { gost2-304 } { invalid-mainfontsize }
   {
     Invalid~ "mainfontsize"~ value~ "#1".
   }
-\msg_new:nnn { gost2.304 } { set-font-size }
+\msg_new:nnn { gost2-304 } { set-font-size }
   {
     Set~ "#1"~ font~ size~ to~ \dim_to_decimal_in_unit:cn {g__eskdfont_#1_dim} {1mm}~mm.
   }
 
-\keys_define:nn { gost2.304 }
+\keys_define:nn { gost2-304 }
   {
     mainfontsize .code:n =
       {
@@ -235,7 +235,7 @@
             \dim_gset:Nn \g__eskdfont_normalsize_dim {#1}
             \bool_gset_true:N \g__eskdfont_mainfontsize_bool
           }
-          { \msg_fatal:nnn { gost2.304 } {invalid-font-size} {#1} }
+          { \msg_fatal:nnn { gost2-304 } {invalid-font-size} {#1} }
       },
 
     language .tl_gset:N = \g__eskdfont_language_tl,
@@ -253,11 +253,11 @@
     digit-three .initial:n = { basic },
 
     romannumeral .choice:,
-    romannumeral / gost2.304 .code:n =
+    romannumeral / gost2-304 .code:n =
       { \bool_gset_true:N \g__eskdfont_romannumeral_check_bool },
     romannumeral / tex .code:n =
       { \bool_gset_false:N \g__eskdfont_romannumeral_check_bool },
-    romannumeral .initial:n = { gost2.304 },
+    romannumeral .initial:n = { gost2-304 },
 
     roman-V .choices:nn = { basic, alternative, serif }
       { \tl_gset_eq:NN \g__eskdfont_roman_V_variant_tl \l_keys_choice_tl },
@@ -288,8 +288,8 @@
 
     quiet .code:n =
       {
-        \msg_redirect_module:nnn { gost2.304 } { warning } { info }
-        \msg_redirect_module:nnn { gost2.304 } { info } { none }
+        \msg_redirect_module:nnn { gost2-304 } { warning } { info }
+        \msg_redirect_module:nnn { gost2-304 } { info } { none }
       },
     quiet .meta:n =
       {
@@ -298,8 +298,8 @@
 
     silent .code:n =
       {
-        \msg_redirect_module:nnn { gost2.304 } { warning } { none }
-        \msg_redirect_module:nnn { gost2.304 } { info } { none }
+        \msg_redirect_module:nnn { gost2-304 } { warning } { none }
+        \msg_redirect_module:nnn { gost2-304 } { info } { none }
       },
     silent .meta:n =
       {
@@ -309,21 +309,21 @@
     warnings-off .code:n =
       {
         \clist_map_inline:nn {#1}
-          { \msg_redirect_name:nnn { gost2.304 } { ##1 } { none } }
+          { \msg_redirect_name:nnn { gost2-304 } { ##1 } { none } }
       },
 
     trace .choice:,
     trace / on .code:n = 
       {
-        \msg_redirect_module:nnn { gost2.304 } { log } { log }
+        \msg_redirect_module:nnn { gost2-304 } { log } { log }
       },
     trace / debug .code:n =
       {
-        \msg_redirect_module:nnn { gost2.304 } { log } { warning }
+        \msg_redirect_module:nnn { gost2-304 } { log } { warning }
       },
     trace / off .code:n =
       {
-        \msg_redirect_module:nnn { gost2.304 } { log } { none }
+        \msg_redirect_module:nnn { gost2-304 } { log } { none }
       }
   }
 
@@ -336,7 +336,7 @@
 % \fi
 %    \begin{macrocode}
 
-\ProcessKeysOptions { gost2.304 }
+\ProcessKeysOptions { gost2-304 }
 
 \PassOptionsToPackage{T2A}{fontenc}
 \PassOptionsToPackage{T1}{fontenc}
@@ -519,7 +519,7 @@
                   \__eskdfont_setfontsize_h:Nc ##1 {g__eskdfont_\cs_to_str:N ##1_dim}
                   \selectfont
                 }
-                \msg_log:nnx { gost2.304 } { set-font-size } {\cs_to_str:N ##1}
+                \msg_log:nnx { gost2-304 } { set-font-size } {\cs_to_str:N ##1}
               }
             \normalsize
             \setmainfont { \tl_use:N \c_eskdfont_mainfont_tl }
@@ -527,14 +527,14 @@
                 % NFSSFamily = \tl_use:N \c_eskdfont_mainfont_NFSSFamily_tl,
                 \tl_use:N \g__eskdfont_mainfont_features_tl
               ]
-            \msg_log:nn { gost2.304 } { mainfont }
+            \msg_log:nn { gost2-304 } { mainfont }
           }
           {
-            \msg_fatal:nnn { gost2.304 } { invalid-mainfontsize } {#1}
+            \msg_fatal:nnn { gost2-304 } { invalid-mainfontsize } {#1}
           }
       }
       {
-        \msg_fatal:nnn { gost2.304 } { invalid-font-size } {#1}
+        \msg_fatal:nnn { gost2-304 } { invalid-font-size } {#1}
       }
   }
 \@onlypreamble \__eskdfont_normalsize_gset:n
