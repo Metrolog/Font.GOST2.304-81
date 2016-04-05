@@ -15,18 +15,32 @@
 % The Current Maintainer of this work is Sergey S. Betke.
 %
 % \fi
+%
 % \iffalse
-%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<package>\ProvidesPackage{gost2.304}[2016/04/03 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
-%<driver> \ProvidesFile{gost2.304.drv}
-% \fi
-%         \ProvidesFile{gost2.304.dtx}[2016/04/03 v0.6 ГОСТ 2.304-81 ЕСКД. Шрифты чертежные]
-% \iffalse
+%
 %<*driver|package>
-\RequirePackage{expl3}
+\RequirePackage{expl3}[2014/09/15]
+%<package>\@ifpackagelater{expl3}{2014/09/15}
+%<package>  {}
+%<package>  {%
+%<package>    \PackageError{gost2.304}{Support package l3kernel too old}
+%<package>      {%
+%<package>        Please install an up to date version of l3kernel\MessageBreak
+%<package>        using your TeX package manager or from CTAN.\MessageBreak
+%<package>        \MessageBreak
+%<package>        Loading gost2.304 will abort!%
+%<package>      }%
+%<package>    \endinput
+%<package>  }
+% \fi
+\GetIdInfo$Id: gost2.304.dtx 0.6 2016-04-05 00:00:00Z sergey.s.betke $
+  {ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
+\def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
+% \iffalse
 %</driver|package>
+%
 %<*driver>
-\documentclass[a4paper,oneside]{l3doc}
+\documentclass[a4paper,oneside,full]{l3doc}
 %\usepackage
 %  [
 %    a4paper,
@@ -51,7 +65,7 @@
 \usepackage[russian]{babel}
  
 \DeclareRobustCommand \pkg {\textbf}
-\DeclareRobustCommand \thispkg {\pkg\jobname}
+\DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
 \def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
 \newcommand{\mainopt}[1]{\mbox{\textbf{#1}}}
@@ -65,17 +79,14 @@
   \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
+%
 % \fi
 %
 % \changes{v1.0}{2015/02/23}{Первоначальная версия}
 %
-% \GetFileInfo{gost2.304.dtx}
-%
-% \DoNotIndex{}
-%
-% \title{Пакет~\thispkg\, \thanks{Версия \fileversion, \filedate.}\\ \fileinfo}
+% \title{Пакет~\thispkg\thanks{Версия \ExplFileVersion, \ExplFileDate.}\\\ExplFileDescription}
 % \author{\thisauthor}
-% \date{\filedate}
+% \date{\ExplFileDate}
 % \maketitle
 %
 % \begin{abstract}
@@ -97,7 +108,7 @@
 %
 % Для использования в документах \LaTeX\, включите команду
 % \begin{quote}
-%   |\usepackage|\oarg{options}|{\jobname}|
+%   |\usepackage|\oarg{options}|{gost2.304}|
 % \end{quote}
 % в преамбулу документа.
 % О возможных опциях читайте в разделе~\ref{sec:options}.
@@ -135,12 +146,15 @@
 %<*package>
 % \fi
 %
+%    \begin{macrocode}
+\ProvidesExplPackage
+  {\ExplFileName}{\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
+%    \end{macrocode}
+%
 % Пакет \thispkg{} построен на базе пакета \pkg{fontspec}
 % с использованием синтаксиса \LaTeX3.
 %    \begin{macrocode}
-\RequirePackage{expl3}
 \RequirePackage{l3keys2e}
-\ExplSyntaxOn
 %    \end{macrocode}
 %
 % \section{Идентификаторы шрифтов}
