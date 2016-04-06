@@ -92,15 +92,40 @@ copyfileto := $(call copyfile,$1/$(notdir $2),$2)
 # $(call copyfilefrom, tofile, fromdir)
 copyfilefrom = $(call copyfile,$1,$2/$(notdir $1))
 
+# check git version
+GITVERSION := $(lastword $(shell git --version))
+
 ## grab a version number from the repository (if any) that stores this.
-## * REVISION is the current revision number (short form, for inclusion in text)
 ## * VCSTURD is a file that gets touched after a repo update
-REVISION			:= $(shell git rev-parse --short HEAD)
-GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
-VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
-export VERSION		:= $(lastword $(subst /, ,$(GIT_BRANCH)))
-export MAJORVERSION	:= $(firstword $(subst ., ,$(VERSION)))
-export MINORVERSION	:= $(wordlist 2,2,$(subst ., ,$(VERSION)))
+GIT_BRANCH          := $(shell git symbolic-ref HEAD)
+VCSTURD             := $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
+export VERSION      := $(shell git symbolic-ref --short HEAD)
+export FULLVERSION  := $(VERSION).$(shell git rev-list --count --first-parent HEAD).$(shell git rev-list --count HEAD)
+export MAJORVERSION := $(firstword $(subst ., ,$(VERSION)))
+export MINORVERSION := $(wordlist 2,2,$(subst ., ,$(VERSION)))
+
+# build latex version file
+
+LATEXPRJVERSIONFILE := $(AUXDIR)/version.tex
+
+$(LATEXPRJVERSIONFILE): .git/logs/HEAD Makefile
+	$(info Generate latex version file "$@"...)
+	$(MAKETARGETDIR)
+	@git log -1 --date=format:%%Y/%%m/%%d --format="format:\
+%%\iffalse%%n\
+%%<*version>%%n\
+%%\fi%%n\
+\def\GITCommitterName{%%cn}%%n\
+\def\GITCommitterEmail{%%ce}%%n\
+\def\GITCommitterDate{%%cd}%%n\
+\def\ExplFileDate{%%ad}%%n\
+\def\ExplFileVersion{$(FULLVERSION)}%%n\
+\def\ExplFileAuthor{%%an}%%n\
+\def\ExplFileAuthorEmail{%%ae}%%n\
+%%\iffalse%%n\
+%%</version>%%n\
+%%\fi%%n\
+" > $@
 
 # generate aux .sfd files
 
@@ -269,7 +294,7 @@ LATEXUNPACK ?= latex \
 LATEXSANDBOXSOURCEFILES := $(patsubst $(LATEXPKGMAINDIR)/%,$(LATEXPKGUNPACKDIR)/%,$(LATEXPKGSOURCEFILES))
 $(foreach file,$(LATEXSANDBOXSOURCEFILES),$(eval $(call copyfilefrom,$(file),$(LATEXPKGMAINDIR))))
 
-$(LATEXPKGINSTALLFILES): $(LATEXSANDBOXSOURCEFILES)
+$(LATEXPKGINSTALLFILES): $(LATEXSANDBOXSOURCEFILES) $(LATEXPRJVERSIONFILE)
 	$(info Unpack [by docstrip] package files "$@"...)
 	$(MAKETARGETDIR)
 	cd $(<D) && $(LATEXUNPACK) $(<F)
@@ -283,7 +308,7 @@ LATEXPKGTYPESETDIR := $(LATEXPKGUNPACKDIR)
 LATEXPKGDOCS := $(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf
 LATEXMKRC := $(LATEXSRCDIR)/latexmkrc
 
-$(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXSANDBOXSOURCEFILES) $(LATEXPKGINSTALLFILES) ttf $(LATEXMKRC)
+$(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXSANDBOXSOURCEFILES) $(LATEXPRJVERSIONFILE) $(LATEXPKGINSTALLFILES) ttf $(LATEXMKRC)
 	$(info Build package doc files "$@"...)
 	$(MAKETARGETDIR)
 	$(LATEXMK) -r $(LATEXMKRC) -outdir=$(@D) $<

@@ -18,26 +18,27 @@
 %
 % \iffalse
 %
-%<*driver|package>
+%<*driver|package-header>
 \RequirePackage{expl3}[2014/09/15]
-%<package>\@ifpackagelater{expl3}{2014/09/15}
-%<package>  {}
-%<package>  {%
-%<package>    \PackageError{gost2-304}{Support package l3kernel too old}
-%<package>      {%
-%<package>        Please install an up to date version of l3kernel\MessageBreak
-%<package>        using your TeX package manager or from CTAN.\MessageBreak
-%<package>        \MessageBreak
-%<package>        Loading gost2-304 will abort!%
-%<package>      }%
-%<package>    \endinput
-%<package>  }
+%<*package-header>
+%\@ifpackagelater{expl3}{2014/09/15}
+%  {}
+%  {%
+%    \PackageError{gost2-304}{Support package l3kernel too old}
+%      {%
+%        Please install an up to date version of l3kernel\MessageBreak
+%        using your TeX package manager or from CTAN.\MessageBreak
+%        \MessageBreak
+%        Loading gost2-304 will abort!%
+%      }%
+%    \endinput
+%  }
+%</package-header>
 % \fi
-\GetIdInfo$Id: gost2-304.dtx 0.6 2016-04-05 00:00:00Z sergey.s.betke $
-  {ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
-\def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
+\def\ExplFileName{gost2-304}
+\def\ExplFileDescription{ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
 % \iffalse
-%</driver|package>
+%</driver|package-header>
 %
 %<*driver>
 \documentclass[a4paper,oneside,full]{l3doc}
@@ -63,10 +64,10 @@
   ]
   {gost2-304}
 \usepackage[russian]{babel}
+\usepackage{datetime2}
  
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
-\def\thisauthor{Бетке Сергей Сергеевич \\ {sergey.s.betke@yandex.ru}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
 \newcommand{\mainopt}[1]{\mbox{\textbf{#1}}}
 \providecommand{\figureversion}[1]{}
@@ -82,10 +83,12 @@
 %
 % \fi
 %
+% \input{../../obj/version.tex} 
+%
 % \changes{v1.0}{2015/02/23}{Первоначальная версия}
 %
 % \title{Пакет~\thispkg\thanks{Версия \ExplFileVersion, \ExplFileDate.}\\\ExplFileDescription}
-% \author{\thisauthor}
+% \author{\ExplFileAuthor \\ \ExplFileAuthorEmail}
 % \date{\ExplFileDate}
 % \maketitle
 %
@@ -103,7 +106,7 @@
 %
 % \section{Введение}
 %
-% Версия \fileversion\, пакета содержит только шрифты с начертанием типа А.
+% Версия \ExplFileVersion\, пакета содержит только шрифты с начертанием типа А.
 % Шрифты с начертанием типа Б запланированы в последующих версиях пакета.
 %
 % Для использования в документах \LaTeX\, включите команду
