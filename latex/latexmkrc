@@ -1,17 +1,8 @@
-#add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
-add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
+add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
 
 sub run_makeglossaries {
-  if ( $silent ) {
-    system "makeglossaries -q $_[0]";
-  }
-  else {
-    system "makeglossaries $_[0]";
-  };
-}
-
-sub makeglo2gls {
-    system("makeindex -t $_[0].glg -o $_[0].gls $_[0].glo");
+  $q = $silent ? '-q' : '';
+  system("makeindex $q -s gglo.ist -t $_[0].glg -o $_[0].gls $_[0].glo");
 }
 
 push @generated_exts, 'glo', 'gls', 'glg';
