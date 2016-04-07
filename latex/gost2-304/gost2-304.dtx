@@ -64,8 +64,13 @@
   ]
   {gost2-304}
 \usepackage[russian]{babel}
-\usepackage{datetime2}
- 
+\usepackage[useregional]{datetime2}
+
+\makeatletter
+\def\@dateTeXtoISO#1/#2/#3/{#1-#2-#3}
+\newcommand*{\dateTeXtoISO}[1]{\expandafter\@dateTeXtoISO#1/}
+\makeatother
+
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
@@ -109,13 +114,14 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \input{../../obj/version.tex} 
+% \input{../../obj/version.tex}
+% \edef\ExplFileDateISO{\dateTeXtoISO{\ExplFileDate}}
 %
 % \changes{v1.0}{2015/02/23}{Первоначальная версия}
 %
-% \title{Пакет~\thispkg\thanks{Версия \ExplFileVersion, \ExplFileDate.}\\\ExplFileDescription}
+% \title{Пакет~\thispkg\thanks{Версия \ExplFileVersion, \DTMdate{\ExplFileDateISO}. }\\\ExplFileDescription}
 % \author{\ExplFileAuthor \\ \ExplFileAuthorEmail}
-% \date{\ExplFileDate}
+% \date{\DTMdate{\ExplFileDateISO}}
 % \maketitle
 %
 % \begin{abstract}
