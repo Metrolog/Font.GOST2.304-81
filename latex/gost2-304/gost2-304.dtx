@@ -66,10 +66,17 @@
 \usepackage[russian]{babel}
 \usepackage[useregional]{datetime2}
 
-\makeatletter
-\def\@dateTeXtoISO#1/#2/#3/{#1-#2-#3}
-\newcommand*{\dateTeXtoISO}[1]{\expandafter\@dateTeXtoISO#1/}
-\makeatother
+\ExplSyntaxOn
+\cs_new_nopar:Npn \date_TeX_to_ISO:w #1/#2/#3 \q_stop
+  {
+    #1-#2-#3
+  }
+\cs_new_nopar:Nn \date_TeX_to_ISO:n
+  {
+    \exp_after:wN \date_TeX_to_ISO:w #1 \q_stop
+  }
+\cs_set_eq:NN \dateTeXtoISO \date_TeX_to_ISO:n
+\ExplSyntaxOff
 
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
