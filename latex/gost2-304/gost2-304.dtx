@@ -78,6 +78,9 @@
 \cs_set_eq:NN \dateTeXtoISO \date_TeX_to_ISO:n
 \ExplSyntaxOff
 
+\input{../../obj/version.tex}
+\edef\ExplFileDateISO{\dateTeXtoISO{\ExplFileDate}}
+
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
@@ -86,7 +89,7 @@
 
 \EnableCrossrefs
 \PageIndex
-%\CodelineIndex
+\CodelineIndex
 
 \RecordChanges
 \def\ChangesHistory{История изменений}
@@ -96,7 +99,11 @@
 }
 
 \begin{document}
+  \DisableImplementation
   \DocInput{\jobname.dtx}
+  \EnableImplementation
+  \DisableDocumentation
+  \DocInputAgain
   \PrintChanges
 \end{document}
 %</driver>
@@ -121,8 +128,7 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \input{../../obj/version.tex}
-% \edef\ExplFileDateISO{\dateTeXtoISO{\ExplFileDate}}
+% \begin{documentation}
 %
 % \changes{v1.0}{2015/02/23}{Первоначальная версия}
 %
@@ -145,8 +151,8 @@
 %
 % \section{Введение}
 %
-% Версия \ExplFileVersion\, пакета содержит только шрифты с начертанием типа А.
-% Шрифты с начертанием типа Б запланированы в последующих версиях пакета.
+% Версия \ExplFileVersion\, пакета содержит только шрифты с начертанием типа~А.
+% Шрифты с начертанием типа~Б запланированы в последующих версиях пакета.
 %
 % Для использования в документах \LaTeX\, включите команду
 % \begin{quote}
@@ -155,32 +161,8 @@
 % в преамбулу документа.
 % О возможных опциях читайте в разделе~\ref{sec:options}.
 %
-% \section{Introduction}
-%
-% Put text here.
-%
-% \section{Usage}
-%
-% \DescribeMacro{\YOURMACRO}
-% Put description of |\YOURMACRO| here.
-% \changes{v2.0}{2015/02/23}{Вторая версия}
-%
-% \DescribeEnv{YOURENV}
-% Put description of |YOURENV| here.
-%
-% \StopEventually{}
-%
-% \section{Implementation}
-%
-% \begin{macro}{\YOURMACRO}
-% Put explanation of |\YOURMACRO|'s implementation here.
-% \end{macro}
-%
-% \begin{environment}{YOURENV}
-% Put explanation of |YOURENV|'s implementation here.
-% \end{environment}
-%
-% \section{Взаимосвязь с другими пакетами}
+% \end{documentation}
+% \begin{implementation}
 %
 % \iffalse
 %<*package>
@@ -191,23 +173,43 @@
   {\ExplFileName}{\ExplFileDate}{\ExplFileVersion}{\ExplFileDescription}
 %    \end{macrocode}
 %
+% \end{implementation}
+% \begin{documentation}
+%
+% \section{Взаимосвязь с другими пакетами}
+%
 % Пакет \thispkg{} построен на базе пакета \pkg{fontspec}
 % с использованием синтаксиса \LaTeX3.
+% \end{documentation}
+% \begin{implementation}
 %    \begin{macrocode}
 \RequirePackage{l3keys2e}
 %    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
 %
 % \section{Идентификаторы шрифтов}
 %
-% Пакет \thispkg{} определяет основной шрифт |eskdfont|
-% и математеческий шрифт |eskdfont|, а также NFSS семейства
-% шрифтов |eskdfontfamily| и соответствующие константы:
+% Пакет \thispkg{} определяет основной шрифт \DescribeMacro{\eskdfont}|eskdfont|
+% и математический шрифт |eskdfont|, а также NFSS семейства
+% шрифтов \DescribeMacro{\eskdfontfamily}|eskdfontfamily|.
+% \end{documentation}
+% \begin{implementation}
+% и соответствующие константы:
+% \begin{macro}{\eskdfont}
 %    \begin{macrocode}
 \tl_const:Nn \c_eskdfont_mainfont_tl {eskdfont}
 \tl_const:Nn \c_eskdfont_mathfont_tl {eskdfont}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\eskdfontfamily}
+%    \begin{macrocode}
 \tl_const:Nn \c_eskdfont_mainfont_NFSSFamily_tl {eskdfontfamily}
 \tl_const:Nn \c_eskdfont_mathfont_NFSSFamily_tl {eskdfontfamily}
 %    \end{macrocode}
+% \end{macro}
+% \end{implementation}
+% \begin{documentation}
 %
 % \section{Доступные размеры шрифтов}
 %
@@ -219,6 +221,8 @@
   1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
 }
 %    \end{macrocode}
+% \end{documentation}
+% \begin{implementation}
 %    \begin{macrocode}
 
 \bool_new:N \g__eskdfont_mainfontsize_bool
@@ -266,6 +270,8 @@
     Set~ "#1"~ font~ size~ to~ \dim_to_decimal_in_unit:cn {g__eskdfont_#1_dim} {1mm}~mm.
   }
 
+% \section{Опции пакета}\label{sec:options}
+%
 \keys_define:nn { gost2-304 }
   {
     mainfontsize .code:n =
@@ -905,5 +911,20 @@
 % \iffalse
 %</package>
 % \fi
+%
+% \end{implementation}
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+%
+% \begin{macro}{\YOURMACRO}
+% Put explanation of |\YOURMACRO|'s implementation here.
+% \end{macro}
+%
+% \begin{environment}{YOURENV}
+% Put explanation of |YOURENV|'s implementation here.
+% \end{environment}
+%
 % \Finale
 \endinput
