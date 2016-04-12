@@ -73,6 +73,20 @@
 \cs_set_eq:NN \dateTeXtoISO \date_TeX_to_ISO:n
 \ExplSyntaxOff
 
+\NewDocumentCommand \DrawChars {m O{15mm} O{14mm}} {
+  {
+    \noindent
+    \eskdfontsize{#3} 
+    \begin{tikzpicture}
+    \papergraduate (-5mm,0mm) (125mm,#2);
+    \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
+    {
+      #1
+    };
+    \end{tikzpicture}
+  }
+}
+
 \input{../../obj/version.tex}
 \edef\ExplFileDateISO{\dateTeXtoISO{\ExplFileDate}}
 
@@ -403,6 +417,16 @@
 % По умолчанию - |zero=basic|, в соответствии с ГОСТ~2.304.
 % Для применения начертания, принятого в среде программистов,
 % следует использовать |zero=slashed|.
+%
+% Отличия видны ниже:
+%
+% \DrawChars{ 1234567890 \addfontfeature{Numbers=SlashedZero} 0 }
+%
+% Локально изменить начертание нуля можно следующим образом:
+% \begin{verbatim}
+% { 0 \addfontfeature{Numbers=SlashedZero} 0 }
+% \end{verbatim}
+% \DrawChars{ 0 \addfontfeature{Numbers=SlashedZero} 0 }
 %
 % \end{documentation}
 % \begin{implementation}
