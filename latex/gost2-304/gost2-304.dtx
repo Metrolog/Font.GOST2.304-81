@@ -280,7 +280,9 @@
 %
 %    \begin{macrocode}
 \cs_generate_variant:Nn \dim_to_decimal_in_unit:nn { cn }
-
+%    \end{macrocode}
+% Сообщения пакета
+%    \begin{macrocode}
 \msg_new:nnn { gost2-304 } { mainfont }
   {
     Set~ eskdfont~ as~ main~ font.
@@ -319,7 +321,7 @@
 % \end{implementation}
 % \begin{documentation}
 %
-% \subsection{Размер основного шрифта mainfontsize}\label{sec:mainfontsize}
+% \subsection{mainfontsize}\label{sec:mainfontsize}
 %
 % Использование пакета \thispkg{} без опции |mainfontsize|
 % лишь определяет шрифты |eskdfont| для их дальнейшего явного использования.
@@ -335,9 +337,12 @@
 % для относительных размеров шрифта |\small|, |\tiny| и других:
 % они также выбираются из допустимого размерного ряда.
 %
+% Для изменения размера также следует обратить внимание на макрос
+% |\eskdfontsize|.
+%
 % \end{documentation}
 % \begin{implementation}
-% Использование |eskdfont| как основного шрифта по умолчанию и его размер:
+% Использование |eskdfont| как основного шрифта по умолчанию и его размер
 %    \begin{macrocode}
     mainfontsize .code:n =
       {
@@ -348,7 +353,21 @@
           }
           { \msg_fatal:nnn { gost2-304 } {invalid-font-size} {#1} }
       },
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{language}\label{sec:language}
+%
+% Параметр |language| соответствует параметру |Language|
+% макросов пакета \pkg{fontspec}.
+% Значение по умолчанию - |Russian|.
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |language| соответствует параметру |Language|
+% макросов пакета \pkg{fontspec}
+%    \begin{macrocode}
     language .tl_gset:N = \g_@@_language_tl,
     language .initial:n = Russian,
 
