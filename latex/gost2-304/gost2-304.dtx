@@ -463,7 +463,45 @@
     digit-three .choices:nn = { basic, alternative }
       { \tl_gset_eq:NN \g_@@_digit_three_variant_tl \l_keys_choice_tl },
     digit-three .initial:n = { basic },
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{romannumeral}\label{opt:romannumeral}
+%
+% Параметр |romannumeral| определяет начертание римских цифр.
+% По умолчанию - |romannumeral=gost2-304|.
+% При указанном значении опции для отображения римских цифр
+% будут использованы специальные Unicode символы, а не 
+% близкие по начертанию латинские буквы.
+%
+% При |romannumeral=tex| для отображения римских цифр
+% будут использованы
+% близкие по начертанию латинские буквы.
+%
+% Отличия видны ниже.
+% Обратите внимание на различия в расстоянии между символами
+% в римских цифрах. При использовании латинских символов расстояния
+% не соответствуют требованиям ГОСТ~2.304, именно поэтому значение
+% опции |gost2-304| является предпочтительным.
+%
+% \newcounter{digit}
+% \makeatletter
+% \DrawChars{
+%   \addfontfeature{ RomanNumeral = Off, RomanV = basic }
+%   IV VI XII MMXIV
+% }
+%
+% \DrawChars{
+%   \addfontfeature{ RomanNumeral = On, RomanV = basic }
+%   \@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}
+% }
+% \makeatother
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |romannumeral| определяет начертание римских цифр.
+%    \begin{macrocode}
     romannumeral .choice:,
     romannumeral / gost2-304 .code:n =
       { \bool_gset_true:N \g_@@_romannumeral_check_bool },
