@@ -45,17 +45,6 @@
 \ProvidesFile{\ExplFileName.dtx}
   [\ExplFileDate\space v\ExplFileVersion\space\ExplFileDescription]
 \documentclass[a4paper,oneside,full]{l3doc}
-%\usepackage
-%  [
-%    a4paper,
-%    portrait,
-%    tmargin=10mm,
-%    bmargin=10mm,
-%    inner=20mm,
-%    outer=10mm,
-%    footskip=5mm
-%  ]
-%  {geometry}
 \usepackage
   [
     mainfontsize = 3.5mm,
@@ -68,6 +57,9 @@
   {gost2-304}
 \usepackage[russian]{babel}
 \usepackage[useregional]{datetime2}
+\usepackage{interfaces}
+\usepackage{tikz}
+\usepackage{interfaces-tikz}
 
 \ExplSyntaxOn
 \cs_new_nopar:Npn \date_TeX_to_ISO:w #1/#2/#3 \q_stop
@@ -342,7 +334,7 @@
 %
 % \end{documentation}
 % \begin{implementation}
-% Использование |eskdfont| как основного шрифта по умолчанию и его размер
+% Использование |eskdfont| как основного шрифта по умолчанию и его размер.
 %    \begin{macrocode}
     mainfontsize .code:n =
       {
@@ -361,12 +353,43 @@
 %
 % Параметр |language| соответствует параметру |Language|
 % макросов пакета \pkg{fontspec}.
+% Влияет на использование языкозависимых лигатур.
+%
+% Например, символы |No.| в русском языке заменяются
+% лигатурой №. А в немецком языке порядковый номер как
+% раз традиционно записывается символами |No.|, а не
+% лигатурой №.
+%
+% Код
+% \begin{verbatim}
+% \usepackage[mainfontsize=5mm, language=Russian]
+%   {gost2-304}
+% \begin{document}
+%   No.
+% \end{document}
+% \end{verbatim}
+% даёт No.. А код 
+% \begin{verbatim}
+% \usepackage[mainfontsize=5mm, language=German]
+%   {gost2-304}
+% \begin{document}
+%   No.
+% \end{document}
+% \end{verbatim}
+% даёт { \addfontfeature{Language=German} No.}.
+%
+% Локально изменить языковые параметры шрифта можно следующим
+% образом:
+% \begin{verbatim}
+% { \addfontfeature{Language=German} No.}
+% \end{verbatim}
+%
 % Значение по умолчанию - |Russian|.
 %
 % \end{documentation}
 % \begin{implementation}
 % Параметр |language| соответствует параметру |Language|
-% макросов пакета \pkg{fontspec}
+% макросов пакета \pkg{fontspec}.
 %    \begin{macrocode}
     language .tl_gset:N = \g_@@_language_tl,
     language .initial:n = Russian,
@@ -383,7 +406,7 @@
 %
 % \end{documentation}
 % \begin{implementation}
-% Параметр |zero| определяет начертание цифры |0|
+% Параметр |zero| определяет начертание цифры |0|.
 %    \begin{macrocode}
     zero .choice:,
     zero / basic .code:n =
