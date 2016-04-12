@@ -321,7 +321,7 @@
 % \end{implementation}
 % \begin{documentation}
 %
-% \subsection{mainfontsize}\label{sec:mainfontsize}
+% \subsection{mainfontsize}\label{opt:mainfontsize}
 %
 % Использование пакета \thispkg{} без опции |mainfontsize|
 % лишь определяет шрифты |eskdfont| для их дальнейшего явного использования.
@@ -357,7 +357,7 @@
 % \end{implementation}
 % \begin{documentation}
 %
-% \subsection{language}\label{sec:language}
+% \subsection{language}\label{opt:language}
 %
 % Параметр |language| соответствует параметру |Language|
 % макросов пакета \pkg{fontspec}.
@@ -370,7 +370,21 @@
 %    \begin{macrocode}
     language .tl_gset:N = \g_@@_language_tl,
     language .initial:n = Russian,
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{zero}\label{opt:zero}
+%
+% Параметр |zero| определяет вариант начертания цифры |0|.
+% По умолчанию - |zero=basic|, в соответствии с ГОСТ~2.304.
+% Для применения начертания, принятого в среде программистов,
+% следует использовать |zero=slashed|.
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |zero| определяет начертание цифры |0|
+%    \begin{macrocode}
     zero .choice:,
     zero / basic .code:n =
       { \bool_gset_false:N \g_@@_slashed_zero_bool },
