@@ -49,7 +49,7 @@
   [
     mainfontsize = 3.5mm,
     % zero = slashed,
-    digit-three = alternative,
+    % digit-three = alternative,
     roman-V = serif,
     fractions = On,
     math = true
@@ -438,7 +438,28 @@
     zero / slashed .code:n =
       { \bool_gset_true:N \g_@@_slashed_zero_bool },
     zero .initial:n = { basic },
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{digit-three}\label{opt:digit-three}
+%
+% Параметр |digit-three| определяет начертание цифры 3.
+% По умолчанию - |digit-three=basic|.
+% Для применения начертания, существенно отличающегося от буквы З,
+% следует использовать |alternative|.
+%
+% Отличия видны ниже.
+% Локально изменить начертание можно следующим образом:
+% \begin{verbatim}
+% { 3 \addfontfeature{DigitThree=alternative} 3 }
+% \end{verbatim}
+% \DrawChars{ 3 \addfontfeature{DigitThree=alternative} 3 }
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |digit-three| определяет начертание цифры |3|.
+%    \begin{macrocode}
     digit-three .choices:nn = { basic, alternative }
       { \tl_gset_eq:NN \g_@@_digit_three_variant_tl \l_keys_choice_tl },
     digit-three .initial:n = { basic },
