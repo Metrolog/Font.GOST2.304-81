@@ -187,8 +187,8 @@
 \RequirePackage{l3keys2e}
 %    \end{macrocode}
 % \end{implementation}
-% \begin{documentation}
 %
+% \begin{documentation}
 % \section{Идентификаторы шрифтов}
 %
 % Пакет \thispkg{} определяет основной шрифт \DescribeMacro{\eskdfont}|eskdfont|
@@ -213,24 +213,44 @@
 % \end{variable}
 % \end{implementation}
 % \begin{documentation}
-%
 % \section{Доступные размеры шрифтов}
 %
+% \DescribeMacro{\c_@@_fontsizes_clist}
 % Ряд размеров шрифтов |h| определён ГОСТ~2.304.
+% При попытке использования других размеров, будет выбран
+% ближайший, но меньший указанного, из ряда.
 % По п.3.3 ГОСТ~2.105 высота шрифта |h| не менее 2,5~мм,
 % тем не менее доступен и |h|=1,8~мм - для формул (индексов, прочего).
+%
+% \end{documentation}
+% \begin{implementation}
+% \begin{variable}{\c_@@_fontsizes_clist}
+% Ряд допустимых размеров шрифтов |h|.
+%
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_fontsizes_clist {
   1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
 }
 %    \end{macrocode}
+% \end{variable}
+% \end{implementation}
+%
+% \begin{documentation}
 % \end{documentation}
 % \begin{implementation}
+% 
+% Предикат |\g_@@_mainfontsize_bool| используется для определения, установлен ли
+% размер основного шрифта
+% в опциях пакета и используется ли шрифт |eskdfont| как основной по умолчанию.
+% Устанавливается опцией |mainfontsize|.
 %    \begin{macrocode}
-
 \bool_new:N \g_@@_mainfontsize_bool
 \bool_gset_false:N \g_@@_mainfontsize_bool
-
+%    \end{macrocode}
+%
+% Переменные, хранящие абсолютное значение размеров шрифта для относительных
+% размеров, вычисляемые исходя из |mainfontsize|.
+%    \begin{macrocode}
 \dim_new:N \g_@@_normalsize_dim
 \dim_new:N \g_@@_small_dim
 \dim_new:N \g_@@_footnotesize_dim
@@ -241,7 +261,11 @@
 \dim_new:N \g_@@_LARGE_dim
 \dim_new:N \g_@@_huge_dim
 \dim_new:N \g_@@_Huge_dim
-
+%    \end{macrocode}
+%
+% Переменные для хранения значений опций.
+% Подробнее - при описании опций.
+%    \begin{macrocode}
 \tl_new:N \g_@@_language_tl
 \bool_new:N \g_@@_slashed_zero_bool
 \bool_gset_false:N \g_@@_slashed_zero_bool
@@ -252,7 +276,9 @@
 \tl_new:N \g_@@_fractions_tl
 \bool_new:N \g_@@_math_support_bool
 \bool_gset_false:N \g_@@_math_support_bool
-
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \cs_generate_variant:Nn \dim_to_decimal_in_unit:nn { cn }
 
 \msg_new:nnn { gost2-304 } { mainfont }
@@ -262,7 +288,8 @@
 \msg_new:nnn { gost2-304 } { invalid-font-size }
   {
     The~ font~ size~ "#1"~ is~ invalid.~
-    Valid~ eskd~ font~ sizes:~ \clist_use:Nn \c_@@_fontsizes_clist {,~ }.
+    Valid~ eskd~ font~ sizes:~
+    \clist_use:Nn \c_@@_fontsizes_clist {,~ }.
   }
 \msg_new:nnn { gost2-304 } { invalid-mainfontsize }
   {
@@ -270,13 +297,48 @@
   }
 \msg_new:nnn { gost2-304 } { set-font-size }
   {
-    Set~ "#1"~ font~ size~ to~ \dim_to_decimal_in_unit:cn {g_@@_#1_dim} {1mm}~mm.
+    Set~ "#1"~ font~ size~ to~
+    \dim_to_decimal_in_unit:cn {g_@@_#1_dim} {1mm}~mm.
   }
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
 % \section{Опции пакета}\label{sec:options}
 %
+% Пакет \thispkg{} предоставляет ряд опций, определяющих размеры шрифта,
+% его начертание, применение.
+%
+% \end{documentation}
+% \begin{implementation}
+% Опции пакета
+%    \begin{macrocode}
 \keys_define:nn { gost2-304 }
   {
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{Размер основного шрифта mainfontsize}\label{sec:mainfontsize}
+%
+% Использование пакета \thispkg{} без опции |mainfontsize|
+% лишь определяет шрифты |eskdfont| для их дальнейшего явного использования.
+%
+% При указании опции |mainfontsize|, например, так:
+% \begin{verbatim}
+% \usepackage[mainfontsize=3.5mm]{gost2-304}
+% \end{verbatim}
+% шрифты |eskdfont| будут не только определены, но и шрифт текста по умолчанию
+% будет изменён на |eskdfont| с |h|=3,5~мм.
+%
+% Кроме того, при использовании опции |mainfontsize| также корректируются и размеры
+% для относительных размеров шрифта |\small|, |\tiny| и других:
+% они также выбираются из допустимого размерного ряда.
+%
+% \end{documentation}
+% \begin{implementation}
+% Использование |eskdfont| как основного шрифта по умолчанию и его размер:
+%    \begin{macrocode}
     mainfontsize .code:n =
       {
         \clist_if_in:NnTF \c_@@_fontsizes_clist {#1}
