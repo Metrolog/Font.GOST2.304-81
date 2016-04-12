@@ -508,7 +508,36 @@
     romannumeral / tex .code:n =
       { \bool_gset_false:N \g_@@_romannumeral_check_bool },
     romannumeral .initial:n = { gost2-304 },
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{roman-V}\label{opt:roman-V}
+%
+% Параметр |roman-V| определяет начертание римской цифры 5.
+% По умолчанию - |roman-V=basic|.
+% Второй вариант значения - |alternative|.
+%
+% Отличия видны ниже.
+%
+% Локально изменить начертание можно следующим образом:
+% \begin{verbatim}
+% { \@roman{5}
+%   \addfontfeature{Roman-V=alternative} \@roman{5} }
+% \end{verbatim}
+% \makeatletter
+% \DrawChars{
+%   \addfontfeature{ RomanV = basic }
+%   \@roman{5}
+%   \addfontfeature{ RomanV = alternative }
+%   \@roman{5}
+% }
+% \makeatother
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |roman-V| определяет начертание римской цифры 5.
+%    \begin{macrocode}
     roman-V .choices:nn = { basic, alternative, serif }
       { \tl_gset_eq:NN \g_@@_roman_V_variant_tl \l_keys_choice_tl },
     roman-V .initial:n = { basic },
