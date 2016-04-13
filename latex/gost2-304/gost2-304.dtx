@@ -60,6 +60,8 @@
 \usepackage{interfaces}
 \usepackage{tikz}
 \usepackage{interfaces-tikz}
+\usepackage{xfrac}
+\usepackage{nicefrac}
 
 \ExplSyntaxOn
 \cs_new_nopar:Npn \date_TeX_to_ISO:w #1/#2/#3 \q_stop
@@ -541,7 +543,45 @@
     roman-V .choices:nn = { basic, alternative, serif }
       { \tl_gset_eq:NN \g_@@_roman_V_variant_tl \l_keys_choice_tl },
     roman-V .initial:n = { basic },
-    
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{fractions}\label{opt:fractions}
+%
+% Параметр |fractions| управляет начертанием 
+% неявно заданных inline дробей.
+% По умолчанию - |fractions=On|.
+%
+% Естественно, использование непосредственно математического
+% режима \TeX{} предпочтительнее. Поясню на примере.
+%
+% Локально изменить начертание можно следующим образом:
+% \begin{verbatim}
+% { 22/35 \addfontfeature{Fractions=On} 22/35 }
+% \end{verbatim}
+% \DrawChars{
+%   \addfontfeature{Fractions=Off} 22/35
+%   \addfontfeature{Fractions=On} 22/35
+% }[22mm]
+%
+% В сравнении с math режимом \TeX:
+% \begin{verbatim}
+% { 22/35 \( \sfrac{22}{35} \nicefrac{22}{35} \) }
+% \end{verbatim}
+% \DrawChars{ 22/35 \( \sfrac{22}{35} \nicefrac{22}{35} \) }[22mm]
+%
+% Как видно, текущая версия пакета \thispkg{} не адаптирует
+% макросы |\sfrac| и |\nicefrac|, в результате начертание
+% полученных с их использованием дробей не соответствует
+% требованиям ГОСТ~2.304.
+% Но в последующих версиях пакета использование
+% |\sfrac| и |\nicefrac| более предпочтительно.
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |fractions| управляет начертанием inline дробей.
+%    \begin{macrocode}
     fractions .choices:nn = { On, Off }
       { \tl_gset_eq:NN \g_@@_fractions_tl \l_keys_choice_tl },
     fractions .default:n = { On },
