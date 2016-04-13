@@ -586,7 +586,24 @@
       { \tl_gset_eq:NN \g_@@_fractions_tl \l_keys_choice_tl },
     fractions .default:n = { On },
     fractions .initial:n = { On },
-
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{math, no-math}\label{opt:math}
+%
+% |math=true| или просто |math| заменяет математический шрифт
+% по умолчанию на шрифт ГОСТ~2.304 типа А.
+% |math=false| или |no-math| отключает использование в математическом
+% режиме описываемого шрифта.
+%
+% По умолчанию |math=true|.
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметры |math| и |no-math| определяют использование шрифта
+% в математическом режиме.
+%    \begin{macrocode}
     math .choice:,
     math / true .code:n =
       {
