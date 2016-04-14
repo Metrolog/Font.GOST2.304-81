@@ -16,57 +16,46 @@ all: ttf ttc woff otf ps0 ctan tex-tests msm msi
 
 ###
 
-FONT				:= GOST2.304-81TypeA
-LATEXPKG			:= gost2-304
-SPACE				:= $(empty) $(empty)
-SRCDIR				:= sources
-OUTPUTDIR			:= release
-AUXDIR				:= obj
-TOOLSDIR			:= tools
-TOOLSLIBS			:= $(TOOLSDIR)/itgFontLib.py
+FONT               := GOST2.304-81TypeA
+LATEXPKG           := gost2-304
+SPACE              := $(empty) $(empty)
+SRCDIR             := sources
+OUTPUTDIR          := release
+AUXDIR             := obj
+TOOLSDIR           := tools
+TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
 
 # setup tools
 
+MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
 # fontforge, ttfautohint or no
-AUTOHINT			?= ttfautohint
-VIEWPDF				?= no
-
-FONTFORGEOPTIONS	:= \
+AUTOHINT           ?= ttfautohint
+VIEWPDF            ?= no
+FONTFORGE          ?= fontforge \
 	-nosplash
-
-TTFAUTOHINTOPTIONS	:= \
+PY                 ?= ffpython
+TTFAUTOHINT        ?= ttfautohint \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
 	--strong-stem-width="gGD" \
-	--composites \
 	--no-info
+#	--composites \
+#	FASTFONT         ?= fastfont
 
 ifeq ($(OS),Windows_NT)
-	MKDIR			= "%ProgramFiles(x86)%/GnuWin32/bin/mkdir"
-	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
-	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
-	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
-	FASTFONT		?= "%ProgramFiles(x86)%/FontTools/fastfont"
-	PATHSEP			:=;
+	PATHSEP          :=;
 else
-	MKDIR			= mkdir
-	FONTFORGE		?= fontforge
-	PY				?= python
-	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
-	FASTFONT		?= fastfont
-	PATHSEP			:=:
+	PATHSEP          :=:
 endif
-
-MAKETARGETDIR		= $(MKDIR) -p $(@D)
 
 ifeq ($(VIEWPDF),yes)
-	VIEWPDFOPT		:= -pv
+	VIEWPDFOPT := -pv
 else
-	VIEWPDFOPT		:= -pv-
+	VIEWPDFOPT := -pv-
 endif
 
-TEXLUA				?= texlua
-LATEXMK				?= latexmk \
+TEXLUA             ?= texlua
+LATEXMK            ?= latexmk \
 	-xelatex \
 	-auxdir=$(AUXDIR) \
 	$(VIEWPDFOPT) \
@@ -74,10 +63,10 @@ LATEXMK				?= latexmk \
 	-use-make \
 	-interaction=nonstopmode \
 	-halt-on-error
-ZIP					?= zip \
+ZIP                ?= zip \
 	-o \
 	-9
-TAR					?= tar
+TAR                ?= tar
 
 # $(call copyfile, to, from)
 define copyfile
@@ -111,20 +100,20 @@ LATEXPRJVERSIONFILE := $(AUXDIR)/version.tex
 $(LATEXPRJVERSIONFILE): .git/logs/HEAD Makefile
 	$(info Generate latex version file "$@"...)
 	$(MAKETARGETDIR)
-	@git log -1 --date=format:%%Y/%%m/%%d --format="format:\
-%%\iffalse%%n\
-%%<*version>%%n\
-%%\fi%%n\
-\def\GITCommitterName{%%cn}%%n\
-\def\GITCommitterEmail{%%ce}%%n\
-\def\GITCommitterDate{%%cd}%%n\
-\def\ExplFileDate{%%ad}%%n\
-\def\ExplFileVersion{$(FULLVERSION)}%%n\
-\def\ExplFileAuthor{%%an}%%n\
-\def\ExplFileAuthorEmail{%%ae}%%n\
-%%\iffalse%%n\
-%%</version>%%n\
-%%\fi%%n\
+	@git log -1 --date=format:%Y/%m/%d --format="format:\
+%%\iffalse%n\
+%%<*version>%n\
+%%\fi%n\
+\def\GITCommitterName{%cn}%n\
+\def\GITCommitterEmail{%ce}%n\
+\def\GITCommitterDate{%cd}%n\
+\def\ExplFileDate{%ad}%n\
+\def\ExplFileVersion{$(FULLVERSION)}%n\
+\def\ExplFileAuthor{%an}%n\
+\def\ExplFileAuthorEmail{%ae}%n\
+%%\iffalse%n\
+%%</version>%n\
+%%\fi%n\
 " > $@
 
 # generate aux .sfd files
@@ -194,7 +183,7 @@ ifeq ($(AUTOHINT),ttfautohint)
 $(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
+	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
@@ -209,12 +198,12 @@ endif
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
+	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
 
 endif 
 
 $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf
-	-$(FASTFONT) $<
+	#-$(FASTFONT) $<
 	$(MAKETARGETDIR)
 	cp $< $@
 
@@ -228,7 +217,7 @@ FFGENERATETTC		:= $(TOOLSDIR)/generate-ttc.py
 $(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TOOLSLIBS)
 	$(info Generate .ttc collection "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
+	$(FONTFORGE) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
 
 .PHONY: ttc
 ttc: $(TTFDIR)/$(FONT).ttc ttf
@@ -242,7 +231,7 @@ WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIAN
 $(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(TOOLSLIBS)
 	$(info Generate .woff font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEWOFF) $< $@
+	$(FONTFORGE) -script $(FFGENERATEWOFF) $< $@
 
 .PHONY: woff
 woff: $(WOFFTARGETS)
@@ -256,7 +245,7 @@ OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT)
 $(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(TOOLSLIBS)
 	$(info Generate .otf font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
+	$(FONTFORGE) -script $(FFGENERATEOTF) $< $@
 
 .PHONY: otf
 otf: $(OTFTARGETS)
@@ -271,7 +260,7 @@ PS0TARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(PS0DIR)/$(FONT)-$(VARIANT)
 $(PS0DIR)/%.ps: $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS)
 	$(info Generate PS Type 0 font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEPS0) $< $@
+	$(FONTFORGE) -script $(FFGENERATEPS0) $< $@
 
 .PHONY: ps0
 ps0: $(PS0TARGETS)
