@@ -34,6 +34,29 @@ Install-Package `
     -Verbose `
     -Force `
 ;
+
+Install-Package `
+    -Name 'cygwin' `
+    -Source chocolatey `
+    -RequiredVersion '2.4.1' `
+    -Verbose `
+    -Force `
+;
+$env:CygWin = Get-ItemPropertyValue `
+    -Path HKLM:\SOFTWARE\Cygwin\setup `
+    -Name rootdir `
+;
+[System.Environment]::SetEnvironmentVariable( 'CygWin', $env:CygWin, [System.EnvironmentVariableTarget]::Machine );
+Install-Package `
+    -Name 'cyg-get' `
+    -Source chocolatey `
+    -RequiredVersion '1.2.0' `
+    -Verbose `
+    -Force `
+;
+Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 ttfautohint";
+Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 make";
+
 Install-Package `
     -Name 'fontforge' `
     -MinimumVersion '2015.08.24.20150930' `
@@ -47,33 +70,23 @@ Install-Package `
     -Force `
 ;
 Install-Package `
-    -Name 'cygwin' `
-    -Source chocolatey `
-    -RequiredVersion '2.4.1' `
-    -Verbose `
-    -Force `
-;
-$env:CygWin = Get-ItemPropertyValue `
-    -Path HKLM:\SOFTWARE\Cygwin\setup `
-    -Name rootdir `
-;
-[System.Environment]::SetEnvironmentVariable( 'CygWin', $env:CygWin, [System.EnvironmentVariableTarget]::Machine );
-$env:Path = ( ( $env:Path -split ';' ) + ( , "$env:CygWin\bin" ) | Sort-Object -Unique ) -join ';';
-[System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::Machine );
-Install-Package `
-    -Name 'cyg-get' `
-    -Source chocolatey `
-    -RequiredVersion '1.2.0' `
-    -Verbose `
-    -Force `
-;
-Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 ttfautohint";
-Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 make";
-
-Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
     -Source NuGet `
     -Verbose `
     -Force `
 ;
+
+$env:Path = `
+    ( `
+        ( $env:Path -split ';' ) `
+        + (
+            "$env:ChocolateyPath\bin" `
+            , "$env:CygWin\bin" `
+            , "${env:ProgramFiles(x86)}\FontForgeBuilds\bin"
+        ) `
+        | Sort-Object -Unique `
+    ) `
+    -join ';' `
+;
+[System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::Machine );
