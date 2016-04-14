@@ -69,6 +69,13 @@ Install-Package `
     -Verbose `
     -Force `
 ;
+$MikTex = `
+    Get-ChildItem `
+        -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
+    | ?{ $_.Name -like '*MiKTeX*' } `
+    | Get-ItemPropertyValue `
+        -Name InstallLocation `
+;
 Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
@@ -83,7 +90,8 @@ $env:Path = `
         + (
             "$env:ChocolateyPath\bin" `
             , "$env:CygWin\bin" `
-            , "${env:ProgramFiles(x86)}\FontForgeBuilds\bin"
+            , "${env:ProgramFiles(x86)}\FontForgeBuilds\bin" `
+            , "$MikTex\miktex\bin\x64" `
         ) `
         | Sort-Object -Unique `
     ) `
