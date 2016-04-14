@@ -20,21 +20,17 @@ Import-PackageProvider `
     -Name Chocolatey `
     -Force `
 ;
-Install-Package `
-    -Name Chocolatey `
-    -Source chocolatey `
+Register-PackageSource `
+    -Name chocolatey `
+    -ProviderName Chocolatey `
+    -Location 'http://chocolatey.org/api/v2/' `
+    -Trusted `
     -Force `
 ;
 
 Install-Package `
-    -Name 'GnuWin32.Bin' `
-    -MinimumVersion '0.6.3' `
-    -Verbose `
-    -Force `
-;
-Install-Package `
-    -Name 'python' `
-    -MinimumVersion '3.5' `
+    -Name 'git' `
+    -MinimumVersion '2.8' `
     -Verbose `
     -Force `
 ;
@@ -51,26 +47,26 @@ Install-Package `
     -Force `
 ;
 Install-Package `
-    -Name 'WiX' `
-    -MinimumVersion '4.0' `
-    -Source NuGet `
-    -Verbose `
-    -Force `
-;
-Install-Package `
     -Name 'cygwin' `
     -Source chocolatey `
+    -RequiredVersion '2.4.1' `
     -Verbose `
     -Force `
 ;
 Install-Package `
     -Name 'cyg-get' `
     -Source chocolatey `
+    -RequiredVersion '1.2.0' `
     -Verbose `
     -Force `
 ;
+Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 ttfautohint";
+Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 make";
 
-#Invoke-Expression "$env:ChocolateyPath\lib\chocolatey.$((Get-Package -Name 'chocolatey').Version)\tools\chocolateyInstall\choco install cygwin -y -force";
-
-#Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 ttfautohint"
-
+Install-Package `
+    -Name 'WiX' `
+    -MinimumVersion '4.0' `
+    -Source NuGet `
+    -Verbose `
+    -Force `
+;
