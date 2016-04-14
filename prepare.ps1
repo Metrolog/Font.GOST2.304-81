@@ -80,9 +80,13 @@ Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
     -Source NuGet `
+    -Destination "$env:Chocolateypath\lib" `
     -Verbose `
     -Force `
 ;
+$WixVersion = ( Get-Package WiX ).Version;
+$env:WIXDIR = "$env:Chocolateypath\lib\WiX.$WixVersion\tools";
+[System.Environment]::SetEnvironmentVariable( 'WIXDIR', $env:WIXDIR, [System.EnvironmentVariableTarget]::Machine );
 
 $env:Path = `
     ( `
@@ -92,6 +96,7 @@ $env:Path = `
             , "$env:CygWin\bin" `
             , "${env:ProgramFiles(x86)}\FontForgeBuilds\bin" `
             , "$MikTex\miktex\bin\x64" `
+            , $env:WIXDIR `
         ) `
         | Sort-Object -Unique `
     ) `
