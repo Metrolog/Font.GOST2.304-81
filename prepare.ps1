@@ -20,6 +20,11 @@ Import-PackageProvider `
     -Name Chocolatey `
     -Force `
 ;
+Install-Package `
+    -Name Chocolatey `
+    -Source chocolatey `
+    -Force `
+;
 
 Install-Package `
     -Name 'GnuWin32.Bin' `
@@ -52,3 +57,20 @@ Install-Package `
     -Verbose `
     -Force `
 ;
+Install-Package `
+    -Name 'cygwin' `
+    -Source chocolatey `
+    -Verbose `
+    -Force `
+;
+Install-Package `
+    -Name 'cyg-get' `
+    -Source chocolatey `
+    -Verbose `
+    -Force `
+;
+
+#Invoke-Expression "$env:ChocolateyPath\lib\chocolatey.$((Get-Package -Name 'chocolatey').Version)\tools\chocolateyInstall\choco install cygwin -y -force";
+
+#Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 ttfautohint"
+
