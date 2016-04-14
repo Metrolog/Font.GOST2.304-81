@@ -53,6 +53,13 @@ Install-Package `
     -Verbose `
     -Force `
 ;
+$env:CygWin = Get-ItemPropertyValue `
+    -Path HKLM:\SOFTWARE\Cygwin\setup `
+    -Name rootdir `
+;
+[System.Environment]::SetEnvironmentVariable( 'CygWin', $env:CygWin, [System.EnvironmentVariableTarget]::Machine );
+$env:Path = ( ( $env:Path -split ';' ) + ( , "$env:CygWin\bin" ) | Sort-Object -Unique ) -join ';';
+[System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::Machine );
 Install-Package `
     -Name 'cyg-get' `
     -Source chocolatey `
