@@ -27,6 +27,14 @@ Register-PackageSource `
     -Trusted `
     -Force `
 ;
+Install-Package `
+    -Name 'NuGet.CommandLine' `
+    -ProviderName NuGet `
+    -Verbose `
+    -ForceBootstrap `
+    -Force `
+;
+
 
 Install-Package `
     -Name 'git' `
@@ -40,6 +48,7 @@ Install-Package `
     -Source chocolatey `
     -RequiredVersion '2.4.1' `
     -Verbose `
+    -ForceBootstrap `
     -Force `
 ;
 $env:CygWin = Get-ItemPropertyValue `
@@ -80,12 +89,12 @@ Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
     -Source NuGet `
-    -Destination "$env:Chocolateypath\lib" `
     -Verbose `
+    -ForceBootstrap `
     -Force `
 ;
-$WixVersion = ( Get-Package WiX ).Version;
-$env:WIXDIR = "$env:Chocolateypath\lib\WiX.$WixVersion\tools";
+$WixVersion = ( Get-Package -Name WiX -ProviderName NuGet ).Version;
+$env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools";
 [System.Environment]::SetEnvironmentVariable( 'WIXDIR', $env:WIXDIR, [System.EnvironmentVariableTarget]::Machine );
 
 $env:Path = `
