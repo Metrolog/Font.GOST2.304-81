@@ -18,13 +18,12 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 - [FontForge][] версии не младше 27.08.2015
 - [TTFAutoHint][]
 - [FastFont][] (для оптимизации генерируемых ttf шрифтов)
-- [GNUWin32 Core Utils][]
-- [GNUWin32 make][]
-- [GNUWin32 ZIP][] (для сборки архива LaTeX модуля для CTAN)
-- [GNUWin32 TAR][] (для сборки архива LaTeX модуля для CTAN)
+- [CygWin][]
 - [latexmk][] (только для сборки TeX пакетов и документов)
-- [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
 - [WIX][] (только для сборки msi модулей и msi дистрибутива для установки шрифта в Windows, требуется WiX 4)
+
+Для подготовки среды сборки следует воспользоваться сценарием `prepare.ps1` (запускать от имени администратора).
+Указанный сценарий установит все необходимые компоненты.
 
 Сборка проекта осуществляется следующим образом:
 
@@ -127,6 +126,7 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 Наименование шрифта, в том числе - локализованные наименования шрифта, не зарезервированы и не защищены.
 
 [FontForge]: https://github.com/fontforge/fontforge
+[CygWin]: http://cygwin.com/install.html "Cygwin"
 [GNUWin32 make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
 [GNUWin32 Core Utils]: http://gnuwin32.sourceforge.net/packages/coreutils.htm
 [GNUWin32 ZIP]: http://gnuwin32.sourceforge.net/packages/zip.htm
