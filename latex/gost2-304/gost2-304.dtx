@@ -616,12 +616,19 @@
       },
     math .default:n = true,
     math .initial:n = true,
-
+%    \end{macrocode}
+% |no-math| = |math=false|
+%    \begin{macrocode}
     no-math .meta:n =
       {
         math = false
       },
-
+%    \end{macrocode}
+% Служебные опции пакета, управляющие интенсивностью сообщий модуля
+% при его использовании.
+%
+% |quiet| - минимальное количество сообщений
+%    \begin{macrocode}
     quiet .code:n =
       {
         \msg_redirect_module:nnn { gost2-304 } { warning } { info }
@@ -631,7 +638,9 @@
       {
         trace = off
       },
-
+%    \end{macrocode}
+% |silent| - выводить только ошибки
+%    \begin{macrocode}
     silent .code:n =
       {
         \msg_redirect_module:nnn { gost2-304 } { warning } { none }
@@ -641,13 +650,17 @@
       {
         trace = off
       },
-
+%    \end{macrocode}
+% опция отключения вывода предупреждений
+%    \begin{macrocode}
     warnings-off .code:n =
       {
         \clist_map_inline:nn {#1}
           { \msg_redirect_name:nnn { gost2-304 } { ##1 } { none } }
       },
-
+%    \end{macrocode}
+% управление выводом отладочных сообщений
+%    \begin{macrocode}
     trace .choice:,
     trace / on .code:n = 
       {
@@ -663,17 +676,10 @@
       }
   }
 
-%    \end{macrocode}
-% \iffalse
-%</package>
-% \fi
-% \iffalse
-%<*package>
-% \fi
-%    \begin{macrocode}
-
 \ProcessKeysOptions { gost2-304 }
-
+%    \end{macrocode}
+% Подключение необходимых пакетов
+%    \begin{macrocode}
 \PassOptionsToPackage{T2A}{fontenc}
 \PassOptionsToPackage{T1}{fontenc}
 \RequirePackage{fontenc}
@@ -682,12 +688,19 @@
 \RequirePackage{xparse}
 \RequirePackage{fontspec}
 \RequirePackage{unicode-math}
-
+%    \end{macrocode}
+% Возвращает размер шрифта в единицах измерения по индексу
+% в списке допустимых размеров
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_fontsizeget:n
   {
     \clist_item:Nn \c_@@_fontsizes_clist {#1}
   }
-
+%    \end{macrocode}
+% Устанавливает нормальный (|\normalsize|) размер используемого
+% шрифта. При этом переопределяет и зависимые размеры шрифта
+% (|\tiny|, |\large| и т.п.).
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_normalsize_gset:n
   {
     \dim_set:Nn \l_tmpa_dim {#1}
