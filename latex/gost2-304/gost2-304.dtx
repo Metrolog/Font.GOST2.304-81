@@ -463,7 +463,11 @@
 % Параметр |digit-three| определяет начертание цифры |3|.
 %    \begin{macrocode}
     digit-three .choices:nn = { basic, alternative }
-      { \tl_gset_eq:NN \g_@@_digit_three_variant_tl \l_keys_choice_tl },
+      {
+        \tl_gset_eq:NN
+          \g_@@_digit_three_variant_tl
+          \l_keys_choice_tl
+      },
     digit-three .initial:n = { basic },
 %    \end{macrocode}
 % \end{implementation}
@@ -720,152 +724,35 @@
         \int_case:nnTF { \l_tmpa_int }
           {
             { 2 } % 2,5mm
-              {
-                \dim_gset:Nn \g_@@_tiny_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_scriptsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_footnotesize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_small_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_normalsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
-                \dim_gset:Nn \g_@@_Large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
-                \dim_gset:Nn \g_@@_LARGE_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
-                \dim_gset:Nn \g_@@_Huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
-              }
+              { \clist_set:Nn \l_tmpa_clist {-1,  0,  0,  0, 0, 1, 2, 3, 4, 5} }
             { 3 } % 3,5mm
-              {
-                \dim_gset:Nn \g_@@_tiny_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_scriptsize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_footnotesize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_small_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_normalsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
-                \dim_gset:Nn \g_@@_Large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
-                \dim_gset:Nn \g_@@_LARGE_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
-                \dim_gset:Nn \g_@@_Huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
-              }
+              { \clist_set:Nn \l_tmpa_clist {-2, -2, -1, -1, 0, 1, 2, 3, 4, 5} }
             { 4 } % 5,0mm
-              {
-                \dim_gset:Nn \g_@@_tiny_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 3 } } }
-                \dim_gset:Nn \g_@@_scriptsize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_footnotesize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_small_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_normalsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
-                \dim_gset:Nn \g_@@_Large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
-                \dim_gset:Nn \g_@@_LARGE_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
-                \dim_gset:Nn \g_@@_Huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
-              }
+              { \clist_set:Nn \l_tmpa_clist {-3, -2, -1, -1, 0, 1, 2, 3, 4, 5} }
             { 5 } % 7,0mm
-              {
-                \dim_gset:Nn \g_@@_tiny_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 3 } } }
-                \dim_gset:Nn \g_@@_scriptsize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_footnotesize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_small_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_normalsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
-                \dim_gset:Nn \g_@@_Large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
-                \dim_gset:Nn \g_@@_LARGE_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
-                \dim_gset:Nn \g_@@_Huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 5 } } }
-              }
+              { \clist_set:Nn \l_tmpa_clist {-3, -2, -1, -1, 0, 1, 2, 3, 4, 5} }
             { 6 } % 10mm
-              {
-                \dim_gset:Nn \g_@@_tiny_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_scriptsize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_footnotesize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_small_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_normalsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
-                \dim_gset:Nn \g_@@_Large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
-                \dim_gset:Nn \g_@@_LARGE_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
-                \dim_gset:Nn \g_@@_Huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 4 } } }
-              }
+              { \clist_set:Nn \l_tmpa_clist {-2, -2, -1, -1, 0, 1, 2, 3, 4, 4} }
             { 7 } % 14mm
-              {
-                \dim_gset:Nn \g_@@_tiny_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_scriptsize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 2 } } }
-                \dim_gset:Nn \g_@@_footnotesize_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_small_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int - 1 } } }
-                \dim_gset:Nn \g_@@_normalsize_dim
-                  { \_@@_fontsizeget:n \l_tmpa_int }
-                \dim_gset:Nn \g_@@_large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 1 } } }
-                \dim_gset:Nn \g_@@_Large_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 2 } } }
-                \dim_gset:Nn \g_@@_LARGE_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-                \dim_gset:Nn \g_@@_Huge_dim
-                  { \_@@_fontsizeget:n { \int_eval:n { \l_tmpa_int + 3 } } }
-              }
+              { \clist_set:Nn \l_tmpa_clist {-2, -2, -1, -1, 0, 1, 2, 3, 3, 3} }
           }
           {
             \clist_map_inline:nn {
-              \normalsize, \small, \footnotesize, \scriptsize, \tiny,
+              \tiny, \scriptsize, \footnotesize, \small,
+              \normalsize,
               \large, \Large, \LARGE, \huge, \Huge
             }
               {
+                \clist_pop:NN \l_tmpa_clist \l_tmpb_tl
+                \int_set:Nn \l_tmpb_int \l_tmpb_tl
+                \dim_gset:cn {g_@@_\cs_to_str:N ##1_dim}
+                  {
+                    \_@@_fontsizeget:n
+                      { \int_eval:n { \l_tmpa_int + \l_tmpb_int } }
+                  }
                 \DeclareDocumentCommand ##1 {} {%
-                  \_@@_setfontsize_h:Nc ##1 {g_@@_\cs_to_str:N ##1_dim}
+                  \_@@_setfontsize_h:Nc ##1
+                    {g_@@_\cs_to_str:N ##1_dim}
                   \selectfont
                 }
                 \msg_log:nnx { gost2-304 } { set-font-size } {\cs_to_str:N ##1}
@@ -873,7 +760,8 @@
             \normalsize
             \setmainfont { \tl_use:N \c@@_mainfont_tl }
               [
-                % NFSSFamily = \tl_use:N \c@@_mainfont_NFSSFamily_tl,
+                % NFSSFamily = \tl_use:N
+                %   \c@@_mainfont_NFSSFamily_tl,
                 \tl_use:N \g_@@_mainfont_features_tl
               ]
             \msg_log:nn { gost2-304 } { mainfont }
