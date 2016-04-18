@@ -199,21 +199,21 @@
 % \begin{documentation}
 % \section{Идентификаторы шрифтов}
 %
-% Пакет \thispkg{} определяет основной шрифт \DescribeMacro{\eskdfont}|eskdfont|
-% и математический шрифт |eskdfont|, а также NFSS семейства
-% шрифтов \DescribeMacro{\eskdfontfamily}|eskdfontfamily|.
+% Пакет \thispkg{} определяет основной шрифт \DescribeMacro{\eskdfont}\cs{eskdfont}
+% и математический шрифт \cs{eskdfont}, а также NFSS семейства
+% шрифтов \DescribeMacro{\eskdfontfamily}\cs{eskdfontfamily}.
 % \end{documentation}
 % \begin{implementation}
 % \begin{variable}{\eskdfont}
-% Идентификатор основного шрифта |eskdfont|
-% и математического шрифта |eskdfont|
+% Идентификатор основного шрифта \cs{eskdfont}
+% и математического шрифта \cs{eskdfont}
 %    \begin{macrocode}
 \tl_const:Nn \c@@_mainfont_tl {eskdfont}
 \tl_const:Nn \c@@_mathfont_tl {eskdfont}
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\eskdfontfamily}
-% Идентификатор NFSS семейства шрифтов |eskdfontfamily|
+% Идентификатор NFSS семейства шрифтов \cs{eskdfontfamily}
 %    \begin{macrocode}
 \tl_const:Nn \c@@_mainfont_NFSSFamily_tl {eskdfontfamily}
 \tl_const:Nn \c@@_mathfont_NFSSFamily_tl {eskdfontfamily}
@@ -249,7 +249,7 @@
 % 
 % Предикат |\g_@@_mainfontsize_bool| используется для определения, установлен ли
 % размер основного шрифта
-% в опциях пакета и используется ли шрифт |eskdfont| как основной по умолчанию.
+% в опциях пакета и используется ли шрифт \cs{eskdfont} как основной по умолчанию.
 % Устанавливается опцией |mainfontsize|.
 %    \begin{macrocode}
 \bool_new:N \g_@@_mainfontsize_bool
@@ -329,28 +329,29 @@
 % \end{implementation}
 % \begin{documentation}
 %
-% \subsection{mainfontsize}\label{opt:mainfontsize}
+% \subsection{mainfontsize}
+% \label{opt:mainfontsize}
 %
 % Использование пакета \thispkg{} без опции |mainfontsize|
-% лишь определяет шрифты |eskdfont| для их дальнейшего явного использования.
+% лишь определяет шрифты \cs{eskdfont} для их дальнейшего явного использования.
 %
 % При указании опции |mainfontsize|, например, так:
 % \begin{verbatim}
 % \usepackage[mainfontsize=3.5mm]{gost2-304}
 % \end{verbatim}
-% шрифты |eskdfont| будут не только определены, но и шрифт текста по умолчанию
-% будет изменён на |eskdfont| с |h|=3,5~мм.
+% шрифты \cs{eskdfont} будут не только определены, но и шрифт текста по умолчанию
+% будет изменён на \cs{eskdfont} с |h|=3,5~мм.
 %
 % Кроме того, при использовании опции |mainfontsize| также корректируются и размеры
-% для относительных размеров шрифта |\small|, |\tiny| и других:
+% для относительных размеров шрифта \cs{small}, \cs{tiny} и других:
 % они также выбираются из допустимого размерного ряда.
 %
 % Для изменения размера также следует обратить внимание на макрос
-% |\eskdfontsize|.
+% \cs{eskdfontsize} (\pageref{sec:fontsize}).
 %
 % \end{documentation}
 % \begin{implementation}
-% Использование |eskdfont| как основного шрифта по умолчанию и его размер.
+% Использование \cs{eskdfont} как основного шрифта по умолчанию и его размер.
 %    \begin{macrocode}
     mainfontsize .code:n =
       {
@@ -493,15 +494,17 @@
 %
 % \newcounter{digit}
 % \makeatletter
-% \DrawChars{
-%   \addfontfeature{ RomanNumeral = Off, RomanV = basic }
-%   IV VI XII MMXIV
-% }
+% \DrawChars
+%   {
+%     \addfontfeature{ RomanNumeral = Off, RomanV = basic }
+%     IV VI XII MMXIV
+%   }
 %
-% \DrawChars{
-%   \addfontfeature{ RomanNumeral = On, RomanV = basic }
-%   \@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}
-% }
+% \DrawChars
+%   {
+%     \addfontfeature{ RomanNumeral = On, RomanV = basic }
+%     \@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}
+%   }
 % \makeatother
 %
 % \end{documentation}
@@ -532,12 +535,13 @@
 %   \addfontfeature{Roman-V=alternative} \@roman{5} }
 % \end{verbatim}
 % \makeatletter
-% \DrawChars{
-%   \addfontfeature{ RomanV = basic }
-%   \@roman{5}
-%   \addfontfeature{ RomanV = alternative }
-%   \@roman{5}
-% }
+% \DrawChars
+%   {
+%     \addfontfeature{ RomanV = basic }
+%     \@roman{5}
+%     \addfontfeature{ RomanV = alternative }
+%     \@roman{5}
+%   }
 % \makeatother
 %
 % \end{documentation}
@@ -564,10 +568,11 @@
 % \begin{verbatim}
 % { 22/35 \addfontfeature{Fractions=On} 22/35 }
 % \end{verbatim}
-% \DrawChars{
-%   \addfontfeature{Fractions=Off} 22/35
-%   \addfontfeature{Fractions=On} 22/35
-% }[22mm]
+% \DrawChars
+%   {
+%     \addfontfeature{Fractions=Off} 22/35
+%     \addfontfeature{Fractions=On} 22/35
+%   }[22mm]
 %
 % В сравнении с math режимом \TeX:
 % \begin{verbatim}
@@ -693,17 +698,40 @@
 \RequirePackage{fontspec}
 \RequirePackage{unicode-math}
 %    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \section{Функции пакета}
+% \label{sec:packageFunctions}
+%
+% \subsection{Изменение размера шрифта}
+% \label{sec:fontsize}
+%
+% \end{documentation}
+% \begin{implementation}
 % Возвращает размер шрифта в единицах измерения по индексу
 % в списке допустимых размеров
+% \begin{macro}[aux]{\_@@_fontsizeget:n}
+%   \begin{syntax}
+%     \cs{_@@_fontsizeget:n}
+%       \marg{индекс требуемого размера шрифта в \tn{c_@@_fontsizes_clist}}
+%   \end{syntax}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_fontsizeget:n
   {
     \clist_item:Nn \c_@@_fontsizes_clist {#1}
   }
 %    \end{macrocode}
-% Устанавливает нормальный (|\normalsize|) размер используемого
+% \end{macro}
+% Устанавливает нормальный (\cs{normalsize}) размер используемого
 % шрифта. При этом переопределяет и зависимые размеры шрифта
-% (|\tiny|, |\large| и т.п.).
+% (\cs{tiny}, \cs{large} и т.п.), используя только допустимые
+% размеры.
+% \begin{macro}[aux]{\_@@_normalsize_gset:n}
+%   \begin{syntax}
+%     \cs{_@@_normalsize_gset:n}
+%       \marg{требуемый размер с указанием единицы измерения}
+%   \end{syntax}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_normalsize_gset:n
   {
@@ -775,12 +803,150 @@
       }
   }
 \@onlypreamble \_@@_normalsize_gset:n
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[aux]{\_@@_normalsize_gset:}
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_normalsize_gset:
   {
     \_@@_normalsize_gset:n \g_@@_normalsize_dim
   }
 \@onlypreamble \_@@_normalsize_gset:
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[int]{\_@@_b_from_h:n}
+%   \begin{syntax}
+%     \cs{_@@_b_from_h:n}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%   \end{syntax}
+% Вычисляет интервал между базовыми линиями |b| из размера шрифта |h|.
+%    \begin{macrocode}
+\cs_new_nopar:Nn \_@@_b_from_h:n
+  {
+    \dim_eval:n { #1 * 22 / 14 }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[aux]{\_@@_fontsize_from_h:n}
+%   \begin{syntax}
+%     \cs{_@@_fontsize_from_h:n}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%   \end{syntax}
+% Вычисляет размер шрифта на основе указанного |h|.
+%    \begin{macrocode}
+\cs_new_nopar:Nn \_@@_fontsize_from_h:n
+  { \dim_eval:n { \dim_eval:n{ #1 } * \c_@@_fontscale_tl } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[aux]{\_@@_fontsize_from_h:Nn}
+%   \begin{syntax}
+%     \cs{_@@_fontsize_from_h:Nn}
+%       \marg{идентификатор переменной (dim)
+%         , в которую будет сохранено вычисленное значение h}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%   \end{syntax}
+% Вычисляет размер шрифта на основе указанного |h|
+% и сохраняет его в переменную, указанную первым аргументом.
+%    \begin{macrocode}
+\cs_new_nopar:Nn \_@@_fontsize_from_h:Nn
+  { \dim_set:Nn #1 { \_@@_fontsize_from_h:n { #2 } } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[aux]{\_@@_setfontsize_h:Nnn}
+%   \begin{syntax}
+%     \cs{_@@_setfontsize_h:Nnn}
+%       \marg{макрос, который будет переопределён}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
+%   \end{syntax}
+% Переопределяет макрос для изменения размера шрифта на основе указанного |h|
+% (например |\tiny|).
+%    \begin{macrocode}
+\cs_new_nopar:Nn \_@@_setfontsize_h:Nnn
+  {
+    \@setfontsize{#1}{\_@@_fontsize_from_h:n{#2}}{#3}
+    \ignorespaces
+  }
+\cs_new_nopar:Nn \_@@_setfontsize_h:Nn
+  {
+    \_@@_setfontsize_h:Nnn {#1}{#2}{ \_@@_b_from_h:n {#2} }
+  }
+\cs_generate_variant:Nn \_@@_setfontsize_h:Nn { Nc }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}[aux]{\eskdfont_fontsize_h:nn}
+%   \begin{syntax}
+%     \cs{\eskdfont_fontsize_h:nn}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
+%   \end{syntax}
+% Устанавливает размер текущего шрифта на основе указанного |h|.
+%    \begin{macrocode}
+\cs_new_nopar:Nn \eskdfont_fontsize_h:nn
+  {
+    \fontsize{\_@@_fontsize_from_h:n{#1}}{#2}
+    \ignorespaces
+  }
+\cs_new_nopar:Nn \eskdfont_fontsize_h:n
+  {
+    \eskdfont_fontsize_h:nn {#1}{ \_@@_b_from_h:n {#1} }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \end{implementation}
+% \begin{documentation}
+%
+% \DescribeMacro{\eskdfontsize}
+% В дополнение к опции |mainfontsize| (\pageref{opt:mainfontsize})
+% данный пакет экспортирует макрос
+% \cs{eskdfontsize}\marg{размер H шрифта}\oarg{расстояние между строками b},
+% позволяющий изменять размер основного шрифта в тексте документа.
+%
+% В отличии от \cs{fontsize} устанавливает не кегль шрифта,
+% а |h| (ex) размер шрифта.
+%
+% \begin{verbatim}
+% {
+%   \eskdfontsize{14mm} \selectfont
+%   A123
+%   \eskdfontsize{10mm} \selectfont
+%   A123
+%   \eskdfontsize{5mm} \selectfont
+%   A123
+% }
+% \end{verbatim}
+% \DrawChars
+%   {
+%     \eskdfontsize{14mm} \selectfont
+%     A123
+%     \eskdfontsize{10mm} \selectfont
+%     A123
+%     \eskdfontsize{5mm} \selectfont
+%     A123
+%   }
+%
+% \end{documentation}
+% \begin{implementation}
+%
+% \begin{macro}{\eskdfontsize}
+%   \begin{syntax}
+%     \cs{eskdfontsize}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%       \oarg{расстояние между базовыми линиями b с указанием единицы измерения}
+%   \end{syntax}
+% В отличии от \cs{fontsize} устанавливает не кегль шрифта, а |h| (ex) параметр шрифта.
+%    \begin{macrocode}
+\DeclareDocumentCommand \eskdfontsize {m o}
+  {
+    \IfNoValueTF{#2}
+      { \eskdfont_fontsize_h:n {#1} }
+      { \eskdfont_fontsize_h:nn {#1}{#2} }
+    \ignorespaces
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 % основные параметры шрифтов ГОСТ 2.304
 \tl_const:Nn \c_@@_type_A_tl { GOST2.304-81TypeA-Regular }
 \tl_const:Nn \c_@@_type_A_slanted_tl { GOST2.304-81TypeA-Slanted }
@@ -886,11 +1052,6 @@
     { \dim_to_fp:n { 1pt * \dim_ratio:nn \l_tmpa_dim { 1ex } } }
 \group_end:
 
-\cs_new_nopar:Nn \_@@_fontsize_from_h:n
-  { \dim_eval:n { \dim_eval:n{ #1 } * \c_@@_fontscale_tl } }
-\cs_new_nopar:Nn \_@@_fontsize_from_h:Nn
-  { \dim_set:Nn #1 { \_@@_fontsize_from_h:n { #2 } } }
-
 % ограничиваем допустимые размеры шрифтов
 \clist_set_eq:NN \l_tmpa_clist \c_@@_fontsizes_clist
 \clist_pop:NN \l_tmpa_clist \l_tmpa_tl % tiny size
@@ -937,41 +1098,6 @@
     % NFSSFamily = \tl_use:N \c@@_mainfont_NFSSFamily_tl,
     \tl_use:N \g_@@_mainfont_features_tl
   ]
-
-\cs_new_nopar:Nn \_@@_b_from_h:n
-  {
-    \dim_eval:n { #1 * 22 / 14 }
-  }
-
-\cs_new_nopar:Nn \_@@_setfontsize_h:Nnn
-  {
-    \@setfontsize{#1}{\_@@_fontsize_from_h:n{#2}}{#3}
-    \ignorespaces
-  }
-\cs_new_nopar:Nn \_@@_setfontsize_h:Nn
-  {
-    \_@@_setfontsize_h:Nnn {#1}{#2}{ \_@@_b_from_h:n {#2} }
-  }
-\cs_generate_variant:Nn \_@@_setfontsize_h:Nn { Nc }
-
-\cs_new_nopar:Nn \eskdfont_fontsize_h:nn
-  {
-    \fontsize{\_@@_fontsize_from_h:n{#1}}{#2}
-    \ignorespaces
-  }
-\cs_new_nopar:Nn \eskdfont_fontsize_h:n
-  {
-    \eskdfont_fontsize_h:nn {#1}{ \_@@_b_from_h:n {#1} }
-  }
-
-% в отличии от \fontsize устанавливает не кегль шрифта, а h (ex) параметр шрифта
-\DeclareDocumentCommand \eskdfontsize {m o}
-  {
-    \IfNoValueTF{#2}
-      { \eskdfont_fontsize_h:n {#1} }
-      { \eskdfont_fontsize_h:nn {#1}{#2} }
-    \ignorespaces
-  }
 
 % устанавливаем основной шрифт и производные размеры, если указана опция mainfontsize
 \bool_if:NT \g_@@_mainfontsize_bool
@@ -1106,16 +1232,6 @@
 % \end{implementation}
 %
 % \StopEventually{}
-%
-% \section{Implementation}
-%
-% \begin{macro}{\YOURMACRO}
-% Put explanation of |\YOURMACRO|'s implementation here.
-% \end{macro}
-%
-% \begin{environment}{YOURENV}
-% Put explanation of |YOURENV|'s implementation here.
-% \end{environment}
 %
 % \Finale
 \endinput
