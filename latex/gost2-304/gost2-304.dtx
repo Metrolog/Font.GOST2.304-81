@@ -289,6 +289,7 @@
 %    \begin{macrocode}
 \cs_generate_variant:Nn \dim_to_decimal_in_unit:nn { cn }
 %    \end{macrocode}
+%
 % Сообщения пакета
 %    \begin{macrocode}
 \msg_new:nnn { gost2-304 } { mainfont }
@@ -948,6 +949,7 @@
 %       \marg{размер шрифта h с указанием единицы измерения}
 %       \oarg{расстояние между базовыми линиями b с указанием единицы измерения}
 %   \end{syntax}
+%
 % В отличии от \cs{fontsize} устанавливает не кегль шрифта, а |h| (ex) параметр шрифта.
 %    \begin{macrocode}
 \DeclareDocumentCommand \eskdfontsize {m o}
@@ -959,20 +961,33 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
+% Наименования файлов шрифтов ГОСТ 2.304.
 %    \begin{macrocode}
-% основные параметры шрифтов ГОСТ 2.304
 \tl_const:Nn \c_@@_type_A_tl { GOST2.304-81TypeA-Regular }
 \tl_const:Nn \c_@@_type_A_slanted_tl { GOST2.304-81TypeA-Slanted }
 \tl_const:Nn \c_@@_type_B_tl { GOST2.304-81TypeA-Regular }
 \tl_const:Nn \c_@@_type_B_slanted_tl { GOST2.304-81TypeA-Slanted }
+%    \end{macrocode}
+%
+% Основные параметры шрифтов ГОСТ 2.304.
+%    \begin{macrocode}
 \tl_new:N \l_@@_type_A_features_tl
 \tl_new:N \l_@@_type_A_fontadjustment_tl
-\fp_new:N \g_@@_type_A_scale_fp
-\fp_gset_eq:NN \g_@@_type_A_scale_fp \c_one_fp
 \tl_new:N \l_@@_type_B_features_tl
 \tl_new:N \l_@@_type_B_fontadjustment_tl
+%    \end{macrocode}
+% \begin{variable}[int]{\g_@@_type_A_scale_fp, \g_@@_type_B_scale_fp}
+%
+% Переменные, содержащие масштабные коэффициенты для шрифтов.
+%    \begin{macrocode}
+\fp_new:N \g_@@_type_A_scale_fp
+\fp_gset_eq:NN \g_@@_type_A_scale_fp \c_one_fp
 \fp_new:N \g_@@_type_B_scale_fp
 \fp_gset_eq:NN \g_@@_type_B_scale_fp \c_one_fp
+%    \end{macrocode}
+% \end{variable}
+%    \begin{macrocode}
 \tl_new:N \g_@@_font_features_tl % fontspec параметры семейства шрифтов
 \tl_set:Nn \l_@@_type_A_features_tl
   {
