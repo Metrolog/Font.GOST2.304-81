@@ -37,9 +37,9 @@ PY                 ?= ffpython
 TTFAUTOHINT        ?= ttfautohint \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
+	--composites \
 	--strong-stem-width="gGD" \
 	--no-info
-#	--composites \
 #	FASTFONT         ?= fastfont
 
 ifeq ($(OS),Windows_NT)
@@ -309,19 +309,23 @@ doc: $(LATEXPKGDOCS)
 
 LATEXTDSAUXDIR := $(AUXDIR)/tds
 
-LATEXTDSPKGTARGETS := $(patsubst $(LATEXPKGUNPACKDIR)/%, $(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)/%, $(LATEXPKGINSTALLFILES))
-$(LATEXTDSPKGTARGETS): $$(patsubst $(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)/%, $(LATEXPKGUNPACKDIR)/%, $$@)
-	$(MAKETARGETDIR)
-	cp $< $@
+LATEXTDSPKGPATH := $(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)
+LATEXTDSPKGTARGETS := $(patsubst $(LATEXPKGUNPACKDIR)/%, $(LATEXTDSPKGPATH)/%, $(LATEXPKGINSTALLFILES))
+$(foreach file,$(LATEXTDSPKGTARGETS),$(eval $(call copyfilefrom,$(file),$(LATEXPKGUNPACKDIR))))
 
-LATEXTDSFONTSTTFTARGETS := $(foreach FONTFILE, $(TTFTARGETS), $(LATEXTDSAUXDIR)/fonts/truetype/public/$(LATEXPKG)/$(notdir $(FONTFILE)))
+LATEXTDSFONTSTTFPATH = $(LATEXTDSAUXDIR)/fonts/truetype/public/$(LATEXPKG)
+LATEXTDSFONTSTTFTARGETS := $(foreach FONTFILE, $(TTFTARGETS), $(LATEXTDSFONTSTTFPATH)/$(notdir $(FONTFILE)))
 $(foreach file,$(LATEXTDSFONTSTTFTARGETS),$(eval $(call copyfilefrom,$(file),$(TTFDIR))))
 
-LATEXTDSFONTSOTFTARGETS := $(foreach FONTFILE, $(OTFTARGETS), $(LATEXTDSAUXDIR)/fonts/opentype/public/$(LATEXPKG)/$(notdir $(FONTFILE)))
+LATEXTDSFONTSOTFPATH = $(LATEXTDSAUXDIR)/fonts/truetype/public/$(LATEXPKG)
+LATEXTDSFONTSOTFTARGETS := $(foreach FONTFILE, $(OTFTARGETS), $(LATEXTDSFONTSOTFPATH)/$(notdir $(FONTFILE)))
 $(foreach file,$(LATEXTDSFONTSOTFTARGETS),$(eval $(call copyfilefrom,$(file),$(OTFDIR))))
 
 LATEXTDSDOCSTARGETS := $(foreach FILE,$(LATEXPKGDOCS),$(LATEXTDSAUXDIR)/doc/latex/$(LATEXPKG)/$(notdir $(FILE)))
 $(foreach file,$(LATEXTDSDOCSTARGETS),$(eval $(call copyfilefrom,$(file),$(LATEXPKGTYPESETDIR))))
+
+export TEXINPUTS = .$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
+export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
 
 TDSFILES := $(LATEXTDSFONTSTTFTARGETS) $(LATEXTDSFONTSOTFTARGETS) $(LATEXTDSDOCSTARGETS) $(LATEXTDSPKGTARGETS)
 TDSFILE := $(LATEXPKG).tds.zip
@@ -355,9 +359,6 @@ ctan: dist
 LATEXTESTSSRCDIR	:= $(LATEXSRCDIR)/tests
 LATEXTESTSOUTPUTDIR := $(AUXDIR)
 LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR)/%.pdf, $(wildcard $(LATEXTESTSSRCDIR)/*.tex))
-
-export TEXINPUTS=.$(PATHSEP)$(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)/$(PATHSEP)
-export TEXFONTS=$(LATEXTDSAUXDIR)/fonts/truetype/public/$(LATEXPKG)/$(PATHSEP)
 
 $(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXTDSPKGTARGETS) $(LATEXTDSFONTSTTFTARGETS)
 	$(info Generate latex test pdf file "$@"...)
