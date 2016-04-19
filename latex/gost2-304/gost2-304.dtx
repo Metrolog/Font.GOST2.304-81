@@ -80,11 +80,11 @@
     \noindent
     \eskdfontsize{#3} 
     \begin{tikzpicture}
-    \papergraduate (-5mm,0mm) (125mm,#2);
+    \papergraduate [xrule=false] (-5mm,0mm) (125mm,#2);
     \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
-    {
-      #1
-    };
+      {
+        #1
+      };
     \end{tikzpicture}
   }
 }
