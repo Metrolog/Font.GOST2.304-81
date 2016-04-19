@@ -1065,6 +1065,8 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{variable}[int]{\g_@@_font_features_tl}
+% Определяем |fontspec| параметры шрифта |eskdfont|.
 %    \begin{macrocode}
 \tl_new:N \g_@@_font_features_tl
 \tl_gset:Nn \g_@@_font_features_tl
@@ -1083,7 +1085,7 @@
       }
     ,DigitThree = \tl_use:N \g_@@_digit_three_variant_tl
     ,RomanV = \tl_use:N \g_@@_roman_V_variant_tl
-	,Fractions = \g_@@_fractions_tl
+    ,Fractions = \g_@@_fractions_tl
     ,UprightFeatures =
       {
         \tl_use:N \l_@@_type_A_features_tl
@@ -1101,7 +1103,10 @@
         \tl_use:N \l_@@_type_B_slanted_features_tl
       }
   }
-
+%    \end{macrocode}
+% \end{variable}
+%
+%    \begin{macrocode}
 % определяем масштаб для шрифта
 % 1ex = c, h = 14/10 c (или 10/7 c для шрифта типа Б)
 % 1em = кегль шрифта (\f@size)
