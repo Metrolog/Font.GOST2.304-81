@@ -333,6 +333,7 @@
 % \subsection{mainfontsize}
 % \label{opt:mainfontsize}
 %
+% \DescribeOption{mainfontsize}
 % Использование пакета \thispkg{} без опции |mainfontsize|
 % лишь определяет шрифты \cs{eskdfont} для их дальнейшего явного использования.
 %
@@ -382,6 +383,7 @@
 %
 % \subsection{language}\label{opt:language}
 %
+% \DescribeOption{language}
 % Параметр |language| соответствует параметру |Language|
 % макросов пакета \pkg{fontspec}.
 % Влияет на использование языкозависимых лигатур.
@@ -430,6 +432,7 @@
 %
 % \subsection{zero}\label{opt:zero}
 %
+% \DescribeOption{zero}
 % Параметр |zero| определяет вариант начертания цифры |0|.
 % По умолчанию - |zero=basic|, в соответствии с ГОСТ~2.304.
 % Для применения начертания, принятого в среде программистов,
@@ -461,6 +464,8 @@
 %
 % \subsection{digit-three}\label{opt:digit-three}
 %
+% \DescribeOption{digit-three}
+% \DescribeMacro{DigitThree}
 % Параметр |digit-three| определяет начертание цифры 3.
 % По умолчанию - |digit-three=basic|.
 % Для применения начертания, существенно отличающегося от буквы З,
@@ -490,6 +495,8 @@
 %
 % \subsection{romannumeral}\label{opt:romannumeral}
 %
+% \DescribeOption{romannumeral}
+% \DescribeMacro{RomanNumeral}
 % Параметр |romannumeral| определяет начертание римских цифр.
 % По умолчанию - |romannumeral=gost2-304|.
 % При указанном значении опции для отображения римских цифр
@@ -537,6 +544,8 @@
 %
 % \subsection{roman-V}\label{opt:roman-V}
 %
+% \DescribeOption{roman-V}
+% \DescribeMacro{RomanV}
 % Параметр |roman-V| определяет начертание римской цифры 5.
 % По умолчанию - |roman-V=basic|.
 % Второй вариант значения - |alternative|.
@@ -571,6 +580,7 @@
 %
 % \subsection{fractions}\label{opt:fractions}
 %
+% \DescribeOption{fractions}
 % Параметр |fractions| управляет начертанием 
 % неявно заданных inline дробей.
 % По умолчанию - |fractions=On|.
@@ -615,6 +625,8 @@
 %
 % \subsection{math, no-math}\label{opt:math}
 %
+% \DescribeOption{math}
+% \DescribeOption{no-math}
 % |math=true| или просто |math| заменяет математический шрифт
 % по умолчанию на шрифт ГОСТ~2.304 типа А.
 % |math=false| или |no-math| отключает использование в математическом
@@ -723,6 +735,7 @@
 %
 % \end{documentation}
 % \begin{implementation}
+%
 % Возвращает размер шрифта в единицах измерения по индексу
 % в списке допустимых размеров
 % \begin{macro}[aux]{\_@@_fontsizeget:n}
@@ -737,6 +750,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%
 % Устанавливает нормальный (\cs{normalsize}) размер используемого
 % шрифта. При этом переопределяет и зависимые размеры шрифта
 % (\cs{tiny}, \cs{large} и т.п.), используя только допустимые
@@ -846,6 +860,7 @@
 %     \cs{_@@_fontsize_from_h:n}
 %       \marg{размер шрифта h с указанием единицы измерения}
 %   \end{syntax}
+%
 % Вычисляет размер шрифта на основе указанного |h|.
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_fontsize_from_h:n
@@ -859,6 +874,7 @@
 %         , в которую будет сохранено вычисленное значение h}
 %       \marg{размер шрифта h с указанием единицы измерения}
 %   \end{syntax}
+%
 % Вычисляет размер шрифта на основе указанного |h|
 % и сохраняет его в переменную, указанную первым аргументом.
 %    \begin{macrocode}
@@ -873,6 +889,7 @@
 %       \marg{размер шрифта h с указанием единицы измерения}
 %       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
 %   \end{syntax}
+%
 % Переопределяет макрос для изменения размера шрифта на основе указанного |h|
 % (например |\tiny|).
 %    \begin{macrocode}
@@ -894,6 +911,7 @@
 %       \marg{размер шрифта h с указанием единицы измерения}
 %       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
 %   \end{syntax}
+%
 % Устанавливает размер текущего шрифта на основе указанного |h|.
 %    \begin{macrocode}
 \cs_new_nopar:Nn \eskdfont_fontsize_h:nn
@@ -970,16 +988,10 @@
 \tl_const:Nn \c_@@_type_B_slanted_tl { GOST2.304-81TypeA-Slanted }
 %    \end{macrocode}
 %
-% Основные параметры шрифтов ГОСТ 2.304.
-%    \begin{macrocode}
-\tl_new:N \l_@@_type_A_features_tl
-\tl_new:N \l_@@_type_A_fontadjustment_tl
-\tl_new:N \l_@@_type_B_features_tl
-\tl_new:N \l_@@_type_B_fontadjustment_tl
-%    \end{macrocode}
-% \begin{variable}[int]{\g_@@_type_A_scale_fp, \g_@@_type_B_scale_fp}
+% \begin{variable}[aux]{\g_@@_type_A_scale_fp, \g_@@_type_B_scale_fp}
 %
 % Переменные, содержащие масштабные коэффициенты для шрифтов.
+% Масштаб для используемых шрифтов вычисляется автоматически далее.
 %    \begin{macrocode}
 \fp_new:N \g_@@_type_A_scale_fp
 \fp_gset_eq:NN \g_@@_type_A_scale_fp \c_one_fp
@@ -987,8 +999,19 @@
 \fp_gset_eq:NN \g_@@_type_B_scale_fp \c_one_fp
 %    \end{macrocode}
 % \end{variable}
+%
+% \begin{variable}[aux]
+%   {
+%     \l_@@_type_A_features_tl,
+%     \l_@@_type_A_fontadjustment_tl,
+%     \l_@@_type_B_features_tl,
+%     \l_@@_type_B_fontadjustment_tl
+%   }
+%
+% Параметры шрифтов ГОСТ 2.304.
 %    \begin{macrocode}
-\tl_new:N \g_@@_font_features_tl % fontspec параметры семейства шрифтов
+\tl_new:N \l_@@_type_A_features_tl
+\tl_new:N \l_@@_type_A_fontadjustment_tl
 \tl_set:Nn \l_@@_type_A_features_tl
   {
     Font = \tl_use:N \c_@@_type_A_tl
@@ -1001,6 +1024,8 @@
     ,Scale = \fp_to_decimal:N \g_@@_type_A_scale_fp
     ,FontAdjustment = { \tl_use:N \l_@@_type_A_fontadjustment_tl }
   }
+\tl_new:N \l_@@_type_B_features_tl
+\tl_new:N \l_@@_type_B_fontadjustment_tl
 \tl_set:Nn \l_@@_type_B_features_tl
   {
     Font = \tl_use:N \c_@@_type_B_tl
@@ -1013,17 +1038,35 @@
     ,Scale = \fp_to_decimal:N \g_@@_type_B_scale_fp
     ,FontAdjustment = { \tl_use:N \l_@@_type_B_fontadjustment_tl }
   }
-
+%    \end{macrocode}
+% \end{variable}
+%
+% Определяем свойства шрифтов.
+% \begin{macro}{DigitThree}
+% Свойство |DigitThree| определяет начертание цифры 3.
+%    \begin{macrocode}
 \newopentypefeature { DigitThree } { alternative } { +cv01 }
 \newopentypefeature { DigitThree } { basic } { -cv01 }
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{RomanNumeral}
+% Свойство |RomanNumeral| определяет начертание римских цифр.
+%    \begin{macrocode}
 \newopentypefeature { RomanNumeral } { On } { +cv03 }
 \newopentypefeature { RomanNumeral } { Off } { -cv03 }
-
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{RomanV}
+% Свойство |RomanV| определяет начертание римской V.
+%    \begin{macrocode}
 \newopentypefeature { RomanV } { alternative } { +cv02 }
 \newopentypefeature { RomanV } { serif } { +cv02 }
 \newopentypefeature { RomanV } { basic } { -cv02 }
-
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\tl_new:N \g_@@_font_features_tl
 \tl_gset:Nn \g_@@_font_features_tl
   {
     Path = 
