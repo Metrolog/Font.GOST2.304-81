@@ -65,6 +65,7 @@ Install-Package `
 ;
 Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 ttfautohint";
 Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 make";
+Invoke-Expression "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1 zip";
 
 Install-Package `
     -Name 'fontforge' `
