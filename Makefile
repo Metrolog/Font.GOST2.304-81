@@ -55,12 +55,12 @@ else
 endif
 
 TEXLUA             ?= texlua
-PDFVIEWER          ?= acroread
+PDFVIEWER          ?= start
 LATEXMK            ?= latexmk \
 	-xelatex \
 	-auxdir=$(AUXDIR) \
 	$(VIEWPDFOPT) \
-	-e '$$pdf_previewer=q/\"$(PDFVIEWER)\" %O %S/' \
+	-e '$$pdf_previewer=q/$(PDFVIEWER) %O %S/' \
 	-recorder -gg \
 	-use-make \
 	-interaction=nonstopmode \
