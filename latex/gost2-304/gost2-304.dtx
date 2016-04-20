@@ -1150,21 +1150,35 @@
     { \dim_to_fp:n { 1pt * \dim_ratio:nn \l_tmpa_dim { 1ex } } }
 \group_end:
 %    \end{macrocode}
-% Ограничиваем допустимые размеры шрифтов.
+%
+% Указываем допустимые размеры шрифтов в свойствах шрифта.
+%
+% В соответствии с требованиями п.~2.2 ГОСТ 2.304 минимальный размер шрифта
+% (1,8~мм) допустим только для шрифта типа~Б. Для того, чтобы и для шрифта
+% типа А высотой 2,5~мм можно было использовать индексы, вводим размер
+% 1,8~мм как допустимый для шрифта типа~А, но при этом при использовании
+% данного размера принудительно неявно будем использовать шрифт типа~Б.
 %    \begin{macrocode}
+\tl_new:N \l_@@_SizeFeatures_tl
 \clist_set_eq:NN \l_tmpa_clist \c_@@_fontsizes_clist
 \clist_pop:NN \l_tmpa_clist \l_tmpa_tl % tiny size
-% готовим список остальных допустимых размеров
 \seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
 \seq_clear:N \l_tmpb_seq
 \tl_clear:N \l_tmpb_tl
+%    \end{macrocode}
+% Для первого размера (1,8~мм) указываем принудительно свойства шрифта типа~Б.
+% Но только для шрифта типа~А. 
+%    \begin{macrocode}
 \seq_push:Nn \l_tmpb_seq
   { {
     Size = \dim_to_decimal:n {
       \_@@_fontsize_from_h:n { \tl_use:N \l_tmpa_tl }
-    } % п.2.2 ГОСТ 2.304-81
-    , \tl_use:N \l_tmpb_tl %\l_@@_type_B_features_tl
+    }
+    , \tl_use:N \l_tmpb_tl
   } }
+%    \end{macrocode}
+% Добавляем остальные допустимые размеры.
+%    \begin{macrocode}
 \seq_map_inline:Nn \l_tmpa_seq
   {
     \seq_put_right:Nn \l_tmpb_seq
@@ -1172,26 +1186,48 @@
         Size = \dim_to_decimal:n { \_@@_fontsize_from_h:n { #1 } } 
       } }
   }
-\tl_new:N \l_@@_SizeFeatures_tl
+%    \end{macrocode}
+% Формируем строку параметров с допустимыми размерами для \cs{fontspec}.
+%    \begin{macrocode}
 \tl_set:Nx \l_@@_SizeFeatures_tl
   { SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
-
+%    \end{macrocode}
+%
+% Добавляем подготовленную информацию о допустимых размерах
+% шрифта в параметры шрифта.
+%
+% Для первого размера (1,8~мм) шрифта типа~А принудительно применяем
+% параметры шрифта типа~Б (см. \cs{l_tmpb_tl}).
+%    \begin{macrocode}
 \tl_set:Nx \l_tmpb_tl \l_@@_type_B_features_tl
 \tl_put_right:Nx \l_@@_type_A_features_tl
   { ,\l_@@_SizeFeatures_tl }
-
 \tl_set:Nx \l_tmpb_tl \l_@@_type_B_slanted_features_tl
 \tl_put_right:Nx \l_@@_type_A_slanted_features_tl
   { ,\l_@@_SizeFeatures_tl }
-
+%    \end{macrocode}
+% Для шрифта типа~Б таких ухищрений не требуется. Поэтому параметры,
+% специфичные для первого размера (\cs{l_tmpb_tl}), очищаем.
+%    \begin{macrocode}
 \tl_clear:N \l_tmpb_tl
 \tl_put_right:Nx \l_@@_type_B_features_tl
   { ,\l_@@_SizeFeatures_tl }
 \tl_put_right:Nx \l_@@_type_B_slanted_features_tl
   { ,\l_@@_SizeFeatures_tl }
-
+%    \end{macrocode}
+%
+% \begin{variable}[int]{\g_@@_mainfont_features_tl}
+% Устанавливаем значение переменной \cs{g_@@_mainfont_features_tl},
+% которая и содержит все сформированные параметры шрифтов.
+%    \begin{macrocode}
+\tl_new:N \g_@@_mainfont_features_tl
 \tl_gset:Nx \g_@@_mainfont_features_tl
   { \tl_use:N \g_@@_font_features_tl }
+%    \end{macrocode}
+% \end{variable}
+%
+% Определяем новое семейство шрифтов \cs{eskdfont}
+%    \begin{macrocode}
 \newfontfamily \eskdfont { \tl_use:N \c_@@_mainfont_tl }
   [
     % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
