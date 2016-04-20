@@ -234,17 +234,13 @@
 %
 % \end{documentation}
 % \begin{implementation}
-% \begin{variable}{\c_@@_fontsizes_clist, \c_@@_fontsizes_seq}
+% \begin{variable}{\c_@@_fontsizes_clist}
 % Ряд допустимых размеров шрифтов |h|.
 %
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_fontsizes_clist {
   1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
 }
-\seq_new:N \c_@@_fontsizes_seq
-\seq_set_from_clist:NN
-  \c_@@_fontsizes_seq
-  \c_@@_fontsizes_clist
 %    \end{macrocode}
 % \end{variable}
 % \end{implementation}
@@ -306,7 +302,7 @@
   {
     The~ font~ size~ "#1"~ is~ invalid.~
     Valid~ eskd~ font~ sizes:~
-    \seq_use:Nn \c_@@_fontsizes_seq {,~ }.
+    \clist_use:Nn \c_@@_fontsizes_clist {,~ }.
   }
 \msg_new:nnn { gost2-304 } { invalid-mainfontsize }
   {
@@ -381,7 +377,7 @@
             \dim_gset:Nn \g_@@_normalsize_dim {#1}
             \bool_gset_true:N \g_@@_mainfontsize_bool
           }
-          { \msg_fatal:nnn { gost2-304 } {invalid-font-size} {#1} }
+          { \msg_fatal:nnn { gost2-304 } { invalid-font-size } { #1 } }
       },
 %    \end{macrocode}
 % \end{implementation}
@@ -839,7 +835,8 @@
           }
       }
       {
-        \msg_fatal:nnn { gost2-304 } { invalid-font-size } {#1}
+        \msg_fatal:nnx { gost2-304 } { invalid-font-size }
+          { \dim_to_decimal_in_unit:nn { #1 } {1mm}mm }
       }
   }
 \@onlypreamble \_@@_normalsize_gset:n
@@ -1170,7 +1167,7 @@
 % данного размера принудительно неявно будем использовать шрифт типа~Б.
 %    \begin{macrocode}
 \tl_new:N \l_@@_SizeFeatures_tl
-\seq_set_eq:NN \l_tmpa_seq \c_@@_fontsizes_seq
+\seq_set_from_clist:NN \l_tmpa_seq \c_@@_fontsizes_clist
 \seq_pop:NN \l_tmpa_seq \l_tmpa_tl
 \seq_clear:N \l_tmpb_seq
 \tl_clear:N \l_tmpb_tl
@@ -1242,11 +1239,8 @@
     % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
     \tl_use:N \g_@@_mainfont_features_tl
   ]
-
-% устанавливаем основной шрифт и производные размеры, если указана опция mainfontsize
-\bool_if:NT \g_@@_mainfontsize_bool
-  { \_@@_normalsize_gset: }
-
+%    \end{macrocode}
+%    \begin{macrocode}
 % предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
 \prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
   {
@@ -1293,11 +1287,12 @@
   {
     \dim_new:N \l_@@_mathscriptsize_dim
     \dim_new:N \l_@@_mathsubscriptsize_dim
-    \clist_get:NN \l_tmpa_tl \c_@@_fontsizes_clist
+    \clist_set_eq:NN \l_tmpa_clist \c_@@_fontsizes_clist
+    \clist_pop:NN \l_tmpa_clist \l_tmpa_tl
     \_@@_fontsize_from_h:Nn \l_@@_mathscriptsize_dim \l_tmpa_tl
     \dim_set_eq:NN \l_@@_mathsubscriptsize_dim
       \l_@@_mathscriptsize_dim
-    \clist_map_inline:Nn \c_@@_fontsizes_clist
+    \clist_map_inline:Nn \l_tmpa_clist
       {
         \_@@_fontsize_from_h:Nn \l_tmpa_dim {##1}
         \_@@_declare_math_sizes:nnnn
@@ -1361,12 +1356,28 @@
 
 \_@@_declare_math_sizes:
 
+%    \end{macrocode}
+%
+% Планируем отложенные действия, связанные с опциями пакета
+% ради совместимости с \cs{PassOptionsToPackage}.
+% Суть в том, что значения опций пакета могут быть установлены
+% и после подключения пакета, но до начала документа.
+% Поэтому и планируем отложенные действия на начало документа.
+%    \begin{macrocode}
 \AtBeginDocument
   {
     \bool_if:NT \g_@@_math_support_bool
       { \mathversion{eskd} }
+%    \end{macrocode}
+%
+% Устанавливаем размер шрифта в случае указания опции
+% |mainfontsize|\ref{opt:mainfontsize}.
+%    \begin{macrocode}
+    \bool_if:NT \g_@@_mainfontsize_bool
+      { \_@@_normalsize_gset: }
   }
-
+%    \end{macrocode}
+%    \begin{macrocode}
 \ExplSyntaxOff
 %    \end{macrocode}
 % \iffalse
