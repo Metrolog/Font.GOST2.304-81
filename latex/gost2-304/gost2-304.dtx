@@ -52,7 +52,7 @@
     % digit-three = alternative,
     roman-V = serif,
     fractions = On,
-    math = true
+    math
   ]
   {gost2-304}
 \usepackage[russian]{babel}
@@ -99,7 +99,7 @@
 \providecommand{\figureversion}[1]{}
 
 \EnableCrossrefs
-%\PageIndex
+\PageIndex
 \CodelineIndex
 
 \RecordChanges
@@ -115,7 +115,7 @@
   \EnableImplementation
   \DisableDocumentation
   \DocInputAgain
-  \PrintChanges
+  %\PrintChanges
 \end{document}
 %</driver>
 %
@@ -208,15 +208,15 @@
 % Идентификатор основного шрифта \cs{eskdfont}
 % и математического шрифта \cs{eskdfont}
 %    \begin{macrocode}
-\tl_const:Nn \c@@_mainfont_tl {eskdfont}
-\tl_const:Nn \c@@_mathfont_tl {eskdfont}
+\tl_const:Nn \c_@@_mainfont_tl {eskdfont}
+\tl_const:Nn \c_@@_mathfont_tl {eskdfont}
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\eskdfontfamily}
 % Идентификатор NFSS семейства шрифтов \cs{eskdfontfamily}
 %    \begin{macrocode}
-\tl_const:Nn \c@@_mainfont_NFSSFamily_tl {eskdfontfamily}
-\tl_const:Nn \c@@_mathfont_NFSSFamily_tl {eskdfontfamily}
+\tl_const:Nn \c_@@_mainfont_NFSSFamily_tl {eskdfontfamily}
+\tl_const:Nn \c_@@_mathfont_NFSSFamily_tl {eskdfontfamily}
 %    \end{macrocode}
 % \end{variable}
 % \end{implementation}
@@ -443,9 +443,11 @@
 % \DrawChars{ 1234567890 \addfontfeature{Numbers=SlashedZero} 0 }
 %
 % Локально изменить начертание нуля можно следующим образом:
+%
 % \begin{verbatim}
 % { 0 \addfontfeature{Numbers=SlashedZero} 0 }
 % \end{verbatim}
+%
 % \DrawChars{ 0 \addfontfeature{Numbers=SlashedZero} 0 }
 %
 % \end{documentation}
@@ -473,9 +475,11 @@
 %
 % Отличия видны ниже.
 % Локально изменить начертание можно следующим образом:
+%
 % \begin{verbatim}
 % { 3 \addfontfeature{DigitThree=alternative} 3 }
 % \end{verbatim}
+%
 % \DrawChars{ 3 \addfontfeature{DigitThree=alternative} 3 }
 %
 % \end{documentation}
@@ -553,10 +557,12 @@
 % Отличия видны ниже.
 %
 % Локально изменить начертание можно следующим образом:
+%
 % \begin{verbatim}
 % { \@roman{5}
 %   \addfontfeature{Roman-V=alternative} \@roman{5} }
 % \end{verbatim}
+%
 % \makeatletter
 % \DrawChars
 %   {
@@ -814,10 +820,10 @@
                 \msg_log:nnx { gost2-304 } { set-font-size } {\cs_to_str:N ##1}
               }
             \normalsize
-            \setmainfont { \tl_use:N \c@@_mainfont_tl }
+            \setmainfont { \tl_use:N \c_@@_mainfont_tl }
               [
                 % NFSSFamily = \tl_use:N
-                %   \c@@_mainfont_NFSSFamily_tl,
+                %   \c_@@_mainfont_NFSSFamily_tl,
                 \tl_use:N \g_@@_mainfont_features_tl
               ]
             \msg_log:nn { gost2-304 } { mainfont }
@@ -1106,15 +1112,31 @@
 %    \end{macrocode}
 % \end{variable}
 %
+% Определяем масштаб для шрифта.
+% Для шрифта типа А определять масштаб нет необходимости,
+% соотношение кегля (|em|, параметр шрифта |b|) к высоте строчных
+% букв (|ex|, параметр шрифта c) известно заранее.
+%
+% Расчёт масштаба оставлен пока только для шрифта типа Б, потому как
+% он получен ``утолщением'' True Type шрифта типа А. По факту разработки
+% самостоятельного True Type шрифта типа Б расчёт масштаба можно будет
+% полностью убрать.
+%
+% \begin{eqnarray*}
+%   1 \text{~ex} & = & c\\
+%   h & = & \left[ \begin{matrix}
+%       \frac{14}{10} \cdot c & \text{для шрифта типа А}\\
+%       \frac{10}{7} \cdot c & \text{для шрифта типа Б}\\
+%   \end{matrix} \right.\\
+%   1 \text{~em} & = & \text{кегль шрифта (\cs{f@size})}\\
+%   \frac{\text{\cs{f@size}}}{h} & = & \frac{1 \text{~em}}{ \frac{14}{10} \text{~ex}} = \frac{10 \text{~em}}{14 \text{~ex}} \\
+% \end{eqnarray*}
+%
 %    \begin{macrocode}
-% определяем масштаб для шрифта
-% 1ex = c, h = 14/10 c (или 10/7 c для шрифта типа Б)
-% 1em = кегль шрифта (\f@size)
-% (\f@size) / h = em / (14/10 ex) = 10em / 14ex
 \group_begin:
-  \fontspec { \tl_use:N \c@@_mainfont_tl }
+  \fontspec { \tl_use:N \c_@@_mainfont_tl }
     [
-      % NFSSFamily = \tl_use:N \c@@_mainfont_NFSSFamily_tl,
+      % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
       \tl_use:N \g_@@_font_features_tl
     ]
   \fontsize { 100pt } { 100pt } \selectfont
@@ -1127,8 +1149,9 @@
   \fp_gset:Nn \g_@@_type_B_scale_fp
     { \dim_to_fp:n { 1pt * \dim_ratio:nn \l_tmpa_dim { 1ex } } }
 \group_end:
-
-% ограничиваем допустимые размеры шрифтов
+%    \end{macrocode}
+% Ограничиваем допустимые размеры шрифтов.
+%    \begin{macrocode}
 \clist_set_eq:NN \l_tmpa_clist \c_@@_fontsizes_clist
 \clist_pop:NN \l_tmpa_clist \l_tmpa_tl % tiny size
 % готовим список остальных допустимых размеров
@@ -1169,9 +1192,9 @@
 
 \tl_gset:Nx \g_@@_mainfont_features_tl
   { \tl_use:N \g_@@_font_features_tl }
-\newfontfamily \eskdfont { \tl_use:N \c@@_mainfont_tl }
+\newfontfamily \eskdfont { \tl_use:N \c_@@_mainfont_tl }
   [
-    % NFSSFamily = \tl_use:N \c@@_mainfont_NFSSFamily_tl,
+    % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
     \tl_use:N \g_@@_mainfont_features_tl
   ]
 
@@ -1182,7 +1205,7 @@
 % предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
 \prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
   {
-    \tl_if_in:NnTF \f@family {eskdfont} %\c@@_mainfont_tl
+    \tl_if_in:NnTF \f@family {eskdfont} %\c_@@_mainfont_tl
 	  { \prg_return_true: } { \prg_return_false: }
   }
 
@@ -1252,8 +1275,8 @@
 \cs_generate_variant:Nn \_@@_math_symbol_declare:nNnn { nNnx }
 \cs_generate_variant:Nn \_@@_math_symbol_declare:nNnn { xNnx }
 
-\cs_new_nopar:Nn \_@@_math_font_family:n
-  {\tl_to_str:N \c@@_mathfont_NFSSFamily_tl #1}
+\cs_new_nopar:Nn \_@@_mathfont_family:n
+  {\tl_to_str:N \c_@@_mathfont_NFSSFamily_tl #1}
 
 \cs_generate_variant:Nn \fontspec_set_family:cnn { cxx }
 
@@ -1263,15 +1286,15 @@
       { \tl_use:N \g_@@_font_features_tl }
     \fontspec_set_family:cxx { g_@@_math_symbol_font_ #1 }
       {
-        NFSSFamily = \_@@_math_font_family:n {#1},
+        NFSSFamily = \_@@_mathfont_family:n {#1},
         \tl_use:N \l_@@_mathfont_features_tl
       }
-      { \tl_use:N \c@@_mathfont_tl }
+      { \tl_use:N \c_@@_mathfont_tl }
     \SetSymbolFont
       {#1}
       {eskd}
       { \tl_use:N \g_fontspec_encoding_tl }
-      { \_@@_math_font_family:n {#1} }
+      { \_@@_mathfont_family:n {#1} }
       {#2}
       {#3}
   }
