@@ -62,6 +62,7 @@
 \usepackage{interfaces-tikz}
 \usepackage{xfrac}
 \usepackage{nicefrac}
+\usepackage{todo}
 
 \ExplSyntaxOn
 \cs_new_nopar:Npn \date_TeX_to_ISO:w #1/#2/#3 \q_stop
@@ -116,6 +117,7 @@
   \DisableDocumentation
   \DocInputAgain
   %\PrintChanges
+  \todos
 \end{document}
 %</driver>
 %
@@ -854,6 +856,8 @@
 %       \marg{размер шрифта h с указанием единицы измерения}
 %   \end{syntax}
 % Вычисляет интервал между базовыми линиями |b| из размера шрифта |h|.
+% \todo{После подготовки шрифта типа~Б корректно рассчитывать |b| и для
+% него.}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_b_from_h:n
   {
@@ -998,6 +1002,7 @@
 %
 % Переменные, содержащие масштабные коэффициенты для шрифтов.
 % Масштаб для используемых шрифтов вычисляется автоматически далее.
+% \todo{Убрать расчёт масштаба после подготовки шрифта типа~Б.}
 %    \begin{macrocode}
 \fp_new:N \g_@@_type_A_scale_fp
 \fp_gset_eq:NN \g_@@_type_A_scale_fp \c_one_fp
@@ -1121,6 +1126,7 @@
 % он получен ``утолщением'' True Type шрифта типа А. По факту разработки
 % самостоятельного True Type шрифта типа Б расчёт масштаба можно будет
 % полностью убрать.
+% \todo{Убрать расчёт масштаба после подготовки шрифта типа~Б.}
 %
 % \begin{eqnarray*}
 %   1 \text{~ex} & = & c\\
