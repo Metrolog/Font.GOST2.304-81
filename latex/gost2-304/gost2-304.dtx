@@ -234,13 +234,17 @@
 %
 % \end{documentation}
 % \begin{implementation}
-% \begin{variable}{\c_@@_fontsizes_clist}
+% \begin{variable}{\c_@@_fontsizes_clist, \c_@@_fontsizes_seq}
 % Ряд допустимых размеров шрифтов |h|.
 %
 %    \begin{macrocode}
 \clist_const:Nn \c_@@_fontsizes_clist {
   1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
 }
+\seq_new:N \c_@@_fontsizes_seq
+\seq_set_from_clist:NN
+  \c_@@_fontsizes_seq
+  \c_@@_fontsizes_clist
 %    \end{macrocode}
 % \end{variable}
 % \end{implementation}
@@ -302,7 +306,7 @@
   {
     The~ font~ size~ "#1"~ is~ invalid.~
     Valid~ eskd~ font~ sizes:~
-    \clist_use:Nn \c_@@_fontsizes_clist {,~ }.
+    \seq_use:Nn \c_@@_fontsizes_seq {,~ }.
   }
 \msg_new:nnn { gost2-304 } { invalid-mainfontsize }
   {
@@ -1166,9 +1170,8 @@
 % данного размера принудительно неявно будем использовать шрифт типа~Б.
 %    \begin{macrocode}
 \tl_new:N \l_@@_SizeFeatures_tl
-\clist_set_eq:NN \l_tmpa_clist \c_@@_fontsizes_clist
-\clist_pop:NN \l_tmpa_clist \l_tmpa_tl % tiny size
-\seq_set_from_clist:NN \l_tmpa_seq \l_tmpa_clist
+\seq_set_eq:NN \l_tmpa_seq \c_@@_fontsizes_seq
+\seq_pop:NN \l_tmpa_seq \l_tmpa_tl
 \seq_clear:N \l_tmpb_seq
 \tl_clear:N \l_tmpb_tl
 %    \end{macrocode}
