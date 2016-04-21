@@ -178,6 +178,9 @@
 %
 % \end{documentation}
 % \begin{implementation}
+% \newpage
+% \section{Реализация}
+%
 % \iffalse
 %<*package>
 % \fi
@@ -918,31 +921,12 @@
 \cs_generate_variant:Nn \_@@_setfontsize_h:Nn { Nc }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}[aux]{\eskdfont_fontsize_h:nn}
-%   \begin{syntax}
-%     \cs{\eskdfont_fontsize_h:nn}
-%       \marg{размер шрифта h с указанием единицы измерения}
-%       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
-%   \end{syntax}
-%
-% Устанавливает размер текущего шрифта на основе указанного |h|.
-%    \begin{macrocode}
-\cs_new_nopar:Nn \eskdfont_fontsize_h:nn
-  {
-    \fontsize{\_@@_fontsize_from_h:n{#1}}{#2}
-    \ignorespaces
-  }
-\cs_new_nopar:Nn \eskdfont_fontsize_h:n
-  {
-    \eskdfont_fontsize_h:nn {#1}{ \_@@_b_from_h:n {#1} }
-  }
-%    \end{macrocode}
-% \end{macro}
-%
 % \end{implementation}
 % \begin{documentation}
 %
 % \DescribeMacro{\eskdfontsize}
+% \DescribeMacro{\eskdfont_fontsize_h:nn}
+% \DescribeMacro{\eskdfont_fontsize_h:n}
 % В дополнение к опции |mainfontsize| (\pageref{opt:mainfontsize})
 % данный пакет экспортирует макрос
 % \cs{eskdfontsize}\marg{размер H шрифта}\oarg{расстояние между строками b},
@@ -973,6 +957,26 @@
 %
 % \end{documentation}
 % \begin{implementation}
+% \begin{macro}[aux]{\eskdfont_fontsize_h:nn}
+%   \begin{syntax}
+%     \cs{\eskdfont_fontsize_h:nn}
+%       \marg{размер шрифта h с указанием единицы измерения}
+%       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
+%   \end{syntax}
+%
+% Устанавливает размер текущего шрифта на основе указанного |h|.
+%    \begin{macrocode}
+\cs_new_nopar:Nn \eskdfont_fontsize_h:nn
+  {
+    \fontsize{\_@@_fontsize_from_h:n{#1}}{#2}
+    \ignorespaces
+  }
+\cs_new_nopar:Nn \eskdfont_fontsize_h:n
+  {
+    \eskdfont_fontsize_h:nn {#1}{ \_@@_b_from_h:n {#1} }
+  }
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\eskdfontsize}
 %   \begin{syntax}
@@ -1248,15 +1252,37 @@
 \bool_if:NT \g_@@_mainfontsize_bool
   { \_@@_normalsize_gset: }
 %    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
 %
+% \subsection{Проверка используемого шрифта}
+% \label{sec:if_eskdfont}
+%
+% \DescribeMacro{\eskdfont_if_eskdfont:}
+% В ряде случаев необходимо выполнить те или иные действия в зависимости от
+% используемого в настоящий момент шрифта.
+% Предикат \cs{eskdfont_if_eskdfont:} решает именно эту задачу.
+%
+% \begin{verbatim}
+% \eskdfont_if_eskdfont:TF
+%   {да, шрифт ГОСТ 2.304}
+%   {нет, шрифт не ГОСТ 2.304}
+% \end{verbatim}
+%
+% \end{documentation}
+% \begin{implementation}
+% \begin{macro}{\eskdfont_if_eskdfont:}
+%
+% Предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
 %    \begin{macrocode}
-% предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
 \prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
   {
     \tl_if_in:NnTF \f@family {eskdfont} %\c_@@_mainfont_tl
-	  { \prg_return_true: } { \prg_return_false: }
+    { \prg_return_true: } { \prg_return_false: }
   }
-
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
 % опционально используем только заглавные римские цифры, как предусмотрено ГОСТ 2.304
 \cs_new_nopar:Nn \eskdfont_int_to_Roman:n
   {
