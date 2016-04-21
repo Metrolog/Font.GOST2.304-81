@@ -45,6 +45,7 @@
 \ProvidesFile{\ExplFileName.dtx}
   [\ExplFileDate\space v\ExplFileVersion\space\ExplFileDescription]
 \documentclass[a4paper,oneside,full]{l3doc}
+
 \usepackage
   [
     mainfontsize = 3.5mm,
@@ -55,6 +56,7 @@
     math
   ]
   {gost2-304}
+
 \usepackage[russian]{babel}
 \usepackage[useregional]{datetime2}
 \usepackage{interfaces}
@@ -1077,9 +1079,10 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{variable}[int]{\g_@@_font_features_tl}
+% \begin{variable}[int]{\g_@@_font_features_tl, \g_@@_mainfont_features_tl}
 % Определяем |fontspec| параметры шрифта |eskdfont|.
 %    \begin{macrocode}
+\tl_new:N \g_@@_mainfont_features_tl
 \tl_new:N \g_@@_font_features_tl
 \tl_gset:Nn \g_@@_font_features_tl
   {
@@ -1222,24 +1225,30 @@
   { ,\l_@@_SizeFeatures_tl }
 %    \end{macrocode}
 %
-% \begin{variable}[int]{\g_@@_mainfont_features_tl}
-% Устанавливаем значение переменной \cs{g_@@_mainfont_features_tl},
-% которая и содержит все сформированные параметры шрифтов.
+% Определяем новое семейство шрифтов \cs{eskdfont}.
+%
+% Пока указание |NFSSFamily| отключено.
+% Ясно, что для математических шрифтов указывать большого смысла нет,
+% но для шрифта текста - почему бы и нет?
+% \todo{Использовать ли |NFSSFamily| для \cs{eskdfont}?}
 %    \begin{macrocode}
-\tl_new:N \g_@@_mainfont_features_tl
 \tl_gset:Nx \g_@@_mainfont_features_tl
   { \tl_use:N \g_@@_font_features_tl }
-%    \end{macrocode}
-% \end{variable}
-%
-% Определяем новое семейство шрифтов \cs{eskdfont}
-%    \begin{macrocode}
-\newfontfamily \eskdfont { \tl_use:N \c_@@_mainfont_tl }
+\newfontfamily \eskdfont
+  { \tl_use:N \c_@@_mainfont_tl }
   [
     % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
-    \tl_use:N \g_@@_mainfont_features_tl
+    \tl_use:N \g_@@_font_features_tl
   ]
 %    \end{macrocode}
+%
+% Устанавливаем размер шрифта в случае указания опции
+% |mainfontsize|\ref{opt:mainfontsize}.
+%    \begin{macrocode}
+\bool_if:NT \g_@@_mainfontsize_bool
+  { \_@@_normalsize_gset: }
+%    \end{macrocode}
+%
 %    \begin{macrocode}
 % предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
 \prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
@@ -1358,23 +1367,12 @@
 
 %    \end{macrocode}
 %
-% Планируем отложенные действия, связанные с опциями пакета
-% ради совместимости с \cs{PassOptionsToPackage}.
-% Суть в том, что значения опций пакета могут быть установлены
-% и после подключения пакета, но до начала документа.
-% Поэтому и планируем отложенные действия на начало документа.
+% Планируем отложенные действия после преамбулы документа.
 %    \begin{macrocode}
 \AtBeginDocument
   {
     \bool_if:NT \g_@@_math_support_bool
       { \mathversion{eskd} }
-%    \end{macrocode}
-%
-% Устанавливаем размер шрифта в случае указания опции
-% |mainfontsize|\ref{opt:mainfontsize}.
-%    \begin{macrocode}
-    \bool_if:NT \g_@@_mainfontsize_bool
-      { \_@@_normalsize_gset: }
   }
 %    \end{macrocode}
 %    \begin{macrocode}
