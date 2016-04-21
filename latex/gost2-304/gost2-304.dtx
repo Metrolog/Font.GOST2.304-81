@@ -1265,20 +1265,29 @@
 %
 % \begin{verbatim}
 % \eskdfont_if_eskdfont:TF
-%   {да, шрифт ГОСТ 2.304}
-%   {нет, шрифт не ГОСТ 2.304}
+%   {да, шрифт ГОСТ 2.304.}
+%   {нет, шрифт не ГОСТ 2.304.}
 % \end{verbatim}
+%
+% Результат:
+% \ExplSyntaxOn
+% \eskdfont_if_eskdfont:TF
+%   {да,~ шрифт~ ГОСТ~2.304.}
+%   {нет,~ шрифт~ не~ ГОСТ~2.304.}
+% \ExplSyntaxOff
 %
 % \end{documentation}
 % \begin{implementation}
 % \begin{macro}{\eskdfont_if_eskdfont:}
 %
-% Предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81
+% Предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81.
+% \pkg{fontspec} генерирует имена семейств шрифтов вида |eskdfont(2)|.
+% \todo{Реализовать полное тестирования наименования семейства шрифтов}
 %    \begin{macrocode}
 \prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
   {
     \tl_if_in:NnTF \f@family {eskdfont} %\c_@@_mainfont_tl
-    { \prg_return_true: } { \prg_return_false: }
+      { \prg_return_true: } { \prg_return_false: }
   }
 %    \end{macrocode}
 % \end{macro}
