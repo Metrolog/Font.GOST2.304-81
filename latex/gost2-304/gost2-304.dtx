@@ -1282,19 +1282,19 @@
 %
 % Предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81.
 % \pkg{fontspec} генерирует имена семейств шрифтов вида |eskdfont(2)|.
-% \todo{Реализовать полное тестирования наименования семейства шрифтов}
 %    \begin{macrocode}
+\cs_generate_variant:Nn \use:nnn {NVV}
 \prg_new_conditional:Nnn \eskdfont_if_eskdfont: { p, T, F, TF }
   {
     \tl_if_eq:NNTF \f@family \c_@@_mainfont_tl
       \prg_return_true:
       {
         \group_begin:
-          \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \tl_set:Nn
-          \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \l_tmpa_tl
-            \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN {
-              \exp_after:wN \exp_after:wN \exp_after:wN \@@_if_eskdfont_auxi:w
-              \exp_after:wN \f@family \c_@@_mainfont_test_tl
+          \tl_set:Nf \l_tmpa_tl
+            {
+              \use:NVV \@@_if_eskdfont_auxi:w
+                \f@family
+                \c_@@_mainfont_test_tl
             }
           \tl_if_eq:NNTF \c_@@_mainfont_test_tl \l_tmpa_tl
             {
