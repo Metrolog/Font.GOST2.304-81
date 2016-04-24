@@ -1308,9 +1308,9 @@
       }
   }
 \tl_const:Nx \c_@@_mainfont_test_tl { \c_@@_mainfont_tl() }
-\exp_args:Nno \use:nn
-  { \cs_new_nopar:Npn \@@_if_eskdfont_auxi:w #1 }
-    { \c_@@_mainfont_tl(#2) }
+\cs_generate_variant:Nn \use:nnn {NNx}
+\use:NNx
+  \cs_new_nopar:Npn \@@_if_eskdfont_auxi:w { ##1 \c_@@_mainfont_tl (##2) }
     { #1 }
 %    \end{macrocode}
 % \end{macro}
