@@ -1286,9 +1286,27 @@
 %    \begin{macrocode}
 \prg_new_protected_conditional:Nnn \eskdfont_if_eskdfont: { T  , F , TF }
   {
-    \tl_if_in:NnTF \f@family {eskdfont} %\c_@@_mainfont_tl
-      { \prg_return_true: } { \prg_return_false: }
+    \if_meaning:w \f@family \c_@@_mainfont_tl
+      \prg_return_true:
+    \else:
+      \if_false: { \fi:
+        \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \tl_set:Nn
+        \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \l_tmpa_tl
+          \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN \exp_after:wN {
+            \exp_after:wN \exp_after:wN \exp_after:wN \@@_if_eskdfont_auxi:w
+            \exp_after:wN \f@family \c_@@_mainfont_test_tl
+          }
+        \if_meaning:w \c_@@_mainfont_test_tl \l_tmpa_tl
+          \prg_return_true:
+        \else:
+          \prg_return_false:
+        \fi:
+      \if_false: } \fi:
+    \fi:
   }
+\tl_const:Nx \c_@@_mainfont_test_tl { \c_@@_mainfont_tl() }
+\exp_after:wN \cs_new_nopar:Npn \exp_after:wN \@@_if_eskdfont_auxi:w \exp_after:wN # \exp_after:wN 1 \c_@@_mainfont_tl (#2)
+  { #1 }
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
