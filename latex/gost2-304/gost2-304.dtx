@@ -735,7 +735,6 @@
 \RequirePackage{xecyr}
 \RequirePackage{xparse}
 \RequirePackage{fontspec}
-\RequirePackage{unicode-math}
 %    \end{macrocode}
 % \end{implementation}
 % \begin{documentation}
@@ -1128,7 +1127,7 @@
 % Определяем масштаб для шрифта.
 % Для шрифта типа А определять масштаб нет необходимости,
 % соотношение кегля (|em|, параметр шрифта |b|) к высоте строчных
-% букв (|ex|, параметр шрифта c) известно заранее.
+% букв (|ex|, параметр шрифта |c|) известно заранее.
 %
 % Расчёт масштаба оставлен пока только для шрифта типа Б, потому как
 % он получен ``утолщением'' True Type шрифта типа А. По факту разработки
@@ -1453,7 +1452,8 @@
   {
 %    \end{macrocode}
 %   hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
-%   и это шрифт мог иметь отличный от других набор команд FontAdjustment
+%   и это шрифт мог иметь отличный от других набор команд FontAdjustment.
+%   \todo{Применять этот хак нужно только в случае, когда |FontAdjustment| указаны.}
 %    \begin{macrocode}
     \fp_gadd:Nn \g_@@_type_A_scale_fp {0.00001}
     \fp_gadd:Nn \g_@@_type_B_scale_fp {0.00001}
@@ -1480,8 +1480,8 @@
 % Назначаем шрифты с указанием параметров их начертания
 % для видов математических символов и операторов.
 %    \begin{macrocode}
-\_@@_set_symbol_font:nnn {operators}    \mddefault \updefault
-\_@@_set_symbol_font:nnn {letters}      \mddefault \sldefault
+\_@@_set_symbol_font:nnn {operators} \mddefault \updefault
+\_@@_set_symbol_font:nnn {letters}   \mddefault \sldefault
 %    \end{macrocode}
 %
 % Планируем отложенные действия после преамбулы документа.
