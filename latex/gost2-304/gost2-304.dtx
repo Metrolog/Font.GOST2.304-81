@@ -1418,20 +1418,43 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[int]{\_@@_mathfont_family:n}
+% Формирует идентификатор семейства математических шрифтов
+% для конкретного вида математических символов.
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_mathfont_family:n
-  {\tl_to_str:N \c_@@_mathfont_NFSSFamily_tl #1}
-
-\cs_generate_variant:Nn \fontspec_set_family:cnn { cxV }
-
+  {
+    \tl_to_str:N \c_@@_mathfont_NFSSFamily_tl #1
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% Определяем свою версию математики (набор математических шрифтов и символов).
+%    \begin{macrocode}
+\DeclareMathVersion {eskd}
+%    \end{macrocode}
+%
+% \begin{macro}[int]{\_@@_set_symbol_font:nnnnn}
+%   \begin{syntax}
+%     \cs{_@@_set_symbol_font:nnnnn}
+%       \marg{вид математических символов (|letters|, |operators| и прочие)}
+%       \marg{определяет особенности начертания шрифта (\cs{mddefault} и другие)}
+%       \marg{определяет особенности начертания шрифта (\cs{sldefault} и другие)}
+%       \marg{макросы дополнительной настройки шрифта типа А}
+%       \marg{макросы дополнительной настройки шрифта типа Б}
+%   \end{syntax}
+% Обёртка для \cs{SetSymbolFont}.
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnn
   {
     \_@@_set_symbol_font:nnnnn {#1} {#2} {#3} {} {}
   }
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnnnn
   {
-    % hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
-    % и это шрифт мог иметь отличный от других набор команд FontAdjustment
+%    \end{macrocode}
+%   hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
+%   и это шрифт мог иметь отличный от других набор команд FontAdjustment
+%    \begin{macrocode}
     \fp_gadd:Nn \g_@@_type_A_scale_fp {0.00001}
     \fp_gadd:Nn \g_@@_type_B_scale_fp {0.00001}
     \tl_set:Nn \l_@@_type_A_fontadjustment_tl {#4}
@@ -1450,12 +1473,15 @@
       {#2}
       {#3}
   }
-
-\DeclareMathVersion {eskd}
-
+\cs_generate_variant:Nn \fontspec_set_family:cnn { cxV }
+%    \end{macrocode}
+% \end{macro}
+%
+% Назначаем шрифты с указанием параметров их начертания
+% для видов математических символов и операторов.
+%    \begin{macrocode}
 \_@@_set_symbol_font:nnn {operators}    \mddefault \updefault
 \_@@_set_symbol_font:nnn {letters}      \mddefault \sldefault
-
 %    \end{macrocode}
 %
 % Планируем отложенные действия после преамбулы документа.
