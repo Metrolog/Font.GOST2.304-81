@@ -1343,6 +1343,7 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[int]{\_@@_declare_math_sizes:nnnn}
 %    \begin{macrocode}
 \cs_new:Nn \_@@_declare_math_sizes:nnnn
   {
@@ -1352,14 +1353,23 @@
       { \dim_to_decimal:n {#3} }
       { \dim_to_decimal:n {#4} }
   }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[int]{\_@@_declare_math_sizes:}
+% Данный макрос определяет размеры верхних и нижних индексов,
+% а также индексов для индексов, для каждого допустимого размера
+% шрифта (см. описание \cs{DeclareMathSizes}).
+%    \begin{macrocode}
 \cs_new:Nn \_@@_declare_math_sizes:
   {
     \dim_new:N \l_@@_mathscriptsize_dim
     \dim_new:N \l_@@_mathsubscriptsize_dim
-    \clist_set_eq:NN \l_tmpa_clist \c_@@_fontsizes_clist
+    \clist_set_eq:NN
+      \l_tmpa_clist \c_@@_fontsizes_clist
     \clist_pop:NN \l_tmpa_clist \l_tmpa_tl
-    \_@@_fontsize_from_h:Nn \l_@@_mathscriptsize_dim \l_tmpa_tl
+    \_@@_fontsize_from_h:Nn
+      \l_@@_mathscriptsize_dim \l_tmpa_tl
     \dim_set_eq:NN \l_@@_mathsubscriptsize_dim
       \l_@@_mathscriptsize_dim
     \clist_map_inline:Nn \l_tmpa_clist
@@ -1370,12 +1380,31 @@
           \l_tmpa_dim
           \l_@@_mathscriptsize_dim
           \l_@@_mathsubscriptsize_dim
-        \dim_set_eq:NN \l_@@_mathsubscriptsize_dim
+        \dim_set_eq:NN
+          \l_@@_mathsubscriptsize_dim
           \l_@@_mathscriptsize_dim
-        \dim_set_eq:NN \l_@@_mathscriptsize_dim \l_tmpa_dim
+        \dim_set_eq:NN
+          \l_@@_mathscriptsize_dim
+          \l_tmpa_dim
       }
   }
-
+%    \end{macrocode}
+% \end{macro}
+%
+% Собственно определяем допустимые размеры индексов,
+% если опция |math| активна.
+% \todo{Размеры индексов математического шрифта
+% необходимо определять только при версии математики
+% |eskd|. При изменении версии математики необходимо
+% восстанавливать размеры индексов.}
+%    \begin{macrocode}
+\bool_if:NT \g_@@_math_support_bool
+  {
+    \_@@_declare_math_sizes:
+  }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 % переопределяем шрифты цифр
 \cs_new:Nn \_@@_math_symbol_declare:nNnn
   {
@@ -1421,8 +1450,6 @@
 
 \_@@_set_symbol_font:nnn {operators}    \mddefault \updefault
 \_@@_set_symbol_font:nnn {letters}      \mddefault \sldefault
-
-\_@@_declare_math_sizes:
 
 %    \end{macrocode}
 %
