@@ -1426,6 +1426,16 @@
 
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnn
   {
+    \_@@_set_symbol_font:nnnnn {#1} {#2} {#3} {} {}
+  }
+\cs_new_nopar:Nn \_@@_set_symbol_font:nnnnn
+  {
+    % hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
+    % и это шрифт мог иметь отличный от других набор команд FontAdjustment
+    \fp_gadd:Nn \g_@@_type_A_scale_fp {0.00001}
+    \fp_gadd:Nn \g_@@_type_B_scale_fp {0.00001}
+    \tl_set:Nn \l_@@_type_A_fontadjustment_tl {#4}
+    \tl_set:Nn \l_@@_type_B_fontadjustment_tl {#5}
     \fontspec_set_family:cxV { g_@@_math_symbol_font_ #1 }
       {
         NFSSFamily = \_@@_mathfont_family:n {#1},
@@ -1439,16 +1449,6 @@
       { \_@@_mathfont_family:n {#1} }
       {#2}
       {#3}
-  }
-\cs_new_nopar:Nn \_@@_set_symbol_font:nnnnn
-  {
-    % hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
-    % и это шрифт мог иметь отличный от других набор команд FontAdjustment
-    \fp_gadd:Nn \g_@@_type_A_scale_fp {0.00001}
-    \fp_gadd:Nn \g_@@_type_B_scale_fp {0.00001}
-    \tl_set:Nn \l_@@_type_A_fontadjustment_tl {#4}
-    \tl_set:Nn \l_@@_type_B_fontadjustment_tl {#5}
-    \_@@_set_symbol_font:nnn {#1} {#2} {#3}
   }
 
 \DeclareMathVersion {eskd}
