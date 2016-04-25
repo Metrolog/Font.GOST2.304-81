@@ -1404,8 +1404,10 @@
   }
 %    \end{macrocode}
 %
+% \begin{macro}[int]{\_@@_math_symbol_declare:}
+% Обёртка для \cs{DeclareMathSymbol}.
+% \todo{Сейчас не исползую. Стоит убрать?}
 %    \begin{macrocode}
-% переопределяем шрифты цифр
 \cs_new:Nn \_@@_math_symbol_declare:nNnn
   {
     \DeclareMathSymbol {#1} {#2} {#3} {#4}
@@ -1413,7 +1415,10 @@
   }
 \cs_generate_variant:Nn \_@@_math_symbol_declare:nNnn { nNnx }
 \cs_generate_variant:Nn \_@@_math_symbol_declare:nNnn { xNnx }
-
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_mathfont_family:n
   {\tl_to_str:N \c_@@_mathfont_NFSSFamily_tl #1}
 
