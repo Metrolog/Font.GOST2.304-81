@@ -1314,8 +1314,13 @@
     { #1 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \todo{Изменить обработку |RomanNumeral|}
+% Опционально активируем замену глифов для латинских букв,
+% отражающих римские цифры, на специальные глифы римских цифр.
+% Только заглавные римские цифры, как предусмотрено ГОСТ 2.304
+% \begin{macro}[int]{\eskdfont_int_to_Roman:n, \eskdfont_int_to_roman:n}
 %    \begin{macrocode}
-% опционально используем только заглавные римские цифры, как предусмотрено ГОСТ 2.304
 \cs_new_nopar:Nn \eskdfont_int_to_Roman:n
   {
     \group_begin:
@@ -1330,17 +1335,15 @@
     \int_to_roman:n {#1}
     \group_end:
   }
-
 \bool_if:NT \g_@@_romannumeral_check_bool
   {
     \cs_set_eq:NN \@roman \eskdfont_int_to_roman:n
     \cs_set_eq:NN \@Roman \eskdfont_int_to_Roman:n
   }
-
-% опционально заменяем математические шрифты
-\tl_new:N \l_@@_mathfont_features_tl % fontspec параметры math шрифтов
-
-% определяем допустимые размеры шрифтов для формул
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
 \cs_new:Nn \_@@_declare_math_sizes:nnnn
   {
     \DeclareMathSizes
@@ -1385,18 +1388,16 @@
 \cs_new_nopar:Nn \_@@_mathfont_family:n
   {\tl_to_str:N \c_@@_mathfont_NFSSFamily_tl #1}
 
-\cs_generate_variant:Nn \fontspec_set_family:cnn { cxx }
+\cs_generate_variant:Nn \fontspec_set_family:cnn { cxV }
 
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnn
   {
-    \tl_set:Nx \l_@@_mathfont_features_tl
-      { \tl_use:N \g_@@_font_features_tl }
-    \fontspec_set_family:cxx { g_@@_math_symbol_font_ #1 }
+    \fontspec_set_family:cxV { g_@@_math_symbol_font_ #1 }
       {
         NFSSFamily = \_@@_mathfont_family:n {#1},
-        \tl_use:N \l_@@_mathfont_features_tl
+        \tl_use:N \g_@@_font_features_tl
       }
-      { \tl_use:N \c_@@_mathfont_tl }
+      \c_@@_mathfont_tl
     \SetSymbolFont
       {#1}
       {eskd}
