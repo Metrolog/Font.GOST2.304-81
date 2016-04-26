@@ -219,11 +219,18 @@
 \tl_const:Nn \c_@@_mathfont_tl {eskdfont}
 %    \end{macrocode}
 % \end{variable}
-% \begin{variable}{\eskdfontfamily}
+% \begin{variable}{c_@@_mainfont_NFSSFamily_tl, c_@@_mathfont_NFSSFamily_tl}
 % Идентификатор NFSS семейства шрифтов \cs{eskdfontfamily}
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_mainfont_NFSSFamily_tl {eskdfontfamily}
 \tl_const:Nn \c_@@_mathfont_NFSSFamily_tl {eskdfontfamily}
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\c_@@_math_version_tl}
+% Идентификатор версии математики со шрифтом ГОСТ~2.304.
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_math_version_tl {eskd}
 %    \end{macrocode}
 % \end{variable}
 % \end{implementation}
@@ -1430,7 +1437,7 @@
 %
 % Определяем свою версию математики (набор математических шрифтов и символов).
 %    \begin{macrocode}
-\DeclareMathVersion {eskd}
+\DeclareMathVersion \c_@@_math_version_tl
 %    \end{macrocode}
 %
 % \begin{macro}[int]{\_@@_set_symbol_font:nnnnn}
@@ -1467,7 +1474,7 @@
       \c_@@_mathfont_tl
     \SetSymbolFont
       {#1}
-      {eskd}
+      \c_@@_math_version_tl
       { \tl_use:N \g_fontspec_encoding_tl }
       { \_@@_mathfont_family:n {#1} }
       {#2}
@@ -1489,7 +1496,7 @@
 \AtBeginDocument
   {
     \bool_if:NT \g_@@_math_support_bool
-      { \mathversion{eskd} }
+      { \mathversion \c_@@_math_version_tl }
   }
 %    \end{macrocode}
 %    \begin{macrocode}
