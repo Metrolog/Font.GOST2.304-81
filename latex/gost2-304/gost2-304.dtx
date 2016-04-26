@@ -211,19 +211,20 @@
 % шрифтов \DescribeMacro{\eskdfontfamily}\cs{eskdfontfamily}.
 % \end{documentation}
 % \begin{implementation}
-% \begin{variable}{\eskdfont}
-% Идентификатор основного шрифта \cs{eskdfont}
-% и математического шрифта \cs{eskdfont}
+%    \begin{macrocode}
+\cs_generate_variant:Nn \tl_const:Nn { NV }
+%    \end{macrocode}
+% \begin{variable}{c_@@_mainfont_tl}
+% Идентификатор основного шрифта
+% и математического шрифта |eskdfont|
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_mainfont_tl {eskdfont}
-\tl_const:Nn \c_@@_mathfont_tl {eskdfont}
 %    \end{macrocode}
 % \end{variable}
-% \begin{variable}{c_@@_mainfont_NFSSFamily_tl, c_@@_mathfont_NFSSFamily_tl}
-% Идентификатор NFSS семейства шрифтов \cs{eskdfontfamily}
+% \begin{variable}{c_@@_NFSSFamily_tl}
+% Идентификатор NFSS семейства шрифтов |eskdfont|
 %    \begin{macrocode}
-\tl_const:Nn \c_@@_mainfont_NFSSFamily_tl {eskdfontfamily}
-\tl_const:Nn \c_@@_mathfont_NFSSFamily_tl {eskdfontfamily}
+\tl_const:NV \c_@@_NFSSFamily_tl \c_@@_mainfont_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -836,7 +837,7 @@
             \setmainfont { \tl_use:N \c_@@_mainfont_tl }
               [
                 % NFSSFamily = \tl_use:N
-                %   \c_@@_mainfont_NFSSFamily_tl,
+                %   \c_@@_NFSSFamily_tl,
                 \tl_use:N \g_@@_mainfont_features_tl
               ]
             \msg_log:nn { gost2-304 } { mainfont }
@@ -1159,7 +1160,6 @@
 \group_begin:
   \fontspec { \tl_use:N \c_@@_mainfont_tl }
     [
-      % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
       \tl_use:N \g_@@_font_features_tl
     ]
   \fontsize { 100pt } { 100pt } \selectfont
@@ -1250,7 +1250,7 @@
 \newfontfamily \eskdfont
   { \tl_use:N \c_@@_mainfont_tl }
   [
-    % NFSSFamily = \tl_use:N \c_@@_mainfont_NFSSFamily_tl,
+    NFSSFamily = \tl_use:N \c_@@_NFSSFamily_tl,
     \tl_use:N \g_@@_font_features_tl
   ]
 %    \end{macrocode}
@@ -1433,7 +1433,7 @@
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_mathfont_family:n
   {
-    \tl_to_str:N \c_@@_mathfont_NFSSFamily_tl #1
+    \tl_to_str:N \c_@@_NFSSFamily_tl #1
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1456,7 +1456,13 @@
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnn
   {
-    \_@@_set_symbol_font:nnnnn {#1} {#2} {#3} {} {}
+    \SetSymbolFont
+      {#1}
+      \c_@@_math_version_tl
+      { \tl_use:N \g_fontspec_encoding_tl }
+      { \tl_use:N \c_@@_NFSSFamily_tl }
+      {#2}
+      {#3}
   }
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnnnn
   {
@@ -1474,7 +1480,7 @@
         NFSSFamily = \_@@_mathfont_family:n {#1},
         \tl_use:N \g_@@_font_features_tl
       }
-      \c_@@_mathfont_tl
+      \c_@@_mainfont_tl
     \SetSymbolFont
       {#1}
       \c_@@_math_version_tl
