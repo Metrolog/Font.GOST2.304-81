@@ -1145,11 +1145,14 @@
 % \begin{eqnarray*}
 %   1 \text{~ex} & = & c\\
 %   h & = & \left[ \begin{matrix}
-%       \frac{14}{10} \cdot c & \text{для шрифта типа А}\\
-%       \frac{10}{7} \cdot c & \text{для шрифта типа Б}\\
+%     \frac{14}{10} \cdot c & \text{для шрифта типа А}\\
+%     \frac{10}{7} \cdot c & \text{для шрифта типа Б}\\
 %   \end{matrix} \right.\\
 %   1 \text{~em} & = & \text{кегль шрифта (\cs{f@size})}\\
-%   \frac{\text{\cs{f@size}}}{h} & = & \frac{1 \text{~em}}{ \frac{14}{10} \text{~ex}} = \frac{10 \text{~em}}{14 \text{~ex}} \\
+%   \frac{\text{\cs{f@size}}}{h} & = & \left[ \begin{matrix}
+%     \frac{1 \text{~em}}{ \frac{14}{10} \text{~ex}} = \frac{10 \text{~em}}{14 \text{~ex}} & \text{для шрифта типа А}\\
+%     \frac{1 \text{~em}}{ \frac{10}{7} \text{~ex}} = \frac{7 \text{~em}}{10 \text{~ex}} & \text{для шрифта типа Б}\\
+%   \end{matrix} \right.\\
 % \end{eqnarray*}
 %
 %    \begin{macrocode}
