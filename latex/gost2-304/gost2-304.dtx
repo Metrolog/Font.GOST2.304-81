@@ -1243,7 +1243,6 @@
 % Пока указание |NFSSFamily| отключено.
 % Ясно, что для математических шрифтов указывать большого смысла нет,
 % но для шрифта текста - почему бы и нет?
-% \todo{Использовать ли |NFSSFamily| для \cs{eskdfont}?}
 %    \begin{macrocode}
 \tl_gset:Nx \g_@@_mainfont_features_tl
   { \tl_use:N \g_@@_font_features_tl }
@@ -1469,7 +1468,7 @@
 %    \end{macrocode}
 %   hack - меняем масштабы шрифтов, чтобы внутреннее имя шрифта отличалось от других,
 %   и это шрифт мог иметь отличный от других набор команд FontAdjustment.
-%   \todo{Применять этот хак нужно только в случае, когда |FontAdjustment| указаны.}
+%   \todo{А нужна ли вообще редакция \cs{_@@_set_symbol_font:nnnnn}?}
 %    \begin{macrocode}
     \fp_gadd:Nn \g_@@_type_A_scale_fp {0.00001}
     \fp_gadd:Nn \g_@@_type_B_scale_fp {0.00001}
