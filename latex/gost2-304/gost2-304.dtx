@@ -48,6 +48,7 @@
 
 \usepackage
   [
+    use-NFSSFamily = false,
     mainfontsize = 3.5mm,
     % zero = slashed,
     % digit-three = alternative,
@@ -299,6 +300,8 @@
 \tl_new:N \g_@@_fractions_tl
 \bool_new:N \g_@@_math_support_bool
 \bool_gset_false:N \g_@@_math_support_bool
+\bool_new:N \g_@@_use_NFSSFamily_bool
+\bool_gset_false:N \g_@@_use_NFSSFamily_bool
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -679,6 +682,30 @@
       {
         math = false
       },
+%    \end{macrocode}
+% \end{implementation}
+% \begin{documentation}
+%
+% \subsection{use-NFSSFamily}\label{opt:use-NFSSFamily}
+%
+% \DescribeOption{use-NFSSFamily}
+% Параметр |use-NFSSFamily| управляет использованием |NFSSFamily|
+% при определении основного шрифта.
+% По умолчанию - |use-NFSSFamily=true|.
+%
+% Использование данной опции блокирует использование
+% \cs{addfontfeature}.
+% Но при этом уменьшает количество загружаемых шрифтов
+% и занимаемых слотов шрифтов. Ну и несколько повышает
+% производительность.
+%
+% \end{documentation}
+% \begin{implementation}
+% Параметр |use-NFSSFamily| управляет использованием |NFSSFamily|.
+%    \begin{macrocode}
+    use-NFSSFamily .bool_gset:N = \g_@@_use_NFSSFamily_bool,
+    use-NFSSFamily .default:n = { true },
+    use-NFSSFamily .initial:n = { true },
 %    \end{macrocode}
 % Служебные опции пакета, управляющие интенсивностью сообщий модуля
 % при его использовании.
@@ -1257,13 +1284,18 @@
 %    \begin{macrocode}
 \cs_new_nopar:Nn \@@_set_main_font:
   {
-    \setmainfont
-      { \tl_use:N \c_@@_mainfont_tl }
-      [
-        %NFSSFamily = \tl_use:N \c_@@_NFSSFamily_tl,
-        \tl_use:N \g_@@_font_features_tl
-      ]
-    %\tl_set_eq:NN \rmdefault \g__fontspec_eskdfont_family
+    \bool_if:NTF \g_@@_use_NFSSFamily_bool
+      {
+        \tl_set_eq:NN \rmdefault \g__fontspec_eskdfont_family
+      }
+      {
+        \setmainfont
+          { \tl_use:N \c_@@_mainfont_tl }
+          [
+            %NFSSFamily = \tl_use:N \c_@@_NFSSFamily_tl,
+            \tl_use:N \g_@@_font_features_tl
+          ]
+      }
     \normalfont
     \msg_log:nn { gost2-304 } { mainfont }
   }
