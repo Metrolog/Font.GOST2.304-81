@@ -197,6 +197,15 @@
 %
 % Пакет \thispkg{} построен на базе пакета \pkg{fontspec}
 % с использованием синтаксиса \LaTeX3.
+%
+% Пакет \thispkg{} с опцией |math|
+% несовместим в текущей версии с \pkg{unicode-math}
+% и рядом других пакетов поддержки математики. По сути - 
+% со всеми пакетами, отключающими переопределение математических
+% символов в \pkg{fontspec}. Либо уберите опцию |math| и
+% используйте математику других пакетов, либо откажитесь
+% от использования несовместимых пакетов.
+%
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -328,6 +337,11 @@
   {
     Set~ "#1"~ font~ size~ to~
     \dim_to_decimal_in_unit:cn {g_@@_#1_dim} {1mm}~mm.
+  }
+\msg_new:nnn { gost2-304 } { incompatible-math-package }
+  {
+    The~ gost2-304~ package~ with~ option~ "math"~
+    is~ incompatible~ with~ package~ "#1".
   }
 %    \end{macrocode}
 % \end{implementation}
@@ -625,8 +639,11 @@
 % В сравнении с math режимом \TeX:
 % \begin{verbatim}
 % { 22/35 \( \sfrac{22}{35} \nicefrac{22}{35} \) }
+% { 22/35 \( \tfrac{22}{35} \) }
 % \end{verbatim}
 % \DrawChars{ 22/35 \( \sfrac{22}{35} \nicefrac{22}{35} \) }[22mm]
+%
+% \DrawChars{ \( \tfrac{22}{35} \) }[22mm]
 %
 % Как видно, текущая версия пакета \thispkg{} не адаптирует
 % макросы |\sfrac| и |\nicefrac|, в результате начертание
@@ -653,6 +670,8 @@
 % \DescribeOption{no-math}
 % |math=true| или просто |math| заменяет математический шрифт
 % по умолчанию на шрифт ГОСТ~2.304 типа А.
+% Также только при данной опции создаётся "вариант" математики
+% |eskdfont|.
 % |math=false| или |no-math| отключает использование в математическом
 % режиме описываемого шрифта.
 %
@@ -667,7 +686,7 @@
     math / true .code:n =
       {
         \bool_gset_true:N \g_@@_math_support_bool
-        \PassOptionsToClass {no-math} {fontspec}
+        \PassOptionsToClass {math} {fontspec}
       },
     math / false .code:n =
       {
@@ -1451,19 +1470,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% Собственно определяем допустимые размеры индексов,
-% если опция |math| активна.
-% \todo{Размеры индексов математического шрифта
-% необходимо определять только при версии математики
-% |eskd|. При изменении версии математики необходимо
-% восстанавливать размеры индексов.}
-%    \begin{macrocode}
-\bool_if:NT \g_@@_math_support_bool
-  {
-    \_@@_declare_math_sizes:
-  }
-%    \end{macrocode}
-%
 % \begin{macro}[int]{\_@@_math_symbol_declare:}
 % Обёртка для \cs{DeclareMathSymbol}.
 % \todo{Сейчас не исползую. Стоит убрать?}
@@ -1488,11 +1494,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%
-% Определяем свою версию математики (набор математических шрифтов и символов).
-%    \begin{macrocode}
-\DeclareMathVersion \c_@@_math_version_tl
-%    \end{macrocode}
 %
 % \begin{macro}[int]{\_@@_set_symbol_font:nnn}
 %   \begin{syntax}
@@ -1548,11 +1549,33 @@
 %    \end{macrocode}
 % \end{macro}
 %
+%    \begin{macrocode}
+\bool_if:NT \g_@@_math_support_bool
+  {
+%    \end{macrocode}
+% Собственно определяем допустимые размеры индексов,
+% если опция |math| активна.
+% \todo{Размеры индексов математического шрифта
+% необходимо определять только при версии математики
+% |eskd|. При изменении версии математики необходимо
+% восстанавливать размеры индексов.}
+%    \begin{macrocode}
+    \_@@_declare_math_sizes:
+%    \end{macrocode}
+% Определяем свою версию математики (набор математических шрифтов и символов).
+%    \begin{macrocode}
+    \DeclareMathVersion \c_@@_math_version_tl
+%    \end{macrocode}
 % Назначаем шрифты с указанием параметров их начертания
 % для видов математических символов и операторов.
 %    \begin{macrocode}
-\_@@_set_symbol_font:nnn {operators} \mddefault \updefault
-\_@@_set_symbol_font:nnn {letters}   \mddefault \sldefault
+    \_@@_set_symbol_font:nnn {operators}
+      \mddefault \updefault
+    \_@@_set_symbol_font:nnn {letters}
+      \mddefault \sldefault
+%    \end{macrocode}
+%    \begin{macrocode}
+  }
 %    \end{macrocode}
 %
 % Планируем отложенные действия после преамбулы документа.
@@ -1560,7 +1583,22 @@
 \AtBeginDocument
   {
     \bool_if:NT \g_@@_math_support_bool
-      { \mathversion \c_@@_math_version_tl }
+      {
+%    \end{macrocode}
+%
+% Пакет \thispkg{} с опцией |math|
+% несовместим в текущей версии с \pkg{unicode-math}
+% и рядом других пакетов поддержки математики.
+%    \begin{macrocode}
+        \@ifpackageloaded { unicode-math }
+          {
+            \msg_fatal:nnn { gost2-304 }
+              { incompatible-math-package }
+              { unicode-math }
+          }
+          {}
+        \mathversion \c_@@_math_version_tl
+      }
   }
 %    \end{macrocode}
 %    \begin{macrocode}
