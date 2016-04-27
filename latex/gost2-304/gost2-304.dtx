@@ -775,13 +775,13 @@
 % шрифта. При этом переопределяет и зависимые размеры шрифта
 % (\cs{tiny}, \cs{large} и т.п.), используя только допустимые
 % размеры.
-% \begin{macro}[aux]{\_@@_normalsize_gset:n}
+% \begin{macro}[int]{\@@_normalsize_gset:n}
 %   \begin{syntax}
-%     \cs{_@@_normalsize_gset:n}
+%     \cs{@@_normalsize_gset:n}
 %       \marg{требуемый размер с указанием единицы измерения}
 %   \end{syntax}
 %    \begin{macrocode}
-\cs_new_nopar:Nn \_@@_normalsize_gset:n
+\cs_new_nopar:Nn \@@_normalsize_gset:n
   {
     \dim_set:Nn \l_tmpa_dim {#1}
     \bool_gset_false:N \g_@@_mainfontsize_bool
@@ -834,13 +834,6 @@
                 \msg_log:nnx { gost2-304 } { set-font-size } {\cs_to_str:N ##1}
               }
             \normalsize
-            \setmainfont { \tl_use:N \c_@@_mainfont_tl }
-              [
-                % NFSSFamily = \tl_use:N
-                %   \c_@@_NFSSFamily_tl,
-                \tl_use:N \g_@@_mainfont_features_tl
-              ]
-            \msg_log:nn { gost2-304 } { mainfont }
           }
           {
             \msg_fatal:nnn { gost2-304 } { invalid-mainfontsize } {#1}
@@ -851,16 +844,16 @@
           { \dim_to_decimal_in_unit:nn { #1 } {1mm}mm }
       }
   }
-\@onlypreamble \_@@_normalsize_gset:n
+\@onlypreamble \@@_normalsize_gset:n
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}[aux]{\_@@_normalsize_gset:}
+% \begin{macro}[aux]{\@@_normalsize_gset:}
 %    \begin{macrocode}
-\cs_new_nopar:Nn \_@@_normalsize_gset:
+\cs_new_nopar:Nn \@@_normalsize_gset:
   {
-    \_@@_normalsize_gset:n \g_@@_normalsize_dim
+    \@@_normalsize_gset:n \g_@@_normalsize_dim
   }
-\@onlypreamble \_@@_normalsize_gset:
+\@onlypreamble \@@_normalsize_gset:
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}[int]{\_@@_b_from_h:n}
@@ -1254,11 +1247,38 @@
   ]
 %    \end{macrocode}
 %
+% \begin{macro}[int]{\@@_set_main_font:}
+% Устанавливает основной шрифт.
+% 
+% Использование |NFSSFamily| для основного шрифта блокирует
+% в дальнейшем использование \cs{addfontfeature}.
+% \todo{Устранить несовместимость |NFSSFamily|
+% и \cs{addfontfeature} в \pkg{fontspec}.}
+%    \begin{macrocode}
+\cs_new_nopar:Nn \@@_set_main_font:
+  {
+    \setmainfont
+      { \tl_use:N \c_@@_mainfont_tl }
+      [
+        %NFSSFamily = \tl_use:N \c_@@_NFSSFamily_tl,
+        \tl_use:N \g_@@_font_features_tl
+      ]
+    %\tl_set_eq:NN \rmdefault \g__fontspec_eskdfont_family
+    \normalfont
+    \msg_log:nn { gost2-304 } { mainfont }
+  }
+\@onlypreamble \@@_set_main_font:
+%    \end{macrocode}
+% \end{macro}
+%
 % Устанавливаем размер шрифта в случае указания опции
 % |mainfontsize|\ref{opt:mainfontsize}.
 %    \begin{macrocode}
 \bool_if:NT \g_@@_mainfontsize_bool
-  { \_@@_normalsize_gset: }
+  {
+    \@@_normalsize_gset:
+    \@@_set_main_font:
+  }
 %    \end{macrocode}
 % \end{implementation}
 % \begin{documentation}
@@ -1442,7 +1462,7 @@
 \DeclareMathVersion \c_@@_math_version_tl
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\_@@_set_symbol_font:nnnnn}
+% \begin{macro}[int]{\_@@_set_symbol_font:nnn}
 %   \begin{syntax}
 %     \cs{_@@_set_symbol_font:nnnnn}
 %       \marg{вид математических символов (|letters|, |operators| и прочие)}
@@ -1463,6 +1483,10 @@
       {#2}
       {#3}
   }
+%    \begin{macrocode}
+% \end{macro}
+% \begin{macro}[int]{\_@@_set_symbol_font:nnnnn}
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnnnn
   {
 %    \end{macrocode}
