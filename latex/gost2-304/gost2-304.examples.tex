@@ -182,3 +182,114 @@
   }
 }
 \makeatother
+
+\newpage
+\subsection{Раздел 8 ГОСТ 2.304-81}
+
+\subsubsection{Дроби}
+
+{
+  \addfontfeature{ Fractions = Off }
+  \DrawChars{55/13 1/3 23/796}
+  \addfontfeature{ Fractions = On }
+  \DrawChars{103/30 15 23/796}[20mm]
+  \DrawChars{22 / 33 12/10/1976}
+  \DrawChars{
+    \addfontfeature{ DigitThree = alternative, Numbers = SlashedZero }
+    13 103/30
+  }[20mm]
+}
+
+\newpage
+\subsection{Приложение ГОСТ 2.304-81. Диакритические знаки}
+
+\subsubsection{Шрифт типа А}
+
+{
+  {
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}[20mm]
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}[20mm]
+    \DrawChars{\"A\"O\"U \"a\"o\"u \ss{} ss \addfontfeature{Language=German} ss}[20mm]
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}[20mm]
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}[16mm]
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}[20mm]
+    {
+      \addfontfeature{Language=Slovak}
+      \DrawChars{\'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O \addfontfeature{Language=Russian}\v{L}}[20mm]
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}[20mm]
+      \DrawChars{\'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o \char"013E \addfontfeature{Language=Russian}\v{d}\v{l}\v{t}}[20mm]
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}[20mm]
+    }
+    %\DrawChars{aa\'aaa aa\"aaa aa\v{a}aa \r{a}}[20mm]
+    %\DrawChars{\r{\Delta} \'\Delta \r{\delta}}[20mm]
+  }
+
+  {
+    \slshape
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}[20mm]
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}[20mm]
+    \DrawChars{\"A\"O\"U \"a\"o\"u \ss ss \addfontfeature{Language=German} ss}[20mm]
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}[20mm]
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}[20mm]
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}[20mm]
+    {
+      \addfontfeature{Language=Czech}
+      \DrawChars{\'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O \addfontfeature{Language=Russian}\v{L}}[20mm]
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}[20mm]
+      \DrawChars{\'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o \addfontfeature{Language=Russian}\v{d}\v{l}\v{t}}[16mm]
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}[20mm]
+    }
+  }
+}
+
+\subsubsection{Шрифт типа Б}
+
+{
+  \bfseries
+  {
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}[15mm][10mm]
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}[15mm][10mm]
+    \DrawChars{\"A\"O\"U \"a\"o\"u\ss ss\addfontfeature{Language=German}ss}[15mm][10mm]
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}[15mm][10mm]
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}[15mm][10mm]
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}[15mm][10mm]
+    {
+      \DrawChars{
+        \'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O
+        \addfontfeature{Language=Slovak}
+        \v{L}
+      }[15mm][10mm]
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}[15mm][10mm]
+      \DrawChars{
+        \'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o
+        \addfontfeature{Language=Slovak}
+        \v{d}\v{l}\v{t}
+      }[11mm][10mm]
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}[15mm][10mm]
+    }
+  }
+
+  {
+    \slshape
+    \DrawChars{\'A\'E\'I\'O\"O\H{O}\'U\"U\H{U}}[15mm][10mm]
+    \DrawChars{\'a\'e\'\i\'o\"o\H{o}\'u\"u\H{u}}[12mm][10mm]
+    \DrawChars{\"A\"O\"U \"a\"o\"u\ss ss\addfontfeature{Language=German}ss}[15mm][10mm]
+    \DrawChars{\k{A}\'C\k{E}\L\'N\'O\'S\.Z\'Z}[15mm][10mm]
+    \DrawChars{\k{a}\'c\k{e}\l\'n\'o\'s\.z\'z}[12mm][10mm]
+    \DrawChars{\^A\u{A}\^I\textcommabelow{S}\textcommabelow{T} \^a\u{a}\^\i\textcommabelow{s}\textcommabelow{t}}[15mm][10mm]
+    {
+      \DrawChars{
+        \'A\"A\v{C}\v{D}\'E\v{E}\'I\'L\v{L}\v{N}\'O
+        \addfontfeature{Language=Czech}
+        \v{L}
+      }[15mm][10mm]
+      \DrawChars{\^O\v{R}\'R\v{S}\v{T}\'U\r{U}\'Y\v{Z}}[15mm][10mm]
+      \DrawChars{
+        \'a\"a\v{c}\v{d}\'e\v{e}\'\i\'l\v{l}\v{n}\'o\^o
+        \addfontfeature{Language=Czech}
+        \v{d}\v{l}\v{t}
+      }[11mm][10mm]
+      \DrawChars{\v{r}\'r\v{s}\v{t}\'u\r{u}\'y\v{z}}[15mm][10mm]
+    }
+  }
+}
