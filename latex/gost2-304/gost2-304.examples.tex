@@ -86,3 +86,99 @@
   }
 }
 
+\newpage
+\subsection{Раздел 6 ГОСТ 2.304-81}
+\makeatletter
+
+\subsubsection{Шрифт типа А}
+
+{
+  {
+    \DrawChars{
+      1234567890
+      \addfontfeature{Numbers=SlashedZero} 0
+      \addfontfeature{DigitThree=alternative} 3
+    }
+  }
+  {
+    \slshape
+    \DrawChars{
+      1234567890
+      \addfontfeature{Numbers=SlashedZero} 0
+      \addfontfeature{DigitThree=alternative} 3
+    }
+  }
+  {
+    \DrawChars{%
+      \addfontfeature{RomanV=basic}
+      \@roman{1} \@Roman{3} \@Roman{4} \@Roman{6} \@Roman{8} \@Roman{9}
+      \addfontfeature{RomanV=alternative} \@Roman{5} 3
+      \addfontfeature{DigitThree=alternative} \@Roman{5} 3
+    }
+  }
+  {
+    \slshape
+    \DrawChars{%
+      \addfontfeature{RomanV=basic}
+      \@roman{1} \@Roman{3} \@Roman{4} \@Roman{6} \@Roman{8} \@Roman{9}
+      \addfontfeature{RomanV=alternative} \@Roman{5} 3
+      \addfontfeature{DigitThree=alternative} \@Roman{5} 3
+    }
+  }
+  {
+    \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}
+  }
+  {
+    \eskdfontsize{5mm}\selectfont
+      01020304050607080900
+      11213141516171819
+
+      223242526272829
+      33343536373839
+      44546474849
+
+      556575859
+      6676869
+      77879
+      889
+      99
+
+      \addfontfeature{Numbers=SlashedZero, DigitThree=alternative}
+      01020304050607080900
+      313233343536373839
+  }
+}
+
+\subsubsection{Шрифт типа Б}
+
+{
+  \bfseries
+  {
+    \DrawChars{1234567890}[10mm][11mm]
+  }
+  {
+    \slshape
+    \DrawChars{1234567890}[10mm][11mm]
+  }
+  {
+    \DrawChars{%
+      \addfontfeature{RomanV=basic}
+      \@roman{1} \@Roman{3} \@Roman{4} \@Roman{6} \@Roman{8} \@Roman{9}
+      \addfontfeature{RomanV=alternative} \@Roman{5} 3
+      \addfontfeature{DigitThree=alternative} \@Roman{5} 3
+    }[10mm][11mm]
+  }
+  {
+    \slshape
+    \DrawChars{%
+      \addfontfeature{RomanV=basic}
+      \@roman{1} \@Roman{3} \@Roman{4} \@Roman{6} \@Roman{8} \@Roman{9}
+      \addfontfeature{RomanV=alternative} \@Roman{5} 3
+      \addfontfeature{DigitThree=alternative} \@Roman{5} 3
+    }[10mm][11mm]
+  }
+  {
+    \DrawChars{\@roman{4}\,\@roman{6}\,\@roman{12}\,\@roman{2014}}[10mm][11mm]
+  }
+}
+\makeatother
