@@ -66,6 +66,7 @@
 \usepackage{xfrac}
 \usepackage{nicefrac}
 \usepackage{todo}
+\usepackage{geometry}
 
 \ExplSyntaxOn
 \cs_new_nopar:Npn \date_TeX_to_ISO:w #1/#2/#3 \q_stop
@@ -79,17 +80,22 @@
 \cs_set_eq:NN \dateTeXtoISO \date_TeX_to_ISO:n
 \ExplSyntaxOff
 
-\NewDocumentCommand \DrawChars {m O{15mm} O{14mm}} {
+\NewDocumentCommand \DrawChars {m O{15mm} O{14mm} O{\linewidth}} {
   {
+    \par
     \noindent
     \eskdfontsize{#3} 
     \begin{tikzpicture}
-    \papergraduate [xrule=false] (-5mm,0mm) (125mm,#2);
-    \node at (0mm,0mm) [anchor=south west,inner sep=0pt,outer sep=0pt]
-      {
-        #1
-      };
+    \papergraduate [xrule=false] (0mm,0mm) (#4,#2);
+    \node at (5mm,0mm)
+      [
+        anchor = south west,
+        inner sep = 0pt,
+        outer sep = 0pt
+      ]
+      {#1};
     \end{tikzpicture}
+    \par
   }
 }
 
@@ -116,6 +122,20 @@
 \begin{document}
   \DisableImplementation
   \DocInput{\jobname.dtx}
+  \newgeometry
+    {
+      tmargin = 15mm,
+      bmargin = 15mm,
+      inner = 10mm,
+      outer = 10mm
+    }
+  \begingroup
+  \parindent=0pt\relax
+  \raggedright
+  \input{\jobname.examples.tex}
+  \endgroup
+  \newpage
+  \restoregeometry
   \EnableImplementation
   \DisableDocumentation
   \DocInputAgain
