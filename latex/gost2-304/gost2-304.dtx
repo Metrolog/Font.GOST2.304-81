@@ -36,7 +36,7 @@
 %</package-header>
 % \fi
 \def\ExplFileName{gost2-304}
-\def\ExplFileDescription{ГОСТ 2.304-81 ЕСКД. Шрифты чертежные}
+\def\ExplFileDescription{ГОСТ 2.304-81 ЕСКД. Шрифты чертёжные}
 % \iffalse
 %</driver|package-header>
 %
@@ -236,9 +236,10 @@
 % \begin{documentation}
 % \section{Идентификаторы шрифтов}
 %
-% Пакет \thispkg{} определяет основной шрифт \DescribeMacro{\eskdfont}\cs{eskdfont}
-% и математический шрифт \cs{eskdfont}, а также NFSS семейства
-% шрифтов \DescribeMacro{\eskdfontfamily}\cs{eskdfontfamily}.
+% \DescribeMacro{\eskdfont}
+% Пакет \thispkg{} определяет основной 
+% и математический шрифт \cs{eskdfont}, а также NFSS семейство
+% шрифтов \DescribeMacro{\eskdfontfamily}\cs{eskdfont}.
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
@@ -270,8 +271,8 @@
 %
 % \DescribeMacro{\c_@@_fontsizes_clist}
 % Ряд размеров шрифтов |h| определён ГОСТ~2.304.
-% При попытке использования других размеров, будет выбран
-% ближайший, но меньший указанного, из ряда.
+% При попытке использования других размеров будет выбран
+% ближайший, но меньший указанного, из ряда допустимых размеров.
 % По п.3.3 ГОСТ~2.105 высота шрифта |h| не менее 2,5~мм,
 % тем не менее доступен и |h|=1,8~мм - для формул (индексов, прочего).
 %
@@ -690,7 +691,7 @@
 % \DescribeOption{no-math}
 % |math=true| или просто |math| заменяет математический шрифт
 % по умолчанию на шрифт ГОСТ~2.304 типа А.
-% Также только при данной опции создаётся "вариант" математики
+% Также только при данной опции создаётся ``вариант'' математики
 % |eskdfont|.
 % |math=false| или |no-math| отключает использование в математическом
 % режиме описываемого шрифта.
@@ -994,12 +995,12 @@
 % \DescribeMacro{\eskdfont_fontsize_h:nn}
 % \DescribeMacro{\eskdfont_fontsize_h:n}
 % В дополнение к опции |mainfontsize| (\pageref{opt:mainfontsize})
-% данный пакет экспортирует макрос
+% данный пакет предоставляет макрос
 % \cs{eskdfontsize}\marg{размер H шрифта}\oarg{расстояние между строками b},
 % позволяющий изменять размер основного шрифта в тексте документа.
 %
 % В отличии от \cs{fontsize} устанавливает не кегль шрифта,
-% а |h| (ex) размер шрифта.
+% а |h| размер шрифта (высоту прописных букв П, Р, Т).
 %
 % \begin{verbatim}
 % {
