@@ -34,6 +34,7 @@ for glyph in font.selection.byGlyphs:
 	dx = fontforge.point(0, bounds[3]+50).transform(transformation).x
 	glyph.transform ( psMat.translate( dx, 0 ), ['partialRefs', None] )
 font.selection.select (['more', 'singletons'], '.notdef', '.null', 'nonmarkingreturn')
+font.selection.select (['more', 'ranges'],	0x0, 0x1F)
 
 font.selection.invert ()
 for glyph in font.selection.byGlyphs:
