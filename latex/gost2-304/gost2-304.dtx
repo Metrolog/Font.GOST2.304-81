@@ -218,13 +218,8 @@
 % Пакет \thispkg{} построен на базе пакета \pkg{fontspec}
 % с использованием синтаксиса \LaTeX3.
 %
-% Пакет \thispkg{} с опцией |math|
-% несовместим в текущей версии с \pkg{unicode-math}
-% и рядом других пакетов поддержки математики. По сути - 
-% со всеми пакетами, отключающими переопределение математических
-% символов в \pkg{fontspec}. Либо уберите опцию |math| и
-% используйте математику других пакетов, либо откажитесь
-% от использования несовместимых пакетов.
+% При использовании опции |math| данный пакет использует также
+% \pkg{unicode-math}.
 %
 % \end{documentation}
 % \begin{implementation}
@@ -250,12 +245,14 @@
 % и математического шрифта |eskdfont|
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_mainfont_tl {eskdfont}
+\tl_const:Nn \c_@@_mathfont_tl {eskdmathfont}
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{c_@@_NFSSFamily_tl}
 % Идентификатор NFSS семейства шрифтов |eskdfont|
 %    \begin{macrocode}
-\tl_const:NV \c_@@_NFSSFamily_tl \c_@@_mainfont_tl
+\tl_const:NV \c_@@_NFSS_family_tl \c_@@_mainfont_tl
+\tl_const:NV \c_@@_NFSS_math_family_tl \c_@@_mathfont_tl
 %    \end{macrocode}
 % \end{variable}
 %
@@ -299,7 +296,6 @@
 % Устанавливается опцией |mainfontsize|.
 %    \begin{macrocode}
 \bool_new:N \g_@@_mainfontsize_bool
-\bool_gset_false:N \g_@@_mainfontsize_bool
 %    \end{macrocode}
 %
 % Переменные, хранящие абсолютное значение размеров шрифта для относительных
@@ -322,16 +318,12 @@
 %    \begin{macrocode}
 \tl_new:N \g_@@_language_tl
 \bool_new:N \g_@@_slashed_zero_bool
-\bool_gset_false:N \g_@@_slashed_zero_bool
 \tl_new:N \g_@@_digit_three_variant_tl
 \tl_new:N \g_@@_roman_V_variant_tl
 \bool_new:N \g_@@_romannumeral_check_bool
-\bool_gset_false:N \g_@@_romannumeral_check_bool
 \tl_new:N \g_@@_fractions_tl
 \bool_new:N \g_@@_math_support_bool
-\bool_gset_false:N \g_@@_math_support_bool
 \bool_new:N \g_@@_use_NFSSFamily_bool
-\bool_gset_false:N \g_@@_use_NFSSFamily_bool
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -667,11 +659,11 @@
 % \DrawChars{ \( \tfrac{22}{35} \) }[22mm]
 %
 % Как видно, текущая версия пакета \thispkg{} не адаптирует
-% макросы |\sfrac| и |\nicefrac|, в результате начертание
+% макросы \cs{sfrac}, \cs{nicefrac} и \cs{tfrac}, в результате начертание
 % полученных с их использованием дробей не соответствует
 % требованиям ГОСТ~2.304.
 % Но в последующих версиях пакета использование
-% |\sfrac| и |\nicefrac| более предпочтительно.
+% \cs{tfrac} более предпочтительно.
 %
 % \end{documentation}
 % \begin{implementation}
@@ -803,13 +795,36 @@
 %    \end{macrocode}
 % Подключение необходимых пакетов
 %    \begin{macrocode}
-\PassOptionsToPackage{T2A}{fontenc}
-\PassOptionsToPackage{T1}{fontenc}
+\PassOptionsToPackage
+  { T2A, T1 }
+  {fontenc}
 \RequirePackage{fontenc}
 \RequirePackage{cmap}
 \RequirePackage{xecyr}
 \RequirePackage{xparse}
 \RequirePackage{fontspec}
+\bool_if:NT \g_@@_math_support_bool
+  {
+    \PassOptionsToPackage
+      {
+        math-style = ISO,
+        bold-style = ISO,
+        % vargreek-shape = TeX,
+        % colon = TeX,
+        slash-delimiter = frac,
+        active-frac = small
+      }
+      {unicode-math}
+    \RequirePackage{unicode-math}
+%    \end{macrocode}
+% Убираем лишний отрицательный кернинг между символами производной,
+% добавляемый \pkg{unicode-math}. Используем кернинг, определённый
+% в шрифте.
+% \todo{Рекомендовать разработчику \pkg{unicode-math} убрать этот
+% "хак", ввести его в параметры шрифта, при этом по умолчанию - 0.}
+%    \begin{macrocode}
+    \muskip_gzero:N \g__um_primekern_muskip
+  }
 %    \end{macrocode}
 % \end{implementation}
 % \begin{documentation}
@@ -1311,7 +1326,7 @@
 \newfontfamily \eskdfont
   { \tl_use:N \c_@@_mainfont_tl }
   [
-    NFSSFamily = \tl_use:N \c_@@_NFSSFamily_tl,
+    NFSSFamily = \tl_use:N \c_@@_NFSS_family_tl,
     \tl_use:N \g_@@_font_features_tl
   ]
 %    \end{macrocode}
@@ -1334,7 +1349,7 @@
         \setmainfont
           { \tl_use:N \c_@@_mainfont_tl }
           [
-            %NFSSFamily = \tl_use:N \c_@@_NFSSFamily_tl,
+            %NFSSFamily = \tl_use:N \c_@@_NFSS_family_tl,
             \tl_use:N \g_@@_font_features_tl
           ]
       }
@@ -1513,7 +1528,7 @@
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_mathfont_family:n
   {
-    \tl_to_str:N \c_@@_NFSSFamily_tl #1
+    \tl_to_str:N \c_@@_NFSS_family_tl #1
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1535,7 +1550,7 @@
       {#1}
       \c_@@_math_version_tl
       { \tl_use:N \g_fontspec_encoding_tl }
-      { \tl_use:N \c_@@_NFSSFamily_tl }
+      { \tl_use:N \c_@@_NFSS_family_tl }
       {#2}
       {#3}
   }
@@ -1591,11 +1606,25 @@
 %    \end{macrocode}
 % Назначаем шрифты с указанием параметров их начертания
 % для видов математических символов и операторов.
+% \todo{С участием разработчика \pkg{unicode-math}
+% заменить на использование \LaTeX3 синтаксиса.}
+% \todo{С участием разработчика \pkg{unicode-math}
+% не определять новый шрифт, а использовать уже загруженный
+% (через |NFSSFamily|?).}
 %    \begin{macrocode}
-    \_@@_set_symbol_font:nnn {operators}
-      \mddefault \updefault
-    \_@@_set_symbol_font:nnn {letters}
-      \mddefault \sldefault
+    \use:x
+      {
+        \exp_not:N \setmathfont { \tl_use:N \c_@@_mathfont_tl }
+          [
+            version = \tl_use:N \c_@@_math_version_tl,
+            \tl_use:N \g_@@_font_features_tl,
+            NFSSFamily = \tl_use:N \c_@@_NFSS_math_family_tl
+          ]
+      }
+%    \_@@_set_symbol_font:nnn {operators}
+%      \mddefault \updefault
+%    \_@@_set_symbol_font:nnn {letters}
+%      \mddefault \sldefault
 %    \end{macrocode}
 %    \begin{macrocode}
   }
@@ -1607,19 +1636,6 @@
   {
     \bool_if:NT \g_@@_math_support_bool
       {
-%    \end{macrocode}
-%
-% Пакет \thispkg{} с опцией |math|
-% несовместим в текущей версии с \pkg{unicode-math}
-% и рядом других пакетов поддержки математики.
-%    \begin{macrocode}
-        \@ifpackageloaded { unicode-math }
-          {
-            \msg_fatal:nnn { gost2-304 }
-              { incompatible-math-package }
-              { unicode-math }
-          }
-          {}
         \mathversion \c_@@_math_version_tl
       }
   }

@@ -603,6 +603,7 @@ feature kern {
 	Iota Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi 
 	uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
 	uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
+  uni0194 uni025B uni0269 uni0278
 	CYRYO CYRA CYRB CYRV CYRG CYRD CYRE CYRZH CYRZ
 	CYRI CYRISHRT CYRK CYRL CYRM CYRN CYRO CYRP CYRR 
 	CYRS CYRT CYRU CYRF CYRH CYRC CYRCH CYRSH CYRSHCH 
