@@ -702,7 +702,6 @@
     math / true .code:n =
       {
         \bool_gset_true:N \g_@@_math_support_bool
-        \PassOptionsToClass {math} {fontspec}
       },
     math / false .code:n =
       {
@@ -806,21 +805,21 @@
 \RequirePackage{fontenc}[2016/02/07]
 \RequirePackage{cmap}
 \RequirePackage{xparse}
-\RequirePackage{fontspec}[2016/02/02]
+\RequirePackage{fontspec}[2016/02/01]
 \PassOptionsToPackage
   {
     normalize-symbols
   }
   {textalpha}
-\RequirePackage{textalpha}[2016/02/07]
+\RequirePackage{textalpha}[2016/02/05]
 \bool_if:NT \g_@@_math_support_bool
   {
     \PassOptionsToPackage
       {
         math-style = ISO,
         bold-style = ISO,
-        % vargreek-shape = TeX,
-        % colon = TeX,
+        vargreek-shape = TeX,
+        colon = TeX,
         slash-delimiter = frac,
         active-frac = small
       }
@@ -1112,38 +1111,38 @@
 %
 % \begin{variable}[aux]
 %   {
-%     \l_@@_type_A_features_tl,
+%     \g_@@_type_A_features_tl,
 %     \l_@@_type_A_fontadjustment_tl,
-%     \l_@@_type_B_features_tl,
+%     \g_@@_type_B_features_tl,
 %     \l_@@_type_B_fontadjustment_tl
 %   }
 %
 % Параметры шрифтов ГОСТ 2.304.
 %    \begin{macrocode}
-\tl_new:N \l_@@_type_A_features_tl
+\tl_new:N \g_@@_type_A_features_tl
 \tl_new:N \l_@@_type_A_fontadjustment_tl
-\tl_set:Nn \l_@@_type_A_features_tl
+\tl_gset:Nn \g_@@_type_A_features_tl
   {
     Font = \tl_use:N \c_@@_type_A_tl
     ,Scale = \fp_to_decimal:N \g_@@_type_A_scale_fp
     ,FontAdjustment = { \tl_use:N \l_@@_type_A_fontadjustment_tl }
   }
-\tl_set:Nn \l_@@_type_A_slanted_features_tl
+\tl_gset:Nn \g_@@_type_A_slanted_features_tl
   {
     Font = \tl_use:N \c_@@_type_A_slanted_tl
     ,Scale = \fp_to_decimal:N \g_@@_type_A_scale_fp
     ,FontAdjustment = { \tl_use:N \l_@@_type_A_fontadjustment_tl }
   }
-\tl_new:N \l_@@_type_B_features_tl
+\tl_new:N \g_@@_type_B_features_tl
 \tl_new:N \l_@@_type_B_fontadjustment_tl
-\tl_set:Nn \l_@@_type_B_features_tl
+\tl_gset:Nn \g_@@_type_B_features_tl
   {
     Font = \tl_use:N \c_@@_type_B_tl
     ,FakeBold = 1.4
     ,Scale = \fp_to_decimal:N \g_@@_type_B_scale_fp
     ,FontAdjustment = { \tl_use:N \l_@@_type_B_fontadjustment_tl }
   }
-\tl_set:Nn \l_@@_type_B_slanted_features_tl
+\tl_gset:Nn \g_@@_type_B_slanted_features_tl
   {
     Font = \tl_use:N \c_@@_type_B_slanted_tl
     ,FakeBold = 1.4
@@ -1201,19 +1200,19 @@
     ,Fractions = \g_@@_fractions_tl
     ,UprightFeatures =
       {
-        \tl_use:N \l_@@_type_A_features_tl
+        \tl_use:N \g_@@_type_A_features_tl
       }
     ,SlantedFeatures =
       {
-        \tl_use:N \l_@@_type_A_slanted_features_tl
+        \tl_use:N \g_@@_type_A_slanted_features_tl
       }
     ,BoldFeatures =
       {
-        \tl_use:N \l_@@_type_B_features_tl
+        \tl_use:N \g_@@_type_B_features_tl
       }
     ,BoldSlantedFeatures =
       {
-        \tl_use:N \l_@@_type_B_slanted_features_tl
+        \tl_use:N \g_@@_type_B_slanted_features_tl
       }
   }
 %    \end{macrocode}
@@ -1308,20 +1307,20 @@
 % Для первого размера (1,8~мм) шрифта типа~А принудительно применяем
 % параметры шрифта типа~Б (см. \cs{l_tmpb_tl}).
 %    \begin{macrocode}
-\tl_set:Nx \l_tmpb_tl \l_@@_type_B_features_tl
-\tl_put_right:Nx \l_@@_type_A_features_tl
+\tl_set:Nx \l_tmpb_tl \g_@@_type_B_features_tl
+\tl_gput_right:Nx \g_@@_type_A_features_tl
   { ,\l_@@_SizeFeatures_tl }
-\tl_set:Nx \l_tmpb_tl \l_@@_type_B_slanted_features_tl
-\tl_put_right:Nx \l_@@_type_A_slanted_features_tl
+\tl_set:Nx \l_tmpb_tl \g_@@_type_B_slanted_features_tl
+\tl_gput_right:Nx \g_@@_type_A_slanted_features_tl
   { ,\l_@@_SizeFeatures_tl }
 %    \end{macrocode}
 % Для шрифта типа~Б таких ухищрений не требуется. Поэтому параметры,
 % специфичные для первого размера (\cs{l_tmpb_tl}), очищаем.
 %    \begin{macrocode}
 \tl_clear:N \l_tmpb_tl
-\tl_put_right:Nx \l_@@_type_B_features_tl
+\tl_gput_right:Nx \g_@@_type_B_features_tl
   { ,\l_@@_SizeFeatures_tl }
-\tl_put_right:Nx \l_@@_type_B_slanted_features_tl
+\tl_gput_right:Nx \g_@@_type_B_slanted_features_tl
   { ,\l_@@_SizeFeatures_tl }
 %    \end{macrocode}
 %
@@ -1597,18 +1596,11 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}[int]{\@@_setup_math:}
+% Настраиваем версию математики |eskd|.
 %    \begin{macrocode}
-\bool_if:NT \g_@@_math_support_bool
+\cs_new:Nn \@@_setup_math:
   {
-%    \end{macrocode}
-% Собственно определяем допустимые размеры индексов,
-% если опция |math| активна.
-% \todo{Размеры индексов математического шрифта
-% необходимо определять только при версии математики
-% |eskd|. При изменении версии математики необходимо
-% восстанавливать размеры индексов.}
-%    \begin{macrocode}
-    \_@@_declare_math_sizes:
 %    \end{macrocode}
 % Определяем свою версию математики (набор математических шрифтов и символов).
 %    \begin{macrocode}
@@ -1636,7 +1628,24 @@
 %    \_@@_set_symbol_font:nnn {letters}
 %      \mddefault \sldefault
 %    \end{macrocode}
+% Определяем допустимые размеры индексов.
+% \todo{Размеры индексов математического шрифта
+% необходимо определять только при версии математики
+% |eskd|. При изменении версии математики необходимо
+% восстанавливать размеры индексов.}
 %    \begin{macrocode}
+    \_@@_declare_math_sizes:
+%    \end{macrocode}
+%    \begin{macrocode}
+  }
+\@onlypreamble \@@_setup_math:
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\bool_if:NT \g_@@_math_support_bool
+  {
+    \@@_setup_math:
   }
 %    \end{macrocode}
 %
@@ -1646,7 +1655,12 @@
   {
     \bool_if:NT \g_@@_math_support_bool
       {
+%    \end{macrocode}
+% ``Активируем'' свою версию математики
+%    \begin{macrocode}
         \mathversion \c_@@_math_version_tl
+%    \end{macrocode}
+%    \begin{macrocode}
       }
   }
 %    \end{macrocode}
