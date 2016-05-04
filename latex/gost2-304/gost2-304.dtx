@@ -44,7 +44,15 @@
 \input{../../obj/version.tex}
 \ProvidesFile{\ExplFileName.dtx}
   [\ExplFileDate\space v\ExplFileVersion\space\ExplFileDescription]
-\documentclass[a4paper,oneside,full]{l3doc}
+\documentclass
+  [
+    a4paper,
+    oneside,
+    full,
+    log-functions = false,
+    log-declarations = false
+  ]
+  {l3doc}
 
 \usepackage
   [
@@ -803,7 +811,6 @@
   }
   {fontspec}
 \RequirePackage{fontenc}[2016/02/07]
-\RequirePackage{cmap}
 \RequirePackage{xparse}
 \RequirePackage{fontspec}[2016/02/01]
 \PassOptionsToPackage
