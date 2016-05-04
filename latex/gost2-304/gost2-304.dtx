@@ -81,7 +81,8 @@
     russian,
     strings = unicode
     %silent
-  ]{babel}[2016/04/23]
+  ]
+  {babel}[2016/04/23]
 %\usepackage{polyglossia}
 %\setdefaultlanguage{english}
 %\setmainlanguage{english}
@@ -93,6 +94,11 @@
 \usepackage{nicefrac}
 \usepackage{todo}
 \usepackage{geometry}
+\usepackage
+  [
+    normalize-symbols
+  ]
+  {textalpha}[2016/02/05]
 
 \ExplSyntaxOn
 \cs_new_nopar:Npn \date_TeX_to_ISO:w #1/#2/#3 \q_stop
@@ -828,12 +834,6 @@
 \RequirePackage{fontenc}[2016/02/07]
 \RequirePackage{xparse}
 \RequirePackage{fontspec}[2016/02/01]
-\PassOptionsToPackage
-  {
-    normalize-symbols
-  }
-  {textalpha}
-\RequirePackage{textalpha}[2016/02/05]
 \bool_if:NT \g_@@_math_support_bool
   {
     \PassOptionsToPackage
