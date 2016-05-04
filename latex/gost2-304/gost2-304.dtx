@@ -58,7 +58,10 @@
   ]
   {gost2-304}
 
-\usepackage[russian]{babel}
+\usepackage[russian]{babel}[2016/04/26]
+%\usepackage{polyglossia}
+%\setdefaultlanguage{english}
+%\setmainlanguage{english}
 \usepackage[useregional]{datetime2}
 \usepackage{interfaces}
 \usepackage{tikz}
@@ -796,13 +799,20 @@
 % Подключение необходимых пакетов
 %    \begin{macrocode}
 \PassOptionsToPackage
-  { T2A, T1 }
-  {fontenc}
-\RequirePackage{fontenc}
+  {
+    tuenc
+  }
+  {fontspec}
+\RequirePackage{fontenc}[2016/02/07]
 \RequirePackage{cmap}
-\RequirePackage{xecyr}
 \RequirePackage{xparse}
-\RequirePackage{fontspec}
+\RequirePackage{fontspec}[2016/02/02]
+\PassOptionsToPackage
+  {
+    normalize-symbols
+  }
+  {textalpha}
+\RequirePackage{textalpha}[2016/02/07]
 \bool_if:NT \g_@@_math_support_bool
   {
     \PassOptionsToPackage
