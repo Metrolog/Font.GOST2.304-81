@@ -6,7 +6,7 @@
 
 
 .PHONY: all
-all: ttf ttc woff otf ps0 ctan tex-tests msm msi
+all: ttf ttc woff otf ps0 ctan msm msi
 
 .SECONDARY:;
 
@@ -355,19 +355,6 @@ $(LATEXCTANTARGET): $(LATEXCTANAUXDIR)/$(TDSFILE)
 .PHONY: dist ctan
 dist: $(LATEXCTANTARGET)
 ctan: dist
-
-# build latex tests
-
-LATEXTESTSSRCDIR	:= $(LATEXSRCDIR)/tests
-LATEXTESTSOUTPUTDIR := $(AUXDIR)
-LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR)/%.pdf, $(wildcard $(LATEXTESTSSRCDIR)/*.tex))
-
-$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXTDSPKGTARGETS) $(LATEXTDSFONTSTTFTARGETS)
-	$(info Generate latex test pdf file "$@"...)
-	$(LATEXMK) -outdir=$(@D) $<
-
-.PHONY: tex-tests
-tex-tests: $(LATEXTESTSTARGETS)
 
 # msi module
 
