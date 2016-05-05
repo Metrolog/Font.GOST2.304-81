@@ -134,6 +134,9 @@
 \input{version.tex}
 \edef\ExplFileDateISO{\dateTeXtoISO{\ExplFileDate}}
 
+\def\MacroFont{\eskdfont \fontseries\mddefault \fontshape\updefault \small}
+\def\AltMacroFont{\eskdfont \fontseries\mddefault \fontshape\sldefault \small}
+
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
 \newcommand{\opt}[1]{\mbox{\texttt{#1}}}
