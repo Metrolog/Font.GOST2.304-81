@@ -710,17 +710,22 @@
 % \begin{documentation}
 %
 % \subsection{math, no-math}\label{opt:math}
-%
 % \DescribeOption{math}
 % \DescribeOption{no-math}
+% 
+% Использование опции |math| в текущей версии пакета крайне нежелательно,
+% в настоящее время она введена исключительно для тестирования.
+% Полноценная поддержка шрифта в математике запланирована в ближайших
+% версиях.
+%
 % |math=true| или просто |math| заменяет математический шрифт
 % по умолчанию на шрифт ГОСТ~2.304 типа А.
 % Также только при данной опции создаётся ``вариант'' математики
-% |eskdfont|.
+% |eskd|.
 % |math=false| или |no-math| отключает использование в математическом
 % режиме описываемого шрифта.
 %
-% По умолчанию |math=true|.
+% По умолчанию |math=false|.
 %
 % \end{documentation}
 % \begin{implementation}
@@ -737,7 +742,7 @@
         \bool_gset_false:N \g_@@_math_support_bool
       },
     math .default:n = true,
-    math .initial:n = true,
+    math .initial:n = false,
 %    \end{macrocode}
 % |no-math| = |math=false|
 %    \begin{macrocode}
