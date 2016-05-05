@@ -95,29 +95,6 @@ export FULLVERSION  := $(VERSION).$(shell git rev-list --count --first-parent HE
 export MAJORVERSION := $(firstword $(subst ., ,$(VERSION)))
 export MINORVERSION := $(wordlist 2,2,$(subst ., ,$(VERSION)))
 
-# build latex version file
-
-LATEXPRJVERSIONFILE := $(AUXDIR)/version.tex
-
-$(LATEXPRJVERSIONFILE): .git/logs/HEAD Makefile
-	$(info Generate latex version file "$@"...)
-	$(MAKETARGETDIR)
-	@git log -1 --date=format:%Y/%m/%d --format="format:\
-%%\iffalse%n\
-%%<*version>%n\
-%%\fi%n\
-\def\GITCommitterName{%cn}%n\
-\def\GITCommitterEmail{%ce}%n\
-\def\GITCommitterDate{%cd}%n\
-\def\ExplFileDate{%ad}%n\
-\def\ExplFileVersion{$(FULLVERSION)}%n\
-\def\ExplFileAuthor{%an}%n\
-\def\ExplFileAuthorEmail{%ae}%n\
-%%\iffalse%n\
-%%</version>%n\
-%%\fi%n\
-" > $@
-
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
@@ -273,6 +250,29 @@ LATEXSRCDIR := latex
 LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
 LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx *.tex
 LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
+
+# build latex version file
+
+LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.tex
+
+$(LATEXPRJVERSIONFILE): .git/logs/HEAD Makefile
+	$(info Generate latex version file "$@"...)
+	$(MAKETARGETDIR)
+	@git log -1 --date=format:%Y/%m/%d --format="format:\
+%%\iffalse%n\
+%%<*version>%n\
+%%\fi%n\
+\def\GITCommitterName{%cn}%n\
+\def\GITCommitterEmail{%ce}%n\
+\def\GITCommitterDate{%cd}%n\
+\def\ExplFileDate{%ad}%n\
+\def\ExplFileVersion{$(VERSION)}%n\
+\def\ExplFileAuthor{%an}%n\
+\def\ExplFileAuthorEmail{%ae}%n\
+%%\iffalse%n\
+%%</version>%n\
+%%\fi%n\
+" > $@
 
 # unpack latex package files
 
