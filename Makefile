@@ -198,16 +198,16 @@ endef
 
 # build True Type fonts
 
-TTFDIR				:= $(OUTPUTDIR)/ttf
-FFGENERATETTF		:= $(TOOLSDIR)/generate-ttf.py
-TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
+ttfDIR				:= $(OUTPUTDIR)/ttf
+FFGENERATEttf		:= $(TOOLSDIR)/generate-ttf.py
+ttfTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
 
 ifeq ($(AUTOHINT),ttfautohint)
 
-$(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
+$(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATETTF) $@ $<
+	$(FONTFORGE) -script $(FFGENERATEttf) $@ $<
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
@@ -217,36 +217,28 @@ $(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 else
 
 ifeq ($(AUTOHINT),fontforge)
-	FFGENERATETTF	:= $(TOOLSDIR)/generate-autohinted-ttf.py
+	FFGENERATEttf	:= $(TOOLSDIR)/generate-autohinted-ttf.py
 endif
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) -script $(FFGENERATETTF) $@ $<
+	$(FONTFORGE) -script $(FFGENERATEttf) $@ $<
 
 endif 
 
-$(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf
+$(ttfDIR)/%.ttf: $(AUXDIR)/%.ttf
 	#-$(FASTFONT) $<
 	$(MAKETARGETDIR)
 	cp $< $@
 
 .PHONY: ttf
-ttf: $(TTFTARGETS)
+ttf: $(ttfTARGETS)
 
-# build True Type collection
-$(eval $(call generateTargetFromSources,ttc,$(TTFDIR)/$(FONT).ttc,$(TTFTARGETS)))
-
-# build Web Open Font Format
-$(eval $(call generateFontsOfType,woff,woff,$(TTFDIR)/%.ttf))
-
-# build Open Type fonts
+# build font files
+$(eval $(call generateTargetFromSources,ttc,$(ttfDIR)/$(FONT).ttc,$(ttfTARGETS)))
+$(eval $(call generateFontsOfType,woff,woff,$(ttfDIR)/%.ttf))
 $(eval $(call generateFontsOfType,otf,otf,,afm))
-
-# build PS Type 0 fonts
 $(eval $(call generateFontsOfType,pstype0,ps,,afm pfm tfm))
-
-# build Type 1 fonts
 $(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 
 # latex build system
@@ -260,7 +252,8 @@ LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcar
 
 LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.tex
 
-$(LATEXPRJVERSIONFILE): .git/logs/HEAD Makefile
+# $(LATEXPRJVERSIONFILE): Makefile .git/logs/HEAD
+$(LATEXPRJVERSIONFILE): Makefile
 	$(info Generate latex version file "$@"...)
 	$(MAKETARGETDIR)
 	@git log -1 --date=format:%Y/%m/%d --format="format:\
@@ -304,7 +297,7 @@ LATEXPKGTYPESETDIR := $(LATEXPKGUNPACKDIR)
 LATEXPKGDOCS := $(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf
 LATEXMKRC := $(LATEXSRCDIR)/latexmkrc
 
-$(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXPRJVERSIONFILE) $(LATEXSANDBOXSOURCEFILES) $(LATEXPKGINSTALLFILES) $(LATEXMKRC) $(TTFTARGETS)
+$(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXPRJVERSIONFILE) $(LATEXSANDBOXSOURCEFILES) $(LATEXPKGINSTALLFILES) $(LATEXMKRC) $(ttfTARGETS)
 	$(info Build package doc files "$@"...)
 	$(MAKETARGETDIR)
 	$(LATEXMK) -r $(LATEXMKRC) -outdir=$(@D) $<
@@ -316,21 +309,20 @@ doc: $(LATEXPKGDOCS)
 
 LATEXTDSAUXDIR := $(AUXDIR)/tds
 
+# $(call copyFontFilesToTDS, type, targetDir)
+define copyFontFilesToTDS
+LATEXTDSFONTS$(1)PATH := $(LATEXTDSAUXDIR)/fonts/$(2)/public/$(LATEXPKG)
+LATEXTDSFONTS$(1)TARGETS = $$(foreach FONTFILE,$$($(1)TARGETS),$$(LATEXTDSFONTS$(1)PATH)/$$(notdir $$(FONTFILE)))
+$$(foreach file,$$(LATEXTDSFONTS$(1)TARGETS),$$(eval $$(call copyfilefrom,$$(file),$$($(1)DIR))))
+endef
+
 LATEXTDSPKGPATH = $(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)
 LATEXTDSPKGTARGETS = $(patsubst $(LATEXPKGUNPACKDIR)/%, $(LATEXTDSPKGPATH)/%, $(LATEXPKGINSTALLFILES))
 $(foreach file,$(LATEXTDSPKGTARGETS),$(eval $(call copyfilefrom,$(file),$(LATEXPKGUNPACKDIR))))
 
-LATEXTDSFONTSTTFPATH = $(LATEXTDSAUXDIR)/fonts/truetype/public/$(LATEXPKG)
-LATEXTDSFONTSTTFTARGETS = $(foreach FONTFILE, $(TTFTARGETS), $(LATEXTDSFONTSTTFPATH)/$(notdir $(FONTFILE)))
-$(foreach file,$(LATEXTDSFONTSTTFTARGETS),$(eval $(call copyfilefrom,$(file),$(TTFDIR))))
-
-LATEXTDSFONTSOTFPATH = $(LATEXTDSAUXDIR)/fonts/opentype/public/$(LATEXPKG)
-LATEXTDSFONTSOTFTARGETS = $(foreach FONTFILE, $(OTFTARGETS), $(LATEXTDSFONTSOTFPATH)/$(notdir $(FONTFILE)))
-$(foreach file,$(LATEXTDSFONTSOTFTARGETS),$(eval $(call copyfilefrom,$(file),$(OTFDIR))))
-
-LATEXTDSFONTSPSTYPE1PATH = $(LATEXTDSAUXDIR)/fonts/type1/public/$(LATEXPKG)
-LATEXTDSFONTSPSTYPE1TARGETS = $(foreach FONTFILE, $(pstype1MAINTARGETS), $(LATEXTDSFONTSPSTYPE1PATH)/$(notdir $(FONTFILE)))
-$(foreach file,$(LATEXTDSFONTSPSTYPE1TARGETS),$(eval $(call copyfilefrom,$(file),$(pstype1DIR))))
+$(eval $(call copyFontFilesToTDS,ttf,truetype))
+$(eval $(call copyFontFilesToTDS,otf,opentype))
+$(eval $(call copyFontFilesToTDS,pstype1,type1))
 
 LATEXTDSDOCSTARGETS = $(foreach FILE,$(LATEXPKGDOCS),$(LATEXTDSAUXDIR)/doc/latex/$(LATEXPKG)/$(notdir $(FILE)))
 $(foreach file,$(LATEXTDSDOCSTARGETS),$(eval $(call copyfilefrom,$(file),$(LATEXPKGTYPESETDIR))))
@@ -339,11 +331,12 @@ export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PA
 export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
 
 TDSFILES = \
-	$(LATEXTDSFONTSTTFTARGETS) \
-	$(LATEXTDSFONTSOTFTARGETS) \
-	$(LATEXTDSFONTSPSTYPE1TARGETS) \
+	$(LATEXTDSFONTSttfTARGETS) \
+	$(LATEXTDSFONTSotfTARGETS) \
+	$(LATEXTDSFONTSpstype1TARGETS) \
 	$(LATEXTDSDOCSTARGETS) \
 	$(LATEXTDSPKGTARGETS)
+
 TDSFILE := $(LATEXPKG).tds.zip
 TDSTARGET := $(AUXDIR)/$(TDSFILE)
 $(TDSTARGET): $(TDSFILES)
