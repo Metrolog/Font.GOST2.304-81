@@ -6,7 +6,7 @@
 
 
 .PHONY: all
-all: ttf ttc woff otf ps0 ctan msm msi
+all: ttf ttc woff otf pstype0 pstype1 ctan msm msi
 
 .SECONDARY:;
 
@@ -244,7 +244,10 @@ $(eval $(call generateFontsOfType,woff,woff,$(TTFDIR)/%.ttf))
 $(eval $(call generateFontsOfType,otf,otf,,afm))
 
 # build PS Type 0 fonts
-$(eval $(call generateFontsOfType,ps0,ps,,afm pfm tfm))
+$(eval $(call generateFontsOfType,pstype0,ps,,afm pfm tfm))
+
+# build Type 1 fonts
+$(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 
 # latex build system
 
