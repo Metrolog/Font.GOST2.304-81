@@ -231,18 +231,20 @@ otf: $(OTFTARGETS)
 
 # build PS Type 0 fonts
 
-PSDIR				:= $(OUTPUTDIR)/ps
-PS0DIR				:= $(PSDIR)/ps0
-FFGENERATEPS0		:= $(TOOLSDIR)/generate-ps0.py
-PS0TARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(PS0DIR)/$(FONT)-$(VARIANT).ps)
+PSDIR           := $(OUTPUTDIR)/ps
+PS0DIR          := $(PSDIR)/ps0
+FFGENERATEPS0   := $(TOOLSDIR)/generate-ps0.py
+PS0TARGETS      := $(foreach VARIANT, $(FONTVARIANTS), $(PS0DIR)/$(FONT)-$(VARIANT).ps)
+PS0EXTS         := afm pfm tfm
+PS0ALLTARGETS   := $(PS0TARGETS) $(foreach ext, $(PS0EXTS), $(PS0TARGETS:.ps=.$(ext)))
 
-$(PS0DIR)/%.ps: $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS)
+$(PS0DIR)/%.ps $(foreach ext, $(PS0EXTS), $(PS0DIR)/%.$(ext)): $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS)
 	$(info Generate PS Type 0 font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATEPS0) $< $@
+	$(FONTFORGE) -script $(FFGENERATEPS0) $< $(PS0DIR)/$*.ps
 
 .PHONY: ps0
-ps0: $(PS0TARGETS)
+ps0: $(PS0ALLTARGETS)
 
 # latex build system
 
