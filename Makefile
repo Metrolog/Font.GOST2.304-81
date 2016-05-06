@@ -148,8 +148,53 @@ $(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(TOOLSLIBS)
 
 # all FontForge aux projects
 
+LASTSFDLABEL    := autokern
 FONTVARIANTS		:= Regular Slanted
-FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-autokern.sfd)
+FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-$(LASTSFDLABEL).sfd)
+
+# $(call generateTargetFromSources, type, target, sources)
+define generateTargetFromSources
+
+FFGENERATE$(1)  ?= $(TOOLSDIR)/generate-$(1).py
+$(1)DEPS        ?= $$(FFGENERATE$(1)) $(TOOLSLIBS)
+$(1)TARGETS     ?= $2
+$(1)SOURCES     ?= $3
+
+$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
+	$$(info Generate $1 font file "$$@"...)
+	$$(MAKETARGETDIR)
+	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$(filter-out $$($(1)DEPS),$$^)
+
+.PHONY: $1
+$(1): $$($(1)TARGETS)
+
+endef
+
+# $(call generateFontsOfType, type, fileext, [sourceFileTemplate], [ расширения файлов-сателитов (без точек)] )
+define generateFontsOfType
+
+$(1)DIR         ?= $(OUTPUTDIR)/$(1)
+FFGENERATE$(1)  ?= $(TOOLSDIR)/generate-$(1).py
+$(1)DEPS        ?= $$(FFGENERATE$(1)) $(TOOLSLIBS)
+$(1)EXT         ?= $2
+$(1)MAINTARGETS := $(foreach VARIANT,$(FONTVARIANTS),$$($(1)DIR)/$(FONT)-$(VARIANT).$$($(1)EXT))
+$(1)EXTS        ?= $4
+$(1)TARGETS     := $$($(1)MAINTARGETS) $$(foreach ext,$$($(1)EXTS),$$($(1)MAINTARGETS:.$$($(1)EXT)=.$$(ext)))
+ifneq ($(strip $3),)
+  $(1)SOURCES   ?= $3
+else
+  $(1)SOURCES   ?= $(AUXDIR)/%-$(LASTSFDLABEL).sfd
+endif
+
+$$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS)
+	$$(info Generate .$2 font file "$$@"...)
+	$$(MAKETARGETDIR)
+	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$($(1)DIR)/$$*.$$($(1)EXT) $$(filter-out $$($(1)DEPS),$$^)
+
+.PHONY: $1
+$(1): $$($(1)TARGETS)
+
+endef
 
 # build True Type fonts
 
@@ -162,7 +207,7 @@ ifeq ($(AUTOHINT),ttfautohint)
 $(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
+	$(FONTFORGE) -script $(FFGENERATETTF) $@ $<
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
@@ -177,7 +222,7 @@ endif
 
 $(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) -script $(FFGENERATETTF) $< $@
+	$(FONTFORGE) -script $(FFGENERATETTF) $@ $<
 
 endif 
 
@@ -190,61 +235,16 @@ $(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf
 ttf: $(TTFTARGETS)
 
 # build True Type collection
-
-FFGENERATETTC		:= $(TOOLSDIR)/generate-ttc.py
-
-$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TOOLSLIBS)
-	$(info Generate .ttc collection "$@"...)
-	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
-
-.PHONY: ttc
-ttc: $(TTFDIR)/$(FONT).ttc ttf
+$(eval $(call generateTargetFromSources,ttc,$(TTFDIR)/$(FONT).ttc,$(TTFTARGETS)))
 
 # build Web Open Font Format
-
-WOFFDIR				:= $(OUTPUTDIR)/woff
-FFGENERATEWOFF		:= $(TOOLSDIR)/generate-woff.py
-WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIANT).woff)
-
-$(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(TOOLSLIBS)
-	$(info Generate .woff font "$@"...)
-	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATEWOFF) $< $@
-
-.PHONY: woff
-woff: $(WOFFTARGETS)
+$(eval $(call generateFontsOfType,woff,woff,$(TTFDIR)/%.ttf))
 
 # build Open Type fonts
-
-OTFDIR				:= $(OUTPUTDIR)/otf
-FFGENERATEOTF		:= $(TOOLSDIR)/generate-autohinted-otf.py
-OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT).otf)
-
-$(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(TOOLSLIBS)
-	$(info Generate .otf font "$@"...)
-	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATEOTF) $< $@
-
-.PHONY: otf
-otf: $(OTFTARGETS)
+$(eval $(call generateFontsOfType,otf,otf,,afm))
 
 # build PS Type 0 fonts
-
-PSDIR           := $(OUTPUTDIR)/ps
-PS0DIR          := $(PSDIR)/ps0
-FFGENERATEPS0   := $(TOOLSDIR)/generate-ps0.py
-PS0TARGETS      := $(foreach VARIANT, $(FONTVARIANTS), $(PS0DIR)/$(FONT)-$(VARIANT).ps)
-PS0EXTS         := afm pfm tfm
-PS0ALLTARGETS   := $(PS0TARGETS) $(foreach ext, $(PS0EXTS), $(PS0TARGETS:.ps=.$(ext)))
-
-$(PS0DIR)/%.ps $(foreach ext, $(PS0EXTS), $(PS0DIR)/%.$(ext)): $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS)
-	$(info Generate PS Type 0 font "$@"...)
-	$(MAKETARGETDIR)
-	$(FONTFORGE) -script $(FFGENERATEPS0) $< $(PS0DIR)/$*.ps
-
-.PHONY: ps0
-ps0: $(PS0ALLTARGETS)
+$(eval $(call generateFontsOfType,ps0,ps,,afm pfm tfm))
 
 # latex build system
 
