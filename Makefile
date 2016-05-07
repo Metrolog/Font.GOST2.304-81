@@ -309,33 +309,25 @@ doc: $(LATEXPKGDOCS)
 
 LATEXTDSAUXDIR := $(AUXDIR)/tds
 
-# $(call copyFontFilesToTDS, type, targetDir)
-define copyFontFilesToTDS
-LATEXTDSFONTS$(1)PATH := $(LATEXTDSAUXDIR)/fonts/$(2)/public/$(LATEXPKG)
-LATEXTDSFONTS$(1)TARGETS = $$(foreach FONTFILE,$$($(1)TARGETS),$$(LATEXTDSFONTS$(1)PATH)/$$(notdir $$(FONTFILE)))
-$$(foreach file,$$(LATEXTDSFONTS$(1)TARGETS),$$(eval $$(call copyfilefrom,$$(file),$$($(1)DIR))))
+# $(call copyFilesToTDS, type, sourceFiles, targetDir)
+define copyFilesToTDS
+LATEXTDS$(1)PATH := $(LATEXTDSAUXDIR)/$(3)
+LATEXTDS$(1)TARGETS = $$(foreach file,$(2),$$(LATEXTDS$(1)PATH)/$$(notdir $$(file)))
+TDSFILES += $$(LATEXTDS$(1)TARGETS)
+$$(foreach file,$(2),$$(eval $$(call copyfile,$$(LATEXTDS$(1)PATH)/$$(notdir $$(file)),$$(file))))
 endef
 
-LATEXTDSPKGPATH = $(LATEXTDSAUXDIR)/tex/latex/$(LATEXPKG)
-LATEXTDSPKGTARGETS = $(patsubst $(LATEXPKGUNPACKDIR)/%, $(LATEXTDSPKGPATH)/%, $(LATEXPKGINSTALLFILES))
-$(foreach file,$(LATEXTDSPKGTARGETS),$(eval $(call copyfilefrom,$(file),$(LATEXPKGUNPACKDIR))))
+# $(call copyFontFilesToTDS, type, targetDir)
+copyFontFilesToTDS = $(call copyFilesToTDS,FONTS$(1),$($(1)TARGETS),fonts/$(2)/public/$(LATEXPKG))
 
+$(eval $(call copyFilesToTDS,PKG,$(LATEXPKGINSTALLFILES),tex/latex/$(LATEXPKG)))
 $(eval $(call copyFontFilesToTDS,ttf,truetype))
 $(eval $(call copyFontFilesToTDS,otf,opentype))
 $(eval $(call copyFontFilesToTDS,pstype1,type1))
-
-LATEXTDSDOCSTARGETS = $(foreach FILE,$(LATEXPKGDOCS),$(LATEXTDSAUXDIR)/doc/latex/$(LATEXPKG)/$(notdir $(FILE)))
-$(foreach file,$(LATEXTDSDOCSTARGETS),$(eval $(call copyfilefrom,$(file),$(LATEXPKGTYPESETDIR))))
+$(eval $(call copyFilesToTDS,DOCS,$(LATEXPKGDOCS),doc/latex/$(LATEXPKG)))
 
 export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
 export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
-
-TDSFILES = \
-	$(LATEXTDSFONTSttfTARGETS) \
-	$(LATEXTDSFONTSotfTARGETS) \
-	$(LATEXTDSFONTSpstype1TARGETS) \
-	$(LATEXTDSDOCSTARGETS) \
-	$(LATEXTDSPKGTARGETS)
 
 TDSFILE := $(LATEXPKG).tds.zip
 TDSTARGET := $(AUXDIR)/$(TDSFILE)
