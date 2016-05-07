@@ -95,7 +95,7 @@ Install-Package `
     -Force `
 ;
 $WixVersion = ( Get-Package -Name WiX -ProviderName NuGet ).Version;
-$env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools";
+$env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools\";
 [System.Environment]::SetEnvironmentVariable( 'WIXDIR', $env:WIXDIR, [System.EnvironmentVariableTarget]::Machine );
 
 $env:Path = `
