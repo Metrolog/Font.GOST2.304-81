@@ -361,18 +361,20 @@ $(LATEXCTANTARGET): $(LATEXCTANAUXDIR)/$(TDSFILE)
 
 .PHONY: dist ctan
 dist: $(LATEXCTANTARGET)
-ctan: dist
+ctan: $(LATEXCTANTARGET)
 
 # msi module
 
 .PHONY: msm
-msm: ttf
+msm: $(ttfTARGETS)
+	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS),../$(file)))
 	$(MAKE) -C msm
 
 # msi module
 
 .PHONY: msi
-msi: msm ttf otf
+msi: msm $(ttfTARGETS) $(otfTARGETS)
+	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS) $(otfTARGETS),../$(file)))
 	$(MAKE) -C msi
 
 # clean projects
