@@ -309,21 +309,28 @@ doc: $(LATEXPKGDOCS)
 
 LATEXTDSAUXDIR := $(AUXDIR)/tds
 
-# $(call copyFilesToTDS, type, sourceFiles, targetDir)
+# $(call copyFilesToTDS, type, sourceFiles, targetDir, filter, filterid)
 define copyFilesToTDS
-LATEXTDS$(1)PATH := $(LATEXTDSAUXDIR)/$(3)
-LATEXTDS$(1)TARGETS = $$(foreach file,$(2),$$(LATEXTDS$(1)PATH)/$$(notdir $$(file)))
-TDSFILES += $$(LATEXTDS$(1)TARGETS)
-$$(foreach file,$(2),$$(eval $$(call copyfile,$$(LATEXTDS$(1)PATH)/$$(notdir $$(file)),$$(file))))
+LATEXTDS$(1)$(5)PATH := $(LATEXTDSAUXDIR)/$(3)
+ifneq ($(strip $4),)
+  LATEXTDS$(1)$(5)SOURCES = $(filter $(foreach tmpl,$4,%.$(tmpl)),$(2))
+else
+  LATEXTDS$(1)$(5)SOURCES = $(2)
+endif
+LATEXTDS$(1)$(5)TARGETS = $$(foreach file,$$(LATEXTDS$(1)$(5)SOURCES),$$(LATEXTDS$(1)$(5)PATH)/$$(notdir $$(file)))
+TDSFILES += $$(LATEXTDS$(1)$(5)TARGETS)
+$$(foreach file,$$(LATEXTDS$(1)$(5)SOURCES),$$(eval $$(call copyfile,$$(LATEXTDS$(1)$(5)PATH)/$$(notdir $$(file)),$$(file))))
 endef
 
-# $(call copyFontFilesToTDS, type, targetDir)
-copyFontFilesToTDS = $(call copyFilesToTDS,FONTS$(1),$($(1)TARGETS),fonts/$(2)/public/$(LATEXPKG))
+# $(call copyFontFilesToTDS, type, targetDir, filter, filterid)
+copyFontFilesToTDS = $(call copyFilesToTDS,FONTS$(1),$($(1)TARGETS),fonts/$(2)/public/$(LATEXPKG),$(3),$(4))
 
 $(eval $(call copyFilesToTDS,PKG,$(LATEXPKGINSTALLFILES),tex/latex/$(LATEXPKG)))
 $(eval $(call copyFontFilesToTDS,ttf,truetype))
-$(eval $(call copyFontFilesToTDS,otf,opentype))
-$(eval $(call copyFontFilesToTDS,pstype1,type1))
+$(eval $(call copyFontFilesToTDS,otf,opentype,otf))
+$(eval $(call copyFontFilesToTDS,pstype1,type1,pfm pfb))
+$(eval $(call copyFontFilesToTDS,pstype1,tfm,tfm,_tmf))
+$(eval $(call copyFontFilesToTDS,pstype1,afm,afm,_afm))
 $(eval $(call copyFilesToTDS,DOCS,$(LATEXPKGDOCS),doc/latex/$(LATEXPKG)))
 
 export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
