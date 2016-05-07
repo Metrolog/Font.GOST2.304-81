@@ -331,6 +331,7 @@ export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
 
 TDSFILE := $(LATEXPKG).tds.zip
 TDSTARGET := $(AUXDIR)/$(TDSFILE)
+TDSTARGETS := $(TDSTARGET)($(foreach file,$(TDSFILES),$(patsubst $(LATEXTDSAUXDIR)/%,%,$(file))))
 $(TDSTARGET): $(TDSFILES)
 	$(MAKETARGETDIR)
 	cd $(LATEXTDSAUXDIR) && $(ZIP) -FS -r -D $(abspath $@) $(patsubst $(LATEXTDSAUXDIR)/%, %, $^)
