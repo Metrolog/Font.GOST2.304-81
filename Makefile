@@ -252,8 +252,7 @@ LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcar
 
 LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.tex
 
-# $(LATEXPRJVERSIONFILE): Makefile .git/logs/HEAD
-$(LATEXPRJVERSIONFILE): Makefile
+$(LATEXPRJVERSIONFILE): .git/logs/HEAD
 	$(info Generate latex version file "$@"...)
 	$(MAKETARGETDIR)
 	@git log -1 --date=format:%Y/%m/%d --format="format:\
