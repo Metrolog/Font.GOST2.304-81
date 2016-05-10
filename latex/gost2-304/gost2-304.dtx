@@ -36,7 +36,7 @@
 %</package-header>
 % \fi
 \def\ExplFileName{gost2-304}
-\def\ExplFileDescription{ГОСТ 2.304-81 ЕСКД. Шрифты чертёжные}
+\def\ExplFileDescription{ГОСТ~2.304"~81 ЕСКД. Шрифты чертёжные}
 % \iffalse
 %</driver|package-header>
 %
@@ -134,8 +134,11 @@
 \input{version.tex}
 \edef\ExplFileDateISO{\dateTeXtoISO{\ExplFileDate}}
 
-\def\MacroFont{\eskdfont \fontseries\mddefault \fontshape\updefault \small}
-\def\AltMacroFont{\eskdfont \fontseries\mddefault \fontshape\sldefault \small}
+\def\MacroFont{\eskdfont\mdseries\upshape\small}
+\def\AltMacroFont{\eskdfont\mdseries\slshape\small}
+\makeatletter
+\def\verbatim@font{\eskdfont\bfseries\upshape}
+\makeatother
 
 \DeclareRobustCommand \pkg {\textbf}
 \DeclareRobustCommand \thispkg {\pkg{\ExplFileName}}
@@ -231,7 +234,7 @@
 % \begin{abstract}
 %
 % Пакет \thispkg{} позволяет использовать в документах \LaTeX\,
-% шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304-81.
+% шрифты eskdfont - чертёжные шрифты по ГОСТ~2.304"~81.
 % В состав пакета входят как True Type шрифты, так и Open Type.
 %
 % \end{abstract}
@@ -286,73 +289,83 @@
 % \begin{documentation}
 % \section{Идентификаторы шрифтов}
 %
-% \DescribeMacro{\eskdfont}
+% \begin{variable}{\c_@@_mainfont_tl, \c_@@_mathfont_tl}
 % Пакет \thispkg{} определяет основной 
 % и математический шрифт \cs{eskdfont}, а также NFSS семейство
-% шрифтов \DescribeMacro{\eskdfontfamily}\cs{eskdfont}.
+% шрифтов \cs{eskdfont}.
+% \end{variable}
+% \begin{variable}{\c_@@_NFSSFamily_tl, \c_@@_NFSS_math_tl}
+% Пакет также определяет NFSS семейство шрифтов |eskdfont|.
+% \end{variable}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
 \cs_generate_variant:Nn \tl_const:Nn { NV }
 %    \end{macrocode}
-% \begin{variable}{c_@@_mainfont_tl}
+% \begin{macro}[int]{\c_@@_mainfont_tl, \c_@@_mathfont_tl}
 % Идентификатор основного шрифта
 % и математического шрифта |eskdfont|
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_mainfont_tl {eskdfont}
 \tl_const:Nn \c_@@_mathfont_tl {eskdmathfont}
 %    \end{macrocode}
-% \end{variable}
-% \begin{variable}{c_@@_NFSSFamily_tl}
+% \end{macro}
+% \begin{macro}[int]{\c_@@_NFSSFamily_tl, \c_@@_NFSS_math_tl}
 % Идентификатор NFSS семейства шрифтов |eskdfont|
 %    \begin{macrocode}
 \tl_const:NV \c_@@_NFSS_family_tl \c_@@_mainfont_tl
-\tl_const:NV \c_@@_NFSS_math_family_tl \c_@@_mathfont_tl
+\tl_const:NV \c_@@_NFSS_math_tl \c_@@_mathfont_tl
 %    \end{macrocode}
-% \end{variable}
+% \end{macro}
 %
-% \begin{variable}{\c_@@_math_version_tl}
+% \begin{macro}[int]{\c_@@_math_version_tl}
 % Идентификатор версии математики со шрифтом ГОСТ~2.304.
 %    \begin{macrocode}
 \tl_const:Nn \c_@@_math_version_tl {eskd}
 %    \end{macrocode}
-% \end{variable}
+% \end{macro}
 % \end{implementation}
 % \begin{documentation}
 % \section{Доступные размеры шрифтов}
-%
-% \DescribeMacro{\c_@@_fontsizes_clist}
+% \begin{variable}{\c_@@_fontsizes_clist}
 % Ряд размеров шрифтов |h| определён ГОСТ~2.304.
 % При попытке использования других размеров будет выбран
 % ближайший, но меньший указанного, из ряда допустимых размеров.
 % По п.3.3 ГОСТ~2.105 высота шрифта |h| не менее 2,5~мм,
 % тем не менее доступен и |h|=1,8~мм - для формул (индексов, прочего).
-%
-% \end{documentation}
-% \begin{implementation}
-% \begin{variable}{\c_@@_fontsizes_clist}
-% Ряд допустимых размеров шрифтов |h|.
-%
-%    \begin{macrocode}
-\clist_const:Nn \c_@@_fontsizes_clist {
-  1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm
-}
-%    \end{macrocode}
 % \end{variable}
-% \end{implementation}
-%
-% \begin{documentation}
 % \end{documentation}
 % \begin{implementation}
-% 
-% Предикат |\g_@@_mainfontsize_bool| используется для определения, установлен ли
+% \begin{macro}[int]{\c_@@_fontsizes_clist}
+% Ряд допустимых размеров шрифтов |h|.
+%    \begin{macrocode}
+\clist_const:Nn \c_@@_fontsizes_clist
+  { 1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm }
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}[int]{\g_@@_mainfont_bool}
+% Предикат \cs{g_@@_mainfont_bool} используется для определения, установлен ли
 % размер основного шрифта
-% в опциях пакета и используется ли шрифт \cs{eskdfont} как основной по умолчанию.
+% в опциях пакета и используется ли шрифт |eskdfont| как основной по умолчанию.
 % Устанавливается опцией |mainfontsize|.
 %    \begin{macrocode}
-\bool_new:N \g_@@_mainfontsize_bool
+\bool_new:N \g_@@_mainfont_bool
 %    \end{macrocode}
+% \end{variable}
 %
+% \begin{variable}[int]
+%   {
+%     \g_@@_normalsize_dim,
+%     \g_@@_small_dim,
+%     \g_@@_footnotesize_dim,
+%     \g_@@_scriptsize_dim,
+%     \g_@@_tiny_dim,
+%     \g_@@_large_dim,
+%     \g_@@_Large_dim,
+%     \g_@@_LARGE_dim,
+%     \g_@@_huge_dim,
+%     \g_@@_Huge_dim
+%   }
 % Переменные, хранящие абсолютное значение размеров шрифта для относительных
 % размеров, вычисляемые исходя из |mainfontsize|.
 %    \begin{macrocode}
@@ -367,6 +380,7 @@
 \dim_new:N \g_@@_huge_dim
 \dim_new:N \g_@@_Huge_dim
 %    \end{macrocode}
+% \end{variable}
 %
 % Переменные для хранения значений опций.
 % Подробнее - при описании опций.
@@ -448,6 +462,7 @@
 % для относительных размеров шрифта \cs{small}, \cs{tiny} и других:
 % они также выбираются из допустимого размерного ряда.
 %
+% \begin{figure}[ht]
 % \begin{verbatim}
 %     \small A123
 %     \normalsize A123
@@ -460,6 +475,8 @@
 %     \normalsize A123
 %     \large A123 \Large A123 \LARGE A123 \huge A \Huge A
 %   }[21mm]
+% \caption{Пример использования разных размеров шрифтов.}
+% \end{figure}
 %
 % Для изменения размера также следует обратить внимание на макрос
 % \cs{eskdfontsize} (\pageref{sec:fontsize}).
@@ -473,7 +490,7 @@
         \clist_if_in:NnTF \c_@@_fontsizes_clist {#1}
           {
             \dim_gset:Nn \g_@@_normalsize_dim {#1}
-            \bool_gset_true:N \g_@@_mainfontsize_bool
+            \bool_gset_true:N \g_@@_mainfont_bool
           }
           { \msg_fatal:nnn { gost2-304 } { invalid-font-size } { #1 } }
       },
@@ -899,10 +916,10 @@
 %
 % Возвращает размер шрифта в единицах измерения по индексу
 % в списке допустимых размеров
-% \begin{macro}[aux]{\_@@_fontsizeget:n}
+% \begin{function}[EXP]{ \_@@_fontsizeget:n }
 %   \begin{syntax}
 %     \cs{_@@_fontsizeget:n}
-%       \marg{индекс требуемого размера шрифта в \tn{c_@@_fontsizes_clist}}
+%       \marg{size index in \cs{c_@@_fontsizes_clist}}
 %   \end{syntax}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_fontsizeget:n
@@ -910,33 +927,40 @@
     \clist_item:Nn \c_@@_fontsizes_clist {#1}
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
+% \begin{function}
+%   {
+%     \@@_normalsize_gset:n,
+%     \@@_normalsize_gset:
+%   }
+%   \begin{syntax}
+%     \cs{@@_normalsize_gset:n}
+%       \marg{normal font size}
+%   \end{syntax}
 % Устанавливает нормальный (\cs{normalsize}) размер используемого
 % шрифта. При этом переопределяет и зависимые размеры шрифта
 % (\cs{tiny}, \cs{large} и т.п.), используя только допустимые
 % размеры.
-% \begin{macro}[int]{\@@_normalsize_gset:n}
-%   \begin{syntax}
-%     \cs{@@_normalsize_gset:n}
-%       \marg{требуемый размер с указанием единицы измерения}
-%   \end{syntax}
+%
+% Если размер опущен - используется размер, указанный в опции |mainfontsize|.
+% \end{function}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \@@_normalsize_gset:n
   {
     \dim_set:Nn \l_tmpa_dim {#1}
-    \bool_gset_false:N \g_@@_mainfontsize_bool
+    \bool_gset_false:N \g_@@_mainfont_bool
     \int_set_eq:NN \l_tmpa_int \c_zero
     \clist_map_inline:Nn \c_@@_fontsizes_clist
       {
         \int_incr:N \l_tmpa_int
         \dim_compare:nNnT \l_tmpa_dim = {##1}
           {
-            \bool_gset_true:N \g_@@_mainfontsize_bool
+            \bool_gset_true:N \g_@@_mainfont_bool
             \clist_map_break:
           }
       }
-    \bool_if:NTF \g_@@_mainfontsize_bool
+    \bool_if:NTF \g_@@_mainfont_bool
       {
         \int_case:nnTF { \l_tmpa_int }
           {
@@ -987,8 +1011,6 @@
   }
 \@onlypreamble \@@_normalsize_gset:n
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}[aux]{\@@_normalsize_gset:}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \@@_normalsize_gset:
   {
@@ -996,11 +1018,11 @@
   }
 \@onlypreamble \@@_normalsize_gset:
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}[int]{\_@@_b_from_h:n}
+%
+% \begin{function}[EXP]{ \_@@_b_from_h:n }
 %   \begin{syntax}
 %     \cs{_@@_b_from_h:n}
-%       \marg{размер шрифта h с указанием единицы измерения}
+%       \marg{h font size}
 %   \end{syntax}
 % Вычисляет интервал между базовыми линиями |b| из размера шрифта |h|.
 % \todo{После подготовки шрифта типа~Б корректно рассчитывать |b| и для
@@ -1011,44 +1033,47 @@
     \dim_eval:n { #1 * 22 / 14 }
   }
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}[aux]{\_@@_fontsize_from_h:n}
+% \end{function}
+%
+% \begin{function}[EXP]{ _@@_fontsize_from_h:n }
 %   \begin{syntax}
 %     \cs{_@@_fontsize_from_h:n}
-%       \marg{размер шрифта h с указанием единицы измерения}
+%       \marg{h font size}
 %   \end{syntax}
-%
 % Вычисляет размер шрифта на основе указанного |h|.
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_fontsize_from_h:n
   { \dim_eval:n { \dim_eval:n{ #1 } * \c_@@_fontscale_tl } }
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}[aux]{\_@@_fontsize_from_h:Nn}
+% \end{function}
+% \begin{function}[EXP]{_@@_fontsize_from_h:Nn}
 %   \begin{syntax}
 %     \cs{_@@_fontsize_from_h:Nn}
-%       \marg{идентификатор переменной (dim)
-%         , в которую будет сохранено вычисленное значение h}
-%       \marg{размер шрифта h с указанием единицы измерения}
+%       \marg{variable (dim) for fontsize}
+%       \marg{h font size}
 %   \end{syntax}
-%
 % Вычисляет размер шрифта на основе указанного |h|
 % и сохраняет его в переменную, указанную первым аргументом.
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_fontsize_from_h:Nn
   { \dim_set:Nn #1 { \_@@_fontsize_from_h:n { #2 } } }
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}[aux]{\_@@_setfontsize_h:Nnn}
+% \end{function}
+%
+% \begin{function}
+%   {
+%     \_@@_setfontsize_h:Nnn,
+%     \_@@_setfontsize_h:Nn
+%   }
 %   \begin{syntax}
 %     \cs{_@@_setfontsize_h:Nnn}
-%       \marg{макрос, который будет переопределён}
-%       \marg{размер шрифта h с указанием единицы измерения}
-%       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
+%       \marg{\cs{normalsize}, or \cs{tiny}, or ...}
+%       \marg{h font size}
+%       \oarg{b font size}
 %   \end{syntax}
-%
-% Переопределяет макрос для изменения размера шрифта на основе указанного |h|
-% (например |\tiny|).
+% Устанавливает текущие размеры шрифта (|h|) и расстояние между базовыми линиями строк (|b|).
+% Первым аргументом - макрос для устанавливаемого размера шрифта
+% (для работы \cs{larger} и аналогичных).
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_setfontsize_h:Nnn
   {
@@ -1061,21 +1086,41 @@
   }
 \cs_generate_variant:Nn \_@@_setfontsize_h:Nn { Nc }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 % \end{implementation}
 % \begin{documentation}
 %
-% \DescribeMacro{\eskdfontsize}
-% \DescribeMacro{\eskdfont_fontsize_h:nn}
-% \DescribeMacro{\eskdfont_fontsize_h:n}
+% \begin{function}{\eskdfontsize}
+%   \begin{syntax}
+%     \cs{eskdfontsize}
+%       \marg{h font size}
+%       \oarg{b size}
+%   \end{syntax}
 % В дополнение к опции |mainfontsize| (\pageref{opt:mainfontsize})
-% данный пакет предоставляет макрос
-% \cs{eskdfontsize}\marg{размер H шрифта}\oarg{расстояние между строками b},
-% позволяющий изменять размер основного шрифта в тексте документа.
+% данный пакет предоставляет макрос \cs{eskdfontsize},
+% позволяющий изменять размер шрифта в тексте документа.
 %
 % В отличии от \cs{fontsize} устанавливает не кегль шрифта,
 % а |h| размер шрифта (высоту прописных букв П, Р, Т).
 %
+% Опционально также позволяет установить расстояние между базовыми линиями
+% строк (|b|). Если это параметр не указан, межстрочное расстояние вычисляется
+% на основании |h|.
+% \end{function}
+% \begin{function}
+%   {
+%     \eskdfont_fontsize_h:nn,
+%     \eskdfont_fontsize_h:n
+%   }
+%   \begin{syntax}
+%     \cs{eskdfont_fontsize_h:nn}
+%       \marg{h font size}
+%       \marg{b font size}
+%   \end{syntax}
+% Аналогичные функции в синтаксисе \LaTeX3.
+% \end{function}
+%
+% \begin{figure}[ht]
 % \begin{verbatim}
 % {
 %   \eskdfontsize{14mm} \selectfont
@@ -1095,17 +1140,17 @@
 %     \eskdfontsize{5mm} \selectfont
 %     A123
 %   }
+% \caption{Пример использования \cs{eskdfontsize}.}
+% \end{figure}
 %
 % \end{documentation}
 % \begin{implementation}
-% \begin{macro}[aux]{\eskdfont_fontsize_h:nn}
-%   \begin{syntax}
-%     \cs{\eskdfont_fontsize_h:nn}
-%       \marg{размер шрифта h с указанием единицы измерения}
-%       \marg{расстояние между базовыми линиями b с указанием единицы измерения}
-%   \end{syntax}
-%
-% Устанавливает размер текущего шрифта на основе указанного |h|.
+% \begin{macro}
+%   {
+%     \eskdfontsize,
+%     \eskdfont_fontsize_h:nn,
+%     \eskdfont_fontsize_h:n
+%   }
 %    \begin{macrocode}
 \cs_new_nopar:Nn \eskdfont_fontsize_h:nn
   {
@@ -1116,18 +1161,6 @@
   {
     \eskdfont_fontsize_h:nn {#1}{ \_@@_b_from_h:n {#1} }
   }
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\eskdfontsize}
-%   \begin{syntax}
-%     \cs{eskdfontsize}
-%       \marg{размер шрифта h с указанием единицы измерения}
-%       \oarg{расстояние между базовыми линиями b с указанием единицы измерения}
-%   \end{syntax}
-%
-% В отличии от \cs{fontsize} устанавливает не кегль шрифта, а |h| (ex) параметр шрифта.
-%    \begin{macrocode}
 \DeclareDocumentCommand \eskdfontsize {m o}
   {
     \IfNoValueTF{#2}
@@ -1146,8 +1179,11 @@
 \tl_const:Nn \c_@@_type_B_slanted_tl { GOST2.304-81TypeA-Slanted }
 %    \end{macrocode}
 %
-% \begin{variable}[aux]{\g_@@_type_A_scale_fp, \g_@@_type_B_scale_fp}
-%
+% \begin{variable}[aux]
+%   {
+%     \g_@@_type_A_scale_fp,
+%     \g_@@_type_B_scale_fp
+%   }
 % Переменные, содержащие масштабные коэффициенты для шрифтов.
 % Масштаб для используемых шрифтов вычисляется автоматически далее.
 % \todo{Убрать расчёт масштаба после подготовки шрифта типа~Б.}
@@ -1166,8 +1202,7 @@
 %     \g_@@_type_B_features_tl,
 %     \l_@@_type_B_fontadjustment_tl
 %   }
-%
-% Параметры шрифтов ГОСТ 2.304.
+% Параметры шрифтов ГОСТ~2.304.
 %    \begin{macrocode}
 \tl_new:N \g_@@_type_A_features_tl
 \tl_new:N \l_@@_type_A_fontadjustment_tl
@@ -1203,30 +1238,28 @@
 % \end{variable}
 %
 % Определяем свойства шрифтов.
-% \begin{macro}{DigitThree}
 % Свойство |DigitThree| определяет начертание цифры 3.
 %    \begin{macrocode}
 \newopentypefeature { DigitThree } { alternative } { +cv01 }
 \newopentypefeature { DigitThree } { basic } { -cv01 }
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{RomanNumeral}
 % Свойство |RomanNumeral| определяет начертание римских цифр.
 %    \begin{macrocode}
 \newopentypefeature { RomanNumeral } { On } { +cv03 }
 \newopentypefeature { RomanNumeral } { Off } { -cv03 }
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{RomanV}
 % Свойство |RomanV| определяет начертание римской V.
 %    \begin{macrocode}
 \newopentypefeature { RomanV } { alternative } { +cv02 }
 \newopentypefeature { RomanV } { serif } { +cv02 }
 \newopentypefeature { RomanV } { basic } { -cv02 }
 %    \end{macrocode}
-% \end{macro}
 %
-% \begin{variable}[int]{\g_@@_font_features_tl, \g_@@_mainfont_features_tl}
+% \begin{variable}[int]
+%   {
+%     \g_@@_font_features_tl,
+%     \g_@@_mainfont_features_tl
+%   }
 % Определяем |fontspec| параметры шрифта |eskdfont|.
 %    \begin{macrocode}
 \tl_new:N \g_@@_mainfont_features_tl
@@ -1318,6 +1351,7 @@
 \group_end:
 %    \end{macrocode}
 %
+% \begin{variable}[int]{ \l_@@_SizeFeatures_tl }
 % Указываем допустимые размеры шрифтов в свойствах шрифта.
 %
 % В соответствии с требованиями п.~2.2 ГОСТ 2.304 минимальный размер шрифта
@@ -1358,6 +1392,7 @@
 \tl_set:Nx \l_@@_SizeFeatures_tl
   { SizeFeatures={ \seq_use:Nn \l_tmpb_seq {, } } }
 %    \end{macrocode}
+% \end{variable}
 %
 % Добавляем подготовленную информацию о допустимых размерах
 % шрифта в параметры шрифта.
@@ -1398,13 +1433,13 @@
   ]
 %    \end{macrocode}
 %
-% \begin{macro}[int]{\@@_set_main_font:}
+% \begin{function}{\@@_set_main_font:}
 % Устанавливает основной шрифт.
 % 
 % Использование |NFSSFamily| для основного шрифта блокирует
 % в дальнейшем использование \cs{addfontfeature}.
-% \todo{Устранить несовместимость |NFSSFamily|
-% и \cs{addfontfeature} в \pkg{fontspec}.}
+% \todo{Устранить несовместимость \cs{addfontfeature} и
+% |NFSSFamily| в \pkg{fontspec}.}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \@@_set_main_font:
   {
@@ -1425,12 +1460,12 @@
   }
 \@onlypreamble \@@_set_main_font:
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
 % Устанавливаем размер шрифта в случае указания опции
 % |mainfontsize|\ref{opt:mainfontsize}.
 %    \begin{macrocode}
-\bool_if:NT \g_@@_mainfontsize_bool
+\bool_if:NT \g_@@_mainfont_bool
   {
     \@@_normalsize_gset:
     \@@_set_main_font:
@@ -1442,30 +1477,34 @@
 % \subsection{Проверка используемого шрифта}
 % \label{sec:if_eskdfont}
 %
-% \DescribeMacro{\eskdfont_if_eskdfont:}
+% \begin{function}[pTF]{\eskdfont_if_eskdfont:}
+%   \begin{syntax}
+%     \cs{eskdfont_if_eskdfont:}
+%   \end{syntax}
 % В ряде случаев необходимо выполнить те или иные действия в зависимости от
 % используемого в настоящий момент шрифта.
 % Предикат \cs{eskdfont_if_eskdfont:} решает именно эту задачу.
+% \end{function}
 %
+% \begin{figure}[ht]
 % \begin{verbatim}
 % \eskdfont_if_eskdfont:TF
-%   {да, шрифт ГОСТ 2.304.}
-%   {нет, шрифт не ГОСТ 2.304.}
+%   {yes, it is eskdfont.}
+%   {not, it is not eskdfont.}
 % \end{verbatim}
 %
 % Результат:
 % \ExplSyntaxOn
 % \eskdfont_if_eskdfont:TF
-%   {да,~ шрифт~ ГОСТ~2.304.}
-%   {нет,~ шрифт~ не~ ГОСТ~2.304.}
+%   {yes,~ it~ is~ eskdfont.}
+%   {not,~ it~ is~ not~ eskdfont.}
 % \ExplSyntaxOff
+% \caption{Пример использования \cs{eskdfont_if_eskdfont:}.}
+% \end{figure}
 %
 % \end{documentation}
 % \begin{implementation}
-% \begin{macro}{\eskdfont_if_eskdfont:}
-%
-% Предикат, является ли текущий шрифт шрифтом ГОСТ 2.304-81.
-% \pkg{fontspec} генерирует имена семейств шрифтов вида |eskdfont(2)|.
+% \begin{macro}[pTF]{\eskdfont_if_eskdfont:}
 %    \begin{macrocode}
 \cs_generate_variant:Nn \use:nnn {NVV}
 \prg_new_conditional:Nnn \eskdfont_if_eskdfont: { p, T, F, TF }
@@ -1503,7 +1542,11 @@
 % Опционально активируем замену глифов для латинских букв,
 % отражающих римские цифры, на специальные глифы римских цифр.
 % Только заглавные римские цифры, как предусмотрено ГОСТ 2.304
-% \begin{macro}[int]{\eskdfont_int_to_Roman:n, \eskdfont_int_to_roman:n}
+% \begin{function}
+%   {
+%     \eskdfont_int_to_Roman:n,
+%     \eskdfont_int_to_roman:n
+%   }
 %    \begin{macrocode}
 \cs_new_nopar:Nn \eskdfont_int_to_Roman:n
   {
@@ -1525,9 +1568,9 @@
     \cs_set_eq:NN \@Roman \eskdfont_int_to_Roman:n
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
-% \begin{macro}[int]{\_@@_declare_math_sizes:nnnn}
+% \begin{function}{_@@_declare_math_sizes:nnnn}
 %    \begin{macrocode}
 \cs_new:Nn \_@@_declare_math_sizes:nnnn
   {
@@ -1538,9 +1581,9 @@
       { \dim_to_decimal:n {#4} }
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
-% \begin{macro}[int]{\_@@_declare_math_sizes:}
+% \begin{function}{_@@_declare_math_sizes:}
 % Данный макрос определяет размеры верхних и нижних индексов,
 % а также индексов для индексов, для каждого допустимого размера
 % шрифта (см. описание \cs{DeclareMathSizes}).
@@ -1573,9 +1616,9 @@
       }
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
-% \begin{macro}[int]{\_@@_math_symbol_declare:}
+% \begin{function}{_@@_math_symbol_declare:}
 % Обёртка для \cs{DeclareMathSymbol}.
 % \todo{Сейчас не исползую. Стоит убрать?}
 %    \begin{macrocode}
@@ -1587,9 +1630,9 @@
 \cs_generate_variant:Nn \_@@_math_symbol_declare:nNnn { nNnx }
 \cs_generate_variant:Nn \_@@_math_symbol_declare:nNnn { xNnx }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
-% \begin{macro}[int]{\_@@_mathfont_family:n}
+% \begin{function}{_@@_mathfont_family:n}
 % Формирует идентификатор семейства математических шрифтов
 % для конкретного вида математических символов.
 %    \begin{macrocode}
@@ -1598,32 +1641,47 @@
     \tl_to_str:N \c_@@_NFSS_family_tl #1
   }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
-% \begin{macro}[int]{\_@@_set_symbol_font:nnn}
+% \begin{function}{\_@@_set_symbol_font:nnnnnn}
 %   \begin{syntax}
-%     \cs{_@@_set_symbol_font:nnnnn}
-%       \marg{вид математических символов (|letters|, |operators| и прочие)}
-%       \marg{определяет особенности начертания шрифта (\cs{mddefault} и другие)}
-%       \marg{определяет особенности начертания шрифта (\cs{sldefault} и другие)}
-%       \marg{макросы дополнительной настройки шрифта типа А}
-%       \marg{макросы дополнительной настройки шрифта типа Б}
+%     \cs{_@@_set_symbol_font:nnnnnn}
+%       \marg{|letters|, |operators| ...}
+%       \marg{math version}
+%       \marg{font encoding}
+%       \marg{NFSS font family}
+%       \marg{\cs{mddefault}...}
+%       \marg{\cs{sldefault}...}
 %   \end{syntax}
 % Обёртка для \cs{SetSymbolFont}.
 %    \begin{macrocode}
+\cs_new_nopar:Nn \_@@_set_symbol_font:nnnnnn
+  { \SetSymbolFont {#1}{#2}{#3}{#4}{#5}{#6} }
+\cs_generate_variant:Nn \_@@_set_symbol_font:nnnnnn { nVVnnn }
+\cs_generate_variant:Nn \_@@_set_symbol_font:nnnnnn { nVVVnn }
+%    \end{macrocode}
+% \end{function}
+% \begin{function}{\_@@_set_symbol_font:nnn}
+%   \begin{syntax}
+%     \cs{_@@_set_symbol_font:nnnnn}
+%       \marg{|letters|, |operators| ...}
+%       \marg{\cs{mddefault}...}
+%       \marg{\cs{sldefault}...}
+%   \end{syntax}
+%    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnn
   {
-    \SetSymbolFont
+    \_@@_set_symbol_font:nVVVnn
       {#1}
       \c_@@_math_version_tl
-      { \tl_use:N \g_fontspec_encoding_tl }
-      { \tl_use:N \c_@@_NFSS_family_tl }
+      \g_fontspec_encoding_tl
+      \c_@@_NFSS_family_tl
       {#2}
       {#3}
   }
-%    \begin{macrocode}
-% \end{macro}
-% \begin{macro}[int]{\_@@_set_symbol_font:nnnnn}
+%    \end{macrocode}
+% \end{function}
+% \begin{function}{\_@@_set_symbol_font:nnnnn}
 %    \begin{macrocode}
 \cs_new_nopar:Nn \_@@_set_symbol_font:nnnnn
   {
@@ -1642,19 +1700,19 @@
         \tl_use:N \g_@@_font_features_tl
       }
       \c_@@_mainfont_tl
-    \SetSymbolFont
+    \_@@_set_symbol_font:nVVnnn
       {#1}
       \c_@@_math_version_tl
-      { \tl_use:N \g_fontspec_encoding_tl }
+      \g_fontspec_encoding_tl
       { \_@@_mathfont_family:n {#1} }
       {#2}
       {#3}
   }
 \cs_generate_variant:Nn \fontspec_set_family:cnn { cxV }
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
-% \begin{macro}[int]{\@@_setup_math:}
+% \begin{function}{@@_setup_math:}
 % Настраиваем версию математики |eskd|.
 %    \begin{macrocode}
 \cs_new:Nn \@@_setup_math:
@@ -1678,7 +1736,7 @@
           [
             version = \tl_use:N \c_@@_math_version_tl,
             \tl_use:N \g_@@_font_features_tl,
-            NFSSFamily = \tl_use:N \c_@@_NFSS_math_family_tl
+            NFSSFamily = \tl_use:N \c_@@_NFSS_math_tl
           ]
       }
 %    \_@@_set_symbol_font:nnn {operators}
@@ -1698,7 +1756,7 @@
   }
 \@onlypreamble \@@_setup_math:
 %    \end{macrocode}
-% \end{macro}
+% \end{function}
 %
 %    \begin{macrocode}
 \bool_if:NT \g_@@_math_support_bool
