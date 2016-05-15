@@ -343,42 +343,42 @@
   { 1.8mm, 2.5mm, 3.5mm, 5mm, 7mm, 10mm, 14mm, 20mm, 28mm, 40mm }
 %    \end{macrocode}
 % \end{macro}
-% \begin{variable}[int]{\g_@@_mainfont_bool}
-% Предикат \cs{g_@@_mainfont_bool} используется для определения, установлен ли
+% \begin{variable}[int]{\l_@@_mainfont_bool}
+% Предикат \cs{l_@@_mainfont_bool} используется для определения, установлен ли
 % размер основного шрифта
 % в опциях пакета и используется ли шрифт |eskdfont| как основной по умолчанию.
 % Устанавливается опцией |mainfontsize|.
 %    \begin{macrocode}
-\bool_new:N \g_@@_mainfont_bool
+\bool_new:N \l_@@_mainfont_bool
 %    \end{macrocode}
 % \end{variable}
 %
 % \begin{variable}[int]
 %   {
-%     \g_@@_normalsize_dim,
-%     \g_@@_small_dim,
-%     \g_@@_footnotesize_dim,
-%     \g_@@_scriptsize_dim,
-%     \g_@@_tiny_dim,
-%     \g_@@_large_dim,
-%     \g_@@_Large_dim,
-%     \g_@@_LARGE_dim,
-%     \g_@@_huge_dim,
-%     \g_@@_Huge_dim
+%     \l_@@_normalsize_dim,
+%     \l_@@_small_dim,
+%     \l_@@_footnotesize_dim,
+%     \l_@@_scriptsize_dim,
+%     \l_@@_tiny_dim,
+%     \l_@@_large_dim,
+%     \l_@@_Large_dim,
+%     \l_@@_LARGE_dim,
+%     \l_@@_huge_dim,
+%     \l_@@_Huge_dim
 %   }
 % Переменные, хранящие абсолютное значение размеров шрифта для относительных
 % размеров, вычисляемые исходя из |mainfontsize|.
 %    \begin{macrocode}
-\dim_new:N \g_@@_normalsize_dim
-\dim_new:N \g_@@_small_dim
-\dim_new:N \g_@@_footnotesize_dim
-\dim_new:N \g_@@_scriptsize_dim
-\dim_new:N \g_@@_tiny_dim
-\dim_new:N \g_@@_large_dim
-\dim_new:N \g_@@_Large_dim
-\dim_new:N \g_@@_LARGE_dim
-\dim_new:N \g_@@_huge_dim
-\dim_new:N \g_@@_Huge_dim
+\dim_new:N \l_@@_normalsize_dim
+\dim_new:N \l_@@_small_dim
+\dim_new:N \l_@@_footnotesize_dim
+\dim_new:N \l_@@_scriptsize_dim
+\dim_new:N \l_@@_tiny_dim
+\dim_new:N \l_@@_large_dim
+\dim_new:N \l_@@_Large_dim
+\dim_new:N \l_@@_LARGE_dim
+\dim_new:N \l_@@_huge_dim
+\dim_new:N \l_@@_Huge_dim
 %    \end{macrocode}
 % \end{variable}
 %
@@ -418,7 +418,7 @@
 \msg_new:nnn { gost2-304 } { set-font-size }
   {
     Set~ "#1"~ font~ size~ to~
-    \dim_to_decimal_in_unit:cn {g_@@_#1_dim} {1mm}~mm.
+    \dim_to_decimal_in_unit:cn {l_@@_#1_dim} {1mm}~mm.
   }
 \msg_new:nnn { gost2-304 } { incompatible-math-package }
   {
@@ -489,8 +489,8 @@
       {
         \clist_if_in:NnTF \c_@@_fontsizes_clist {#1}
           {
-            \dim_gset:Nn \g_@@_normalsize_dim {#1}
-            \bool_gset_true:N \g_@@_mainfont_bool
+            \dim_set:Nn \l_@@_normalsize_dim {#1}
+            \bool_set_true:N \l_@@_mainfont_bool
           }
           { \msg_fatal:nnn { gost2-304 } { invalid-font-size } { #1 } }
       },
@@ -931,11 +931,11 @@
 %
 % \begin{function}
 %   {
-%     \@@_normalsize_gset:n,
-%     \@@_normalsize_gset:
+%     \@@_normalsize_set:n,
+%     \@@_normalsize_set:
 %   }
 %   \begin{syntax}
-%     \cs{@@_normalsize_gset:n}
+%     \cs{@@_normalsize_set:n}
 %       \marg{normal font size}
 %   \end{syntax}
 % Устанавливает нормальный (\cs{normalsize}) размер используемого
@@ -946,21 +946,21 @@
 % Если размер опущен - используется размер, указанный в опции |mainfontsize|.
 % \end{function}
 %    \begin{macrocode}
-\cs_new_nopar:Nn \@@_normalsize_gset:n
+\cs_new_nopar:Nn \@@_normalsize_set:n
   {
     \dim_set:Nn \l_tmpa_dim {#1}
-    \bool_gset_false:N \g_@@_mainfont_bool
+    \bool_set_false:N \l_@@_mainfont_bool
     \int_set_eq:NN \l_tmpa_int \c_zero
     \clist_map_inline:Nn \c_@@_fontsizes_clist
       {
         \int_incr:N \l_tmpa_int
         \dim_compare:nNnT \l_tmpa_dim = {##1}
           {
-            \bool_gset_true:N \g_@@_mainfont_bool
+            \bool_set_true:N \l_@@_mainfont_bool
             \clist_map_break:
           }
       }
-    \bool_if:NTF \g_@@_mainfont_bool
+    \bool_if:NTF \l_@@_mainfont_bool
       {
         \int_case:nnTF { \l_tmpa_int }
           {
@@ -986,14 +986,14 @@
               {
                 \clist_pop:NN \l_tmpa_clist \l_tmpb_tl
                 \int_set:Nn \l_tmpb_int \l_tmpb_tl
-                \dim_gset:cn {g_@@_\cs_to_str:N ##1_dim}
+                \dim_set:cn {l_@@_\cs_to_str:N ##1_dim}
                   {
                     \_@@_fontsizeget:n
                       { \int_eval:n { \l_tmpa_int + \l_tmpb_int } }
                   }
                 \DeclareDocumentCommand ##1 {} {%
                   \_@@_setfontsize_h:Nc ##1
-                    {g_@@_\cs_to_str:N ##1_dim}
+                    {l_@@_\cs_to_str:N ##1_dim}
                   \selectfont
                 }
                 \msg_log:nnx { gost2-304 } { set-font-size } {\cs_to_str:N ##1}
@@ -1009,14 +1009,14 @@
           { \dim_to_decimal_in_unit:nn { #1 } {1mm}mm }
       }
   }
-\@onlypreamble \@@_normalsize_gset:n
+\@onlypreamble \@@_normalsize_set:n
 %    \end{macrocode}
 %    \begin{macrocode}
-\cs_new_nopar:Nn \@@_normalsize_gset:
+\cs_new_nopar:Nn \@@_normalsize_set:
   {
-    \@@_normalsize_gset:n \g_@@_normalsize_dim
+    \@@_normalsize_set:n \l_@@_normalsize_dim
   }
-\@onlypreamble \@@_normalsize_gset:
+\@onlypreamble \@@_normalsize_set:
 %    \end{macrocode}
 %
 % \begin{function}[EXP]{ \_@@_b_from_h:n }
@@ -1465,9 +1465,9 @@
 % Устанавливаем размер шрифта в случае указания опции
 % |mainfontsize|\ref{opt:mainfontsize}.
 %    \begin{macrocode}
-\bool_if:NT \g_@@_mainfont_bool
+\bool_if:NT \l_@@_mainfont_bool
   {
-    \@@_normalsize_gset:
+    \@@_normalsize_set:
     \@@_set_main_font:
   }
 %    \end{macrocode}
