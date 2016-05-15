@@ -325,6 +325,7 @@ endef
 copyFontFilesToTDS = $(call copyFilesToTDS,FONTS$(1),$($(1)TARGETS),fonts/$(2)/public/$(LATEXPKG),$(3),$(4))
 
 $(eval $(call copyFilesToTDS,PKG,$(LATEXPKGINSTALLFILES),tex/latex/$(LATEXPKG)))
+$(eval $(call copyFilesToTDS,PKGSRC,$(LATEXPKGSOURCEFILES),source/latex/$(LATEXPKG)))
 $(eval $(call copyFontFilesToTDS,ttf,truetype))
 $(eval $(call copyFontFilesToTDS,otf,opentype,otf))
 $(eval $(call copyFontFilesToTDS,pstype1,type1,pfm pfb))
