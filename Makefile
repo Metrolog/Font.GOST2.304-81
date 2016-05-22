@@ -360,7 +360,7 @@ LATEXCTANAUXDIR := $(AUXDIR)/ctan
 # $(call copyFilesToCTAN, type, sourceFiles, targetDir, filter, filterid)
 copyFilesToCTAN = $(call copyFilesToTarget,CTAN,$(1),$(2),$(3),$(4),$(5))
 
-$(eval $(call copyFilesToCTAN,README,$(LATEXPKGMAINDIR)/README.md))
+$(eval $(call copyFilesToCTAN,README,$(LATEXPKGMAINDIR)/README.md,$(LATEXPKG)))
 $(eval $(call copyFilesToCTAN,TDS,$(TDSTARGET)))
 
 CTANFILE := $(LATEXPKG).zip
