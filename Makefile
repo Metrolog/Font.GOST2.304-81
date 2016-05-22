@@ -363,12 +363,12 @@ copyFilesToCTAN = $(call copyFilesToTarget,CTAN,$(1),$(2),$(3),$(4),$(5))
 $(eval $(call copyFilesToCTAN,README,$(LATEXPKGMAINDIR)/README.md))
 $(eval $(call copyFilesToCTAN,TDS,$(TDSTARGET)))
 
-CTANFILE := $(LATEXPKG).tar.gz
+CTANFILE := $(LATEXPKG).zip
 CTANTARGET := $(OUTPUTDIR)/ctan/$(CTANFILE)
 CTANTARGETS := $(CTANTARGET)($(foreach file,$(CTANFILES),$(patsubst $(LATEXCTANAUXDIR)/%,%,$(file))))
 $(CTANTARGET): $(CTANFILES)
 	$(MAKETARGETDIR)
-	$(TAR) -c -C $(LATEXCTANAUXDIR) -f $@ $(patsubst $(LATEXCTANAUXDIR)/%, %, $^)
+	cd $(LATEXCTANAUXDIR) && $(ZIP) -FS -r -D $(abspath $@) $(patsubst $(LATEXCTANAUXDIR)/%, %, $^)
 
 .PHONY: dist ctan
 dist: $(CTANTARGET)
