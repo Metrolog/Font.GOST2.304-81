@@ -308,18 +308,25 @@ doc: $(LATEXPKGDOCS)
 
 LATEXTDSAUXDIR := $(AUXDIR)/tds
 
-# $(call copyFilesToTDS, type, sourceFiles, targetDir, filter, filterid)
-define copyFilesToTDS
-LATEXTDS$(1)$(5)PATH := $(LATEXTDSAUXDIR)/$(3)
-ifneq ($(strip $4),)
-  LATEXTDS$(1)$(5)SOURCES = $(filter $(foreach tmpl,$4,%.$(tmpl)),$(2))
+# $(call copyFilesToTarget, targetId, type, sourceFiles, targetDir, filter, filterid)
+define copyFilesToTarget
+ifneq ($(strip $(4)),)
+  LATEX$(1)$(2)$(6)PATH := $(LATEX$(1)AUXDIR)/$(4)
 else
-  LATEXTDS$(1)$(5)SOURCES = $(2)
+  LATEX$(1)$(2)$(6)PATH := $(LATEX$(1)AUXDIR)
 endif
-LATEXTDS$(1)$(5)TARGETS = $$(foreach file,$$(LATEXTDS$(1)$(5)SOURCES),$$(LATEXTDS$(1)$(5)PATH)/$$(notdir $$(file)))
-TDSFILES += $$(LATEXTDS$(1)$(5)TARGETS)
-$$(foreach file,$$(LATEXTDS$(1)$(5)SOURCES),$$(eval $$(call copyfile,$$(LATEXTDS$(1)$(5)PATH)/$$(notdir $$(file)),$$(file))))
+ifneq ($(strip $(5)),)
+  LATEX$(1)$(2)$(6)SOURCES = $(filter $(foreach tmpl,$(5),%.$(tmpl)),$(3))
+else
+  LATEX$(1)$(2)$(6)SOURCES = $(3)
+endif
+LATEX$(1)$(2)$(6)TARGETS = $$(foreach file,$$(LATEX$(1)$(2)$(6)SOURCES),$$(LATEX$(1)$(2)$(6)PATH)/$$(notdir $$(file)))
+$(1)FILES += $$(LATEX$(1)$(2)$(6)TARGETS)
+$$(foreach file,$$(LATEX$(1)$(2)$(6)SOURCES),$$(eval $$(call copyfile,$$(LATEX$(1)$(2)$(6)PATH)/$$(notdir $$(file)),$$(file))))
 endef
+
+# $(call copyFilesToTDS, type, sourceFiles, targetDir, filter, filterid)
+copyFilesToTDS = $(call copyFilesToTarget,TDS,$(1),$(2),$(3),$(4),$(5))
 
 # $(call copyFontFilesToTDS, type, targetDir, filter, filterid)
 copyFontFilesToTDS = $(call copyFilesToTDS,FONTS$(1),$($(1)TARGETS),fonts/$(2)/public/$(LATEXPKG),$(3),$(4))
@@ -349,19 +356,23 @@ tds: $(TDSTARGET)
 # build dist package for CTAN
 
 LATEXCTANAUXDIR := $(AUXDIR)/ctan
-LATEXCTANTARGET := $(OUTPUTDIR)/ctan/$(LATEXPKG).tar.gz
 
-$(LATEXCTANAUXDIR)/$(TDSFILE): $(TDSTARGET)
-	$(MAKETARGETDIR)
-	cp $< $@
+# $(call copyFilesToCTAN, type, sourceFiles, targetDir, filter, filterid)
+copyFilesToCTAN = $(call copyFilesToTarget,CTAN,$(1),$(2),$(3),$(4),$(5))
 
-$(LATEXCTANTARGET): $(LATEXCTANAUXDIR)/$(TDSFILE)
+$(eval $(call copyFilesToCTAN,README,$(LATEXPKGMAINDIR)/README.md))
+$(eval $(call copyFilesToCTAN,TDS,$(TDSTARGET)))
+
+CTANFILE := $(LATEXPKG).tar.gz
+CTANTARGET := $(OUTPUTDIR)/ctan/$(CTANFILE)
+CTANTARGETS := $(CTANTARGET)($(foreach file,$(CTANFILES),$(patsubst $(LATEXCTANAUXDIR)/%,%,$(file))))
+$(CTANTARGET): $(CTANFILES)
 	$(MAKETARGETDIR)
 	$(TAR) -c -C $(LATEXCTANAUXDIR) -f $@ $(patsubst $(LATEXCTANAUXDIR)/%, %, $^)
 
 .PHONY: dist ctan
-dist: $(LATEXCTANTARGET)
-ctan: $(LATEXCTANTARGET)
+dist: $(CTANTARGET)
+ctan: $(CTANTARGET)
 
 # msi module
 
