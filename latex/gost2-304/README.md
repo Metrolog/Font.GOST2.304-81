@@ -47,11 +47,11 @@ http://github.com/Metrolog/Font.GOST2.304-81
 
 4. Регенерация базы пакетного менеджера TeX:
 
-    texhash
+        texhash
 
 5. Активируем map файл:
 
-    updmap --enable Map=gost2-304.map
+        updmap --enable Map=gost2-304.map
 
 License
 -------
@@ -71,7 +71,7 @@ The latest version of this license is in
 and version 1.3 or later is part of all distributions of LaTeX
 version 2005/12/01 or later.
 
-This work has the LPPL maintenance status `maintained'.
+This work has the LPPL maintenance status 'maintained'.
 
 The Current Maintainer of this work is Sergey S. Betke.
 
