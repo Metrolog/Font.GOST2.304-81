@@ -116,3 +116,10 @@ $env:Path = `
     -join ';' `
 ;
 [System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::Machine );
+
+Install-Package `
+    -Name 'ActivePerl' `
+    -Verbose `
+    -Force `
+;
+& "ppm" install HTML::FormatText;
