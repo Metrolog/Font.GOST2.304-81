@@ -87,7 +87,6 @@ $MikTex = `
         -Name InstallLocation `
 ;
 $MikTexBinPath = "$MikTex\miktex\bin\x64";
-& "$MikTexBinPath\mpm" --install=ctanupload;
 
 Install-Package `
     -Name 'WiX' `
@@ -122,4 +121,7 @@ Install-Package `
     -Verbose `
     -Force `
 ;
+& "ppm" install File::Copy::Recursive;
+& "$MikTexBinPath\mpm" --install=ctanify;
 & "ppm" install HTML::FormatText;
+& "$MikTexBinPath\mpm" --install=ctanupload;
