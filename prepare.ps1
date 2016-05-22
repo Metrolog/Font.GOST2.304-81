@@ -86,6 +86,9 @@ $MikTex = `
     | Get-ItemPropertyValue `
         -Name InstallLocation `
 ;
+$MikTexBinPath = "$MikTex\miktex\bin\x64";
+& "$MikTexBinPath\mpm" --install=ctanupload;
+
 Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
@@ -105,7 +108,7 @@ $env:Path = `
             "$env:ChocolateyPath\bin" `
             , "$env:CygWin\bin" `
             , "${env:ProgramFiles(x86)}\FontForgeBuilds\bin" `
-            , "$MikTex\miktex\bin\x64" `
+            , $MikTexBinPath `
             , $env:WIXDIR `
         ) `
         | Sort-Object -Unique `
