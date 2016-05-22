@@ -361,6 +361,7 @@ LATEXCTANAUXDIR := $(AUXDIR)/ctan
 copyFilesToCTAN = $(call copyFilesToTarget,CTAN,$(1),$(2),$(3),$(4),$(5))
 
 $(eval $(call copyFilesToCTAN,README,$(LATEXPKGMAINDIR)/README.md,$(LATEXPKG)))
+$(eval $(call copyFilesToCTAN,PKG,$(LATEXPKGINSTALLFILES),$(LATEXPKG)/tex))
 $(eval $(call copyFilesToCTAN,DOCS,$(LATEXPKGDOCS),$(LATEXPKG)/doc))
 $(eval $(call copyFilesToCTAN,TDS,$(TDSTARGET)))
 
