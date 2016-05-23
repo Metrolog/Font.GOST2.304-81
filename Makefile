@@ -254,8 +254,6 @@ doc: $(LATEXPKGDOCS)
 
 # build TDS archive for CTAN
 
-LATEXTDSAUXDIR := $(AUXDIR)/tds
-
 include ITG.MakeUtils/TeX/CTAN.mk
 
 # $(call copyFontFilesToTDS, type, targetDir, filter, filterid)
@@ -272,16 +270,6 @@ $(eval $(call copyFilesToTDS,DOCS,$(LATEXPKGDOCS),doc/latex/$(LATEXPKG)))
 
 export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
 export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
-
-TDSFILE := $(LATEXPKG).tds.zip
-TDSTARGET := $(AUXDIR)/$(TDSFILE)
-TDSTARGETS := $(TDSTARGET)($(foreach file,$(TDSFILES),$(patsubst $(LATEXTDSAUXDIR)/%,%,$(file))))
-$(TDSTARGET): $(TDSFILES)
-	$(MAKETARGETDIR)
-	cd $(LATEXTDSAUXDIR) && $(ZIP) -FS -r -D $(abspath $@) $(patsubst $(LATEXTDSAUXDIR)/%, %, $^)
-
-.PHONY: tds
-tds: $(TDSTARGET)
 
 # build dist package for CTAN
 

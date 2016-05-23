@@ -1,6 +1,10 @@
 ifndef MAKE_TEX_CTAN_DIR
 MAKE_TEX_CTAN_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
+LATEXTDSAUXDIR ?= $(AUXDIR)/tds
+TDSFILE ?= $(LATEXPKG).tds.zip
+TDSTARGET ?= $(AUXDIR)/$(TDSFILE)
+
 include $(MAKE_TEX_CTAN_DIR)/../common.mk
 
 # $(call copyFilesToTarget, targetId, type, sourceFiles, targetDir, filter, filterid)
@@ -22,6 +26,11 @@ endef
 
 # $(call copyFilesToTDS, type, sourceFiles, targetDir, filter, filterid)
 copyFilesToTDS = $(call copyFilesToTarget,TDS,$(1),$(2),$(3),$(4),$(5))
+
+TDSTARGETS := $(TDSTARGET)($(foreach file,$(TDSFILES),$(patsubst $(LATEXTDSAUXDIR)/%,%,$(file))))
+$(eval $(call copyFilesToZIP,$(TDSTARGET),$(TDSFILES),$(LATEXTDSAUXDIR)))
+.PHONY: tds
+tds: $(TDSTARGET)
 
 # $(call copyFilesToCTAN, type, sourceFiles, targetDir, filter, filterid)
 copyFilesToCTAN = $(call copyFilesToTarget,CTAN,$(1),$(2),$(3),$(4),$(5))
