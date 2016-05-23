@@ -1,5 +1,5 @@
-ifndef MAKE_COMMON
-MAKE_COMMON := TRUE
+ifndef MAKE_COMMON_DIR
+MAKE_COMMON_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
 

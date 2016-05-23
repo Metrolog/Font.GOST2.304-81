@@ -1,8 +1,7 @@
-ifndef MAKE_TEX_VERSION_GIT
-MAKE_TEX_VERSION_GIT := TRUE
+ifndef MAKE_TEX_VERSION_GIT_DIR
+MAKE_TEX_VERSION_GIT_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
-MAKEFILEDIR := $(dir $(lastword $(MAKEFILE_LIST)))
-include $(MAKEFILEDIR)/../common.mk
+include $(MAKE_TEX_VERSION_GIT_DIR)/../common.mk
 
 GITVERSION := $(lastword $(shell git --version))
 
