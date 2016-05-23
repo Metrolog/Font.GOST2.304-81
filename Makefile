@@ -27,7 +27,9 @@ TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
 
 # setup tools
 
-MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
+include ITG.MakeUtils/common.mk
+include ITG.MakeUtils/TeX/version-git.mk
+
 # fontforge, ttfautohint or no
 AUTOHINT           ?= ttfautohint
 VIEWPDF            ?= no
@@ -41,12 +43,6 @@ TTFAUTOHINT        ?= ttfautohint \
 	--strong-stem-width="gGD" \
 	--no-info
 #	FASTFONT         ?= fastfont
-
-ifeq ($(OS),Windows_NT)
-	PATHSEP          :=;
-else
-	PATHSEP          :=:
-endif
 
 ifeq ($(VIEWPDF),yes)
 	VIEWPDFOPT := -pv
@@ -65,35 +61,6 @@ LATEXMK            ?= latexmk \
 	-use-make \
 	-interaction=nonstopmode \
 	-halt-on-error
-ZIP                ?= zip \
-	-o \
-	-9
-TAR                ?= tar
-
-# $(call copyfile, to, from)
-define copyfile
-$1: $2
-	$$(MAKETARGETDIR)
-	cp $$< $$@
-endef
-
-# $(call copyfileto, todir, fromfile)
-copyfileto := $(call copyfile,$1/$(notdir $2),$2)
-
-# $(call copyfilefrom, tofile, fromdir)
-copyfilefrom = $(call copyfile,$1,$2/$(notdir $1))
-
-# check git version
-GITVERSION := $(lastword $(shell git --version))
-
-## grab a version number from the repository (if any) that stores this.
-## * VCSTURD is a file that gets touched after a repo update
-GIT_BRANCH          := $(shell git symbolic-ref HEAD)
-VCSTURD             := $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
-export VERSION      := $(shell git symbolic-ref --short HEAD)
-export FULLVERSION  := $(VERSION).$(shell git rev-list --count --first-parent HEAD).$(shell git rev-list --count HEAD)
-export MAJORVERSION := $(firstword $(subst ., ,$(VERSION)))
-export MINORVERSION := $(wordlist 2,2,$(subst ., ,$(VERSION)))
 
 # generate aux .sfd files
 
@@ -251,25 +218,6 @@ LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcar
 # build latex version file
 
 LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.tex
-
-$(LATEXPRJVERSIONFILE): .git/logs/HEAD
-	$(info Generate latex version file "$@"...)
-	$(MAKETARGETDIR)
-	@git log -1 --date=format:%Y/%m/%d --format="format:\
-%%\iffalse%n\
-%%<*version>%n\
-%%\fi%n\
-\def\GITCommitterName{%cn}%n\
-\def\GITCommitterEmail{%ce}%n\
-\def\GITCommitterDate{%cd}%n\
-\def\ExplFileDate{%ad}%n\
-\def\ExplFileVersion{$(VERSION)}%n\
-\def\ExplFileAuthor{%an}%n\
-\def\ExplFileAuthorEmail{%ae}%n\
-%%\iffalse%n\
-%%</version>%n\
-%%\fi%n\
-" > $@
 
 # unpack latex package files
 
