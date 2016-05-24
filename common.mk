@@ -22,16 +22,16 @@ $1: $2
 endef
 
 # $(call copyfileto, todir, fromfile)
-copyfileto := $(call copyfile,$1/$(notdir $2),$2)
+copyfileto = $(call copyfile,$1/$(notdir $2),$2)
 
 # $(call copyfilefrom, tofile, fromdir)
 copyfilefrom = $(call copyfile,$1,$2/$(notdir $1))
 
 # $(call copyFilesToZIP, targetZIP, sourceFiles, sourceFilesRootDir)
 define copyFilesToZIP
-$(1): $(2)
-	$(MAKETARGETDIR)
-	cd $(3) && $(ZIP) -FS -r -D $(abspath $@) $(patsubst $(3)/%, %, $^)
+$1:$2
+	$$(MAKETARGETDIR)
+	cd $3 && $(ZIP) -FS -r -D $$(abspath $$@) $$(patsubst $3/%, %, $$^)
 endef
 
 endif
