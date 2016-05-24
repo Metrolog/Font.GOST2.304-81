@@ -212,12 +212,12 @@ $(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 
 LATEXSRCDIR := latex
 LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
-LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx *.tex
+LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx
 LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
 
 # build latex version file
 
-LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.tex
+LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.dtx
 
 # unpack latex package files
 
@@ -256,17 +256,15 @@ doc: $(LATEXPKGDOCS)
 
 include ITG.MakeUtils/TeX/CTAN.mk
 
-# $(call copyFontFilesToTDS, type, targetDir, filter, filterid)
-copyFontFilesToTDS = $(call copyFilesToTDS,FONTS$(1),$($(1)TARGETS),fonts/$(2)/public/$(LATEXPKG),$(3),$(4))
+copyFontFilesToTDS = $(call copyFilesToTDS,$($(1)TARGETS))
 
-$(eval $(call copyFilesToTDS,PKG,$(LATEXPKGINSTALLFILES),tex/latex/$(LATEXPKG)))
-$(eval $(call copyFilesToTDS,PKGSRC,$(LATEXPKGSOURCEFILES),source/latex/$(LATEXPKG)))
-$(eval $(call copyFontFilesToTDS,ttf,truetype))
-$(eval $(call copyFontFilesToTDS,otf,opentype,otf))
-$(eval $(call copyFontFilesToTDS,pstype1,type1,pfm pfb))
-$(eval $(call copyFontFilesToTDS,pstype1,tfm,tfm,_tmf))
-$(eval $(call copyFontFilesToTDS,pstype1,afm,afm,_afm))
-$(eval $(call copyFilesToTDS,DOCS,$(LATEXPKGDOCS),doc/latex/$(LATEXPKG)))
+$(eval $(call copyFilesToTDS,$(LATEXPKGINSTALLFILES)))
+$(eval $(call copyFilesToTDS,$(LATEXPKGSOURCEFILES)))
+$(eval $(call copyFilesToTDS,$(LATEXPKGDOCS)))
+$(eval $(call copyFilesToTDS,$(wildcard $(LATEXPKGMAINDIR)/*.md)))
+$(eval $(call copyFontFilesToTDS,ttf))
+$(eval $(call copyFontFilesToTDS,otf))
+$(eval $(call copyFontFilesToTDS,pstype1))
 
 export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
 export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
