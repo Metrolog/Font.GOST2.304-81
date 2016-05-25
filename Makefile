@@ -256,15 +256,9 @@ doc: $(LATEXPKGDOCS)
 
 include ITG.MakeUtils/TeX/CTAN.mk
 
-copyFontFilesToTDS = $(call copyFilesToTDS,$($(1)TARGETS))
-
-$(eval $(call copyFilesToTDS,$(LATEXPKGINSTALLFILES)))
-$(eval $(call copyFilesToTDS,$(LATEXPKGSOURCEFILES)))
-$(eval $(call copyFilesToTDS,$(LATEXPKGDOCS)))
-$(eval $(call copyFilesToTDS,$(wildcard $(LATEXPKGMAINDIR)/*.md)))
-$(eval $(call copyFontFilesToTDS,ttf))
-$(eval $(call copyFontFilesToTDS,otf))
-$(eval $(call copyFontFilesToTDS,pstype1))
+.CTAN: $(LATEXPKGINSTALLFILES) $(LATEXPKGSOURCEFILES)
+.CTAN: $(LATEXPKGDOCS) $(wildcard $(LATEXPKGMAINDIR)/*.md)
+.CTAN: $(ttfTARGETS) $(otfTARGETS) $(pstype1TARGETS)
 
 export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
 export TEXFONTS = $(LATEXTDSFONTSTTFPATH)
