@@ -2,19 +2,17 @@ ifndef MAKE_TEX_CTAN_DIR
 MAKE_TEX_CTAN_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 LATEXTDSAUXDIR ?= $(AUXDIR)/tds
-LATEXTDSAUXINCDIR ?= $(AUXDIR)/tds.mk
 TDSFILE ?= $(LATEXPKG).tds.zip
 TDSTARGET ?= $(AUXDIR)/$(TDSFILE)
 
 include $(MAKE_TEX_CTAN_DIR)../common.mk
 
-LATEXTDSPHONYDIR := PHONYDIR
+LATEXTDSAUXINCDIR ?= $(AUXDIR)
 
 # $(call defineTDSRule, source, target)
 define defineTDSRule
-$(LATEXTDSAUXINCDIR)/$(1).mk: $(LATEXTDSAUXDIR)/$(2) $(MAKEFILE_LIST)
-	$$(MAKETARGETDIR)
-	echo $$(TDSTARGET): $$< > $$@
+$(LATEXTDSAUXINCDIR)/$(1).mk: $(MAKEFILE_LIST) | $(LATEXTDSAUXDIR)/$(2)
+	$$(file > $$@,$$(TDSTARGET): $$|)
 endef
 
 define copyFileToTDSaux
