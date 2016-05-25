@@ -31,7 +31,7 @@ copyfilefrom = $(call copyfile,$1,$2/$(notdir $1))
 define copyFilesToZIP
 $1:$2
 	$$(MAKETARGETDIR)
-	cd $3 && $(ZIP) -FS -r -D $$(abspath $$@) $$(patsubst $3/%, %, $$^)
+	cd $3 && $(ZIP) -FS -o -r -D $$(abspath $$@) $$(patsubst $3/%, %, $$^)
 endef
 
 endif
