@@ -16,7 +16,10 @@ $(LATEXTDSAUXINCDIR)/$(1).mk: $(LATEXTDSAUXDIR)/$(2) $(MAKEFILE_LIST)
 	$$(MAKETARGETDIR)
 	echo $$(TDSTARGET): $$< > $$@
 endef
-copyFileToTDSaux = include $(LATEXTDSAUXINCDIR)/$(1).mk
+
+define copyFileToTDSaux
+include $(LATEXTDSAUXINCDIR)/$(notdir $(1)).mk
+endef
 
 $(eval $(call defineTDSRule,README,doc/latex/$(LATEXPKG)/README))
 $(eval $(call defineTDSRule,%.afm,fonts/afm/public/$(LATEXPKG)/%.afm))
@@ -54,12 +57,15 @@ $(eval $(call defineTDSRule,%.vf,fonts/vf/public/$(LATEXPKG)/%.vf))
 #$(LATEXTDSPHONYDIR)/%:
 #	$(error Unknown TDS file extension: $@)
 
+# $(call copyFileToTDS, sourceFile)
+define copyFileToTDS
+$(call copyfileto,$(LATEXTDSAUXDIR)/%,$(1))
+$(call copyFileToTDSaux,$(1))
+endef
+
 # $(call copyFilesToTDS, sourceFiles)
 define copyFilesToTDS
-$(foreach file,$(1),$(eval
-  $(call copyfileto,$(LATEXTDSAUXDIR)/%,$(file))
-  $(call copyFileToTDSaux,$(notdir $(file)))
-))
+$(foreach file,$(1),$(eval $(call copyFileToTDS,$(file))))
 endef
 
 # $(call copyFilesToTarget, targetId, type, sourceFiles, targetDir)
@@ -72,6 +78,17 @@ TDSTARGETS := $(TDSTARGET)($(foreach file,$(TDSFILES),$(patsubst $(LATEXTDSAUXDI
 $(eval $(call copyFilesToZIP,$(TDSTARGET),,$(LATEXTDSAUXDIR)))
 .PHONY: tds
 tds: $(TDSTARGET)
+
+CTANMAKEFILE ?= $(AUXDIR)/ctan.mk
+.CTAN:
+	$(info Build intermediate makefile for CTAN: $(CTANMAKEFILE))
+	$(file > $(CTANMAKEFILE),# intermediate makefile for CTAN archive)
+	$(foreach ctanfile,$^,$(file >> $(CTANMAKEFILE),$(call copyFileToTDS,$(ctanfile))))
+
+$(CTANMAKEFILE): $(MAKEFILE_LIST) | .CTAN
+	@touch $@
+
+include $(CTANMAKEFILE)
 
 # $(call copyFilesToCTAN, type, sourceFiles, targetDir)
 copyFilesToCTAN = $(call copyFilesToTarget,CTAN,$(1),$(2),$(3))
