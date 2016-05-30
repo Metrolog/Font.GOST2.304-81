@@ -32,6 +32,7 @@ define copyFilesToZIP
 $1:$2
 	$$(MAKETARGETDIR)
 	cd $3 && $(ZIP) -FS -o -r -D $$(abspath $$@) $$(patsubst $3/%, %, $$^)
+	@touch $$@
 endef
 
 endif
