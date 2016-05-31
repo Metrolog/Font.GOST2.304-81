@@ -76,4 +76,5 @@ This work has the LPPL maintenance status 'maintained'.
 The Current Maintainer of this work is Sergey S. Betke.
 
 This work consists of the files gost2-304.dtx, gost2-304.ins
-and the derived files gost2-304.pdf and gost2-304.sty.
+and the derived files gost2-304.pdf and gost2-304.sty,
+related GOST2-304* font files.
