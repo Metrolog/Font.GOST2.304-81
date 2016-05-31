@@ -10,6 +10,7 @@ CTANFILE ?= $(LATEXPKG).zip
 CTANTARGET ?= $(OUTPUTDIR)/ctan/$(CTANFILE)
 
 CTAN_SUMMARYFILE ?= $(LATEXPKGMAINDIR)/summary.txt
+export CTAN_DONOTANNOUNCE ?= 1
 export CTAN_DIRECTORY ?= /macros/latex/contrib/$(LATEXPKG)
 export LICENSE ?= free
 export FREEVERSION ?= lppl
@@ -197,12 +198,11 @@ endif
 
 .PHONY: ctanupload
 ctanupload: $(CTANTARGET)
-	ctanupload \
+	ctanupload -P -y -U dante -q \
     --file=$< \
     --contribution=$(LATEXPKG) \
     --version=$(VERSION) \
     --summary-file=$(CTAN_SUMMARYFILE) \
-    --directory=$(CTAN_DIRECTORY) \
-    --DoNotAnnounce=0
+    --directory=$(CTAN_DIRECTORY)
 
 endif
