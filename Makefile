@@ -18,7 +18,6 @@ all: ttf ttc woff otf pstype0 pstype1 ctan msm msi
 
 FONT               := GOST2.304-81TypeA
 LATEXPKG           := gost2-304
-SPACE              := $(empty) $(empty)
 SRCDIR             := sources
 OUTPUTDIR          := release
 AUXDIR             := obj
@@ -258,6 +257,12 @@ $(eval $(call copyfile,$(LATEXPKGDOCS),$(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf))
 doc: $(LATEXPKGDOCS)
 
 # build TDS and CTAN archives for CTAN
+
+export CTAN_DIRECTORY := /fonts/$(LATEXPKG)
+export LICENSE := free
+export FREEVERSION := ofl
+export NAME := Sergey S. Betke
+export EMAIL := Sergey.S.Betke@yandex.ru
 
 include ITG.MakeUtils/TeX/CTAN.mk
 

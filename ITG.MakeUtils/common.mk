@@ -1,6 +1,8 @@
 ifndef MAKE_COMMON_DIR
 MAKE_COMMON_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
+SPACE              := $(empty) $(empty)
+
 MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
 
 ifeq ($(OS),Windows_NT)
