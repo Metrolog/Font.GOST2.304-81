@@ -9,6 +9,11 @@ LATEXCTANAUXDIR ?= $(AUXDIR)/ctan
 CTANFILE ?= $(LATEXPKG).zip
 CTANTARGET ?= $(OUTPUTDIR)/ctan/$(CTANFILE)
 
+CTAN_SUMMARYFILE ?= $(LATEXPKGMAINDIR)/summary.txt
+export CTAN_DIRECTORY ?= /macros/latex/contrib/$(LATEXPKG)
+export LICENSE ?= free
+export FREEVERSION ?= lppl
+
 include $(MAKE_TEX_CTAN_DIR)../common.mk
 
 #
@@ -182,5 +187,19 @@ $(TDSTARGET) $(CTANTARGET): $(CTANMAKEFILE)
 endif
 
 endif
+
+#
+# upload to CTAN
+#
+
+.PHONY: ctanupload
+ctanupload: $(CTANTARGET)
+	ctanupload \
+    --file=$< \
+    --contribution=$(LATEXPKG) \
+    --version=$(VERSION) \
+    --summary-file=$(CTAN_SUMMARYFILE) \
+    --directory=$(CTAN_DIRECTORY) \
+    --DoNotAnnounce=0
 
 endif
