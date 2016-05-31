@@ -1,5 +1,6 @@
 *.sfd-*
 obj
+release
 dirstate
 /make.log
 /build.log
