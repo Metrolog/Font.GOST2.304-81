@@ -1,6 +1,15 @@
 *.sfd-*
 obj
+release
 dirstate
 /make.log
 /build.log
 *.pyc
+/latex/gost2.304/build
+/latex/gost2.304/gost2.304.pdf
+/latex/gost2.304/gost2.304.zip
+/.vs
+/msi/bin
+*.spc
+*.pvk
+*.pfx

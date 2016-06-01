@@ -2,13 +2,13 @@ import fontforge
 import sys
 import itgFontLib
 
-sourcefile = sys.argv[1]
-destfile = sys.argv[2]
+sourcefile = sys.argv[2]
+destfile = sys.argv[1]
 
 font = fontforge.open (sourcefile)
 itgFontLib.fontPreProcessing( font )
 
-itgFontLib.removeFlippedRefs( font )
+itgFontLib.removeRefsIf( font, itgFontLib.isFlippedRef )
 itgFontLib.resetGlyphNames( font )
 itgFontLib.scaleEM ( font, 1000 )
 
@@ -26,4 +26,4 @@ font.selection.all ()
 font.round ()
 font.autoHint ()
 
-font.generate ( destfile, flags=['afm', 'composites-in-afm', 'short-post', 'opentype', 'TeX-table'] )
+font.generate ( destfile, flags = [ 'afm', 'composites-in-afm', 'pfm', 'tfm', 'round' ] )

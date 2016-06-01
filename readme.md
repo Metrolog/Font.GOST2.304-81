@@ -18,11 +18,12 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 - [FontForge][] версии не младше 27.08.2015
 - [TTFAutoHint][]
 - [FastFont][] (для оптимизации генерируемых ttf шрифтов)
-- [GNUWin32 Core Utils][]
-- [GNU make][]
+- [CygWin][]
 - [latexmk][] (только для сборки TeX пакетов и документов)
-- [Perl][] (только для сборки TeX пакетов и документов, требуется [latexmk][])
 - [WIX][] (только для сборки msi модулей и msi дистрибутива для установки шрифта в Windows, требуется WiX 4)
+
+Для подготовки среды сборки следует воспользоваться сценарием `prepare.ps1` (запускать от имени администратора).
+Указанный сценарий установит все необходимые компоненты.
 
 Сборка проекта осуществляется следующим образом:
 
@@ -75,18 +76,30 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Данная цель требует предварительной сборки цели `ttf`.
 
-#### Тестовый .pdf файл на базе LaTeX и стилевого пакета gost2.304 - `tex-tests`
+#### .pdf файл документации пакета gost2.304 - `doc`
 
-Сборка стилевого пакета осуществляется следующим образом:
+Сборка документации осуществляется следующим образом:
 
-	make tex-tests
+	make doc
 
-Данная цель требует предварительной сборки цели `tex-pkg`.
+Данная цель требует предварительной сборки цели `tex-pkg`, шрифтов.
 По умолчанию собранный .pdf не отображается. Однако, следующая командная строка
 
-	make VIEWPDF=yes
+	make doc VIEWPDF=yes
 
 откроет .pdf на просмотр после удачной сборки.
+
+#### Файл для загрузки стилевого пакета для LaTeX gost2.304 в CTAN - `ctan`
+
+Сборка архива для CTAN осуществляется следующим образом:
+
+	make ctan
+
+#### Загрузка стилевого пакета для LaTeX gost2.304 в CTAN - `ctanupload`
+
+Отправка подготовленного архива в CTAN осуществляется следующим образом:
+
+	make ctanupload
 
 #### MSI модуль (.msm файл) для включения в состав MS Installer дистрибутивов
 
@@ -95,6 +108,14 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 	make msm
 
 Данная цель требует предварительной сборки цели `ttf`.
+
+#### MSI пакет (.msi файл) для установки шрифтов в MS Windows, в том числе - для развёртывания в домене через GPO
+
+Сборка .msi пакета осуществляется следующим образом:
+
+	make msi
+
+Данная цель требует предварительной сборки целей `ttf`, `msm`.
 
 Версии
 ------
@@ -109,8 +130,11 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 Наименование шрифта, в том числе - локализованные наименования шрифта, не зарезервированы и не защищены.
 
 [FontForge]: https://github.com/fontforge/fontforge
-[GNU make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
+[CygWin]: http://cygwin.com/install.html "Cygwin"
+[GNUWin32 make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
 [GNUWin32 Core Utils]: http://gnuwin32.sourceforge.net/packages/coreutils.htm
+[GNUWin32 ZIP]: http://gnuwin32.sourceforge.net/packages/zip.htm
+[GNUWin32 TAR]: http://gnuwin32.sourceforge.net/packages/gtar.htm
 [latexmk]: https://www.ctan.org/pkg/latexmk/ "latexmk – Fully automated LaTeX document generation"
 [Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"

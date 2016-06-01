@@ -7,7 +7,8 @@
 .PHONY: all
 
 ProjectName				:= GOST2.304-81
+WIXEXTENSIONS			= WixUIExtension
 
-include ..\ITG.WixUtils\msm.mk
+include ..\ITG.WixUtils\msi.mk
 
-all: msm
+all: msi

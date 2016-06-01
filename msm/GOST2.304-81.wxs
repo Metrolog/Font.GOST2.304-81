@@ -3,13 +3,16 @@
 	xmlns="http://wixtoolset.org/schemas/v4/wxs"
 >
 
-	<?define FontVersion="$(env.Version)"?>
+	<?ifdef env.Version?>
+		<?define FontVersion="$(fun.AutoVersion($(env.MajorVersion).$(env.MinorVersion)))"?>
+	<?else?>
+		<?define FontVersion="$(fun.AutoVersion(0.1))"?>
+	<?endif?>
 	
 	<Module
-		Id="GOST2.304_81"
+		Id="GOST2_304_81"
 		Version="$(var.FontVersion)"
-		Codepage="1251"
-		Language="1039"
+		Language="!(loc.LCID)"
 	>
 
 		<Package
@@ -21,6 +24,7 @@
 			Description="!(loc.Description)"
 			Keywords="!(loc.Keywords)"
 			ShortNames="no"
+			SummaryCodepage="!(loc.CodePage)"
 		/>
 
 		<WixVariable Id="FontVersion" Value="$(var.FontVersion)"/>

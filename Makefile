@@ -4,272 +4,293 @@
 
 .DEFAULT_GOAL		:= all
 
-.PHONY: all clean ttf ttc woff otf ps0 tex-pkg tex-tests msm
 
-all: ttf ttc woff otf ps0 tex-pkg tex-tests msm
+.PHONY: all
+all: ttf ttc woff otf pstype0 pstype1 ctan msm msi
 
 .SECONDARY:;
+
+.SECONDEXPANSION:;
 
 .DELETE_ON_ERROR:;
 
 ###
 
-FONT				:= GOST2.304-81TypeA
-SPACE				:= $(empty) $(empty)
-SRCDIR				:= sources/
-OUTPUTDIR			:= release
-AUXDIR				:= obj
-TOOLSDIR			:= tools/
-TOOLSLIBS			:= tools/itgFontLib.py
+FONT               := GOST2.304-81TypeA
+LATEXPKG           := gost2-304
+SRCDIR             := sources
+OUTPUTDIR          := release
+AUXDIR             := obj
+TOOLSDIR           := tools
+TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
 
 # setup tools
 
+include ITG.MakeUtils/common.mk
+include ITG.MakeUtils/TeX/version-git.mk
+
 # fontforge, ttfautohint or no
-AUTOHINT			?= ttfautohint
-VIEWPDF				?= no
-
-FONTFORGEOPTIONS	:= \
+AUTOHINT           ?= ttfautohint
+VIEWPDF            ?= no
+FONTFORGE          ?= fontforge \
 	-nosplash
-
-TTFAUTOHINTOPTIONS	:= \
+PY                 ?= ffpython
+TTFAUTOHINT        ?= ttfautohint \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
-	--strong-stem-width="gGD" \
 	--composites \
+	--strong-stem-width="gGD" \
 	--no-info
+#	FASTFONT         ?= fastfont
 
-ifeq ($(OS),Windows_NT)
-	MAKETARGETDIR	= cd $(dir ${@D}) && mkdir $(notdir ${@D})
-	FONTFORGE		?= "%ProgramFiles(x86)%/FontForgeBuilds/bin/fontforge"
-	PY				:= "%ProgramFiles(x86)%/FontForgeBuilds/bin/ffpython"
-	TTFAUTOHINT		?= "%ProgramFiles(x86)%/ttfautohint/ttfautohint" $(TTFAUTOHINTOPTIONS)
-	FASTFONT		?= "%ProgramFiles(x86)%/FontTools/fastfont"
-	PATHSEP			:=;
-else
-	MAKETARGETDIR	= mkdir -p ${@D}
-	FONTFORGE		?= fontforge
-	PY				?= python
-	TTFAUTOHINT		?= ttfautohint $(TTFAUTOHINTOPTIONS)
-	FASTFONT		?= fastfont
-	PATHSEP			:=:
-endif
 ifeq ($(VIEWPDF),yes)
-	VIEWPDFOPT		:= -pv
+	VIEWPDFOPT := -pv
 else
-	VIEWPDFOPT		:= -pv-
+	VIEWPDFOPT := -pv-
 endif
-LATEXMK				?= latexmk -xelatex -auxdir=$(AUXDIR) -pdf -dvi- -ps- $(VIEWPDFOPT) -recorder -gg
-# -interaction=batchmode
 
-## grab a version number from the repository (if any) that stores this.
-## * REVISION is the current revision number (short form, for inclusion in text)
-## * VCSTURD is a file that gets touched after a repo update
-REVISION			:= $(shell git rev-parse --short HEAD)
-GIT_BRANCH			:= $(shell git symbolic-ref HEAD)
-VCSTURD				:= $(subst $(SPACE),\ ,$(shell git rev-parse --git-dir)/$(GIT_BRANCH))
-export VERSION		:= $(lastword $(subst /, ,$(GIT_BRANCH)))
-export MAJORVERSION	:= $(firstword $(subst ., ,$(VERSION)))
-export MINORVERSION	:= $(wordlist 2,2,$(subst ., ,$(VERSION)))
-
-# directories rules
-
-dirstate:;
-
-%/dirstate:
-	$(info Directory "${@D}" creating...)
-	$(MAKETARGETDIR)
-	@touch $@
+TEXLUA             ?= texlua
+PDFVIEWER          ?= start
+LATEXMK            ?= latexmk \
+	-xelatex \
+	-auxdir=$(AUXDIR) \
+	$(VIEWPDFOPT) \
+	-e '$$pdf_previewer=q/$(PDFVIEWER) %O %S/' \
+	-recorder -gg \
+	-use-make \
+	-interaction=nonstopmode \
+	-halt-on-error
 
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
-FFBUILDSTROKEDSFD	:= $(TOOLSDIR)build-stroked-sfd.py
+FFBUILDSTROKEDSFD	:= $(TOOLSDIR)/build-stroked-sfd.py
 FFBUILDSTROKEDSFDPRE:=
 
-$(FULLSTROKEDFONTSFD): $(SRCDIR)$(FONT).sfd $(SRCDIR)$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(TOOLSLIBS) $(AUXDIR)/dirstate
+$(FULLSTROKEDFONTSFD): $(SRCDIR)/$(FONT).sfd $(SRCDIR)/$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(TOOLSLIBS)
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
+	$(MAKETARGETDIR)
 	$(PY) $(FFBUILDSTROKEDSFD) $< $(<:.sfd=.fea) $@ $(VERSION)
 
 # generate aux regular .sfd file
 
 REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
-FFBUILDREGULARSFD	:= $(TOOLSDIR)build-regular-sfd.py
+FFBUILDREGULARSFD	:= $(TOOLSDIR)/build-regular-sfd.py
 
-#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(TOOLSLIBS) $(AUXDIR)/dirstate
+#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(TOOLSLIBS)
 #	$(info Build stroked regular font .sfd file "$@"...)
+#	$(MAKETARGETDIR)
 #	$(PY) $(FFBUILDREGULARSFD) $< $@
 
-$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(AUXDIR)/dirstate
-	$(info Build stroked regular font .sfd file "$@"...)
-	cp $< $@
+$(eval $(call copyfile,$(REGULARFONTSFD),$(FULLSTROKEDFONTSFD)))
 
 # generate aux slanted .sfd file
 
 SLANTEDFONTSFD		:= $(AUXDIR)/$(FONT)-Slanted.sfd
-FFBUILDSLANTEDSFD	:= $(TOOLSDIR)build-slanted-sfd.py
+FFBUILDSLANTEDSFD	:= $(TOOLSDIR)/build-slanted-sfd.py
 
-$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(TOOLSLIBS) $(AUXDIR)/dirstate
+$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(TOOLSLIBS)
 	$(info Build stroked slanted font .sfd file "$@"...)
+	$(MAKETARGETDIR)
 	$(PY) $(FFBUILDSLANTEDSFD) $< $@
 
 # stroke font -> outline font
 
-FFEXPANDSTROKE	:= $(TOOLSDIR)expand-stroke-sfd.py
+FFEXPANDSTROKE	:= $(TOOLSDIR)/expand-stroke-sfd.py
 
-$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(TOOLSLIBS) $(AUXDIR)/dirstate
+$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(TOOLSLIBS)
 	$(info Expand stroke font to outline font "$@"...)
+	$(MAKETARGETDIR)
 	$(PY) $(FFEXPANDSTROKE) $< $@
 
 # autokern outline font
 
-FFAUTOKERN		:= $(TOOLSDIR)autokern-classes-sfd.py
+FFAUTOKERN		:= $(TOOLSDIR)/autokern-classes-sfd.py
 
-$(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(TOOLSLIBS) $(AUXDIR)/dirstate
+$(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(TOOLSLIBS)
 	$(info Auto kerning outline font "$@"...)
+	$(MAKETARGETDIR)
 	$(PY) $(FFAUTOKERN) $< $@
 
 # all FontForge aux projects
 
+LASTSFDLABEL    := autokern
 FONTVARIANTS		:= Regular Slanted
-FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-autokern.sfd)
+FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-$(LASTSFDLABEL).sfd)
+
+# $(call generateTargetFromSources, type, target, sources)
+define generateTargetFromSources
+
+FFGENERATE$(1)  ?= $(TOOLSDIR)/generate-$(1).py
+$(1)DEPS        ?= $$(FFGENERATE$(1)) $(TOOLSLIBS)
+$(1)TARGETS     ?= $2
+$(1)SOURCES     ?= $3
+
+$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
+	$$(info Generate $1 font file "$$@"...)
+	$$(MAKETARGETDIR)
+	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$(filter-out $$($(1)DEPS),$$^)
+
+.PHONY: $1
+$(1): $$($(1)TARGETS)
+
+endef
+
+# $(call generateFontsOfType, type, fileext, [sourceFileTemplate], [ расширения файлов-сателитов (без точек)] )
+define generateFontsOfType
+
+$(1)DIR         ?= $(OUTPUTDIR)/$(1)
+FFGENERATE$(1)  ?= $(TOOLSDIR)/generate-$(1).py
+$(1)DEPS        ?= $$(FFGENERATE$(1)) $(TOOLSLIBS)
+$(1)EXT         ?= $2
+$(1)MAINTARGETS := $(foreach VARIANT,$(FONTVARIANTS),$$($(1)DIR)/$(FONT)-$(VARIANT).$$($(1)EXT))
+$(1)EXTS        ?= $4
+$(1)TARGETS     := $$($(1)MAINTARGETS) $$(foreach ext,$$($(1)EXTS),$$($(1)MAINTARGETS:.$$($(1)EXT)=.$$(ext)))
+ifneq ($(strip $3),)
+  $(1)SOURCES   ?= $3
+else
+  $(1)SOURCES   ?= $(AUXDIR)/%-$(LASTSFDLABEL).sfd
+endif
+
+$$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS)
+	$$(info Generate .$2 font file "$$@"...)
+	$$(MAKETARGETDIR)
+	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$($(1)DIR)/$$*.$$($(1)EXT) $$(filter-out $$($(1)DEPS),$$^)
+
+.PHONY: $1
+$(1): $$($(1)TARGETS)
+
+endef
 
 # build True Type fonts
 
-TTFDIR				:= $(OUTPUTDIR)/ttf
-FFGENERATETTF		:= $(TOOLSDIR)generate-ttf.py
-TTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(TTFDIR)/$(FONT)-$(VARIANT).ttf)
-
-$(TTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
+ttfDIR				:= $(OUTPUTDIR)/ttf
+FFGENERATEttf		:= $(TOOLSDIR)/generate-ttf.py
+ttfTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
 
 ifeq ($(AUTOHINT),ttfautohint)
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS) $(AUXDIR)/dirstate
+$(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
-	
-$(TTFDIR)/%.ttf: $(AUXDIR)/%.ttf $(TTFDIR)/dirstate
+	$(MAKETARGETDIR)
+	$(FONTFORGE) -script $(FFGENERATEttf) $@ $<
+
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
+	$(MAKETARGETDIR)
 	$(TTFAUTOHINT) $< $@
-	$(FASTFONT) $@
 
 else
 
 ifeq ($(AUTOHINT),fontforge)
-FFGENERATETTF		:= $(TOOLSDIR)generate-autohinted-ttf.py
+	FFGENERATEttf	:= $(TOOLSDIR)/generate-autohinted-ttf.py
 endif
 
-$(TTFDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATETTF) $(TOOLSLIBS) $(TTFDIR)/dirstate
+$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(TOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTF) $< $@
-	$(FASTFONT) $@
+	$(FONTFORGE) -script $(FFGENERATEttf) $@ $<
 
 endif 
 
-ttf: $(TTFTARGETS)
-
-# build True Type collection
-
-FFGENERATETTC		:= $(TOOLSDIR)generate-ttc.py
-
-$(TTFDIR)/$(FONT).ttc: $(TTFTARGETS) $(FFGENERATETTC) $(TOOLSLIBS) $(TTFDIR)/dirstate
-	$(info Generate .ttc collection "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATETTC) $@ $(TTFTARGETS)
-
-ttc: $(TTFDIR)/$(FONT).ttc ttf
-
-# build Web Open Font Format
-
-WOFFDIR				:= $(OUTPUTDIR)/woff
-FFGENERATEWOFF		:= $(TOOLSDIR)generate-woff.py
-WOFFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(WOFFDIR)/$(FONT)-$(VARIANT).woff)
-
-$(WOFFDIR)/dirstate: $(OUTPUTDIR)/dirstate
-
-$(WOFFDIR)/%.woff: $(TTFDIR)/%.ttf $(FFGENERATEWOFF) $(TOOLSLIBS) $(WOFFDIR)/dirstate
-	$(info Generate .woff font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEWOFF) $< $@
-
-woff: $(WOFFTARGETS)
-
-# build Open Type fonts
-
-OTFDIR				:= $(OUTPUTDIR)/otf
-FFGENERATEOTF		:= $(TOOLSDIR)generate-autohinted-otf.py
-OTFTARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(OTFDIR)/$(FONT)-$(VARIANT).otf)
-
-$(OTFDIR)/dirstate: $(OUTPUTDIR)/dirstate
-
-$(OTFDIR)/%.otf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEOTF) $(TOOLSLIBS) $(OTFDIR)/dirstate
-	$(info Generate .otf font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEOTF) $< $@
-
-otf: $(OTFTARGETS)
-
-# build PS Type 0 fonts
-
-PSDIR				:= $(OUTPUTDIR)/ps
-PS0DIR				:= $(PSDIR)/ps0
-FFGENERATEPS0		:= $(TOOLSDIR)generate-ps0.py
-PS0TARGETS			:= $(foreach VARIANT, $(FONTVARIANTS), $(PS0DIR)/$(FONT)-$(VARIANT).ps)
-
-$(PSDIR)/dirstate: $(OUTPUTDIR)/dirstate
-$(PS0DIR)/dirstate: $(PSDIR)/dirstate
-
-$(PS0DIR)/%.ps: $(AUXDIR)/%-autokern.sfd $(FFGENERATEPS0) $(TOOLSLIBS) $(PS0DIR)/dirstate
-	$(info Generate PS Type 0 font "$@"...)
-	$(FONTFORGE) $(FONTFORGEOPTIONS) -script $(FFGENERATEPS0) $< $@
-
-ps0: $(PS0TARGETS)
-
-# build latex style gost2.304.sty
-
-LATEXPKG			:= gost2.304
-LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
-LATEXSRCDIR			:= $(SRCDIR)latex
-LATEXPKGSRCDIR		:= $(LATEXSRCDIR)/$(LATEXPKG)
-LATEXFONTSDIR		:= $(LATEXPKGDIR)/fonts
-LATEXPKGFONTS		:= $(patsubst $(TTFDIR)/%.ttf, $(LATEXFONTSDIR)/%.ttf, $(TTFTARGETS))
-LATEXPKGPRE			:= $(LATEXPKGDIR)/$(LATEXPKG).sty $(LATEXPKGFONTS)
-
-$(OUTPUTDIR)/latexpkg/dirstate: $(OUTPUTDIR)/dirstate
-$(LATEXPKGDIR)/dirstate: $(OUTPUTDIR)/latexpkg/dirstate
-$(LATEXFONTSDIR)/dirstate: $(LATEXPKGDIR)/dirstate
-
-$(LATEXFONTSDIR)/%.ttf: $(TTFDIR)/%.ttf $(LATEXFONTSDIR)/dirstate
+$(ttfDIR)/%.ttf: $(AUXDIR)/%.ttf
+	#-$(FASTFONT) $<
+	$(MAKETARGETDIR)
 	cp $< $@
 
-$(LATEXPKGDIR)/$(LATEXPKG).sty: $(LATEXPKGSRCDIR)/$(LATEXPKG).sty $(LATEXPKGDIR)/dirstate $(LATEXPKGFONTS)
-	$(info Generate latex style package "$@"...)
-	cp $< $@
+.PHONY: ttf
+ttf: $(ttfTARGETS)
 
-export TEXINPUTS=".$(PATHSEP)$(LATEXPKGDIR)/$(PATHSEP)"
-export TEXFONTS="$(LATEXFONTSDIR)/$(PATHSEP)"
+# build font files
+$(eval $(call generateTargetFromSources,ttc,$(ttfDIR)/$(FONT).ttc,$(ttfTARGETS)))
+$(eval $(call generateFontsOfType,woff,woff,$(ttfDIR)/%.ttf))
+$(eval $(call generateFontsOfType,otf,otf,,afm))
+$(eval $(call generateFontsOfType,pstype0,ps,,afm pfm tfm))
+$(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 
-tex-pkg: $(LATEXPKGPRE)
+# latex build system
 
-# build latex tests
+LATEXSRCDIR := latex
+LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
+LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx
+LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
 
-LATEXPKG			:= gost2.304
-LATEXPKGDIR			:= $(OUTPUTDIR)/latexpkg/$(LATEXPKG)
-LATEXTESTSSRCDIR	:= $(LATEXSRCDIR)/tests
-LATEXTESTSOUTPUTDIR := $(AUXDIR)
-LATEXTESTSTARGETS	:= $(patsubst $(LATEXTESTSSRCDIR)/%.tex, $(LATEXTESTSOUTPUTDIR)/%.pdf, $(wildcard $(LATEXTESTSSRCDIR)/*.tex))
+# build latex version file
 
-$(LATEXTESTSOUTPUTDIR)/%.pdf: $(LATEXTESTSSRCDIR)/%.tex $(LATEXPKGPRE)
-	$(info Generate latex test pdf file "$@"...)
-	$(LATEXMK) -outdir=$(@D) $<
+LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.dtx
 
-tex-tests: $(LATEXTESTSTARGETS) tex-pkg
+# unpack latex package files
+
+LATEXPKGUNPACKDIR := $(AUXDIR)/$(LATEXPKG)
+LATEXPKGINSTALLFILES := $(LATEXPKGUNPACKDIR)/$(LATEXPKG).sty
+LATEXUNPACK ?= latex \
+	-interaction=nonstopmode \
+	-halt-on-error
+
+LATEXSANDBOXSOURCEFILES := $(patsubst $(LATEXPKGMAINDIR)/%,$(LATEXPKGUNPACKDIR)/%,$(LATEXPKGSOURCEFILES))
+$(foreach file,$(LATEXSANDBOXSOURCEFILES),$(eval $(call copyfilefrom,$(file),$(LATEXPKGMAINDIR))))
+
+$(LATEXPKGINSTALLFILES): $(LATEXSANDBOXSOURCEFILES) $(LATEXPRJVERSIONFILE)
+	$(info Unpack [by docstrip] package files "$@"...)
+	$(MAKETARGETDIR)
+	cd $(<D) && $(LATEXUNPACK) $(<F)
+
+.PHONY: unpack
+unpack: $(LATEXPKGINSTALLFILES)
+
+# Build package doc files
+
+LATEXPKGTYPESETDIR := $(LATEXPKGUNPACKDIR)
+LATEXPKGDOCS := $(AUXDIR)/$(LATEXPKG).rus.pdf
+LATEXMKRC := $(LATEXSRCDIR)/latexmkrc
+
+export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
+export TEXFONTS = $(ttfDIR)
+
+$(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXPRJVERSIONFILE) $(LATEXSANDBOXSOURCEFILES) $(LATEXPKGINSTALLFILES) $(LATEXMKRC) $(ttfTARGETS)
+	$(info Build package doc files "$@"...)
+	$(MAKETARGETDIR)
+	$(LATEXMK) -r $(LATEXMKRC) -outdir=$(@D) $<
+
+$(eval $(call copyfile,$(LATEXPKGDOCS),$(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf))
+
+.PHONY: doc
+doc: $(LATEXPKGDOCS)
+
+# build TDS and CTAN archives for CTAN
+
+export CTAN_DIRECTORY := /fonts/$(LATEXPKG)
+export LICENSE := free
+export FREEVERSION := ofl
+export NAME := Sergey S. Betke
+export EMAIL := Sergey.S.Betke@yandex.ru
+
+include ITG.MakeUtils/TeX/CTAN.mk
+
+.CTAN: $(LATEXPKGINSTALLFILES) $(LATEXPKGSOURCEFILES)
+.CTAN: $(LATEXPKGDOCS) $(wildcard $(LATEXPKGMAINDIR)/*.md)
+.CTAN: $(ttfTARGETS) $(otfTARGETS) $(filter %.pfm %.tfm,$(pstype1TARGETS))
 
 # msi module
 
-msm: ttf
+.PHONY: msm
+msm: $(ttfTARGETS)
+	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS),../$(file)))
 	$(MAKE) -C msm
+
+# msi module
+
+.PHONY: msi
+msi: msm $(ttfTARGETS) $(otfTARGETS)
+	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS) $(otfTARGETS),../$(file)))
+	$(MAKE) -C msi
 
 # clean projects
 
+.PHONY: clean
 clean:
 	$(info Erase aux and release directories...)
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)
+	rm -rf $(LATEXPKGBUILDDIR)
 	$(MAKE) -C msm clean
+	$(MAKE) -C msi clean

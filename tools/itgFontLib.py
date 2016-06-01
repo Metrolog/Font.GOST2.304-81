@@ -7,14 +7,20 @@ def fontPreProcessing ( font ) :
 	if fontforge.version() < '20150827' :
 		raise RuntimeError( 'Unsupported fontforge version. Must be 20150827 or later.' )
 
-def removeFlippedRefs ( font ) :
+def isFlippedRef ( ref ) :
+	return ( ( ref[1][0] != ref[1][3] ) or ( ref[1][1] != 0 ) or ( ref[1][2] != 0 ) )
+
+def isFlippedOrRotatedRef ( ref ) :
+	return ( ( ref[1][0] != ref[1][3] ) or ( ref[1][0] < 0 ) or ( ref[1][1] != 0 ) or ( ref[1][2] != 0 ) )
+
+def removeRefsIf ( font, predicat ) :
 	for glyph in font.glyphs() :
 		mustBeProcessed = False
 		for ref in glyph.references :
-			if ( ( ref[1][0] != ref[1][3] ) or ( ref[1][1] != 0 ) or ( ref[1][2] != 0 ) ) :
+			if predicat( ref ) :
+				glyph.unlinkRef ( ref[0] )
 				mustBeProcessed = True
 		if mustBeProcessed :
-			glyph.unlinkRef ()
 			glyph.correctDirection ()
 			glyph.round ()
 			glyph.canonicalStart ()
