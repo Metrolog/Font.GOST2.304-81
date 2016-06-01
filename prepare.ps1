@@ -114,7 +114,7 @@ $env:Path = `
     ) `
     -join ';' `
 ;
-[System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::Machine );
+[System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::User );
 
 Install-Package `
     -Name 'ActivePerl' `
@@ -125,3 +125,9 @@ Install-Package `
 & "$MikTexBinPath\mpm" --install=ctanify;
 & "ppm" install HTML::FormatText;
 & "$MikTexBinPath\mpm" --install=ctanupload;
+
+Install-Package `
+    -Name 'GitVersion.Portable' `
+    -Verbose `
+    -Force `
+;
