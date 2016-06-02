@@ -11,7 +11,15 @@ GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreRelea
   NuGetVersionV2 NuGetVersion \
   CommitsSinceVersionSource CommitsSinceVersionSourcePadded CommitDate
 
-$(eval $(foreach var,$(GITVERSIONVARS),$(call setvariable,$(var),$$(shell $$(GITVERSIONTOOL) /showvariable $(var)))))
+GITVERSIONMAKEFILE ?= version.mk
+  
+$(GITVERSIONMAKEFILE): .git/logs/HEAD
+	$(info Generate version data file "$@" with GitVersion...)
+	$(file > $@,#version data file)
+	$(foreach var,$(GITVERSIONVARS),$(file >> $@,$(call setvariable,$(var),$(shell $(GITVERSIONTOOL) /showvariable $(var)))))
+	$(info Version data file "$@" is ready for use.)
+
+include $(GITVERSIONMAKEFILE)
 
 GIT_BRANCH          := $(BranchName)
 export VERSION      := $(Major).$(Minor)
