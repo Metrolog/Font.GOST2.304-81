@@ -6,6 +6,7 @@ AUXDIR             ?= obj
 SPACE              := $(empty) $(empty)
 
 MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
+MAKETARGETASDIR    = /usr/bin/mkdir -p $@
 
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;

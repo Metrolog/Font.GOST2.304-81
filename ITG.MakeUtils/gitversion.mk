@@ -5,19 +5,14 @@ include $(MAKE_GITVERSION_DIR)common.mk
 
 GITVERSIONTOOL ?= gitversion.bat
 
-GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreReleaseLabel PreReleaseNumber \
-  BuildMetaData BuildMetaDataPadded FullBuildMetaData MajorMinorPatch SemVer LegacySemVer LegacySemVerPadded \
-  AssemblySemVer FullSemVer InformationalVersion BranchName Sha \
-  NuGetVersionV2 NuGetVersion \
-  CommitsSinceVersionSource CommitsSinceVersionSourcePadded CommitDate
+GITVERSIONMAKEFILE ?= $(AUXDIR)/version.mk
 
-GITVERSIONMAKEFILE ?= version.mk
-  
-$(GITVERSIONMAKEFILE): .git/logs/HEAD
+$(dir $(GITVERSIONMAKEFILE)):
+	$(MAKETARGETASDIR)
+
+$(GITVERSIONMAKEFILE): .git/logs/HEAD | $(dir $(GITVERSIONMAKEFILE))
 	$(info Generate version data file "$@" with GitVersion...)
-	$(file > $@,#version data file)
-	$(foreach var,$(GITVERSIONVARS),$(file >> $@,$(call setvariable,$(var),$(shell $(GITVERSIONTOOL) /showvariable $(var)))))
-	$(info Version data file "$@" is ready for use.)
+	$(GITVERSIONTOOL) /exec $(MAKE) /execargs "--makefile=$(MAKE_GITVERSION_DIR)gitversion-buildcache.mk $@"
 
 include $(GITVERSIONMAKEFILE)
 
