@@ -131,3 +131,8 @@ Install-Package `
     -Verbose `
     -Force `
 ;
+Install-Package `
+    -Name 'SourceTree' `
+    -Verbose `
+    -Force `
+;
