@@ -3,19 +3,28 @@
 	xmlns="http://wixtoolset.org/schemas/v4/wxs"
 >
 
-	<?ifdef env.MajorVersion?>
-		<?define ProductMajorVersion="$(env.MajorVersion)"?>
+	<?ifdef env.Major?>
+		<?define ProductMajorVersion="$(env.Major)"?>
 	<?else?>
 		<?define ProductMajorVersion="0"?>
-		<?warning "MajorVersion variable must be specified." ?>
+		<?warning "Major variable must be specified." ?>
 	<?endif?>
-	<?ifdef env.MinorVersion?>
-		<?define ProductMinorVersion="$(env.MinorVersion)"?>
+	<?ifdef env.Minor?>
+		<?define ProductMinorVersion="$(env.Minor)"?>
 	<?else?>
 		<?define ProductMinorVersion="1"?>
-		<?warning "MinorVersion variable must be specified." ?>
+		<?warning "Minor variable must be specified." ?>
 	<?endif?>
-	<?define ProductVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))"?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define ProductVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define ProductVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))"?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define FontVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define FontVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))?>
+	<?endif?>
 	<?define ProductShortName="!(loc.Product.DisplayName)"?>
 	<?define ProductInternalName="Font.GOST2.304-81"?>
 	<?define ProductProjectName="$(var.ProductInternalName)"?>
