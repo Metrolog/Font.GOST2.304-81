@@ -34,7 +34,7 @@
 		<WixVariable Id="ProductVersion"      Value="$(var.ProductVersion)"/>
 		<WixVariable Id="ProductMajorVersion" Value="$(var.ProductMajorVersion)"/>
 		<WixVariable Id="ProductMinorVersion" Value="$(var.ProductMinorVersion)"/>
-		<WixVariable Id="FontVersion"					Value="!(var.ProductMajorVersion).!(var.ProductMinorVersion)"/>
+		<WixVariable Id="FontVersion"					Value="$(var.FontVersion)"/>
 		<WixVariable Id="GitHubAccount"       Value="Metrolog"/>
 		<WixVariable Id="GitHubRepository"    Value="$(var.ProductProjectName)"/>
 		<WixVariable Id="PRIMARYFOLDER"       Value="FontsFolder"/>

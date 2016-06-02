@@ -1,9 +1,12 @@
 ifndef MAKE_COMMON_DIR
 MAKE_COMMON_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
+AUXDIR             ?= obj
+
 SPACE              := $(empty) $(empty)
 
 MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
+MAKETARGETASDIR    = /usr/bin/mkdir -p $@
 
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;
@@ -15,6 +18,12 @@ ZIP                ?= zip \
 	-o \
 	-9
 TAR                ?= tar
+
+# $(call setvariable, var, value)
+define setvariable
+$1:=$2
+
+endef
 
 # $(call copyfile, to, from)
 define copyfile

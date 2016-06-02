@@ -3,10 +3,27 @@
 	xmlns="http://wixtoolset.org/schemas/v4/wxs"
 >
 
-	<?ifdef env.Version?>
-		<?define FontVersion="$(fun.AutoVersion($(env.MajorVersion).$(env.MinorVersion)))"?>
+	<?ifdef env.Major?>
+		<?define ProductMajorVersion="$(env.Major)"?>
 	<?else?>
-		<?define FontVersion="$(fun.AutoVersion(0.1))"?>
+		<?define ProductMajorVersion="0"?>
+		<?warning "Major variable must be specified." ?>
+	<?endif?>
+	<?ifdef env.Minor?>
+		<?define ProductMinorVersion="$(env.Minor)"?>
+	<?else?>
+		<?define ProductMinorVersion="1"?>
+		<?warning "Minor variable must be specified." ?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define ProductVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define ProductVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))"?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define FontVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define FontVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))?>
 	<?endif?>
 	
 	<Module

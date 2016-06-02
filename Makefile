@@ -27,7 +27,7 @@ TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
 # setup tools
 
 include ITG.MakeUtils/common.mk
-include ITG.MakeUtils/TeX/version-git.mk
+include ITG.MakeUtils/TeX/gitversion.mk
 
 # fontforge, ttfautohint or no
 AUTOHINT           ?= ttfautohint
@@ -70,7 +70,7 @@ FFBUILDSTROKEDSFDPRE:=
 $(FULLSTROKEDFONTSFD): $(SRCDIR)/$(FONT).sfd $(SRCDIR)/$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(TOOLSLIBS)
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
 	$(MAKETARGETDIR)
-	$(PY) $(FFBUILDSTROKEDSFD) $< $(<:.sfd=.fea) $@ $(VERSION)
+	$(PY) $(FFBUILDSTROKEDSFD) $< $(<:.sfd=.fea) $@ $(FULLVERSION)
 
 # generate aux regular .sfd file
 
