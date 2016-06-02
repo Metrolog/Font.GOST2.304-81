@@ -27,7 +27,7 @@ TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
 # setup tools
 
 include ITG.MakeUtils/common.mk
-include ITG.MakeUtils/TeX/version-git.mk
+include ITG.MakeUtils/TeX/gitversion.mk
 
 # fontforge, ttfautohint or no
 AUTOHINT           ?= ttfautohint

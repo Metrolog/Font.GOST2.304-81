@@ -16,6 +16,12 @@ ZIP                ?= zip \
 	-9
 TAR                ?= tar
 
+# $(call setvariable, var, value)
+define setvariable
+$1:=$2
+
+endef
+
 # $(call copyfile, to, from)
 define copyfile
 $1: $2
