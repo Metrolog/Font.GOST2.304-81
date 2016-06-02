@@ -15,12 +15,15 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Для внесения изменений в пакет и повторной сборки проекта потребуются следующие продукты:
 
+- [CygWin][]
+- [GitVersion][]
 - [FontForge][] версии не младше 27.08.2015
 - [TTFAutoHint][]
 - [FastFont][] (для оптимизации генерируемых ttf шрифтов)
-- [CygWin][]
-- [latexmk][] (только для сборки TeX пакетов и документов)
 - [WIX][] (только для сборки msi модулей и msi дистрибутива для установки шрифта в Windows, требуется WiX 4)
+- [MikTeX][]
+- [CTANupload][]
+- [latexmk][] (только для сборки TeX пакетов и документов)
 
 Для подготовки среды сборки следует воспользоваться сценарием `prepare.ps1` (запускать от имени администратора).
 Указанный сценарий установит все необходимые компоненты.
@@ -117,11 +120,17 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 
 Данная цель требует предварительной сборки целей `ttf`, `msm`.
 
-Версии
-------
+Внесение изменений
+------------------
 
-В качестве версии при сборке подставляю автоматом имя ветки репозитория.
-Поэтому разработку и сборку следует вести в ветках типа "0.1", "0.2", "1.0".
+Репозиторий проекта размещён по адресу https://github.com/Metrolog/Font.GOST2.304-81.
+Стратегия ветвления - [GitFlow](https://habrahabr.ru/post/106912/). В качестве GUI
+к локальному репозиторию с поддержкой GitFlow рекомендую
+[SourceTree](https://www.sourcetreeapp.com/).
+
+Для внесения изменений в проект подготовьте собственный fork проекта, в соответствии
+с GitFlow создайте либо feature, либо patch ветку, и предложите Pull Request в основной 
+репозиторий. Для патчей ветки прошу именовать patch/<номер issue>.
 
 Лицензионное соглашение
 -----------------------
@@ -129,12 +138,15 @@ TeX совместимых шрифтов по ГОСТ 2.304-81.
 Полный текст лицензионного соглашения включён в файлы шрифта, а также размещён по указанной ссылке: <http://scripts.sil.org/OFL>.
 Наименование шрифта, в том числе - локализованные наименования шрифта, не зарезервированы и не защищены.
 
+[CTANupload]: http://ctan.org/pkg/ctanupload
 [FontForge]: https://github.com/fontforge/fontforge
 [CygWin]: http://cygwin.com/install.html "Cygwin"
+[GitVersion]: https://github.com/GitTools/GitVersion
 [GNUWin32 make]: http://gnuwin32.sourceforge.net/packages/make.htm "GNU make for windows"
 [GNUWin32 Core Utils]: http://gnuwin32.sourceforge.net/packages/coreutils.htm
 [GNUWin32 ZIP]: http://gnuwin32.sourceforge.net/packages/zip.htm
 [GNUWin32 TAR]: http://gnuwin32.sourceforge.net/packages/gtar.htm
+[MikTeX]: http://www.miktex.org
 [latexmk]: https://www.ctan.org/pkg/latexmk/ "latexmk – Fully automated LaTeX document generation"
 [Perl]: https://www.perl.org/get.html#win32 "Perl"
 [TTC]: http://en.wikipedia.org/wiki/TrueType#TrueType_Collection "True Type Fonts Collection"
