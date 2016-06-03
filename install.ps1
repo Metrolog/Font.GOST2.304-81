@@ -36,8 +36,6 @@ Import-Module `
 
 Write-Verbose 'Preparing NuGet packages provider and sources...';
 Write-Verbose 'test...';
-Get-PackageProvider -Name NuGet;
-Write-Verbose 'test2...';
 Install-PackageProvider `
     -Name NuGet `
     -Force `
@@ -59,7 +57,7 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
         -Force `
         -OutVariable $null `
     ;
-    Write-Verbose 'test5...';
+    geWrite-Verbose 'test5...';
 };
 
 Write-Verbose 'Preparing Chocolatey packages provider and sources...';
