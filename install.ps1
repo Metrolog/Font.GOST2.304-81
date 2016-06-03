@@ -34,7 +34,7 @@ Import-Module `
     -Name PackageManagement `
 ;
 
-Write-Verbose 'Preparing NuGet packages provider and sources...';
+Write-Information 'Preparing NuGet packages provider and sources...';
 $null = Install-PackageProvider `
     -Name NuGet `
     -Force `
@@ -54,7 +54,7 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
     ;
 };
 
-Write-Verbose 'Preparing Chocolatey packages provider and sources...';
+Write-Information 'Preparing Chocolatey packages provider and sources...';
 $null = Install-PackageProvider `
     -Name Chocolatey `
     -Force `
@@ -73,7 +73,7 @@ $null = Register-PackageSource `
 $ToPath += "$env:ChocolateyPath\bin";
 
 if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
-    Write-Verbose 'Preparing git...';
+    Write-Information 'Preparing git...';
     $null = Install-Package `
         -Name 'git' `
         -MinimumVersion '2.8' `
@@ -81,7 +81,7 @@ if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
     ;
 };
 
-Write-Verbose 'Preparing cygwin...';
+Write-Information 'Preparing cygwin...';
 $null = Install-Package `
     -Name 'cygwin' `
     -Source chocolatey `
@@ -104,12 +104,12 @@ $null = Install-Package `
     -RequiredVersion '1.0.7' `
     -Force `
 ;
-$CygGet = "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1";
+$CygGet = "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\content\cyg-get.ps1";
 if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить пакет CygWin')) {
     & $CygGet ttfautohint, make, zip;
 };
 
-Write-Verbose 'Preparing FontForge...';
+Write-Information 'Preparing FontForge...';
 $null = Install-Package `
     -Name 'fontforge' `
     -MinimumVersion '2015.08.24.20150930' `
@@ -117,7 +117,7 @@ $null = Install-Package `
 ;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
-Write-Verbose 'Preparing MikTeX...';
+Write-Information 'Preparing MikTeX...';
 $null = Install-Package `
     -Name 'miktex' `
     -MinimumVersion '2.9' `
@@ -133,7 +133,7 @@ $MikTex = `
 $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
 $ToPath += $MikTexBinPath;
 
-Write-Verbose 'Preparing WiX...';
+Write-Information 'Preparing WiX...';
 $null = Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
@@ -148,13 +148,13 @@ if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную
 };
 $ToPath += $env:WIXDIR;
 
-Write-Verbose 'Preparing ActivePerl...';
+Write-Information 'Preparing ActivePerl...';
 $null = Install-Package `
     -Name 'ActivePerl' `
     -Force `
 ;
 
-Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
+Write-Information 'Preparing ctanify and ctanupload TeX scripts...';
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
     & "ppm" install File::Copy::Recursive;
     & "$MikTexBinPath\mpm" --install=ctanify;
@@ -164,21 +164,21 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     & "$MikTexBinPath\mpm" --install=ctanupload;
 };
 
-Write-Verbose 'Preparing GitVersion...';
+Write-Information 'Preparing GitVersion...';
 $null = Install-Package `
     -Name 'GitVersion.Portable' `
     -Force `
 ;
 
 if ( $GUI ) {
-    Write-Verbose 'Preparing SourceTree...';
+    Write-Information 'Preparing SourceTree...';
     $null = Install-Package `
         -Name 'SourceTree' `
         -Force `
     ;
 };
 
-Write-Verbose 'Preparing PATH environment variable...';
+Write-Information 'Preparing PATH environment variable...';
 if ($PSCmdLet.ShouldProcess('PATH', 'Установить переменную окружения')) {
     $env:Path = `
         ( `
