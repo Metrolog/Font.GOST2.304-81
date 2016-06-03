@@ -35,19 +35,14 @@ Import-Module `
 ;
 
 Write-Verbose 'Preparing NuGet packages provider and sources...';
-Write-Verbose 'test...';
-Install-PackageProvider `
+$null = Install-PackageProvider `
     -Name NuGet `
     -Force `
-    -OutVariable $null `
 ;
-Write-Verbose 'test3...';
-Import-PackageProvider `
+$null = Import-PackageProvider `
     -Name NuGet `
     -Force `
-    -OutVariable $null `
 ;
-Write-Verbose 'test4...';
 if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
     Register-PackageSource `
         -Name NuGet `
@@ -57,45 +52,42 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
         -Force `
         -OutVariable $null `
     ;
-    geWrite-Verbose 'test5...';
 };
 
 Write-Verbose 'Preparing Chocolatey packages provider and sources...';
-Install-PackageProvider `
+$null = Install-PackageProvider `
     -Name Chocolatey `
     -Force `
-    -OutVariable $null `
 ;
 $null = Import-PackageProvider `
     -Name Chocolatey `
     -Force `
 ;
-Register-PackageSource `
+$null = Register-PackageSource `
     -Name chocolatey `
     -ProviderName Chocolatey `
     -Location 'http://chocolatey.org/api/v2/' `
     -Trusted `
     -Force `
-    -OutVariable $null `
 ;
 $ToPath += "$env:ChocolateyPath\bin";
 
-Write-Verbose 'Preparing git...';
-Install-Package `
-    -Name 'git' `
-    -MinimumVersion '2.8' `
-    -Force `
-    -OutVariable $null `
-;
+if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
+    Write-Verbose 'Preparing git...';
+    $null = Install-Package `
+        -Name 'git' `
+        -MinimumVersion '2.8' `
+        -Force `
+    ;
+};
 
 Write-Verbose 'Preparing cygwin...';
-Install-Package `
+$null = Install-Package `
     -Name 'cygwin' `
     -Source chocolatey `
     -RequiredVersion '2.4.1' `
     -ForceBootstrap `
     -Force `
-    -OutVariable $null `
 ;
 $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
@@ -106,12 +98,11 @@ if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную
 };
 $ToPath += "$env:CygWin\bin";
 
-Install-Package `
+$null = Install-Package `
     -Name 'cyg-get' `
     -Source chocolatey `
-    -RequiredVersion '1.1.1' `
+    -RequiredVersion '1.0.7' `
     -Force `
-    -OutVariable $null `
 ;
 $CygGet = "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\tools\cyg-get.ps1";
 if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить пакет CygWin')) {
@@ -119,20 +110,18 @@ if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить па
 };
 
 Write-Verbose 'Preparing FontForge...';
-Install-Package `
+$null = Install-Package `
     -Name 'fontforge' `
     -MinimumVersion '2015.08.24.20150930' `
     -Force `
-    -OutVariable $null `
 ;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
 Write-Verbose 'Preparing MikTeX...';
-Install-Package `
+$null = Install-Package `
     -Name 'miktex' `
     -MinimumVersion '2.9' `
     -Force `
-    -OutVariable $null `
 ;
 $MikTex = `
     Get-ChildItem `
@@ -145,13 +134,12 @@ $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
 $ToPath += $MikTexBinPath;
 
 Write-Verbose 'Preparing WiX...';
-Install-Package `
+$null = Install-Package `
     -Name 'WiX' `
     -MinimumVersion '4.0' `
     -Source NuGet `
     -ForceBootstrap `
     -Force `
-    -OutVariable $null `
 ;
 $WixVersion = ( Get-Package -Name WiX -ProviderName NuGet ).Version;
 $env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools\";
@@ -161,10 +149,9 @@ if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную
 $ToPath += $env:WIXDIR;
 
 Write-Verbose 'Preparing ActivePerl...';
-Install-Package `
+$null = Install-Package `
     -Name 'ActivePerl' `
     -Force `
-    -OutVariable $null `
 ;
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
@@ -178,18 +165,16 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
 };
 
 Write-Verbose 'Preparing GitVersion...';
-Install-Package `
+$null = Install-Package `
     -Name 'GitVersion.Portable' `
     -Force `
-    -OutVariable $null `
 ;
 
 if ( $GUI ) {
     Write-Verbose 'Preparing SourceTree...';
-    Install-Package `
+    $null = Install-Package `
         -Name 'SourceTree' `
         -Force `
-        -OutVariable $null `
     ;
 };
 
