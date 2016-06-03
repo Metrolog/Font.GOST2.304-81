@@ -1,6 +1,6 @@
 image: WMF 5
 install:
-- ps: .\install.ps1
+- ps: .\install.ps1 -ErrorAction Stop -Verbose
 build_script:
 - cmd: make
 test: off
