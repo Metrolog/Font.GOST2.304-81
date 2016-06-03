@@ -1,5 +1,5 @@
-image: Visual Studio 2015
+image: WMF 5
 install:
-- ps: .\prepare.ps1
+- ps: .\install.ps1
 build_script:
 - cmd: make
