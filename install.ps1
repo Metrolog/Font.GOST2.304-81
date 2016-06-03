@@ -98,6 +98,7 @@ if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную
 };
 $ToPath += "$env:CygWin\bin";
 
+<#
 $null = Install-Package `
     -Name 'cyg-get' `
     -Source chocolatey `
@@ -107,6 +108,16 @@ $null = Install-Package `
 $CygGet = "$env:ChocolateyPath\lib\cyg-get.$((Get-Package -Name 'cyg-get').Version)\content\cyg-get.ps1";
 if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить пакет CygWin')) {
     & $CygGet ttfautohint, make, zip;
+};
+#>
+$cygwinsetup = "$env:CygWin\cygwinsetup.exe"
+if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить пакет CygWin')) {
+    Start-Process `
+        -FilePath $cygwinsetup `
+        -ArgumentList '--packages ttfautohint,make,zip --quiet-mode --no-desktop --no-startmenu --upgrade-also --site http://mirrors.kernel.org/sourceware/cygwin/' `
+        -Wait `
+        -WindowStyle Minimized `
+    ;
 };
 
 Write-Information 'Preparing FontForge...';
