@@ -3,3 +3,4 @@ install:
 - ps: .\install.ps1
 build_script:
 - cmd: make
+test: off

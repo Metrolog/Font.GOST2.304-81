@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/robb062g2i4c7l9w?svg=true)](https://ci.appveyor.com/project/sergey-s-betke/font-gost2-304-81)
+
 Øğèôòû ÅÑÊÄ ÃÎÑÒ 2.304-81
 =========================
 
