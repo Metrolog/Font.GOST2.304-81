@@ -1,0 +1,5 @@
+image: Visual Studio 2015
+install:
+- ps: .\prepare.ps1
+build_script:
+- cmd: make
