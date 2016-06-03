@@ -35,11 +35,21 @@ Import-Module `
 ;
 
 Write-Verbose 'Preparing NuGet packages provider and sources...';
+Write-Verbose 'test...';
+Get-PackageProvider -Name NuGet;
+Write-Verbose 'test2...';
 Install-PackageProvider `
     -Name NuGet `
     -Force `
     -OutVariable $null `
 ;
+Write-Verbose 'test3...';
+Import-PackageProvider `
+    -Name NuGet `
+    -Force `
+    -OutVariable $null `
+;
+Write-Verbose 'test4...';
 if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
     Register-PackageSource `
         -Name NuGet `
@@ -49,6 +59,7 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
         -Force `
         -OutVariable $null `
     ;
+    Write-Verbose 'test5...';
 };
 
 Write-Verbose 'Preparing Chocolatey packages provider and sources...';
