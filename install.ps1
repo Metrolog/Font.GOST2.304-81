@@ -33,8 +33,8 @@ $ToPath = @();
 Import-Module -Name PackageManagement;
 
 Write-Information 'Preparing NuGet packages provider and sources...';
-$null = Install-PackageProvider -Name NuGet;
-$null = Import-PackageProvider -Name NuGet;
+$null = Install-PackageProvider -Name NuGet -Force;
+$null = Import-PackageProvider -Name NuGet -Force;
 if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
     Register-PackageSource `
         -Name NuGet `
@@ -47,8 +47,8 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
 };
 
 Write-Information 'Preparing Chocolatey packages provider and sources...';
-$null = Install-PackageProvider -Name Chocolatey;
-$null = Import-PackageProvider -Name Chocolatey;
+$null = Install-PackageProvider -Name Chocolatey -Force;
+$null = Import-PackageProvider -Name Chocolatey -Force;
 $null = Register-PackageSource `
     -Name chocolatey `
     -ProviderName Chocolatey `
