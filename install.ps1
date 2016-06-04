@@ -41,7 +41,6 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
         -ProviderName NuGet `
         -Location 'http://packages.nuget.org/api/v2/' `
         -Trusted `
-        -Force `
         -OutVariable $null `
     ;
 };
@@ -49,12 +48,14 @@ if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
 Write-Information 'Preparing Chocolatey packages provider and sources...';
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
-$null = Register-PackageSource `
-    -Name chocolatey `
-    -ProviderName Chocolatey `
-    -Location 'http://chocolatey.org/api/v2/' `
-    -Trusted `
-;
+if ( (Get-PackageSource -ProviderName Chocolatey).count -eq 0 ) {
+    $null = Register-PackageSource `
+        -Name chocolatey `
+        -ProviderName Chocolatey `
+        -Location 'http://chocolatey.org/api/v2/' `
+        -Trusted `
+    ;
+};
 $ToPath += "$env:ChocolateyPath\bin";
 
 Write-Information 'Install Chocolatey command line package manager...';
