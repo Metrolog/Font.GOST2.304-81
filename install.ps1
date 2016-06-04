@@ -30,32 +30,6 @@ switch ( $env:PROCESSOR_ARCHITECTURE ) {
 };
 $ToPath = @();
 
-Import-Module -Name PackageManagement;
-
-Write-Information 'Preparing NuGet packages provider and sources...';
-$null = Install-PackageProvider -Name NuGet -Force;
-$null = Import-PackageProvider -Name NuGet -Force;
-$null = Register-PackageSource `
-    -Name NuGet `
-    -ProviderName NuGet `
-    -Location 'http://packages.nuget.org/api/v2/' `
-    -Trusted `
-    -Force `
-;
-
-Write-Information 'Preparing Chocolatey packages provider and sources...';
-$null = Install-PackageProvider -Name Chocolatey -Force;
-$null = Import-PackageProvider -Name Chocolatey -Force;
-if ( (Get-PackageSource -ProviderName Chocolatey).count -eq 0 ) {
-    $null = Register-PackageSource `
-        -Name chocolatey `
-        -ProviderName Chocolatey `
-        -Location 'http://chocolatey.org/api/v2/' `
-        -Trusted `
-    ;
-};
-$ToPath += "$env:ChocolateyPath\bin";
-
 Write-Information 'Install Chocolatey command line package manager...';
 if ($PSCmdLet.ShouldProcess('Chocolatey command line package manager', 'Установить')) {
     $env:chocolateyUseWindowsCompression = 'true';
@@ -63,61 +37,96 @@ if ($PSCmdLet.ShouldProcess('Chocolatey command line package manager', 'Уста
     Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 | Invoke-Expression;
 };
 
-Write-Information 'Install CygWin tools...';
-if ($PSCmdLet.ShouldProcess('make', 'Установить модуль CygWin')) {
-    choco install make --source cygwin;
-};
-if ($PSCmdLet.ShouldProcess('mkdir', 'Установить модуль CygWin')) {
-    choco install mkdir --source cygwin;
-};
-if ($PSCmdLet.ShouldProcess('zip', 'Установить модуль CygWin')) {
-    choco install zip --source cygwin;
-};
-if ($PSCmdLet.ShouldProcess('touch', 'Установить модуль CygWin')) {
-    choco install touch --source cygwin;
-};
-if ($PSCmdLet.ShouldProcess('ttfautohint', 'Установить модуль CygWin')) {
-    choco install ttfautohint --source cygwin;
+Write-Information 'Preparing NuGet.CommandLine...';
+if ($PSCmdLet.ShouldProcess('NuGet.CommandLine', 'Установить')) {
+    choco install 'NuGet.CommandLine' --confirm;
 };
 
-if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
-    Write-Information 'Preparing git...';
-    $null = Install-Package -Name 'git' -MinimumVersion '2.8';
+Write-Information 'Preparing MikTeX...';
+if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
+    choco install miktex --confirm;
+};
+
+Write-Information 'Preparing cygwin...';
+if ($PSCmdLet.ShouldProcess('CygWin', 'Установить')) {
+    choco install cygwin --version '2.4.1' --confirm;
+    $env:CygWin = Get-ItemPropertyValue `
+        -Path HKLM:\SOFTWARE\Cygwin\setup `
+        -Name rootdir `
+    ;
+    # исправляем проблемы совместимости chocolatey, cyg-get и cygwin
+    If ( -not ( Test-Path "$env:CygWin\cygwinsetup.exe" ) ) {
+        Copy-Item `
+            -LiteralPath "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe" `
+            -Destination $env:CygWin `
+            -Force `
+    };
+    Write-Verbose "CygWin root directory: $env:CygWin";
+    if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную окружения')) {
+        [System.Environment]::SetEnvironmentVariable( 'CygWin', $env:CygWin, [System.EnvironmentVariableTarget]::Machine );
+    };
+    $ToPath += "$env:CygWin\bin";
+};
+
+Write-Information 'Install CygWin tools...';
+if ($PSCmdLet.ShouldProcess('make', 'Установить модуль CygWin')) {
+    choco install make --source cygwin --confirm;
+};
+if ($PSCmdLet.ShouldProcess('mkdir', 'Установить модуль CygWin')) {
+    choco install mkdir --source cygwin --confirm;
+};
+if ($PSCmdLet.ShouldProcess('zip', 'Установить модуль CygWin')) {
+    choco install zip --source cygwin --confirm;
+};
+if ($PSCmdLet.ShouldProcess('touch', 'Установить модуль CygWin')) {
+    choco install touch --source cygwin --confirm;
+};
+if ($PSCmdLet.ShouldProcess('ttfautohint', 'Установить модуль CygWin')) {
+    choco install ttfautohint --source cygwin --confirm;
+};
+
+Write-Information 'Preparing git...';
+if ($PSCmdLet.ShouldProcess('Git', 'Установить')) {
+    choco install git --confirm;
 };
 
 Write-Information 'Preparing FontForge...';
-$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -Force;
-$ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
+if ($PSCmdLet.ShouldProcess('FontForge', 'Установить')) {
+    choco install fontforge --confirm;
+    $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
+};
 
 Write-Information 'Preparing MikTeX...';
-$null = Install-Package -Name 'miktex' -MinimumVersion '2.9' -Force;
-$MikTex = `
-    Get-ChildItem `
-        -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
-    | ?{ $_.Name -like '*MiKTeX*' } `
-    | Get-ItemPropertyValue `
-        -Name InstallLocation `
-;
-$MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
-Write-Verbose "MikTeX bin directory: $MikTexBinPath";
-$ToPath += $MikTexBinPath;
-
-Write-Information 'Preparing WiX...';
-$null = Install-Package `
-    -Name 'WiX' `
-    -MinimumVersion '4.0' `
-    -Source NuGet `
-    -Force `
-;
-$WixVersion = ( Get-Package -Name WiX -ProviderName NuGet ).Version;
-$env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools\";
-if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную окружения')) {
-    [System.Environment]::SetEnvironmentVariable( 'WIXDIR', $env:WIXDIR, [System.EnvironmentVariableTarget]::Machine );
+if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
+    choco install miktex --confirm;
+    $MikTex = `
+        Get-ChildItem `
+            -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
+        | ?{ $_.Name -like '*MiKTeX*' } `
+        | Get-ItemPropertyValue `
+            -Name InstallLocation `
+    ;
+    $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
+    Write-Verbose "MikTeX bin directory: $MikTexBinPath";
+    $ToPath += $MikTexBinPath;
 };
-$ToPath += $env:WIXDIR;
+
+<#
+Write-Information 'Preparing WiX Toolset...';
+if ($PSCmdLet.ShouldProcess('WiX', 'Установить')) {
+    $WixVersion = '4.0.0.3226-pre';
+    nuget install WiX -version $WixVersion -OutputDirectory "$env:ProgramFiles\NuGet\Packages";
+    $env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools\";
+#    $env:WIXDIR = ( Get-Location ).ToString() + "\WiX.$WixVersion\tools\";
+    [System.Environment]::SetEnvironmentVariable( 'WIXDIR', $env:WIXDIR, [System.EnvironmentVariableTarget]::Machine );
+    $ToPath += $env:WIXDIR;
+};
+#>
 
 Write-Information 'Preparing ActivePerl...';
-$null = Install-Package -Name 'ActivePerl' -Force;
+if ($PSCmdLet.ShouldProcess('ActivePerl', 'Установить')) {
+    choco install ActivePerl --confirm;
+};
 
 Write-Information 'Preparing ctanify and ctanupload TeX scripts...';
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
@@ -130,11 +139,15 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
 };
 
 Write-Information 'Preparing GitVersion...';
-$null = Install-Package -Name 'GitVersion.Portable' -Force;
+if ($PSCmdLet.ShouldProcess('GitVersion.Portable', 'Установить')) {
+    choco install 'GitVersion.Portable' --confirm;
+};
 
 if ( $GUI ) {
     Write-Information 'Preparing SourceTree...';
-    $null = Install-Package -Name 'SourceTree';
+    if ($PSCmdLet.ShouldProcess('SourceTree', 'Установить')) {
+        choco install SourceTree --confirm;
+    };
 };
 
 Write-Information 'Preparing PATH environment variable...';
