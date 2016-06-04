@@ -117,7 +117,7 @@ if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную
 $ToPath += $env:WIXDIR;
 
 Write-Information 'Preparing ActivePerl...';
-$null = Install-Package -Name 'ActivePerl';
+$null = Install-Package -Name 'ActivePerl' -Force;
 
 Write-Information 'Preparing ctanify and ctanupload TeX scripts...';
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
@@ -130,7 +130,7 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
 };
 
 Write-Information 'Preparing GitVersion...';
-$null = Install-Package -Name 'GitVersion.Portable';
+$null = Install-Package -Name 'GitVersion.Portable' -Force;
 
 if ( $GUI ) {
     Write-Information 'Preparing SourceTree...';
@@ -147,6 +147,7 @@ if ($PSCmdLet.ShouldProcess('PATH', 'Установить переменную �
         ) `
     ;
     Write-Verbose "Path variable: $Path";
+    $Path | % { Write-Verbose "    $_" };
     $env:Path = $Path -join ';';
     [System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::User );
 };
