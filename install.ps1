@@ -35,15 +35,13 @@ Import-Module -Name PackageManagement;
 Write-Information 'Preparing NuGet packages provider and sources...';
 $null = Install-PackageProvider -Name NuGet -Force;
 $null = Import-PackageProvider -Name NuGet -Force;
-if ( (Get-PackageSource -ProviderName NuGet).count -eq 0 ) {
-    Register-PackageSource `
-        -Name NuGet `
-        -ProviderName NuGet `
-        -Location 'http://packages.nuget.org/api/v2/' `
-        -Trusted `
-        -OutVariable $null `
-    ;
-};
+$null = Register-PackageSource `
+    -Name NuGet `
+    -ProviderName NuGet `
+    -Location 'http://packages.nuget.org/api/v2/' `
+    -Trusted `
+    -Force `
+;
 
 Write-Information 'Preparing Chocolatey packages provider and sources...';
 $null = Install-PackageProvider -Name Chocolatey -Force;
@@ -88,11 +86,11 @@ if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
 };
 
 Write-Information 'Preparing FontForge...';
-$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930';
+$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -Force;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
 Write-Information 'Preparing MikTeX...';
-$null = Install-Package -Name 'miktex' -MinimumVersion '2.9';
+$null = Install-Package -Name 'miktex' -MinimumVersion '2.9' -Force;
 $MikTex = `
     Get-ChildItem `
         -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
