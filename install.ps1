@@ -93,6 +93,7 @@ $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
     -Name rootdir `
 ;
+Write-Verbose "CygWin root directory: $env:CygWin";
 if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную окружения')) {
     [System.Environment]::SetEnvironmentVariable( 'CygWin', $env:CygWin, [System.EnvironmentVariableTarget]::Machine );
 };
@@ -111,6 +112,7 @@ if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить па
 };
 #>
 $cygwinsetup = "$env:CygWin\cygwinsetup.exe"
+Write-Verbose "CygWinSetup path: $cygwinsetup";
 if ($PSCmdLet.ShouldProcess('ttfautohint, make, zip', 'Установить пакет CygWin')) {
     Start-Process `
         -FilePath $cygwinsetup `
@@ -142,6 +144,7 @@ $MikTex = `
         -Name InstallLocation `
 ;
 $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
+Write-Verbose "MikTeX bin directory: $MikTexBinPath";
 $ToPath += $MikTexBinPath;
 
 Write-Information 'Preparing WiX...';
@@ -191,13 +194,14 @@ if ( $GUI ) {
 
 Write-Information 'Preparing PATH environment variable...';
 if ($PSCmdLet.ShouldProcess('PATH', 'Установить переменную окружения')) {
-    $env:Path = `
+    $Path = `
         ( `
             ( $env:Path -split ';' ) `
             + $ToPath `
             | Sort-Object -Unique `
         ) `
-        -join ';' `
     ;
+    Write-Verbose "Path variable: $Path";
+    $env:Path = $Path -join ';';
     [System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::User );
 };
