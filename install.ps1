@@ -12,7 +12,7 @@
 #> 
 [CmdletBinding(
     SupportsShouldProcess = $true
-    , ConfirmImpact = 'Low'
+    , ConfirmImpact = 'Medium'
     , HelpUri = 'https://github.com/Metrolog/Font.GOST2.304-81'
 )]
  
@@ -46,15 +46,13 @@ $null = Register-PackageSource `
 
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
-#if ( (Get-PackageSource -ProviderName Chocolatey).count -eq 0 ) {
-    $null = Register-PackageSource `
-        -Name chocolatey `
-        -ProviderName Chocolatey `
-        -Location 'http://chocolatey.org/api/v2/' `
-        -Trusted `
-        -Force `
-    ;
-#};
+$null = Register-PackageSource `
+    -Name chocolatey `
+    -ProviderName Chocolatey `
+    -Location 'http://chocolatey.org/api/v2/' `
+    -Trusted `
+    -Force `
+;
 $ToPath += "$env:ChocolateyPath\bin";
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
@@ -76,8 +74,10 @@ If ( Test-Path "$env:CygWin\cygwinsetup.exe" ) {
     $cygwinsetup = "$env:CygWin\setup-x86.exe";
 } ElseIf ( Test-Path "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe" ) {
     $cygwinsetup = "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe";
+} ElseIf ( Test-Path "$env:ChocolateyInstall\lib\Cygwin.$(( Get-Package -Name CygWin -ProviderName Chocolatey ).Version)\tools\cygwin\cygwinsetup.exe" ) {
+    $cygwinsetup = "$env:ChocolateyInstall\lib\Cygwin.$(( Get-Package -Name CygWin -ProviderName Chocolatey ).Version)\tools\cygwin\cygwinsetup.exe";
 } Else {
-    Write-Error 'I can not find CygWin setup, try to use it from PATH!!!';
+    Write-Error 'I can not find CygWin setup!';
 };
 Write-Verbose "CygWin setup: $cygwinsetup";
 if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную окружения')) {
@@ -132,13 +132,42 @@ $ToPath += $env:WIXDIR;
 $null = Install-Package -Name 'ActivePerl' -Source chocolatey;
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
+Function Install-PackageMikTeX {
+    <# 
+    .Synopsis 
+        Установка пакета в MikTeX.
+    #> 
+    [CmdletBinding(
+        SupportsShouldProcess = $true
+        , ConfirmImpact = 'Medium'
+    )]
+    param (
+        # Пакет
+        [Parameter( 
+            Mandatory = $true 
+            , Position = 1 
+            , ValueFromPipeline = $true 
+        )] 
+        [System.String]
+        $Name
+    )
+	process {
+        $OldErrorActionPreference = $ErrorActionPreference;
+        $ErrorActionPreference = [System.Management.Automation.ActionPreference]::SilentlyContinue;
+        & "$MikTexBinPath\mpm" --verify=$Name;
+        $ErrorActionPreference = $OldErrorActionPreference;
+        if ( $LASTEXITCODE -ne 0 ) {
+            & "$MikTexBinPath\mpm" --install=$Name;
+        };
+ 	}
+};
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
     & "ppm" install File::Copy::Recursive;
-    & "$MikTexBinPath\mpm" --install=ctanify;
+    Install-PackageMikTeX -Name ctanify;
 };
 if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий TeX и необходимые для него файлы')) {
     & "ppm" install HTML::FormatText;
-    & "$MikTexBinPath\mpm" --install=ctanupload;
+    Install-PackageMikTeX -Name ctanupload;
 };
 
 $null = Install-Package -Name adobereader -ProviderName Chocolatey -Source chocolatey;
