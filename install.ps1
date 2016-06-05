@@ -56,8 +56,13 @@ $null = Register-PackageSource `
 $ToPath += "$env:ChocolateyPath\bin";
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
+$env:GitVersion = "$env:ChocolateyPath\lib\GitVersion.Portable.$(( Get-Package -Name GitVersion.Portable -ProviderName Chocolatey ).Version)\tools\GitVersion.exe";
+Write-Verbose "GitVersion path: $env:GitVersion";
+if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменную окружения')) {
+    [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::Machine );
+};
 Write-Verbose 'Set build full version with GitVersion...';
-& GitVersion /output buildserver | Out-String | Write-Verbose;
+& $env:GitVersion /output buildserver | Out-String | Write-Verbose;
 
 if ( ( Get-Package -Name CygWin -ErrorAction SilentlyContinue ).count -eq 0 ) {
     $null = Install-Package -Name 'cygwin' -RequiredVersion '2.4.1' -ProviderName Chocolatey -Source chocolatey;
