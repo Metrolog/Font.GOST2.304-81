@@ -57,7 +57,7 @@ $ToPath += "$env:ChocolateyPath\bin";
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
 Write-Verbose 'Set build full version with GitVersion...';
-& GitVersion /output buildserver;
+& GitVersion /output buildserver | Out-String | Write-Verbose;
 
 if ( ( Get-Package -Name CygWin -ErrorAction SilentlyContinue ).count -eq 0 ) {
     $null = Install-Package -Name 'cygwin' -RequiredVersion '2.4.1' -ProviderName Chocolatey -Source chocolatey;
@@ -154,19 +154,19 @@ Function Install-PackageMikTeX {
 	process {
         $OldErrorActionPreference = $ErrorActionPreference;
         $ErrorActionPreference = [System.Management.Automation.ActionPreference]::SilentlyContinue;
-        & "$MikTexBinPath\mpm" --verify=$Name;
+        & "$MikTexBinPath\mpm" --verify=$Name | Out-String | Write-Verbose;
         $ErrorActionPreference = $OldErrorActionPreference;
         if ( $LASTEXITCODE -ne 0 ) {
-            & "$MikTexBinPath\mpm" --install=$Name;
+            & "$MikTexBinPath\mpm" --install=$Name | Out-String | Write-Verbose;
         };
  	}
 };
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
-    & "ppm" install File::Copy::Recursive;
+    & "ppm" install File::Copy::Recursive | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanify;
 };
 if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий TeX и необходимые для него файлы')) {
-    & "ppm" install HTML::FormatText;
+    & "ppm" install HTML::FormatText | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanupload;
 };
 
