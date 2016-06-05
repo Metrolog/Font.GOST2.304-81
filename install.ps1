@@ -72,10 +72,10 @@ If ( Test-Path "$env:CygWin\cygwinsetup.exe" ) {
     $cygwinsetup = "$env:CygWin\cygwinsetup.exe";
 } ElseIf ( Test-Path "$env:CygWin\setup-x86.exe" ) {
     $cygwinsetup = "$env:CygWin\setup-x86.exe";
-} ElseIf ( Test-Path "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe" ) {
-    $cygwinsetup = "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe";
-} ElseIf ( Test-Path "$env:ChocolateyInstall\lib\Cygwin.$(( Get-Package -Name CygWin -ProviderName Chocolatey ).Version)\tools\cygwin\cygwinsetup.exe" ) {
-    $cygwinsetup = "$env:ChocolateyInstall\lib\Cygwin.$(( Get-Package -Name CygWin -ProviderName Chocolatey ).Version)\tools\cygwin\cygwinsetup.exe";
+} ElseIf ( Test-Path "$env:ChocolateyPath\lib\Cygwin\tools\cygwin\cygwinsetup.exe" ) {
+    $cygwinsetup = "$env:ChocolateyPath\lib\Cygwin\tools\cygwin\cygwinsetup.exe";
+} ElseIf ( Test-Path "$env:ChocolateyPath\lib\Cygwin.$(( Get-Package -Name CygWin -ProviderName Chocolatey ).Version)\tools\cygwin\cygwinsetup.exe" ) {
+    $cygwinsetup = "$env:ChocolateyPath\lib\Cygwin.$(( Get-Package -Name CygWin -ProviderName Chocolatey ).Version)\tools\cygwin\cygwinsetup.exe";
 } Else {
     Write-Error 'I can not find CygWin setup!';
 };
