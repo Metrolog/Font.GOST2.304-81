@@ -122,7 +122,7 @@ $ToPath += $MikTexBinPath;
 # виртуальный принтер, необходим для TeX
 Import-Module -Name Servermanager;
 Install-WindowsFeature `
-    -Name Printing-XPSServices-Features `
+    -Name Print-Services `
     -IncludeAllSubFeature `
 ;
 
