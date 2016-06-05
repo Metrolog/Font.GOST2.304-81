@@ -58,7 +58,8 @@ $null = Import-PackageProvider -Name Chocolatey -Force;
 $ToPath += "$env:ChocolateyPath\bin";
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
-gitversion /output buildserver;
+Write-Verbose 'Set build full version with GitVersion...';
+& GitVersion /output buildserver;
 
 if ( ( Get-Package -Name CygWin -ErrorAction SilentlyContinue ).count -eq 0 ) {
     $null = Install-Package -Name 'cygwin' -RequiredVersion '2.4.1' -ProviderName Chocolatey -Source chocolatey;
@@ -67,17 +68,18 @@ $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
     -Name rootdir `
 ;
-$cygwinsetup = "$env:CygWin\cygwinsetup.exe"
-# исправляем проблемы совместимости chocolatey, cyg-get и cygwin
-If ( -not ( Test-Path $cygwinsetup ) ) {
-    if ($PSCmdLet.ShouldProcess('CygWin', 'Скопировать установщик')) {
-        Copy-Item `
-            -LiteralPath "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe" `
-            -Destination $env:CygWin `
-            -Force `
-    };
-};
 Write-Verbose "CygWin root directory: $env:CygWin";
+# исправляем проблемы совместимости chocolatey, cyg-get и cygwin
+If ( Test-Path "$env:CygWin\cygwinsetup.exe" ) {
+    $cygwinsetup = "$env:CygWin\cygwinsetup.exe";
+} ElseIf ( Test-Path "$env:CygWin\setup-x86.exe" ) {
+    $cygwinsetup = "$env:CygWin\setup-x86.exe";
+} ElseIf ( Test-Path "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe" ) {
+    $cygwinsetup = "$env:ChocolateyInstall\lib\Cygwin\tools\cygwin\cygwinsetup.exe";
+} Else {
+    Write-Error 'I can not find CygWin setup, try to use it from PATH!!!';
+};
+Write-Verbose "CygWin setup: $cygwinsetup";
 if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную окружения')) {
     [System.Environment]::SetEnvironmentVariable( 'CygWin', $env:CygWin, [System.EnvironmentVariableTarget]::Machine );
 };
