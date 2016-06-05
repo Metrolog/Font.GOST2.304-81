@@ -119,6 +119,18 @@ $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
 Write-Verbose "MikTeX bin directory: $MikTexBinPath";
 $ToPath += $MikTexBinPath;
 
+# добавляем виртуальный принтер, для TeX необходим принтер
+if ( ( Get-Printer ).count -eq 0 ) {
+    if ($PSCmdLet.ShouldProcess('Microsoft XPS Document Writer', 'Установить принтер')) {
+        $Printer = Add-Printer `
+            -Name 'Microsoft XPS Document Writer' `
+            -DriverName ( ( Get-PrinterDriver | ? { $_.Name -like 'Microsoft XPS Document Writer*' } )[0].Name ) `
+            -PortName 'portprompt:' `
+        ;
+        $Printer.SetDefaultPrinter();
+    };
+};
+
 <#
 $null = Install-Package `
     -Name 'WiX' `
@@ -174,8 +186,6 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     & "ppm" install HTML::FormatText | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanupload;
 };
-
-$null = Install-Package -Name adobereader -ProviderName Chocolatey -Source chocolatey;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
