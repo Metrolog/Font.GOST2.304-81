@@ -119,11 +119,11 @@ $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
 Write-Verbose "MikTeX bin directory: $MikTexBinPath";
 $ToPath += $MikTexBinPath;
 
-# добавляем виртуальный принтер, для TeX необходим принтер
-if ( ( Get-Printer ).count -eq 0 ) {
+if ( ( Get-Printer -Name 'virtual printer' -ErrorAction SilentlyContinue ).count -eq 0 ) {
+    Write-Verbose 'Устанавливаем виртуальный принтер, для TeX необходим...';
     if ($PSCmdLet.ShouldProcess('Microsoft XPS Document Writer', 'Установить принтер')) {
         $Printer = Add-Printer `
-            -Name 'Microsoft XPS Document Writer' `
+            -Name 'virtual printer' `
             -DriverName ( ( Get-PrinterDriver | ? { $_.Name -like 'Microsoft XPS Document Writer*' } )[0].Name ) `
             -PortName 'portprompt:' `
         ;
