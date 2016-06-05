@@ -1,6 +1,6 @@
 *.sfd-*
-obj
-release
+/obj
+/release
 dirstate
 /make.log
 /build.log
@@ -13,3 +13,4 @@ dirstate
 *.spc
 *.pvk
 *.pfx
+/packages
