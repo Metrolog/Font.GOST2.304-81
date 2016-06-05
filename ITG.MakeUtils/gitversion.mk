@@ -3,7 +3,7 @@ MAKE_GITVERSION_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 include $(MAKE_GITVERSION_DIR)common.mk
 
-GITVERSIONTOOL ?= gitversion.bat
+GITVERSIONTOOL ?= gitversion
 
 GITVERSIONMAKEFILE ?= $(AUXDIR)/version.mk
 

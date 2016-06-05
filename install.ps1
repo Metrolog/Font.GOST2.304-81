@@ -30,24 +30,20 @@ switch ( $env:PROCESSOR_ARCHITECTURE ) {
 };
 $ToPath = @();
 
-Write-Information 'Install Chocolatey command line package manager...';
 if ($PSCmdLet.ShouldProcess('Chocolatey command line package manager', 'Установить')) {
     $env:chocolateyUseWindowsCompression = 'true';
     $env:chocolateyVersion = '0.9.10-beta-20160531';
     Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 | Invoke-Expression;
 };
 
-Write-Information 'Preparing NuGet.CommandLine...';
 if ($PSCmdLet.ShouldProcess('NuGet.CommandLine', 'Установить')) {
     choco install 'NuGet.CommandLine' --confirm;
 };
 
-Write-Information 'Preparing MikTeX...';
 if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     choco install miktex --confirm;
 };
 
-Write-Information 'Preparing cygwin...';
 if ($PSCmdLet.ShouldProcess('CygWin', 'Установить')) {
     choco install cygwin --version '2.4.1' --confirm;
     $env:CygWin = Get-ItemPropertyValue `
@@ -68,7 +64,6 @@ if ($PSCmdLet.ShouldProcess('CygWin', 'Установить')) {
     $ToPath += "$env:CygWin\bin";
 };
 
-Write-Information 'Install CygWin tools...';
 if ($PSCmdLet.ShouldProcess('make', 'Установить модуль CygWin')) {
     choco install make --source cygwin --confirm;
 };
@@ -82,21 +77,18 @@ if ($PSCmdLet.ShouldProcess('touch', 'Установить модуль CygWin')
     choco install touch --source cygwin --confirm;
 };
 if ($PSCmdLet.ShouldProcess('ttfautohint', 'Установить модуль CygWin')) {
-    choco install ttfautohint --source cygwin --confirm;
+    choco install ttfautohint --version '1.3' --source cygwin --confirm;
 };
 
-Write-Information 'Preparing git...';
 if ($PSCmdLet.ShouldProcess('Git', 'Установить')) {
     choco install git --confirm;
 };
 
-Write-Information 'Preparing FontForge...';
 if ($PSCmdLet.ShouldProcess('FontForge', 'Установить')) {
     choco install fontforge --confirm;
     $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 };
 
-Write-Information 'Preparing MikTeX...';
 if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     choco install miktex --confirm;
     $MikTex = `
@@ -123,12 +115,10 @@ if ($PSCmdLet.ShouldProcess('WiX', 'Установить')) {
 };
 #>
 
-Write-Information 'Preparing ActivePerl...';
 if ($PSCmdLet.ShouldProcess('ActivePerl', 'Установить')) {
     choco install ActivePerl --confirm;
 };
 
-Write-Information 'Preparing ctanify and ctanupload TeX scripts...';
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
     & "ppm" install File::Copy::Recursive;
     & "$MikTexBinPath\mpm" --install=ctanify;
@@ -138,19 +128,22 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     & "$MikTexBinPath\mpm" --install=ctanupload;
 };
 
-Write-Information 'Preparing GitVersion...';
 if ($PSCmdLet.ShouldProcess('GitVersion.Portable', 'Установить')) {
     choco install 'GitVersion.Portable' --confirm;
+    $GitVersionPath = "$env:ChocolateyInstall\lib\GitVersion.Portable.$(((choco list 'GitVersion.Portable' -localonly)[1] -split ' ')[1])\tools";
+    $ToPath += $GitVersionPath;
 };
 
 if ( $GUI ) {
-    Write-Information 'Preparing SourceTree...';
     if ($PSCmdLet.ShouldProcess('SourceTree', 'Установить')) {
         choco install SourceTree --confirm;
     };
+
+    if ($PSCmdLet.ShouldProcess('visualstudio2015community', 'Установить')) {
+        choco install visualstudio2015community --confirm;
+    };
 };
 
-Write-Information 'Preparing PATH environment variable...';
 if ($PSCmdLet.ShouldProcess('PATH', 'Установить переменную окружения')) {
     $Path = `
         ( `
@@ -159,7 +152,7 @@ if ($PSCmdLet.ShouldProcess('PATH', 'Установить переменную �
             | Sort-Object -Unique `
         ) `
     ;
-    Write-Verbose "Path variable: $Path";
+    Write-Verbose "Path variable:";
     $Path | % { Write-Verbose "    $_" };
     $env:Path = $Path -join ';';
     [System.Environment]::SetEnvironmentVariable( 'PATH', $env:Path, [System.EnvironmentVariableTarget]::User );
