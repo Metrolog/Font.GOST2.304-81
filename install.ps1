@@ -107,17 +107,30 @@ if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
 $null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey -Source chocolatey;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
-$null = Install-Package -Name 'miktex' -MinimumVersion '2.9' -ProviderName Chocolatey -Source chocolatey;
-$MikTex = `
+if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
+    $null = Install-Package -Name 'miktex' -MinimumVersion '2.9' -ProviderName Chocolatey -Source chocolatey;
+    $MikTex = `
+        Get-ChildItem `
+            -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
+        | ?{ $_.Name -like '*MiKTeX*' } `
+        | Get-ItemPropertyValue `
+            -Name InstallLocation `
+    ;
+    $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
+    Write-Verbose "MikTeX bin directory: $MikTexBinPath";
+    $ToPath += $MikTexBinPath;
+    Write-Verbose 'Set MikTeX tools compatibility options...';
     Get-ChildItem `
-        -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
-    | ?{ $_.Name -like '*MiKTeX*' } `
-    | Get-ItemPropertyValue `
-        -Name InstallLocation `
-;
-$MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
-Write-Verbose "MikTeX bin directory: $MikTexBinPath";
-$ToPath += $MikTexBinPath;
+        -Path $MikTexBinPath `
+        -Filter '*.exe' `
+    | % {
+        Set-ItemProperty `
+            -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' `
+            -Name ( $_.FullName ) `
+            -Value 'HIGHDPIWARE' `
+        ;
+    };
+};
 
 <#
 $null = Install-Package `

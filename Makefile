@@ -222,7 +222,7 @@ LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.dtx
 
 LATEXPKGUNPACKDIR := $(AUXDIR)/$(LATEXPKG)
 LATEXPKGINSTALLFILES := $(LATEXPKGUNPACKDIR)/$(LATEXPKG).sty
-LATEXUNPACK ?= xelatex \
+LATEXUNPACK ?= latex \
 	-interaction=nonstopmode \
 	-halt-on-error
 
