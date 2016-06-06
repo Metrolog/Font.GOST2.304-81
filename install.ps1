@@ -120,10 +120,11 @@ Write-Verbose "MikTeX bin directory: $MikTexBinPath";
 $ToPath += $MikTexBinPath;
 
 # виртуальный принтер, необходим для TeX
-Import-Module -Name Servermanager;
-Install-WindowsFeature `
-    -Name Print-Services `
-    -IncludeAllSubFeature `
+Import-Module -Name ServerManager;
+Enable-WindowsOptionalFeature `
+    -FeatureName Printing-XPSServices-Features `
+    -Online `
+| Write-Verbose `
 ;
 
 <#
