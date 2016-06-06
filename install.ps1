@@ -130,7 +130,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         Set-ItemProperty `
             -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' `
             -Name ( $_.FullName ) `
-            -Value 'WIN7RTM' `
+            -Value 'WINXPSP3' `
         ;
     };
 };
