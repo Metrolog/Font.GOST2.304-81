@@ -121,7 +121,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     $ToPath += $MikTexBinPath;
     Write-Verbose 'Set MikTeX tools compatibility options...';
     If ( -not ( Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' ) ) {
-        New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags' -Name 'Layers';
+        $null = New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags' -Name 'Layers';
     };
     Get-ChildItem `
         -Path $MikTexBinPath `
@@ -130,7 +130,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         Set-ItemProperty `
             -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' `
             -Name ( $_.FullName ) `
-            -Value 'HIGHDPIWARE' `
+            -Value 'WIN7RTM' `
         ;
     };
 };
