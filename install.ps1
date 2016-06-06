@@ -120,6 +120,9 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     Write-Verbose "MikTeX bin directory: $MikTexBinPath";
     $ToPath += $MikTexBinPath;
     Write-Verbose 'Set MikTeX tools compatibility options...';
+    If ( -not ( Test-Path -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers' ) ) {
+        New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags' -Name 'Layers';
+    };
     Get-ChildItem `
         -Path $MikTexBinPath `
         -Filter '*.exe' `
