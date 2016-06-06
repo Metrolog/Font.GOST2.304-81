@@ -119,14 +119,6 @@ $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
 Write-Verbose "MikTeX bin directory: $MikTexBinPath";
 $ToPath += $MikTexBinPath;
 
-# виртуальный принтер, необходим для TeX
-Import-Module -Name ServerManager;
-Enable-WindowsOptionalFeature `
-    -FeatureName Printing-XPSServices-Features `
-    -Online `
-| Write-Verbose `
-;
-
 <#
 $null = Install-Package `
     -Name 'WiX' `
