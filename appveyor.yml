@@ -1,5 +1,6 @@
 image: WMF 5
 install:
+- ps: Install-WindowsFeature Server-Gui-Shell –Restart
 - ps: .\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
 build_script:
 - cmd: make

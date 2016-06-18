@@ -119,20 +119,6 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
     Write-Verbose "MikTeX bin directory: $MikTexBinPath";
     $ToPath += $MikTexBinPath;
-    $QtConfPath = Join-Path -Path $MikTexBinPath -ChildPath 'qt.conf';
-    @'
-[Paths]
-Plugins=platforms
-
-[Platforms]
-WindowsArguments = dpiawareness=0
-
-'@ `
-    | Out-File `
-        -FilePath $QtConfPath `
-        -Encoding utf8 `
-        -Force `
-    ;
 };
 
 <#
@@ -150,7 +136,7 @@ if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную
 $ToPath += $env:WIXDIR;
 #>
 
-#$null = Install-Package -Name ActivePerl -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name ActivePerl -ProviderName Chocolatey -Source chocolatey;
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
 Function Install-PackageMikTeX {
