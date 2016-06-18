@@ -224,7 +224,6 @@ LATEXPKGUNPACKDIR := $(AUXDIR)/$(LATEXPKG)
 LATEXPKGINSTALLFILES := $(LATEXPKGUNPACKDIR)/$(LATEXPKG).sty
 LATEXUNPACK ?= latex \
 	-interaction=nonstopmode \
-	-platform windows:dpiawareness=0 \
 	-halt-on-error
 
 LATEXSANDBOXSOURCEFILES := $(patsubst $(LATEXPKGMAINDIR)/%,$(LATEXPKGUNPACKDIR)/%,$(LATEXPKGSOURCEFILES))
