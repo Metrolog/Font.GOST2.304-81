@@ -64,6 +64,10 @@ if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменн
 Write-Verbose 'Set build full version with GitVersion...';
 & $env:GitVersion /output buildserver | Out-String | Write-Verbose;
 
+if ( -not ( Test-Path 'HKLM:\SOFTWARE\GitForWindows' ) ) {
+    $null = Install-Package -Name 'git' -ProviderName Chocolatey -Source chocolatey;
+};
+
 if ( ( Get-Package -Name CygWin -ErrorAction SilentlyContinue ).count -eq 0 ) {
     $null = Install-Package -Name 'cygwin' -RequiredVersion '2.4.1' -ProviderName Chocolatey -Source chocolatey;
 };
@@ -137,6 +141,7 @@ $ToPath += $env:WIXDIR;
 #>
 
 #$null = Install-Package -Name ActivePerl -ProviderName Chocolatey -Source chocolatey;
+#$null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
 Function Install-PackageMikTeX {
