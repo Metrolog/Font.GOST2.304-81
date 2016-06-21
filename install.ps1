@@ -136,7 +136,7 @@ if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную
 $ToPath += $env:WIXDIR;
 #>
 
-$null = Install-Package -Name ActivePerl -ProviderName Chocolatey -Source chocolatey;
+#$null = Install-Package -Name ActivePerl -ProviderName Chocolatey -Source chocolatey;
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
 Function Install-PackageMikTeX {
