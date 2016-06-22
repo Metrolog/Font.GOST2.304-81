@@ -68,7 +68,7 @@ if ( -not ( Test-Path 'HKLM:\SOFTWARE\GitForWindows' ) ) {
     $null = Install-Package -Name 'git' -ProviderName Chocolatey -Source chocolatey;
 };
 
-if ( ( Get-Package -Name CygWin -ErrorAction SilentlyContinue ).count -eq 0 ) {
+if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
     $null = Install-Package -Name 'cygwin' -RequiredVersion '2.4.1' -ProviderName Chocolatey -Source chocolatey;
 };
 $env:CygWin = Get-ItemPropertyValue `
@@ -79,6 +79,8 @@ Write-Verbose "CygWin root directory: $env:CygWin";
 # исправляем проблемы совместимости chocolatey, cyg-get и cygwin
 If ( Test-Path "$env:CygWin\cygwinsetup.exe" ) {
     $cygwinsetup = "$env:CygWin\cygwinsetup.exe";
+} ElseIf ( Test-Path "$env:CygWin\setup-x86_64.exe" ) {
+    $cygwinsetup = "$env:CygWin\setup-x86_64.exe";
 } ElseIf ( Test-Path "$env:CygWin\setup-x86.exe" ) {
     $cygwinsetup = "$env:CygWin\setup-x86.exe";
 } ElseIf ( Test-Path "$env:ChocolateyPath\lib\Cygwin\tools\cygwin\cygwinsetup.exe" ) {
@@ -140,8 +142,9 @@ if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную
 $ToPath += $env:WIXDIR;
 #>
 
-#$null = Install-Package -Name ActivePerl -ProviderName Chocolatey -Source chocolatey;
-#$null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
+if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
+    $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
+};
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
 Function Install-PackageMikTeX {
