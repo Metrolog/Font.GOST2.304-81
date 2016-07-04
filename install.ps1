@@ -125,6 +125,15 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
     Write-Verbose "MikTeX bin directory: $MikTexBinPath";
     $ToPath += $MikTexBinPath;
+
+    if ($PSCmdLet.ShouldProcess('MikTeX AutoInstall option', 'Разрешить')) {
+        Set-ItemProperty `
+            -Path 'HKLM:\Software\MiKTeX.org\MiKTeX\2.9\MPM' `
+            -Name 'AutoInstall' `
+            -Value 1 `
+            -Force `
+        ;
+    };
 };
 
 <#
