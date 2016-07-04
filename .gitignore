@@ -14,3 +14,4 @@ dirstate
 *.pvk
 *.pfx
 /packages
+.vs
