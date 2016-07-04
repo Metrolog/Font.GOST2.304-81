@@ -136,21 +136,6 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     };
 };
 
-<#
-$null = Install-Package `
-    -Name 'WiX' `
-    -MinimumVersion '4.0' `
-    -Source NuGet `
-    -Force `
-;
-$WixVersion = ( Get-Package -Name WiX -ProviderName NuGet ).Version;
-$env:WIXDIR = "$env:ProgramFiles\NuGet\Packages\WiX.$WixVersion\tools\";
-if ($PSCmdLet.ShouldProcess('WIXDIR', 'Установить переменную окружения')) {
-    [System.Environment]::SetEnvironmentVariable( 'WIXDIR', $env:WIXDIR, [System.EnvironmentVariableTarget]::Machine );
-};
-$ToPath += $env:WIXDIR;
-#>
-
 if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
     $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
 };
@@ -193,6 +178,8 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     & "ppm" install HTML::FormatText | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanupload;
 };
+
+$null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
