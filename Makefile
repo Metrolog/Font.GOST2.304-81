@@ -35,7 +35,7 @@ VIEWPDF            ?= no
 FONTFORGE          ?= fontforge \
 	-nosplash
 PY                 ?= ffpython
-TTFAUTOHINT        ?= ttfautohint \
+TTFAUTOHINT        ?= $(TOOLSDIR)/ttfautohint \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
 	--composites \

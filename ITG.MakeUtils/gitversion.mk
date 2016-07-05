@@ -3,7 +3,7 @@ MAKE_GITVERSION_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 include $(MAKE_GITVERSION_DIR)common.mk
 
-GITVERSIONTOOL ?= gitversion.bat
+GITVERSION ?= gitversion.bat
 
 GITVERSIONMAKEFILE ?= $(AUXDIR)/version.mk
 
@@ -12,7 +12,7 @@ $(dir $(GITVERSIONMAKEFILE)):
 
 $(GITVERSIONMAKEFILE): .git/logs/HEAD | $(dir $(GITVERSIONMAKEFILE))
 	$(info Generate version data file "$@" with GitVersion...)
-	$(GITVERSIONTOOL) /exec $(MAKE) /execargs "--makefile=$(MAKE_GITVERSION_DIR)gitversion-buildcache.mk $@"
+	$(GITVERSION) /exec $(MAKE) /execargs "--makefile=$(MAKE_GITVERSION_DIR)gitversion-buildcache.mk $@"
 
 include $(GITVERSIONMAKEFILE)
 
