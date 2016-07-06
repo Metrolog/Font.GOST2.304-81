@@ -32,18 +32,6 @@ $ToPath = @();
 
 Import-Module -Name PackageManagement;
 
-<#
-$null = Install-PackageProvider -Name NuGet -Force;
-$null = Import-PackageProvider -Name NuGet -Force;
-$null = Register-PackageSource `
-    -Name NuGet `
-    -ProviderName NuGet `
-    -Location 'http://packages.nuget.org/api/v2/' `
-    -Trusted `
-    -Force `
-;
-#>
-
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
 $null = Register-PackageSource `
@@ -62,13 +50,24 @@ if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменн
     [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::Machine );
 };
 
-if ( -not ( Test-Path 'HKLM:\SOFTWARE\GitForWindows' ) ) {
-    $null = Install-Package -Name 'git' -ProviderName Chocolatey -Source chocolatey;
+if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
+
+    $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
+
+    if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
+        $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
+    };
+
+    if ( ( Get-Package -Name Git -ErrorAction SilentlyContinue ).count -eq 0 ) {
+        $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey -Source chocolatey;
+    };
+
+    if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
+        $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
+    };
+
 };
 
-if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
-    $null = Install-Package -Name 'cygwin' -RequiredVersion '2.4.1' -ProviderName Chocolatey -Source chocolatey;
-};
 $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
     -Name rootdir `
@@ -104,10 +103,6 @@ if ($PSCmdLet.ShouldProcess('make, mkdir, touch, zip, ttfautohint', 'Устан�
     ;
 };
 
-if ( (Get-Package -Name Git -ErrorAction SilentlyContinue).count -eq 0 ) {
-    $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey -Source chocolatey;
-};
-
 $null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey -Source chocolatey;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
@@ -132,10 +127,6 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
             -Force `
         ;
     };
-};
-
-if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
-    $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
 };
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
@@ -169,15 +160,13 @@ Function Install-PackageMikTeX {
  	}
 };
 if ($PSCmdLet.ShouldProcess('ctanify', 'Установить сценарий TeX и необходимые для него файлы')) {
-    & "ppm" install File::Copy::Recursive | Out-String | Write-Verbose;
+    & 'ppm' install File::Copy::Recursive | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanify;
 };
 if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий TeX и необходимые для него файлы')) {
-    & "ppm" install HTML::FormatText | Out-String | Write-Verbose;
+    & 'ppm' install HTML::FormatText | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanupload;
 };
-
-$null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
