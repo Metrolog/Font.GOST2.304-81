@@ -61,8 +61,6 @@ Write-Verbose "GitVersion path: $env:GitVersion";
 if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменную окружения')) {
     [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::Machine );
 };
-Write-Verbose 'Set build full version with GitVersion...';
-& $env:GitVersion /output buildserver | Out-String | Write-Verbose;
 
 if ( -not ( Test-Path 'HKLM:\SOFTWARE\GitForWindows' ) ) {
     $null = Install-Package -Name 'git' -ProviderName Chocolatey -Source chocolatey;

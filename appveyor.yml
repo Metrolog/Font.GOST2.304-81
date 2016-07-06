@@ -10,6 +10,7 @@ clone_script:
 
     git submodule update --init --recursive
 install:
+- cmd: GitVersion /output buildserver
 - ps: .\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
 build_script:
 - cmd: make
