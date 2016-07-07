@@ -119,16 +119,16 @@ include ITG.MakeUtils/TeX/CTAN.mk
 # msi module
 
 .PHONY: msm
-msm: $(ttfTARGETS)
+msm: ttf otf
 	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS),../$(file)))
-	$(MAKE) -C msm
+	$(MAKE) -C setup/msm
 
 # msi module
 
 .PHONY: msi
-msi: msm $(ttfTARGETS) $(otfTARGETS)
+msi: ttf otf
 	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS) $(otfTARGETS),../$(file)))
-	$(MAKE) -C msi
+	$(MAKE) -C setup/msi
 
 # clean projects
 
@@ -138,5 +138,5 @@ clean:
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)
 	@$(MAKE) -C fonts clean
-	@$(MAKE) -C msm clean
-	@$(MAKE) -C msi clean
+	@$(MAKE) -C setup/msm clean
+	@$(MAKE) -C setup/msi clean

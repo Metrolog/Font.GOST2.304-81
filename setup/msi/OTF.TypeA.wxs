@@ -9,7 +9,7 @@
 		<ComponentGroup
 			Id="GOST2.304_TypeA.otf"
 			Directory="FontsFolder"
-			Source=".\..\release\otf"
+			Source=".\..\..\fonts\bin\otf"
 		>
 
 			<Component
