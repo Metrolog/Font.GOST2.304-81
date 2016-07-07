@@ -1,8 +1,8 @@
 ifndef MAKE_TEX_GITVERSION_DIR
-MAKE_TEX_GITVERSION_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_TEX_GITVERSION_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
-include $(MAKE_TEX_GITVERSION_DIR)../common.mk
-include $(MAKE_TEX_GITVERSION_DIR)../gitversion.mk
+include $(realpath $(MAKE_TEX_GITVERSION_DIR)/../common.mk)
+include $(realpath $(MAKE_TEX_GITVERSION_DIR)/../gitversion.mk)
 
 %/version.tex %/version.dtx: .git/logs/HEAD
 	$(info Generate latex version file "$@"...)

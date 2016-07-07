@@ -1,7 +1,7 @@
 ifndef MAKE_GITVERSION_BUILDCACHE_DIR
-MAKE_GITVERSION_BUILDCACHE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_GITVERSION_BUILDCACHE_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
-include $(MAKE_GITVERSION_BUILDCACHE_DIR)common.mk
+include $(realpath $(MAKE_GITVERSION_BUILDCACHE_DIR)/common.mk)
 
 GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreReleaseLabel PreReleaseNumber \
   BuildMetaData BuildMetaDataPadded FullBuildMetaData MajorMinorPatch SemVer LegacySemVer LegacySemVerPadded \

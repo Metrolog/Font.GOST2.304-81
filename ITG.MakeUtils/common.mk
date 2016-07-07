@@ -1,5 +1,6 @@
 ifndef MAKE_COMMON_DIR
 MAKE_COMMON_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+export ITG_MAKEUTILS_DIR := $(realpath $(MAKE_COMMON_DIR))
 
 AUXDIR             ?= obj
 
