@@ -15,13 +15,9 @@ all: fonts ctan msm msi
 
 ###
 
-FONT               := GOST2.304-81TypeA
 LATEXPKG           := gost2-304
-SRCDIR             := sources
 OUTPUTDIR          := release
 AUXDIR             := obj
-TOOLSDIR           := tools
-TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
 
 # setup tools
 
