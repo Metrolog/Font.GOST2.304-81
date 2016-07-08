@@ -50,13 +50,6 @@ FONTPRJDIR := fonts/
 
 include $(FONTPRJDIR)Makefile
 
-#.PHONY: fonts ttf ttc woff otf pstype0 pstype1
-#fonts:
-#	$(MAKE) -C $(FONTPRJDIR)
-#
-#ttf ttc woff otf pstype0 pstype1:
-#	$(MAKE) -C $(FONTPRJDIR) $@
-
 # latex build system
 
 LATEXSRCDIR := latex
@@ -124,14 +117,14 @@ include ITG.MakeUtils/TeX/CTAN.mk
 
 .PHONY: msm
 msm: $(ttfTARGETS)
-	$(eval export FONTPRJDIR := ../../fonts/)
+	$(eval export FONTPRJDIR := ../../)
 	$(MAKE) -C setup/msm
 
 # msi module
 
 .PHONY: msi
 msi: $(ttfTARGETS) $(otfTARGETS)
-	$(eval export FONTPRJDIR := ../../fonts/)
+	$(eval export FONTPRJDIR := ../../)
 	$(MAKE) -C setup/msi
 
 # clean projects
