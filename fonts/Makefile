@@ -5,23 +5,19 @@
 .DEFAULT_GOAL		:= all
 
 
-.PHONY: all
-all: ttf ttc woff otf pstype0 pstype1
-
-.SECONDARY:;
-
-.SECONDEXPANSION:;
-
-.DELETE_ON_ERROR:;
+.PHONY: all fonts
+all: fonts
+fonts: ttf ttc woff otf pstype0 pstype1
 
 ###
 
+FONTPRJDIR        ?=
 FONT               := GOST2.304-81TypeA
-SRCDIR             := sources
-OUTPUTDIR          := bin
-AUXDIR             := obj
-TOOLSDIR           := tools
-TOOLSLIBS          := $(TOOLSDIR)/itgFontLib.py
+FONTSSRCDIR        := $(FONTPRJDIR)sources
+FONTSOUTPUTDIR     := $(FONTPRJDIR)bin
+FONTSAUXDIR        := $(FONTPRJDIR)obj
+FONTSTOOLSDIR      := $(FONTPRJDIR)tools
+FONTSTOOLSLIBS     := $(FONTSTOOLSDIR)/itgFontLib.py
 
 # setup tools
 
@@ -34,7 +30,7 @@ AUTOHINT           ?= ttfautohint
 FONTFORGE          ?= fontforge \
 	-nosplash
 PY                 ?= ffpython
-TTFAUTOHINT        ?= $(TOOLSDIR)/ttfautohint \
+TTFAUTOHINT        ?= $(FONTSTOOLSDIR)/ttfautohint \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
 	--composites \
@@ -44,21 +40,21 @@ TTFAUTOHINT        ?= $(TOOLSDIR)/ttfautohint \
 
 # generate aux .sfd files
 
-FULLSTROKEDFONTSFD	:= $(AUXDIR)/$(FONT)-stroked-full-aux.sfd
-FFBUILDSTROKEDSFD	:= $(TOOLSDIR)/build-stroked-sfd.py
+FULLSTROKEDFONTSFD	:= $(FONTSAUXDIR)/$(FONT)-stroked-full-aux.sfd
+FFBUILDSTROKEDSFD	:= $(FONTSTOOLSDIR)/build-stroked-sfd.py
 FFBUILDSTROKEDSFDPRE:=
 
-$(FULLSTROKEDFONTSFD): $(SRCDIR)/$(FONT).sfd $(SRCDIR)/$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(TOOLSLIBS)
+$(FULLSTROKEDFONTSFD): $(FONTSSRCDIR)/$(FONT).sfd $(FONTSSRCDIR)/$(FONT).fea $(FFBUILDSTROKEDSFD) $(FFBUILDSTROKEDSFDPRE) $(FONTSTOOLSLIBS)
 	$(info Build additional glyphs, additional .sfd processing for stroked font...)
 	$(MAKETARGETDIR)
 	$(PY) $(FFBUILDSTROKEDSFD) $< $(<:.sfd=.fea) $@ $(FULLVERSION)
 
 # generate aux regular .sfd file
 
-REGULARFONTSFD		:= $(AUXDIR)/$(FONT)-Regular.sfd
-FFBUILDREGULARSFD	:= $(TOOLSDIR)/build-regular-sfd.py
+REGULARFONTSFD		:= $(FONTSAUXDIR)/$(FONT)-Regular.sfd
+FFBUILDREGULARSFD	:= $(FONTSTOOLSDIR)/build-regular-sfd.py
 
-#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(TOOLSLIBS)
+#$(REGULARFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDREGULARSFD) $(FONTSTOOLSLIBS)
 #	$(info Build stroked regular font .sfd file "$@"...)
 #	$(MAKETARGETDIR)
 #	$(PY) $(FFBUILDREGULARSFD) $< $@
@@ -67,28 +63,28 @@ $(eval $(call copyfile,$(REGULARFONTSFD),$(FULLSTROKEDFONTSFD)))
 
 # generate aux slanted .sfd file
 
-SLANTEDFONTSFD		:= $(AUXDIR)/$(FONT)-Slanted.sfd
-FFBUILDSLANTEDSFD	:= $(TOOLSDIR)/build-slanted-sfd.py
+SLANTEDFONTSFD		:= $(FONTSAUXDIR)/$(FONT)-Slanted.sfd
+FFBUILDSLANTEDSFD	:= $(FONTSTOOLSDIR)/build-slanted-sfd.py
 
-$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(TOOLSLIBS)
+$(SLANTEDFONTSFD): $(FULLSTROKEDFONTSFD) $(FFBUILDSLANTEDSFD) $(FONTSTOOLSLIBS)
 	$(info Build stroked slanted font .sfd file "$@"...)
 	$(MAKETARGETDIR)
 	$(PY) $(FFBUILDSLANTEDSFD) $< $@
 
 # stroke font -> outline font
 
-FFEXPANDSTROKE	:= $(TOOLSDIR)/expand-stroke-sfd.py
+FFEXPANDSTROKE	:= $(FONTSTOOLSDIR)/expand-stroke-sfd.py
 
-$(AUXDIR)/%-outline.sfd: $(AUXDIR)/%.sfd $(FFEXPANDSTROKE) $(TOOLSLIBS)
+$(FONTSAUXDIR)/%-outline.sfd: $(FONTSAUXDIR)/%.sfd $(FFEXPANDSTROKE) $(FONTSTOOLSLIBS)
 	$(info Expand stroke font to outline font "$@"...)
 	$(MAKETARGETDIR)
 	$(PY) $(FFEXPANDSTROKE) $< $@
 
 # autokern outline font
 
-FFAUTOKERN		:= $(TOOLSDIR)/autokern-classes-sfd.py
+FFAUTOKERN		:= $(FONTSTOOLSDIR)/autokern-classes-sfd.py
 
-$(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(TOOLSLIBS)
+$(FONTSAUXDIR)/%-autokern.sfd: $(FONTSAUXDIR)/%-outline.sfd $(FFAUTOKERN) $(FONTSTOOLSLIBS)
 	$(info Auto kerning outline font "$@"...)
 	$(MAKETARGETDIR)
 	$(PY) $(FFAUTOKERN) $< $@
@@ -97,14 +93,14 @@ $(AUXDIR)/%-autokern.sfd: $(AUXDIR)/%-outline.sfd $(FFAUTOKERN) $(TOOLSLIBS)
 
 LASTSFDLABEL    := autokern
 FONTVARIANTS		:= Regular Slanted
-FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(AUXDIR)/$(FONT)-$(VARIANT)-$(LASTSFDLABEL).sfd)
+FONTALLSFD			:= $(foreach VARIANT, $(FONTVARIANTS), $(FONTSAUXDIR)/$(FONT)-$(VARIANT)-$(LASTSFDLABEL).sfd)
 
 # $(call generateTargetFromSources, type, target, sources)
 define generateTargetFromSources
 
-FFGENERATE$(1)  ?= $(TOOLSDIR)/generate-$(1).py
-$(1)DEPS        ?= $$(FFGENERATE$(1)) $(TOOLSLIBS)
-$(1)TARGETS     ?= $2
+FFGENERATE$(1)  ?= $(FONTSTOOLSDIR)/generate-$(1).py
+$(1)DEPS        ?= $$(FFGENERATE$(1)) $(FONTSTOOLSLIBS)
+export $(1)TARGETS ?= $2
 $(1)SOURCES     ?= $3
 
 $$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
@@ -120,17 +116,17 @@ endef
 # $(call generateFontsOfType, type, fileext, [sourceFileTemplate], [ расширения файлов-сателитов (без точек)] )
 define generateFontsOfType
 
-$(1)DIR         ?= $(OUTPUTDIR)/$(1)
-FFGENERATE$(1)  ?= $(TOOLSDIR)/generate-$(1).py
-$(1)DEPS        ?= $$(FFGENERATE$(1)) $(TOOLSLIBS)
+$(1)DIR         ?= $(FONTSOUTPUTDIR)/$(1)
+FFGENERATE$(1)  ?= $(FONTSTOOLSDIR)/generate-$(1).py
+$(1)DEPS        ?= $$(FFGENERATE$(1)) $(FONTSTOOLSLIBS)
 $(1)EXT         ?= $2
-$(1)MAINTARGETS := $(foreach VARIANT,$(FONTVARIANTS),$$($(1)DIR)/$(FONT)-$(VARIANT).$$($(1)EXT))
+export $(1)MAINTARGETS := $(foreach VARIANT,$(FONTVARIANTS),$$($(1)DIR)/$(FONT)-$(VARIANT).$$($(1)EXT))
 $(1)EXTS        ?= $4
-$(1)TARGETS     := $$($(1)MAINTARGETS) $$(foreach ext,$$($(1)EXTS),$$($(1)MAINTARGETS:.$$($(1)EXT)=.$$(ext)))
+export $(1)TARGETS := $$($(1)MAINTARGETS) $$(foreach ext,$$($(1)EXTS),$$($(1)MAINTARGETS:.$$($(1)EXT)=.$$(ext)))
 ifneq ($(strip $3),)
   $(1)SOURCES   ?= $3
 else
-  $(1)SOURCES   ?= $(AUXDIR)/%-$(LASTSFDLABEL).sfd
+  $(1)SOURCES   ?= $(FONTSAUXDIR)/%-$(LASTSFDLABEL).sfd
 endif
 
 $$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS)
@@ -145,18 +141,18 @@ endef
 
 # build True Type fonts
 
-ttfDIR          := $(OUTPUTDIR)/ttf
-FFGENERATEttf   := $(TOOLSDIR)/generate-ttf.py
+ttfDIR          := $(FONTSOUTPUTDIR)/ttf
+FFGENERATEttf   := $(FONTSTOOLSDIR)/generate-ttf.py
 ttfTARGETS      := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
 
 ifeq ($(AUTOHINT),ttfautohint)
 
-$(AUXDIR)/%-beforehinting.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(TOOLSLIBS)
+$(FONTSAUXDIR)/%-beforehinting.ttf: $(FONTSAUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(FONTSTOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(MAKETARGETDIR)
 	$(FONTFORGE) -script $(FFGENERATEttf) $@ $<
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
+$(FONTSAUXDIR)/%.ttf: $(FONTSAUXDIR)/%-beforehinting.ttf
 	$(info Autohinting and autoinstructing .ttf font "$@" (by ttfautohint)...)
 	$(MAKETARGETDIR)
 	$(TTFAUTOHINT) $< $@
@@ -164,16 +160,16 @@ $(AUXDIR)/%.ttf: $(AUXDIR)/%-beforehinting.ttf
 else
 
 ifeq ($(AUTOHINT),fontforge)
-	FFGENERATEttf	:= $(TOOLSDIR)/generate-autohinted-ttf.py
+	FFGENERATEttf	:= $(FONTSTOOLSDIR)/generate-autohinted-ttf.py
 endif
 
-$(AUXDIR)/%.ttf: $(AUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(TOOLSLIBS)
+$(FONTSAUXDIR)/%.ttf: $(FONTSAUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(FONTSTOOLSLIBS)
 	$(info Generate .ttf font "$@"...)
 	$(FONTFORGE) -script $(FFGENERATEttf) $@ $<
 
 endif 
 
-$(ttfDIR)/%.ttf: $(AUXDIR)/%.ttf
+$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf
 	#-$(FASTFONT) $<
 	$(MAKETARGETDIR)
 	cp $< $@
@@ -191,6 +187,6 @@ $(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 # clean projects
 
 .PHONY: clean
-clean:
-	rm -rf $(AUXDIR)
-	rm -rf $(OUTPUTDIR)
+clean::
+	rm -rf $(FONTSAUXDIR)
+	rm -rf $(FONTSOUTPUTDIR)

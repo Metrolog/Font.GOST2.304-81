@@ -46,12 +46,16 @@ LATEXMK            ?= latexmk \
 
 # fonts
 
-.PHONY: fonts ttf ttc woff otf pstype0 pstype1
-fonts:
-	$(MAKE) -C fonts
+FONTPRJDIR := fonts/
 
-ttf ttc woff otf pstype0 pstype1:
-	$(MAKE) -C fonts $@
+include $(FONTPRJDIR)Makefile
+
+#.PHONY: fonts ttf ttc woff otf pstype0 pstype1
+#fonts:
+#	$(MAKE) -C $(FONTPRJDIR)
+#
+#ttf ttc woff otf pstype0 pstype1:
+#	$(MAKE) -C $(FONTPRJDIR) $@
 
 # latex build system
 
@@ -119,24 +123,23 @@ include ITG.MakeUtils/TeX/CTAN.mk
 # msi module
 
 .PHONY: msm
-msm: ttf otf
-	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS),../$(file)))
+msm: $(ttfTARGETS)
+	$(eval export FONTPRJDIR := ../../fonts/)
 	$(MAKE) -C setup/msm
 
 # msi module
 
 .PHONY: msi
-msi: ttf otf
-	$(eval export DEPENDENCIES := $(foreach file,$(ttfTARGETS) $(otfTARGETS),../$(file)))
+msi: $(ttfTARGETS) $(otfTARGETS)
+	$(eval export FONTPRJDIR := ../../fonts/)
 	$(MAKE) -C setup/msi
 
 # clean projects
 
 .PHONY: clean
-clean:
+clean::
 	$(info Erase aux and release directories...)
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)
-	@$(MAKE) -C fonts clean
 	@$(MAKE) -C setup/msm clean
 	@$(MAKE) -C setup/msi clean
