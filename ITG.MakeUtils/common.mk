@@ -47,4 +47,16 @@ $1:$2
 	@touch $$@
 endef
 
+# $(call rulesForSubProject, SubProjectDir)
+define rulesForSubProject
+
+$(1)/%:
+	$(MAKE) -C $(1) $@
+
+clean::
+	@$(MAKE) -C $(1) clean
+
+endef
+
+
 endif
