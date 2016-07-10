@@ -3,6 +3,7 @@ MAKE_GITVERSION_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
 include $(realpath $(MAKE_GITVERSION_DIR)/common.mk)
 
+REPOROOT ?=
 GITVERSION ?= gitversion.bat
 
 export GITVERSIONMAKEFILE ?= $(abspath $(AUXDIR)/version.mk)
@@ -10,7 +11,7 @@ export GITVERSIONMAKEFILE ?= $(abspath $(AUXDIR)/version.mk)
 $(dir $(GITVERSIONMAKEFILE)):
 	$(MAKETARGETASDIR)
 
-$(GITVERSIONMAKEFILE): .git/logs/HEAD | $(dir $(GITVERSIONMAKEFILE))
+$(GITVERSIONMAKEFILE): $(REPOROOT).git/logs/HEAD | $(dir $(GITVERSIONMAKEFILE))
 	$(info Generate version data file "$@" with GitVersion...)
 	$(GITVERSION) /exec $(MAKE) /execargs "--makefile=$(MAKE_GITVERSION_DIR)/gitversion-buildcache.mk $@"
 

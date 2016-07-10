@@ -11,7 +11,7 @@ fonts: ttf ttc woff otf pstype0 pstype1
 
 ###
 
-FONTPRJDIR        ?=
+FONTPRJDIR         ?=
 FONT               := GOST2.304-81TypeA
 FONTSSRCDIR        := $(FONTPRJDIR)sources
 FONTSOUTPUTDIR     := $(FONTPRJDIR)bin
@@ -19,9 +19,16 @@ FONTSAUXDIR        := $(FONTPRJDIR)obj
 FONTSTOOLSDIR      := $(FONTPRJDIR)tools
 FONTSTOOLSLIBS     := $(FONTSTOOLSDIR)/itgFontLib.py
 
-# setup tools
+# include make packages
 
-ITG_MAKEUTILS_DIR  ?= ITG.MakeUtils
+FONTS_PACKAGES_DIR ?= packages/
+ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
+
+#$(ITG_MAKEUTILS_DIR)/%:
+#	$(info Download ITG.MakeUtils files...)
+#	$(MAKETARGETDIR)
+#	git clone https://github.com/it-Service/ITG.MakeUtils.git Rails $(ITG_MAKEUTILS_DIR)
+
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 
@@ -190,3 +197,4 @@ $(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 clean::
 	rm -rf $(FONTSAUXDIR)
 	rm -rf $(FONTSOUTPUTDIR)
+	rm -rf $(FONTS_PACKAGES_DIR)
