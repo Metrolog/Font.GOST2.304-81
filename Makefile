@@ -15,20 +15,27 @@ all: fonts ctan msm msi
 
 ###
 
-export FONTS_DIR   := fonts
-export MSM_DIR     := setup/msm
-export MSI_DIR     := setup/msi
-
 LATEXPKG           := gost2-304
 OUTPUTDIR          := release
 AUXDIR             := obj
 
-# setup tools
+# ITG.MakeUtils
 
 ITG_MAKEUTILS_DIR  ?= ITG.MakeUtils
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 include $(ITG_MAKEUTILS_DIR)/TeX/gitversion.mk
+
+# sub projects
+
+# rules for subprojects
+
+$(eval $(call useSubProject,msm,setup/msm))
+$(eval $(call useSubProject,msi,setup/msi))
+
+export FONTS_DIR   := fonts
+
+# setup tools
 
 ifeq ($(VIEWPDF),yes)
 	VIEWPDFOPT := -pv
@@ -116,26 +123,8 @@ include ITG.MakeUtils/TeX/CTAN.mk
 .CTAN: $(LATEXPKGDOCS) $(wildcard $(LATEXPKGMAINDIR)/*.md)
 .CTAN: $(ttfTARGETS) $(otfTARGETS) $(filter %.pfm %.tfm,$(pstype1TARGETS))
 
-# msi module
-
-.PHONY: msm
-msm: $(ttfTARGETS)
-	$(MAKE) -C $(MSM_DIR)
-
-# msi module
-
-.PHONY: msi
-msi:
-	$(call MAKE_SUBPROJECT,$(MSI_DIR))
-
-# rules for subprojects
-
-$(eval $(call useSubProjects,$(MSM_DIR) $(MSI_DIR)))
-
 # clean projects
 
-.PHONY: clean
 clean::
-	$(info Erase aux and release directories...)
 	rm -rf $(AUXDIR)
 	rm -rf $(OUTPUTDIR)

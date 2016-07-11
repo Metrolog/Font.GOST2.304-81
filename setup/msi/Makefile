@@ -3,14 +3,13 @@
 # 
 
 .DEFAULT_GOAL     := all
-
 .PHONY: all
-
-ProjectName       := GOST2.304-81
-WIXEXTENSIONS     = WixUIExtension
 
 ITG_MAKEUTILS_DIR  ?= ../ITG.MakeUtils
 include $(ITG_MAKEUTILS_DIR)/common.mk
+
+ProjectName       := GOST2.304-81
+WIXEXTENSIONS     = WixUIExtension
 
 ttfTARGETS        ?=
 otfTARGETS        ?=

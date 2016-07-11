@@ -50,30 +50,45 @@ endef
 # $(call calcRootProjectDir, ProjectDir)
 calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$1)))
 
+# $(call getSubProjectDir, Project)
+getSubProjectDir = $($(1)_DIR)
 
-MAKE_SUBPROJECT = $(MAKE) -C $1 ROOT_PROJECT_DIR=$(call calcRootProjectDir,$1)
-# $(call declareProjectDeps, ProjectDir)
-define declareProjectDeps
-$1/%:
-	$(call MAKE_SUBPROJECT,$1) $*
-
+# $(call setSubProjectDir, Project, ProjectDir)
+define setSubProjectDir
+export $(1)_DIR := $2
 endef
 
-# $(call useSubProject, SubProjectDir)
-define useSubProject
+MAKE_SUBPROJECT = $(MAKE) -C $(call getSubProjectDir,$1) ROOT_PROJECT_DIR=$(call calcRootProjectDir,$(call getSubProjectDir,$1))
+
+# $(call declareProjectDeps, Project)
+define declareProjectDeps
+$(call getSubProjectDir,$1)/%:
+	$(call MAKE_SUBPROJECT,$1) $$*
+endef
+
+# $(call useSubProjectWithTargets, SubProject, SubProjectDir, Targets)
+define useSubProjectWithTargets
+$(eval $(call setSubProjectDir,$1,$2))
 $(call declareProjectDeps,$1)
+.PHONY: $3
+$3:
+	$(call MAKE_SUBPROJECT,$1) $$@
 clean::
 	$(call MAKE_SUBPROJECT,$1) clean
-
-
 endef
 
-useSubProjects = $(foreach SUBPROJECTDIR,$(1),$(call useSubProject,$(SUBPROJECTDIR)))
+# $(call useSubProject, SubProject, SubProjectDir)
+useSubProject = $(call useSubProjectWithTargets,$1,$2,$1)
 
 ifdef ROOT_PROJECT_DIR
 $(ROOT_PROJECT_DIR)/%:
 	$(MAKE) -C $(ROOT_PROJECT_DIR) $*
 
-endif 
+endif
+
+
+.PHONY: clean
+clean::
+	$(info Erase aux and release directories...)
 
 endif
