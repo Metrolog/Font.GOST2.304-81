@@ -15,9 +15,9 @@ all: fonts ctan msm msi
 
 ###
 
-FONTS_DIR          := fonts
-MSM_DIR            := setup/msm
-MSI_DIR            := setup/msi
+export FONTS_DIR   := fonts
+export MSM_DIR     := setup/msm
+export MSI_DIR     := setup/msi
 
 LATEXPKG           := gost2-304
 OUTPUTDIR          := release
@@ -50,9 +50,8 @@ LATEXMK            ?= latexmk \
 
 # fonts
 
-FONTPRJDIR := $(FONTS_DIR)/
-
-include $(FONTPRJDIR)Makefile
+export FONTPRJDIR := $(FONTS_DIR)/
+include $(FONTS_DIR)/Makefile
 
 # latex build system
 
@@ -121,19 +120,17 @@ include ITG.MakeUtils/TeX/CTAN.mk
 
 .PHONY: msm
 msm: $(ttfTARGETS)
-	$(eval export FONTPRJDIR := ../../)
 	$(MAKE) -C $(MSM_DIR)
 
 # msi module
 
 .PHONY: msi
-msi: $(ttfTARGETS) $(otfTARGETS)
-	$(eval export FONTPRJDIR := ../../)
-	$(MAKE) -C $(MSI_DIR)
+msi:
+	$(call MAKE_SUBPROJECT,$(MSI_DIR))
 
 # rules for subprojects
 
-$(eval $(foreach SUBPROJECTDIR,$(MSM_DIR) $(MSI_DIR),$(call rulesForSubProject,$(SUBPROJECTDIR))))
+$(eval $(call useSubProjects,$(MSM_DIR) $(MSI_DIR)))
 
 # clean projects
 

@@ -47,16 +47,33 @@ $1:$2
 	@touch $$@
 endef
 
-# $(call rulesForSubProject, SubProjectDir)
-define rulesForSubProject
+# $(call calcRootProjectDir, ProjectDir)
+calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$1)))
 
-$(1)/%:
-	$(MAKE) -C $(1) $@
 
-clean::
-	@$(MAKE) -C $(1) clean
+MAKE_SUBPROJECT = $(MAKE) -C $1 ROOT_PROJECT_DIR=$(call calcRootProjectDir,$1)
+# $(call declareProjectDeps, ProjectDir)
+define declareProjectDeps
+$1/%:
+	$(call MAKE_SUBPROJECT,$1) $*
 
 endef
 
+# $(call useSubProject, SubProjectDir)
+define useSubProject
+$(call declareProjectDeps,$1)
+clean::
+	$(call MAKE_SUBPROJECT,$1) clean
+
+
+endef
+
+useSubProjects = $(foreach SUBPROJECTDIR,$(1),$(call useSubProject,$(SUBPROJECTDIR)))
+
+ifdef ROOT_PROJECT_DIR
+$(ROOT_PROJECT_DIR)/%:
+	$(MAKE) -C $(ROOT_PROJECT_DIR) $*
+
+endif 
 
 endif

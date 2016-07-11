@@ -150,7 +150,7 @@ endef
 
 ttfDIR          := $(FONTSOUTPUTDIR)/ttf
 FFGENERATEttf   := $(FONTSTOOLSDIR)/generate-ttf.py
-ttfTARGETS      := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
+export ttfTARGETS := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
 
 ifeq ($(AUTOHINT),ttfautohint)
 
