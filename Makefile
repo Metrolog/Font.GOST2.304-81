@@ -7,12 +7,6 @@
 .PHONY: all
 all: fonts ctan msm msi
 
-.SECONDARY:;
-
-.SECONDEXPANSION:;
-
-.DELETE_ON_ERROR:;
-
 ###
 
 LATEXPKG           := gost2-304

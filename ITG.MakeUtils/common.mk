@@ -2,18 +2,21 @@ ifndef MAKE_COMMON_DIR
 MAKE_COMMON_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 export ITG_MAKEUTILS_DIR := $(realpath $(MAKE_COMMON_DIR))
 
+.SECONDARY::;
+.SECONDEXPANSION::;
+.DELETE_ON_ERROR::;
+
 AUXDIR             ?= obj
 
 SPACE              := $(empty) $(empty)
-
-MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
-MAKETARGETASDIR    = /usr/bin/mkdir -p $@
-
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;
 else
 	PATHSEP          :=:
 endif
+
+MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
+MAKETARGETASDIR    = /usr/bin/mkdir -p $@
 
 ZIP                ?= zip \
 	-o \
