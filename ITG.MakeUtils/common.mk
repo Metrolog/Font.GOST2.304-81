@@ -50,8 +50,27 @@ $1:$2
 	@touch $$@
 endef
 
-# $(call calcRootProjectDir, ProjectDir)
-calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$1)))
+#
+# subprojects
+#
+
+SUBPROJECTS_EXPORTS_DIR := $(AUXDIR)/subprojectExports
+SUBPROJECT_EXPORTS_FILE ?= $(SUBPROJECTS_EXPORTS_DIR)/undefined
+
+.PHONY: .GLOBAL_VARIABLES
+.GLOBAL_VARIABLES: $(SUBPROJECT_EXPORTS_FILE)
+$(SUBPROJECT_EXPORTS_FILE):: $(MAKEFILE_LIST)
+	$(file > $@,# subproject exported variables)
+
+# $(call exportToSolution, Variables)
+define exportToSolution
+$(SUBPROJECT_EXPORTS_FILE)::
+	$(foreach var,$(1),$$(file >> $$@,export $(var):=$$(foreach path,$$($(var)),$(SUBPROJECT_DIR)$$(path))))
+
+endef
+
+# $(call calcRootProjectDir, Project)
+calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$(call getSubProjectDir,$1))))
 
 # $(call getSubProjectDir, Project)
 getSubProjectDir = $($(1)_DIR)
@@ -61,34 +80,45 @@ define setSubProjectDir
 export $(1)_DIR := $2
 endef
 
-MAKE_SUBPROJECT = $(MAKE) -C $(call getSubProjectDir,$1) ROOT_PROJECT_DIR=$(call calcRootProjectDir,$(call getSubProjectDir,$1))
+# $(call MAKE_SUBPROJECT, Project)
+MAKE_SUBPROJECT = $(MAKE) -C $(call getSubProjectDir,$1) \
+  SUBPROJECT=$1 \
+  SUBPROJECT_DIR=$(call getSubProjectDir,$1)/ \
+  ROOT_PROJECT_DIR=$(call calcRootProjectDir,$1) \
+  SUBPROJECT_EXPORTS_FILE=$(call calcRootProjectDir,$1)/$(SUBPROJECTS_EXPORTS_DIR)/$1.mk
 
-# $(call declareProjectDeps, Project)
-define declareProjectDeps
+# $(call declareProjectTargets, Project)
+define declareProjectTargets
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 endef
 
-# $(call useSubProjectWithTargets, SubProject, SubProjectDir, Targets)
-define useSubProjectWithTargets
+# $(call useSubProjectAux, SubProject, SubProjectDir, Targets)
+define useSubProjectAux
 $(eval $(call setSubProjectDir,$1,$2))
-$(call declareProjectDeps,$1)
+$(SUBPROJECTS_EXPORTS_DIR)/$1.mk: $(call getSubProjectDir,$1)/Makefile
+	$$(MAKETARGETDIR)
+	$(call MAKE_SUBPROJECT,$1) .GLOBAL_VARIABLES
 .PHONY: $3
+ifeq ($(filter clean,$(MAKECMDGOALS)),)
+include $(SUBPROJECTS_EXPORTS_DIR)/$1.mk
+endif
 $3:
 	$(call MAKE_SUBPROJECT,$1) $$@
+$(call getSubProjectDir,$1)/%:
+	$(call MAKE_SUBPROJECT,$1) $$*
 clean::
-	$(call MAKE_SUBPROJECT,$1) clean
+	$(call MAKE_SUBPROJECT,$1) --no-print-directory clean
 endef
 
-# $(call useSubProject, SubProject, SubProjectDir)
-useSubProject = $(call useSubProjectWithTargets,$1,$2,$1)
+# $(call useSubProject, SubProject, SubProjectDir [, Targets ])
+useSubProject = $(call useSubProjectAux,$1,$2,$1 $3,$4)
 
 ifdef ROOT_PROJECT_DIR
 $(ROOT_PROJECT_DIR)/%:
 	$(MAKE) -C $(ROOT_PROJECT_DIR) $*
 
 endif
-
 
 .PHONY: clean
 clean::

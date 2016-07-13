@@ -108,6 +108,7 @@ define generateTargetFromSources
 FFGENERATE$(1)  ?= $(FONTSTOOLSDIR)/generate-$(1).py
 $(1)DEPS        ?= $$(FFGENERATE$(1)) $(FONTSTOOLSLIBS)
 export $(1)TARGETS ?= $2
+$(call exportToSolution,$(1)TARGETS)
 $(1)SOURCES     ?= $3
 
 $$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
@@ -128,8 +129,10 @@ FFGENERATE$(1)  ?= $(FONTSTOOLSDIR)/generate-$(1).py
 $(1)DEPS        ?= $$(FFGENERATE$(1)) $(FONTSTOOLSLIBS)
 $(1)EXT         ?= $2
 export $(1)MAINTARGETS := $(foreach VARIANT,$(FONTVARIANTS),$$($(1)DIR)/$(FONT)-$(VARIANT).$$($(1)EXT))
+$(call exportToSolution, $(1)MAINTARGETS)
 $(1)EXTS        ?= $4
 export $(1)TARGETS := $$($(1)MAINTARGETS) $$(foreach ext,$$($(1)EXTS),$$($(1)MAINTARGETS:.$$($(1)EXT)=.$$(ext)))
+$(call exportToSolution, $(1)TARGETS)
 ifneq ($(strip $3),)
   $(1)SOURCES   ?= $3
 else
@@ -151,6 +154,7 @@ endef
 ttfDIR          := $(FONTSOUTPUTDIR)/ttf
 FFGENERATEttf   := $(FONTSTOOLSDIR)/generate-ttf.py
 export ttfTARGETS := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
+$(eval $(call exportToSolution, ttfTARGETS))
 
 ifeq ($(AUTOHINT),ttfautohint)
 

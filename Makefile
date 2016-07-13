@@ -22,12 +22,9 @@ include $(ITG_MAKEUTILS_DIR)/TeX/gitversion.mk
 
 # sub projects
 
-# rules for subprojects
-
+$(eval $(call useSubProject,fonts,fonts,ttf ttc woff otf pstype0 pstype1))
 $(eval $(call useSubProject,msm,setup/msm))
 $(eval $(call useSubProject,msi,setup/msi))
-
-export FONTS_DIR   := fonts
 
 # setup tools
 
@@ -48,11 +45,6 @@ LATEXMK            ?= latexmk \
 	-use-make \
 	-interaction=nonstopmode \
 	-halt-on-error
-
-# fonts
-
-export FONTPRJDIR := $(FONTS_DIR)/
-include $(FONTS_DIR)/Makefile
 
 # latex build system
 
