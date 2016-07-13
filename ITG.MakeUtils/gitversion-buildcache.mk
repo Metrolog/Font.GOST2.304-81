@@ -9,7 +9,7 @@ GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreRelea
   NuGetVersionV2 NuGetVersion \
   CommitsSinceVersionSource CommitsSinceVersionSourcePadded CommitDate
 
-%.mk:
+%.mk: $(REPOVERSION)
 	$(file > $@,#version data file)
 	$(foreach var,$(GITVERSIONVARS),$(file >> $@,export $(call setvariable,$(var),$(GitVersion_$(var)))))
 	touch $@
