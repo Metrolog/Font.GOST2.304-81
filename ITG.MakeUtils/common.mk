@@ -6,7 +6,11 @@ export ITG_MAKEUTILS_DIR := $(realpath $(MAKE_COMMON_DIR))
 .SECONDEXPANSION::;
 .DELETE_ON_ERROR::;
 
+.DEFAULT_GOAL      := all
+.PHONY: all
+
 AUXDIR             ?= obj
+OUTPUTDIR          ?= release
 
 SPACE              := $(empty) $(empty)
 ifeq ($(OS),Windows_NT)
@@ -94,26 +98,26 @@ $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 endef
 
-# $(call useSubProjectAux, SubProject, SubProjectDir, Targets)
-define useSubProjectAux
+# $(call useSubProject, SubProject, SubProjectDir [, Targets ])
+define useSubProject
 $(eval $(call setSubProjectDir,$1,$2))
 $(SUBPROJECTS_EXPORTS_DIR)/$1.mk: $(call getSubProjectDir,$1)/Makefile
 	$$(MAKETARGETDIR)
 	$(call MAKE_SUBPROJECT,$1) .GLOBAL_VARIABLES
-.PHONY: $3
+.PHONY: $1 $3
 ifeq ($(filter clean,$(MAKECMDGOALS)),)
 include $(SUBPROJECTS_EXPORTS_DIR)/$1.mk
 endif
+$1:
+	$(call MAKE_SUBPROJECT,$1)
 $3:
 	$(call MAKE_SUBPROJECT,$1) $$@
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
+all:: $1
 clean::
 	@$(call MAKE_SUBPROJECT,$1) clean
 endef
-
-# $(call useSubProject, SubProject, SubProjectDir [, Targets ])
-useSubProject = $(call useSubProjectAux,$1,$2,$1 $3,$4)
 
 ifdef ROOT_PROJECT_DIR
 $(ROOT_PROJECT_DIR)/%:
@@ -123,6 +127,7 @@ endif
 
 .PHONY: clean
 clean::
-#	$(info Erase aux and build directories...)
+	rm -rf $(AUXDIR)
+	rm -rf $(OUTPUTDIR)
 
 endif
