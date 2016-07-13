@@ -11,8 +11,7 @@ include $(ITG_MAKEUTILS_DIR)/common.mk
 ProjectName				:= GOST2.304-81
 
 ttfTARGETS        ?=
-#FONTFILES         ?= $(foreach file,$(ttfTARGETS) $(otfTARGETS),$(ROOT_PROJECT_DIR)/$(FONTS_DIR)/$(file))
-FONTFILES         ?= $(foreach file,$(ttfTARGETS),$(ROOT_PROJECT_DIR)/$(file))
+FONTFILES         ?= $(ttfTARGETS)
 
 DEPENDENCIES      := $(FONTFILES)
 

@@ -13,8 +13,7 @@ WIXEXTENSIONS     = WixUIExtension
 
 ttfTARGETS        ?=
 otfTARGETS        ?=
-#FONTFILES         ?= $(foreach file,$(ttfTARGETS) $(otfTARGETS),$(ROOT_PROJECT_DIR)/$(FONTS_DIR)/$(file))
-FONTFILES         ?= $(foreach file,$(ttfTARGETS) $(otfTARGETS),$(ROOT_PROJECT_DIR)/$(file))
+FONTFILES         ?= $(ttfTARGETS) $(otfTARGETS)
 
 DEPENDENCIES      := $(FONTFILES)
 

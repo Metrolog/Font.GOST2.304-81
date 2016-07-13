@@ -62,12 +62,13 @@ SUBPROJECT_EXPORTS_FILE ?= $(SUBPROJECTS_EXPORTS_DIR)/undefined
 $(SUBPROJECT_EXPORTS_FILE):: $(MAKEFILE_LIST)
 	$(file > $@,# subproject exported variables)
 
-# $(call exportToSolution, Variables)
-define exportToSolution
+# $(call declareGlobalTargets, Variables)
+define declareGlobalTargets
 $(SUBPROJECT_EXPORTS_FILE)::
-	$(foreach var,$(1),$$(file >> $$@,export $(var):=$$(foreach path,$$($(var)),$(SUBPROJECT_DIR)$$(path))))
+	$(foreach var,$(1),$$(file >> $$@,export $(var)=$$(foreach path,$$($(var)),$$$$$$$$(ROOT_PROJECT_DIR)/$(SUBPROJECT_DIR)$$(path))))
 
 endef
+declareGlobalTarget = declareGlobalTargets
 
 # $(call calcRootProjectDir, Project)
 calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$(call getSubProjectDir,$1))))
