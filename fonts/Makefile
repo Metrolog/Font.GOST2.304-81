@@ -2,10 +2,7 @@
 ### GNU make Makefile for build GOST 2.304-81 fonts files
 ###
 
-.DEFAULT_GOAL		:= all
-
-
-.PHONY: all fonts
+.PHONY: fonts
 all: fonts
 fonts: ttf ttc woff otf pstype0 pstype1
 
@@ -151,8 +148,9 @@ endef
 
 # build True Type fonts
 
-ttfDIR          := $(FONTSOUTPUTDIR)/ttf
-FFGENERATEttf   := $(FONTSTOOLSDIR)/generate-ttf.py
+export ttfDIR := $(FONTSOUTPUTDIR)/ttf
+$(eval $(call declareGlobalTargets, ttfDIR))
+FFGENERATEttf := $(FONTSTOOLSDIR)/generate-ttf.py
 export ttfTARGETS := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
 $(eval $(call declareGlobalTargets, ttfTARGETS))
 

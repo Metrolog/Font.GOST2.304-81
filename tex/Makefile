@@ -1,17 +1,8 @@
 ###
-### GNU make Makefile for build GOST 2.304-81 projects
+### GNU make Makefile for build GOST 2.304-81 tex package
 ###
 
-.DEFAULT_GOAL		:= all
-
-.PHONY: all
-all: fonts ctan msm msi
-
-###
-
-LATEXPKG           := gost2-304
-OUTPUTDIR          := release
-AUXDIR             := obj
+all: ctan
 
 # ITG.MakeUtils
 
@@ -20,13 +11,7 @@ include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 include $(ITG_MAKEUTILS_DIR)/TeX/gitversion.mk
 
-# sub projects
-
-$(eval $(call useSubProject,fonts,fonts,ttf ttc woff otf pstype0 pstype1))
-$(eval $(call useSubProject,msm,setup/msm))
-$(eval $(call useSubProject,msi,setup/msi))
-
-# setup tools
+# tools
 
 ifeq ($(VIEWPDF),yes)
 	VIEWPDFOPT := -pv
@@ -48,7 +33,9 @@ LATEXMK            ?= latexmk \
 
 # latex build system
 
-LATEXSRCDIR := latex
+LATEXPKG := gost2-304
+LATEXSRCDIR := sources
+LATEXTOOLSDIR := tools
 LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
 LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx
 LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
@@ -80,7 +67,7 @@ unpack: $(LATEXPKGINSTALLFILES)
 
 LATEXPKGTYPESETDIR := $(LATEXPKGUNPACKDIR)
 LATEXPKGDOCS := $(AUXDIR)/$(LATEXPKG).rus.pdf
-LATEXMKRC := $(LATEXSRCDIR)/latexmkrc
+LATEXMKRC := $(LATEXTOOLSDIR)/latexmkrc
 
 export TEXINPUTS = .$(PATHSEP)$(LATEXPKGMAINDIR)$(PATHSEP)$(LATEXTDSPKGPATH)$(PATHSEP)
 export TEXFONTS = $(ttfDIR)
@@ -103,14 +90,8 @@ export FREEVERSION := ofl
 export NAME := Sergey S. Betke
 export EMAIL := Sergey.S.Betke@yandex.ru
 
-include ITG.MakeUtils/TeX/CTAN.mk
+include $(ITG_MAKEUTILS_DIR)/TeX/CTAN.mk
 
 .CTAN: $(LATEXPKGINSTALLFILES) $(LATEXPKGSOURCEFILES)
 .CTAN: $(LATEXPKGDOCS) $(wildcard $(LATEXPKGMAINDIR)/*.md)
 .CTAN: $(ttfTARGETS) $(otfTARGETS) $(filter %.pfm %.tfm,$(pstype1TARGETS))
-
-# clean projects
-
-clean::
-	rm -rf $(AUXDIR)
-	rm -rf $(OUTPUTDIR)

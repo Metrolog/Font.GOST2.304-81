@@ -11,4 +11,4 @@ include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 $(eval $(call useSubProject,fonts,fonts,ttf ttc woff otf pstype0 pstype1))
 $(eval $(call useSubProject,msm,setup/msm))
 $(eval $(call useSubProject,msi,setup/msi))
-#$(eval $(call useSubProject,tex,tex,unpack doc ctan))
+$(eval $(call useSubProject,tex,tex,unpack doc ctan))
