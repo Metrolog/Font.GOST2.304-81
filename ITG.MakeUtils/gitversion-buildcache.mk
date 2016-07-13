@@ -12,5 +12,6 @@ GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreRelea
 %.mk:
 	$(file > $@,#version data file)
 	$(foreach var,$(GITVERSIONVARS),$(file >> $@,export $(call setvariable,$(var),$(GitVersion_$(var)))))
+	touch $@
 
 endif
