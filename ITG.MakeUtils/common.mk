@@ -108,7 +108,7 @@ $3:
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 clean::
-	$(call MAKE_SUBPROJECT,$1) --no-print-directory clean
+	@$(call MAKE_SUBPROJECT,$1) clean
 endef
 
 # $(call useSubProject, SubProject, SubProjectDir [, Targets ])
@@ -122,6 +122,6 @@ endif
 
 .PHONY: clean
 clean::
-	$(info Erase aux and release directories...)
+#	$(info Erase aux and build directories...)
 
 endif
