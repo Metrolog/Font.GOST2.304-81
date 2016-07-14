@@ -53,6 +53,7 @@ if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменн
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
 
     $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
+    $ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
 
     if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
         $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
