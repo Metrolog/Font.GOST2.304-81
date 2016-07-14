@@ -14,7 +14,7 @@ include $(ITG_MAKEUTILS_DIR)/TeX/gitversion.mk
 # tools
 
 ifeq ($(VIEWPDF),yes)
-	VIEWPDFOPT := -pv
+	VIEWPDFOPT := -pv -e '$$pdf_previewer=q/$(PDFVIEWER) %O %S/'
 else
 	VIEWPDFOPT := -pv-
 endif
@@ -25,7 +25,6 @@ LATEXMK            ?= latexmk \
 	-xelatex \
 	-auxdir=$(AUXDIR) \
 	$(VIEWPDFOPT) \
-	-e '$$pdf_previewer=q/$(PDFVIEWER) %O %S/' \
 	-recorder -gg \
 	-use-make \
 	-interaction=nonstopmode \
