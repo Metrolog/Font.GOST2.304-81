@@ -1,10 +1,10 @@
 ifndef MAKE_TEX_GITVERSION_DIR
-MAKE_TEX_GITVERSION_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_TEX_GITVERSION_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
-include $(MAKE_TEX_GITVERSION_DIR)../common.mk
-include $(MAKE_TEX_GITVERSION_DIR)../gitversion.mk
+include $(realpath $(MAKE_TEX_GITVERSION_DIR)/../common.mk)
+include $(realpath $(MAKE_TEX_GITVERSION_DIR)/../gitversion.mk)
 
-%/version.tex %/version.dtx: .git/logs/HEAD
+%/version.tex %/version.dtx: $(REPOVERSION)
 	$(info Generate latex version file "$@"...)
 	$(MAKETARGETDIR)
 	@git log -1 --date=format:%Y/%m/%d --format="format:\
@@ -22,5 +22,6 @@ include $(MAKE_TEX_GITVERSION_DIR)../gitversion.mk
 %%</version>%n\
 %%\fi%n\
 " > $@
+	touch $@
 
 endif
