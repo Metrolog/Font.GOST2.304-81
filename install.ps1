@@ -127,6 +127,11 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
             -Force `
         ;
     };
+    if ($PSCmdLet.ShouldProcess('MikTeX Package repository', 'Изменить')) {
+        & "$MikTexBinPath\mpm" `
+            --set-repository=ftp://mirror.ox.ac.uk/sites/ctan.org/systems/win32/miktex/tm/packages/ `
+        | Out-String | Write-Verbose;
+    };
 };
 
 Write-Verbose 'Preparing ctanify and ctanupload TeX scripts...';
