@@ -1,7 +1,7 @@
 ifndef MAKE_GITVERSION_BUILDCACHE_DIR
-MAKE_GITVERSION_BUILDCACHE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_GITVERSION_BUILDCACHE_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
-include $(MAKE_GITVERSION_BUILDCACHE_DIR)common.mk
+include $(realpath $(MAKE_GITVERSION_BUILDCACHE_DIR)/common.mk)
 
 GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreReleaseLabel PreReleaseNumber \
   BuildMetaData BuildMetaDataPadded FullBuildMetaData MajorMinorPatch SemVer LegacySemVer LegacySemVerPadded \
@@ -9,8 +9,9 @@ GITVERSIONVARS := Major Minor Patch PreReleaseTag PreReleaseTagWithDash PreRelea
   NuGetVersionV2 NuGetVersion \
   CommitsSinceVersionSource CommitsSinceVersionSourcePadded CommitDate
 
-%.mk:
+%/version.mk: $(REPOVERSION)
 	$(file > $@,#version data file)
 	$(foreach var,$(GITVERSIONVARS),$(file >> $@,export $(call setvariable,$(var),$(GitVersion_$(var)))))
+	touch $@
 
 endif
