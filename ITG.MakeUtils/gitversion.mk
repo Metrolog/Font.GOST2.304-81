@@ -1,20 +1,20 @@
 ifndef MAKE_GITVERSION_DIR
-MAKE_GITVERSION_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+MAKE_GITVERSION_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
-include $(MAKE_GITVERSION_DIR)common.mk
+include $(realpath $(MAKE_GITVERSION_DIR)/common.mk)
 
 GITVERSION ?= gitversion.bat
 
-GITVERSIONMAKEFILE ?= $(AUXDIR)/version.mk
+export GITVERSIONMAKEFILE ?= $(abspath $(AUXDIR)/version.mk)
 
-$(dir $(GITVERSIONMAKEFILE)):
-	$(MAKETARGETASDIR)
-
-$(GITVERSIONMAKEFILE): .git/logs/HEAD | $(dir $(GITVERSIONMAKEFILE))
+$(GITVERSIONMAKEFILE): $(REPOVERSION)
 	$(info Generate version data file "$@" with GitVersion...)
-	$(GITVERSION) /exec $(MAKE) /execargs "--makefile=$(MAKE_GITVERSION_DIR)gitversion-buildcache.mk $@"
+	$(MAKETARGETDIR)
+	$(GITVERSION) /exec $(MAKE) /execargs "--makefile=$(MAKE_GITVERSION_DIR)/gitversion-buildcache.mk $@"
 
+ifeq ($(filter clean,$(MAKECMDGOALS)),)
 include $(GITVERSIONMAKEFILE)
+endif
 
 GIT_BRANCH          := $(BranchName)
 export VERSION      := $(Major).$(Minor)

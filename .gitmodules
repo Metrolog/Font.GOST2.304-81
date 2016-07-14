@@ -1,3 +1,3 @@
-[submodule "ITG.WixUtils"]
-	path = ITG.WixUtils
+[submodule "setup/ITG.WixUtils"]
+	path = setup/ITG.WixUtils
 	url = ../../IT-Service/ITG.WixUtils.git
