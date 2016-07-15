@@ -128,10 +128,14 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
             -Force `
         ;
     };
-    if ($PSCmdLet.ShouldProcess('MikTeX Package repository', 'Изменить')) {
-        & "$MikTexBinPath\mpm" `
-            --set-repository=ftp://mirror.ox.ac.uk/sites/ctan.org/systems/win32/miktex/tm/packages/ `
-        | Out-String | Write-Verbose;
+    if ($PSCmdLet.ShouldProcess('MikTeX Package repository', 'Обновить')) {
+        & "$MikTexBinPath\mpm" --update-db | Out-String | Write-Verbose;
+        # issue #209
+        $OldErrorActionPreference = $ErrorActionPreference;
+        $ErrorActionPreference = 'SilentlyContinue';
+        & "$MikTexBinPath\mpm" --uninstall=xetex-def | Out-String | Write-Verbose;
+        $ErrorActionPreference = $OldErrorActionPreference;
+        # & "$MikTexBinPath\mpm" --update | Out-String | Write-Verbose;
     };
 };
 
