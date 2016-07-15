@@ -67,9 +67,6 @@ if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
         $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
     };
 
-    $null = Install-Package -Name python3 -ProviderName Chocolatey -Source chocolatey;
-    $ToPath += "$env:ChocolateyPath\lib\python3.$(( Get-Package -Name python3 -ProviderName Chocolatey ).Version)\tools";
-
 };
 
 $env:CygWin = Get-ItemPropertyValue `

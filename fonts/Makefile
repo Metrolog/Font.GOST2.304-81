@@ -33,7 +33,11 @@ include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 AUTOHINT           ?= ttfautohint
 FONTFORGE          ?= fontforge \
 	-nosplash
+ifeq ($(OS),Windows_NT)
 PY                 ?= ffpython
+else
+PY                 ?= python
+endif
 TTFAUTOHINT        ?= $(FONTSTOOLSDIR)/ttfautohint \
 	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
 	--windows-compatibility \
