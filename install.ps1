@@ -108,34 +108,77 @@ $null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' 
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
 if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
-    $null = Install-Package -Name 'miktex' -MinimumVersion '2.9' -ProviderName Chocolatey -Source chocolatey;
-    $MikTex = `
-        Get-ChildItem `
-            -Path HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall `
-        | ?{ $_.Name -like '*MiKTeX*' } `
-        | Get-ItemPropertyValue `
-            -Name InstallLocation `
+#   $null = Install-Package -Name 'miktex' -MinimumVersion '2.9' -ProviderName Chocolatey -Source chocolatey;
+    switch ( $env:PROCESSOR_ARCHITECTURE ) {
+        'amd64' {
+            $MiktexSetupZIP = 'miktexsetup-x64.zip';
+            $MiktexSetupNET = 'setup-x64.exe';
+        }
+        'x86' {
+            $MiktexSetupZIP = 'miktexsetup.zip';
+            $MiktexSetupNET = 'setup.exe';
+        }
+        default { Write-Error 'Unsupported processor architecture.'}
+    };
+    # nearest repository selection
+    if ( $env:APPVEYOR -eq 'True' ) {
+        $MiktexRemoteRepositoryRoot = "ftp://ftp.muug.ca/mirror/ctan/systems/win32/miktex";
+    } else {
+        $MiktexRemoteRepositoryRoot = "http://mirror.datacenter.by/pub/mirrors/CTAN/systems/win32/miktex";
+    };
+    $MiktexRemoteRepository = "$MiktexRemoteRepositoryRoot/tm/packages/";
+    Invoke-WebRequest -Uri "$MiktexRemoteRepositoryRoot/setup/$MiktexSetupZIP" -OutFile "$env:Temp/$MiktexSetupZIP";
+    Expand-Archive -LiteralPath "$env:Temp/$MiktexSetupZIP" -DestinationPath "$env:Temp/miktex" -Force;
+    $MiktexLocalRepository = "$env:Temp/miktex";
+    $MiktexSetup = "$MiktexLocalRepository/miktexsetup.exe";
+    & $MiktexSetup `
+        --remote-package-repository="$MiktexRemoteRepository" `
+        --local-package-repository="$MiktexLocalRepository" `
+        --package-set=basic `
+        --verbose `
+        download `
+    | Out-String | Write-Verbose;
+    $MiktexPath = "$env:ProgramFiles/miktex";
+<#
+    & $MiktexSetup `
+        --remote-package-repository="$MiktexRemoteRepository" `
+        --local-package-repository="$MiktexLocalRepository" `
+        --package-set=basic `
+        --common-install="$MiktexPath" `
+        --modify-path `
+        --verbose `
+        install `
+    | Out-String | Write-Verbose;
+#>
+    $MiktexSetupNETTool = "$MiktexLocalRepository/setup.exe";
+    Invoke-WebRequest -Uri "$MiktexRemoteRepositoryRoot/setup/$MiktexSetupNET" -OutFile "$MiktexSetupNETTool";
+    & $MiktexSetupNetTool `
+        --install-from-local-repository --local-package-repository="$MiktexLocalRepository" `
+        --package-set=basic `
+        --shared `
+        --common-install="$MiktexPath" `
+        --unattended `
+    | Out-String | Write-Verbose;
+<#
+    Start-Process -FilePath $MiktexSetupNetTool -Wait -ArgumentList @"
+        --install-from-local-repository --local-package-repository="$MiktexLocalRepository" 
+        --package-set=basic 
+        --shared 
+        --common-install="$MiktexPath" 
+        --unattended
+"@ `
     ;
-    $MikTexBinPath = "$MikTex\miktex\bin\$ArchPath";
+#>
+
+    $MikTexBinPath = "$MiktexPath\miktex\bin\$ArchPath";
     Write-Verbose "MikTeX bin directory: $MikTexBinPath";
     $ToPath += $MikTexBinPath;
 
     if ($PSCmdLet.ShouldProcess('MikTeX AutoInstall option', 'Разрешить')) {
-        Set-ItemProperty `
-            -Path 'HKLM:\Software\MiKTeX.org\MiKTeX\2.9\MPM' `
-            -Name 'AutoInstall' `
-            -Value 1 `
-            -Force `
-        ;
-    };
-    if ($PSCmdLet.ShouldProcess('MikTeX Package repository', 'Обновить')) {
-        & "$MikTexBinPath\mpm" --update-db | Out-String | Write-Verbose;
-        # issue #209
-        $OldErrorActionPreference = $ErrorActionPreference;
-        $ErrorActionPreference = 'SilentlyContinue';
-        & "$MikTexBinPath\mpm" --uninstall=xetex-def | Out-String | Write-Verbose;
-        $ErrorActionPreference = $OldErrorActionPreference;
-        # & "$MikTexBinPath\mpm" --update | Out-String | Write-Verbose;
+        & "$MikTexBinPath\initexmf.exe" `
+            --set-config-value=[MPM]AutoInstall=1 `
+            --verbose `
+        | Out-String | Write-Verbose;
     };
 };
 
