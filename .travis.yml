@@ -1,6 +1,7 @@
 language:
 - ruby
 - perl
+- python
 
 sudo: false
 addons:
@@ -14,10 +15,10 @@ addons:
     - fontforge
     - python-fontforge
     - perl
-    - gitversion
 install:
 - gem install gitversion
-- ppm install File::Copy::Recursive
-- ppm install HTML::FormatText
+#- ppm install File::Copy::Recursive
+#- ppm install HTML::FormatText
 
-script: make fonts
+script:
+- make fonts
