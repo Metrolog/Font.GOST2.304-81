@@ -17,12 +17,14 @@ REPOVERSION        = $(REPOROOT).git/logs/HEAD
 SPACE              := $(empty) $(empty)
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;
+  MKDIR            := /usr/bin/mkdir
 else
 	PATHSEP          :=:
+  MKDIR            := mkdir
 endif
 
-MAKETARGETDIR      = /usr/bin/mkdir -p $(@D)
-MAKETARGETASDIR    = /usr/bin/mkdir -p $@
+MAKETARGETDIR      = $(MKDIR) -p $(@D)
+MAKETARGETASDIR    = $(MKDIR) -p $@
 
 ZIP                ?= zip \
 	-o \
