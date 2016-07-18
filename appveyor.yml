@@ -1,5 +1,8 @@
 image: WMF 5
 init:
+branches:
+  except:
+    - feature\/travis_CI
 clone_script:
 - ps: >-
     if ( -not $env:appveyor_pull_request_number ) {
