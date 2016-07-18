@@ -1,11 +1,22 @@
-sudo: false
-addons:
-  apt:
-    packages:
-    - cmake
-    - gitversion
 language:
 - ruby
 - perl
+sudo: false
+addons:
+  apt:
+    repositories:
+    - ppa:fontforge/fontforge
+    packages:
+    - cmake
+    - make
+    - mkdir
+    - touch
+    - zip
+    - ttfautohint
+    - python
+    - fontforge
+    - python-fontforge
+    - perl
+    - gitversion
 install:
 - gem install gitversion
