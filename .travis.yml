@@ -1,18 +1,15 @@
 language:
 - ruby
 - perl
+
 sudo: false
 addons:
   apt:
     repositories:
     - ppa:fontforge/fontforge
     packages:
-    - cmake
     - make
-    - mkdir
-    - touch
     - zip
-    - ttfautohint
     - python
     - fontforge
     - python-fontforge
@@ -20,3 +17,7 @@ addons:
     - gitversion
 install:
 - gem install gitversion
+- ppm install File::Copy::Recursive
+- ppm install HTML::FormatText
+
+script: make fonts
