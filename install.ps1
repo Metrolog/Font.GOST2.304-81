@@ -137,7 +137,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         --package-set=basic `
         --verbose `
         download `
-    | Out-String | Write-Verbose;
+    | Out-String -Stream | Write-Verbose;
     $MiktexPath = "$env:ProgramFiles\miktex";
 <#
     & $MiktexSetup `
@@ -148,7 +148,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         --modify-path `
         --verbose `
         install `
-    | Out-String | Write-Verbose;
+    | Out-String -Stream | Write-Verbose;
 #>
     $MiktexSetupNETTool = "$MiktexLocalRepository\setup.exe";
     Invoke-WebRequest -Uri "$MiktexRemoteRepositoryRoot/setup/$MiktexSetupNET" -OutFile "$MiktexSetupNETTool";
