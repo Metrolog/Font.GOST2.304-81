@@ -129,8 +129,8 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     $MiktexRemoteRepository = "$MiktexRemoteRepositoryRoot/tm/packages/";
     Invoke-WebRequest -Uri "$MiktexRemoteRepositoryRoot/setup/$MiktexSetupZIP" -OutFile "$env:Temp/$MiktexSetupZIP";
     Expand-Archive -LiteralPath "$env:Temp/$MiktexSetupZIP" -DestinationPath "$env:Temp/miktex" -Force;
-    $MiktexLocalRepository = "$env:Temp/miktex";
-    $MiktexSetup = "$MiktexLocalRepository/miktexsetup.exe";
+    $MiktexLocalRepository = "$env:Temp\miktex";
+    $MiktexSetup = "$MiktexLocalRepository\miktexsetup.exe";
     & $MiktexSetup `
         --remote-package-repository="$MiktexRemoteRepository" `
         --local-package-repository="$MiktexLocalRepository" `
@@ -138,7 +138,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         --verbose `
         download `
     | Out-String | Write-Verbose;
-    $MiktexPath = "$env:ProgramFiles/miktex";
+    $MiktexPath = "$env:ProgramFiles\miktex";
 <#
     & $MiktexSetup `
         --remote-package-repository="$MiktexRemoteRepository" `
@@ -150,7 +150,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         install `
     | Out-String | Write-Verbose;
 #>
-    $MiktexSetupNETTool = "$MiktexLocalRepository/setup.exe";
+    $MiktexSetupNETTool = "$MiktexLocalRepository\setup.exe";
     Invoke-WebRequest -Uri "$MiktexRemoteRepositoryRoot/setup/$MiktexSetupNET" -OutFile "$MiktexSetupNETTool";
     & $MiktexSetupNetTool `
         --install-from-local-repository --local-package-repository="$MiktexLocalRepository" `
@@ -159,16 +159,6 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
         --common-install="$MiktexPath" `
         --unattended `
     | Out-String | Write-Verbose;
-<#
-    Start-Process -FilePath $MiktexSetupNetTool -Wait -ArgumentList @"
-        --install-from-local-repository --local-package-repository="$MiktexLocalRepository" 
-        --package-set=basic 
-        --shared 
-        --common-install="$MiktexPath" 
-        --unattended
-"@ `
-    ;
-#>
 
     $MikTexBinPath = "$MiktexPath\miktex\bin\$ArchPath";
     Write-Verbose "MikTeX bin directory: $MikTexBinPath";
