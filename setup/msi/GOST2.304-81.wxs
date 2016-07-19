@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+	xmlns="http://wixtoolset.org/schemas/v4/wxs"
+>
+
+	<?include GOST2.304-81.wxi ?>
+	
+	<Product
+		Id="$(var.ProductCode)"
+		Name="$(var.ProductName)"
+		Version="$(var.ProductVersion)"
+		Language="!(loc.LCID)"
+		Manufacturer="!(loc.Manufacturer)"
+		UpgradeCode="$(var.UpgradeCode)"
+	>
+		<Package
+			InstallerVersion="450"
+			InstallScope="perMachine"
+			AdminImage="$(var.IsAdminImage)"
+			Compressed="$(var.Compressed)"
+			Manufacturer="!(loc.Manufacturer)"
+			ShortNames="no"
+			Description="!(loc.PackageDescription) $(var.ProductName)."
+			Comments="!(loc.PackageDescription) $(var.ProductName)."
+			Keywords="Installer, $(var.ProductShortName)"
+			SummaryCodepage="!(loc.CodePage)"
+		/>
+
+		<WixVariable Id="ManufacturerId"      Value="$(var.ManufacturerId)"/>
+		<WixVariable Id="Manufacturer"        Value="$(var.Manufacturer)"/>
+		<WixVariable Id="ProductInternalName" Value="$(var.ProductInternalName)"/>
+		<WixVariable Id="ProductDescription"  Value="$(var.ProductDescription)"/>
+		<WixVariable Id="ProductShortName"    Value="$(var.ProductShortName)"/>
+		<WixVariable Id="ProductVersion"      Value="$(var.ProductVersion)"/>
+		<WixVariable Id="ProductMajorVersion" Value="$(var.ProductMajorVersion)"/>
+		<WixVariable Id="ProductMinorVersion" Value="$(var.ProductMinorVersion)"/>
+		<WixVariable Id="FontVersion"					Value="$(var.FontVersion)"/>
+		<WixVariable Id="GitHubAccount"       Value="Metrolog"/>
+		<WixVariable Id="GitHubRepository"    Value="$(var.ProductProjectName)"/>
+		<WixVariable Id="PRIMARYFOLDER"       Value="FontsFolder"/>
+		
+		<Feature
+			Id="Product"
+			Level="1"
+			Absent="disallow"
+			Display="expand"
+			AllowAdvertise="no"
+			InstallDefault="local"
+			TypicalDefault="install"
+			Title="!(loc.Product.DisplayName)"
+			Description="!(loc.Product.Description)"
+		>
+			<Feature
+				Id="GOST_2_304_81_TTF"
+				Level="1"
+				Absent="allow"
+				AllowAdvertise="no"
+				InstallDefault="local"
+				TypicalDefault="install"
+				Title="!(loc.TTF.Title)"
+				Description="!(loc.TTF.Description)"
+			>
+				<!--<MergeRef Id="GOST_2_304_81"/>-->
+				<ComponentGroupRef Id="GOST2.304_TypeA.ttf"/>
+			</Feature>
+			<Feature
+				Id="GOST_2_304_81_OTF"
+				Level="200"
+				Absent="allow"
+				AllowAdvertise="no"
+				InstallDefault="local"
+				TypicalDefault="install"
+				Title="!(loc.OTF.Title)"
+				Description="!(loc.OTF.Description)"
+			>
+				<ComponentGroupRef Id="GOST2.304_TypeA.otf"/>
+			</Feature>
+		</Feature>
+
+		<!--<DirectoryRef Id="FontsFolder">
+			<Merge
+				Id="GOST_2_304_81"
+				Language="!(loc.LCID)"
+				SourceFile="..\msm\bin\$(var.Configuration)\GOST2.304-81.msm"
+				DiskId="1"
+			/>
+		</DirectoryRef>-->
+
+		<Upgrade Id="$(var.UpgradeCode)">
+			<UpgradeVersion
+				Minimum="$(var.ProductVersion)"
+				IncludeMinimum="no"
+				Property="WIX_DOWNGRADE_DETECTED"
+			/>
+			<UpgradeVersion
+				Minimum="00.01.0000"
+				IncludeMinimum="yes"
+				Maximum="$(var.ProductVersion)"
+				IncludeMaximum="no"
+				RemoveFeatures="ALL"
+				Property="WIX_UPGRADE_DETECTED"
+				MigrateFeatures="yes"
+				IgnoreRemoveFailure="no"
+			/>
+		</Upgrade>
+		<Condition Message="!(loc.NewProductVersionExists)">
+			<![CDATA[NOT WIX_DOWNGRADE_DETECTED]]>
+		</Condition>
+		<InstallExecuteSequence>
+			<RemoveExistingProducts After="InstallExecute"/>
+		</InstallExecuteSequence>
+
+		<PropertyRef Id="ITGPACKAGE"/>
+		<Property Id="ARPCOMMENTS" Value="$(var.ProductDescription)"/>
+		<Property Id="ARPCONTACT" Value="IT-Service"/>
+
+		<Property Id="ARPNOMODIFY" Value="1"/>
+		<!--<Property Id="ARPNOREMOVE" Value=""/>-->
+		<!--<Property Id="ARPNOREPAIR" Value=""/>-->
+		<!--<Property Id="ARPSYSTEMCOMPONENT" Value=""/>-->
+
+		<Property Id="MSIFASTINSTALL" Value="3"/>
+		<Property Id="INSTALLLEVEL" Value="3"/>
+		<Property Id="MSIRESTARTMANAGERCONTROL" Value="Enable"/>
+
+		<PropertyRef Id="MSIDEPLOYMENTCOMPLIANT"/>
+		
+		<MediaTemplate EmbedCab="$(var.Compressed)"/>
+
+		<?ifndef AdminImage ?>
+
+		<UI>
+			<UIRef Id="WixUI_MondoWithoutLicenseDlg"/>
+			<UIRef Id="WixUI_ErrorProgressText"/>
+		</UI>
+		<Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+		<WixVariable Id="WixUISupportPerUser" Value="0" />
+		<!--<WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />-->
+
+		<?endif?>
+
+	</Product>
+
+</Wix>

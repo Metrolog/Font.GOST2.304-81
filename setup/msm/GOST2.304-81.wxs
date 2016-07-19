@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+	xmlns="http://wixtoolset.org/schemas/v4/wxs"
+>
+
+	<?ifdef env.Major?>
+		<?define ProductMajorVersion="$(env.Major)"?>
+	<?else?>
+		<?define ProductMajorVersion="0"?>
+		<?warning "Major variable must be specified." ?>
+	<?endif?>
+	<?ifdef env.Minor?>
+		<?define ProductMinorVersion="$(env.Minor)"?>
+	<?else?>
+		<?define ProductMinorVersion="1"?>
+		<?warning "Minor variable must be specified." ?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define ProductVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define ProductVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))"?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define FontVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define FontVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))?>
+	<?endif?>
+	
+	<Module
+		Id="GOST2_304_81"
+		Version="$(var.FontVersion)"
+		Language="!(loc.LCID)"
+	>
+
+		<Package
+			Id="2115bb91-3ba2-46c0-8508-07a1288903f7"
+			Manufacturer="!(loc.Manufacturer)"
+			InstallerVersion="450"
+			AdminImage="no"
+			Comments="!(loc.Comments)"
+			Description="!(loc.Description)"
+			Keywords="!(loc.Keywords)"
+			ShortNames="no"
+			SummaryCodepage="!(loc.CodePage)"
+		/>
+
+		<WixVariable Id="FontVersion" Value="$(var.FontVersion)"/>
+
+		<ComponentGroupRef Id="GOST2.304_TypeA.ttf"/>
+
+	</Module>
+</Wix>

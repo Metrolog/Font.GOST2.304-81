@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization
+	xmlns="http://wixtoolset.org/schemas/v4/wxl"
+	Culture="ru-ru"
+	Codepage="1251"
+	Language="0"
+>
+
+	<String Id="Manufacturer">ООО "Инженер-53"</String>
+	<String Id="Comments">Инсталляционный пакет содержит шрифты ГОСТ 2.304-81.</String>
+	<String Id="Description">ГОСТ 2.304-81 msm модуль</String>
+	<String Id="Keywords">MergeModule; MSI; Database; ГОСТ 2.304-81; Font</String>
+
+	<String Id="GOST2.304.DisplayName">Шрифты чертёжные ГОСТ 2.304-81</String>
+	<String Id="GOST2.304.Description"></String>
+
+</WixLocalization>

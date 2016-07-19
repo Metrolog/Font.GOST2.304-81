@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include
+	xmlns="http://wixtoolset.org/schemas/v4/wxs"
+>
+
+	<?ifdef env.Major?>
+		<?define ProductMajorVersion="$(env.Major)"?>
+	<?else?>
+		<?define ProductMajorVersion="0"?>
+		<?warning "Major variable must be specified." ?>
+	<?endif?>
+	<?ifdef env.Minor?>
+		<?define ProductMinorVersion="$(env.Minor)"?>
+	<?else?>
+		<?define ProductMinorVersion="1"?>
+		<?warning "Minor variable must be specified." ?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define ProductVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define ProductVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))"?>
+	<?endif?>
+	<?ifdef env.MajorMinorPatch?>
+		<?define FontVersion="$(env.MajorMinorPatch)"?>
+	<?else?>
+		<?define FontVersion="$(fun.AutoVersion($(var.ProductMajorVersion).$(var.ProductMinorVersion)))?>
+	<?endif?>
+	<?define ProductShortName="!(loc.Product.DisplayName)"?>
+	<?define ProductInternalName="Font.GOST2.304-81"?>
+	<?define ProductProjectName="$(var.ProductInternalName)"?>
+	<?define ProductDescription="!(loc.Product.Description)"?>
+	<?define ProductName="$(var.ProductShortName) v$(var.ProductVersion)"?>
+	<?define ProductCode="0FE6159A-9D17-482A-9873-85D4ECBEDA9B"?>
+	<?define UpgradeCode="7C5D2996-34AE-40E7-B53D-643346A9165C"?>
+	<?define Manufacturer="!(loc.Manufacturer)"?>
+	<?define ManufacturerId="Engineer53"?>
+
+	<?define ProductId="$(var.ManufacturerId).$(var.ProductInternalName).$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
+
+	<?define Compressed="yes" ?>
+	<?define IsAdminImage="no" ?>
+
+	<?if $(sys.BUILDARCH) = "x86" ?>
+		<?define PlatformPostfix="32" ?>
+		<?define SystemFolderId="SystemFolder" ?>
+		<?define SystemFolder="System32" ?>
+		<?define ProgramFilesFolderId="ProgramFilesFolder" ?>
+		<?define Win64="no" ?>
+	<?else?>
+		<?define PlatformPostfix="64" ?>
+		<?define SystemFolderId="System64Folder" ?>
+		<?define SystemFolder="System64" ?>
+		<?define ProgramFilesFolderId="ProgramFiles64Folder" ?>
+		<?define Win64="yes" ?>
+
+		<?error "Platform must be x86" ?>
+	<?endif?>
+
+	<?define ProductFeatures="ttf" ?>
+
+</Include>

@@ -1,0 +1,642 @@
+languagesystem DFLT dflt;
+languagesystem cyrl dflt;
+languagesystem cyrl RUS ;
+languagesystem grek dflt;
+languagesystem latn dflt;
+languagesystem latn CES ;
+languagesystem latn CSY ;
+languagesystem latn DEU ;
+languagesystem latn ENG ;
+languagesystem latn ESP ;
+languagesystem latn GAL ;
+languagesystem latn HUN ;
+languagesystem latn ITA ;
+languagesystem latn LTH ;
+languagesystem latn PLK ;
+languagesystem latn PTG ;
+languagesystem latn ROM ;
+languagesystem latn RUS ;
+languagesystem latn SLK ;
+languagesystem latn SKY ;
+languagesystem latn TRK ;
+languagesystem math dflt;
+languagesystem math RUS ;
+
+# перечёркнутый ноль
+
+feature zero {
+	sub [zero zero.sub zero.sup zero.numr zero.dnom] by [zero.slash zero.slash.sub zero.slash.sup zero.slash.numr zero.slash.dnom];
+} zero;
+
+# альтернативное начертание цифры 3
+
+feature cv01 {
+	sub [three three.sub three.sup three.numr three.dnom] by [three.alt three.alt.sub three.alt.sup three.alt.numr three.alt.dnom];
+} cv01;
+
+@Digits = [zero one two three four five six seven eight nine];
+@Digits.all = [@Digits zero.slash three.alt];
+@Digits.sub = [zero.sub one.sub two.sub three.sub four.sub five.sub six.sub seven.sub eight.sub nine.sub];
+@Digits.sub.all = [@Digits.sub zero.slash.sub three.alt.sub];
+@Digits.sup = [zero.sup one.sup two.sup three.sup four.sup five.sup six.sup seven.sup eight.sup nine.sup];
+@Digits.sup.all = [@Digits.sup zero.slash.sup three.alt.sup];
+
+# inline дроби
+
+@figures = @Digits.all;
+@numerators = [zero.numr one.numr two.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr];
+@denominators = [zero.dnom one.dnom two.dnom three.dnom four.dnom five.dnom six.dnom seven.dnom eight.dnom nine.dnom zero.slash.dnom three.alt.dnom];
+
+feature frac {
+	lookup FractionBar {
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures @figures slash';
+		ignore sub slash' @figures @figures @figures slash ;
+		ignore sub slash  @figures @figures slash';
+		ignore sub slash' @figures @figures slash ;
+		ignore sub slash  @figures slash';
+		ignore sub slash' @figures slash ;
+
+		sub @figures slash' @figures by fraction;
+	} FractionBar;
+
+	lookup Numerator1 {
+		sub @figures' fraction by @numerators;
+	} Numerator1;
+	lookup Numerator2 {
+		sub @figures' @numerators fraction by @numerators;
+	} Numerator2;
+	lookup Numerator3 {
+		sub @figures' @numerators @numerators fraction by @numerators;
+	} Numerator3;
+	lookup Numerator4 {
+		sub @figures' @numerators @numerators @numerators fraction by @numerators;
+	} Numerator4;
+	lookup Numerator5 {
+		sub @figures' @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator5;
+	lookup Numerator6 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator6;
+	lookup Numerator7 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator7;
+	lookup Numerator8 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator8;
+	lookup Numerator9 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator9;
+	lookup Numerator10 {
+		sub @figures' @numerators @numerators @numerators @numerators @numerators @numerators @numerators @numerators @numerators fraction by @numerators;
+	} Numerator10;
+
+	lookup Denominator {
+		sub [fraction @denominators] @figures' by @denominators;
+	} Denominator;
+
+	lookup FracSpace {
+		sub @figures space' @numerators by uni200D; # zero width word joiner
+	} FracSpace;
+} frac;
+
+feature numr {
+	sub @figures by @numerators;
+} numr;
+
+feature dnom {
+	sub @figures by @denominators;
+} dnom;
+
+lookup frac_kerning {
+	pos fraction [zero.dnom one.dnom two.dnom four.dnom six.dnom eight.dnom nine.dnom zero.slash.dnom] -71;
+	# pos fraction [three.dnom five.dnom seven.dnom three.alt.dnom] 0;
+	pos [zero.numr three.numr four.numr five.numr six.numr seven.numr eight.numr nine.numr zero.slash.numr three.alt.numr] fraction -71;
+	# pos [one.numr two.numr] fraction 0;
+} frac_kerning;
+
+# dotless формы для i, j
+
+feature dtls {
+	sub i by dotlessi;
+	sub j by dotlessj;
+} dtls;
+
+# замена греческих символов на математические операторы
+
+feature mgrk {
+	script grek;
+		sub Sigma by summation;
+		sub Pi by product;
+} mgrk;
+
+# римские цифры
+
+@RomanDigits = [ROMANI ROMANII ROMANIII ROMANIV ROMANV ROMANV.alt ROMANVI ROMANVII ROMANVIII ROMANIX ROMANX ROMANXI ROMANXII ROMANL ROMANC ROMAND ROMANM];
+
+feature cv03 {
+	sub [I V X L C D M] by [ROMANI ROMANV ROMANX ROMANL ROMANC ROMAND ROMANM];
+	sub [i v x l c d m] by [ROMANI ROMANV ROMANX ROMANL ROMANC ROMAND ROMANM];
+} cv03;
+
+feature rlig {
+	sub ROMANI ROMANI by ROMANII;
+	sub ROMANI ROMANI ROMANI by ROMANIII;
+} rlig;
+
+lookup roman_kerning {
+	lookupflag IgnoreMarks;
+	enum pos ROMANI [ROMANX ROMANV ROMANV.alt] -100;
+	enum pos [ROMANV ROMANV.alt] [ROMANI ROMANII ROMANIII] -100;
+	enum pos ROMANX [ROMANI ROMANII ROMANIII] -100;
+} roman_kerning;
+
+# альтернативное начертание римской V
+
+feature cv02 {
+	sub ROMANV by ROMANV.alt;
+} cv02;
+
+# лигатуры для №
+# http://en.wikipedia.org/wiki/Numero_sign
+
+lookup Numero {
+	sub N ordmasculine by numero;
+	sub N degree by numero;
+} Numero;
+
+lookup NumeroRUS {
+	sub N o period by numero;
+} NumeroRUS;
+
+feature liga {
+	lookup Numero;
+
+	script latn;
+		language ENG include_dflt;
+			lookup NumeroRUS;
+		language RUS include_dflt;
+			lookup NumeroRUS;
+} liga;
+
+feature ordn {
+	lookup Numero;
+
+	script latn;
+		language ENG include_dflt;
+			lookup NumeroRUS;
+		language RUS include_dflt;
+			lookup NumeroRUS;
+} ordn;
+
+lookup ordn_ao {
+	sub @Digits.all [a o]' by [ordfeminine ordmasculine];
+} ordn_ao;
+
+feature ordn {
+	script latn;
+		language ESP include_dflt;
+			lookup ordn_ao;
+		language GAL include_dflt;
+			lookup ordn_ao;
+		language ITA include_dflt;
+			lookup ordn_ao;
+		language PTG include_dflt;
+			lookup ordn_ao;
+} ordn;
+
+# градусы Цельсия, Фаренгейта
+
+lookup degrees {
+	sub degree C by uni2103;
+	sub degree F by uni2109;
+} degrees;
+
+feature rlig {
+			lookup degrees;
+} rlig;
+
+# лигатуры для germandbls
+
+lookup germandbls {
+	sub s s by germandbls;
+} germandbls;
+
+feature rlig {
+	script latn;
+		language DEU exclude_dflt;
+			lookup germandbls;
+} rlig;
+
+# .., ...
+
+lookup period_to_dot_leader {
+	sub period' period period period by onedotenleader;
+	sub onedotenleader period' by onedotenleader;
+} period_to_dot_leader;
+
+lookup dot_leaders {
+	sub period period by twodotenleader;
+	sub period period period by ellipsis;
+} dot_leaders;
+
+lookup dot_leaders_kerning {
+	enum pos [onedotenleader twodotenleader ellipsis] [onedotenleader twodotenleader ellipsis] -100;
+} dot_leaders_kerning;
+
+feature rlig {
+			lookup period_to_dot_leader;
+			lookup dot_leaders;
+} rlig;
+
+# диакритические знаки
+
+@OgonekMark = [uni0328];
+
+lookup ogonek {
+	lookupflag MarkAttachmentType @OgonekMark;
+	markClass @OgonekMark <anchor 0 0> @Ogonek;
+	markClass [ogonek] <anchor 50 0> @Ogonek;
+	pos base [space] <anchor 50 0> mark @Ogonek;
+	pos base [A] <anchor 850 0> mark @Ogonek;
+	pos base [a] <anchor 750 0> mark @Ogonek;
+	pos base [E e] <anchor 650 0> mark @Ogonek;
+} ogonek;
+
+@TopMarks = [gravecomb acutecomb uni0302 tildecomb uni0304 uni0305 
+	uni0306 uni0307 uni0308 uni030A uni030B uni030C uni030D uni030E 
+	uni030F uni0311 uni0312 uni0313 uni0314 uni0340 uni0341];
+
+lookup topMark {
+	lookupflag MarkAttachmentType @TopMarks;
+	markClass [@TopMarks] <anchor 0 1350> @Top;
+	markClass [dotaccent] <anchor 150 1350> @Top;
+	markClass [circumflex caron macron breve ring] <anchor 250 1350> @Top;
+	markClass [uni02CA grave] <anchor 200 1350> @Top;
+	markClass [tilde dieresis] <anchor 300 1350> @Top;
+	markClass [hungarumlaut] <anchor 300 1350> @Top;
+	pos base [space] <anchor 300 1350> mark @Top;
+	pos base [A G Y] <anchor 500 1650> mark @Top;
+	pos base [B D E R] <anchor 400 1650> mark @Top;
+	pos base [C H N S T Z] <anchor 450 1650> mark @Top;
+	pos base [I b h k] <anchor 150 1650> mark @Top;
+	pos base [L l] <anchor 150 1650> mark @Top;
+	pos base [M] <anchor 550 1650> mark @Top;
+	pos base [O U] <anchor 450 1650> mark @Top;
+	pos base [W] <anchor 700 1650> mark @Top;
+	pos base [c e g n s x y z] <anchor 400 1350> mark @Top;
+	pos base [j r dotlessj] <anchor 350 1350> mark @Top;
+	pos base [d] <anchor 650 1650> mark @Top;
+	pos base [i dotlessi] <anchor 150 1350> mark @Top;
+	pos base [m] <anchor 550 1350> mark @Top;
+	pos base [o u] <anchor 400 1350> mark @Top;
+	pos base [t] <anchor 250 1650> mark @Top;
+	pos base [w] <anchor 600 1350> mark @Top;
+	pos base [a] <anchor 450 1350> mark @Top;
+	pos base [CYRE CYREREV] <anchor 400 1650> mark @Top;
+	pos base [CYRG CYRI CYRK CYRU CYRCH] <anchor 450 1650> mark @Top;
+	pos base [cyra cyrg cyre cyri cyrk cyro cyru cyrch] <anchor 400 1350> mark @Top;
+	pos base [cyrzh] <anchor 500 1350> mark @Top;
+	pos base [cyrz cyrerev] <anchor 375 1350> mark @Top;
+	pos base [cyrery] <anchor 450 1350> mark @Top;
+	pos base [Alpha uni0394 Delta Lambda Upsilon Phi Chi Psi uni03A9] <anchor 500 1650> mark @Top;
+	pos base [Beta Gamma Epsilon Rho] <anchor 400 1650> mark @Top;
+	pos base [Zeta Eta Theta Kappa Nu Xi Omicron Pi Sigma Tau] <anchor 450 1650> mark @Top;
+	pos base [Iota] <anchor 150 1650> mark @Top;
+	pos base [Mu] <anchor 550 1650> mark @Top;
+	pos base [alpha beta gamma sigma1] <anchor 350 1350> mark @Top;
+	pos base [delta zeta xi] <anchor 400 1650> mark @Top;
+	pos base [epsilon uni03BC omicron rho sigma tau upsilon] <anchor 400 1350> mark @Top;
+	pos base [eta pi phi psi] <anchor 500 1350> mark @Top;
+	pos base [theta] <anchor 650 1650> mark @Top;
+	pos base [iota] <anchor 150 1350> mark @Top;
+	pos base [kappa nu chi] <anchor 450 1350> mark @Top;
+	pos base [lambda] <anchor 300 1650> mark @Top;
+	pos base [omega] <anchor 550 1350> mark @Top;
+} topMark;
+
+@ApostropheMarks = [uni0315];
+
+lookup apostrophe {
+	lookupflag MarkAttachmentType @ApostropheMarks;
+	markClass [@ApostropheMarks] <anchor 0 1350> @Apostrophe;
+	markClass [uni02BC] <anchor 150 1350> @Apostrophe;
+	pos base [L l] <anchor 350 1350> mark @Apostrophe;
+	pos base [d] <anchor 850 1350> mark @Apostrophe;
+	pos base [t] <anchor 450 1350> mark @Apostrophe;
+} apostrophe;
+
+@BottomMarks = [uni0326 uni0316 uni0317];
+
+lookup bottomMark {
+	lookupflag MarkAttachmentType @BottomMarks;
+	markClass @BottomMarks <anchor 0 -150> @Bottom;
+	pos base [A G] <anchor 500 -150> mark @Bottom;
+	pos base [B D E R a b d e h k s] <anchor 400 -150> mark @Bottom;
+	pos base [H K N S T] <anchor 450 -150> mark @Bottom;
+	pos base [L] <anchor 350 -150> mark @Bottom;
+	pos base [M m] <anchor 550 -150> mark @Bottom;
+	pos base [W] <anchor 700 -150> mark @Bottom;
+	pos base [l] <anchor 300 -150> mark @Bottom;
+	pos base [n] <anchor 401 -150> mark @Bottom;
+	pos base [r] <anchor 150 -150> mark @Bottom;
+	pos base [t] <anchor 250 -150> mark @Bottom;
+	pos base [y] <anchor 650 -150> mark @Bottom;
+} bottomMark;
+
+@RightMarks = [periodcentered];
+
+lookup rightMark {
+	lookupflag MarkAttachmentType @RightMarks;
+	markClass @RightMarks <anchor 150 500> @Right;
+	pos base [L l] <anchor 350 750> mark @Right;
+} rightMark;
+
+@CenterMarks = [uni20DD uni0337 uni0338];
+
+lookup centerMark {
+	lookupflag MarkAttachmentType @CenterMarks;
+	markClass [uni20DD] <anchor 0 900> @Center;
+	markClass [uni0337] <anchor 0 500> @Center;
+	markClass [uni0338] <anchor 0 700> @Center;
+	pos base [o] <anchor 400 500> mark @Center;
+	pos base [existential] <anchor 400 700> mark @Center;
+} centerMark;
+
+@TonosMarks = [tonos];
+
+lookup tonosMark {
+	lookupflag MarkAttachmentType @TonosMarks;
+	markClass @TonosMarks <anchor 250 1350> @Tonos;
+	pos base [Alpha] <anchor 300 1350> mark @Tonos;
+	pos base [Epsilon Eta Iota Upsilon] <anchor -50 1350> mark @Tonos;
+	pos base [Omicron uni03A9] <anchor 100 1350> mark @Tonos;
+} tonosMark;
+
+feature mark {
+	lookup topMark;
+	lookup bottomMark;
+	lookup rightMark;
+	lookup centerMark;
+	lookup ogonek;
+	lookup apostrophe;
+	lookup tonosMark;
+} mark;
+
+lookup topMarkToMark {
+	lookupflag MarkAttachmentType @TopMarks;
+	markClass [uni0304 uni0306 uni030B uni030A uni0307 uni0302 uni030C gravecomb uni030E uni0340 uni0341 uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1350> @TopMark;
+	markClass [acutecomb] <anchor 0 1650> @TopMark;
+	markClass [tonos] <anchor 150 1150> @TopMark;
+	pos mark [uni0308 uni0304 uni0306 uni030B uni030A uni0307 uni0302 uni030C uni030E uni0311 uni0312 uni030D uni030F uni0313 uni0314] <anchor 0 1650> mark @TopMark;
+	pos mark [tildecomb] <anchor 0 1525> mark @TopMark;
+} topMarkToMark;
+
+feature mkmk {
+	lookup topMarkToMark;
+} mkmk;
+
+# замена i и j при добавлении диакритических знаков
+
+lookup ij_to_dotless {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	sub [i j]' @TopMarks by [dotlessi dotlessj];
+} ij_to_dotless;
+
+# Й, й, Ё, ё
+
+lookup cyr_accented_rus {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	#sub [cyri CYRI] uni0306' by uni0304;
+	sub cyri [uni0306 uni0304] by cyrishrt;
+	sub CYRI [uni0306 uni0304] by CYRISHRT;
+	sub cyre uni0308 by cyryo;
+	sub CYRE uni0308 by CYRYO;
+} cyr_accented_rus;
+
+# прочие комбинированные глифы
+
+lookup latin_accented_hun {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	sub A acutecomb by Aacute;
+	sub a acutecomb by aacute;
+	sub E acutecomb by Eacute;
+	sub e acutecomb by eacute;
+	sub I acutecomb by Iacute;
+	sub i acutecomb by iacute;
+	sub O acutecomb by Oacute;
+	sub o acutecomb by oacute;
+	sub O uni0308 by Odieresis;
+	sub o uni0308 by odieresis;
+	sub O uni030B by Ohungarumlaut;
+	sub o uni030B by ohungarumlaut;
+	sub U acutecomb by Uacute;
+	sub u acutecomb by uacute;
+	sub U uni0308 by Udieresis;
+	sub u uni0308 by udieresis;
+	sub U uni030B by Uhungarumlaut;
+	sub u uni030B by uhungarumlaut;
+} latin_accented_hun;
+
+lookup latin_accented_deu {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	sub A uni0308 by Adieresis;
+	sub a uni0308 by adieresis;
+	sub O uni0308 by Odieresis;
+	sub o uni0308 by odieresis;
+	sub U uni0308 by Udieresis;
+	sub u uni0308 by udieresis;
+} latin_accented_deu;
+
+lookup latin_accented_plk {
+	lookupflag IgnoreLigatures;
+	sub A uni0328 by Aogonek;
+	sub a uni0328 by aogonek;
+	sub C acutecomb by Cacute;
+	sub c acutecomb by cacute;
+	sub E uni0328 by Eogonek;
+	sub e uni0328 by eogonek;
+	sub N acutecomb by Nacute;
+	sub n acutecomb by nacute;
+	sub O acutecomb by Oacute;
+	sub o acutecomb by oacute;
+	sub S acutecomb by Sacute;
+	sub s acutecomb by sacute;
+	sub Z uni0307 by Zdotaccent;
+	sub z uni0307 by zdotaccent;
+	sub Z acutecomb by Zacute;
+	sub z acutecomb by zacute;
+} latin_accented_plk;
+
+lookup latin_accented_rom {
+	lookupflag IgnoreLigatures;
+	sub A uni0302 by Acircumflex;
+	sub a uni0302 by acircumflex;
+	sub A uni0306 by Abreve;
+	sub a uni0306 by abreve;
+	sub I uni0302 by Icircumflex;
+	sub i uni0302 by icircumflex;
+	sub S uni0326 by Scommabelow;
+	sub s uni0326 by scommabelow;
+	sub T uni0326 by Tcommabelow;
+	sub t uni0326 by tcommabelow;
+} latin_accented_rom;
+
+lookup latin_accented_csy {
+	lookupflag IgnoreLigatures, MarkAttachmentType @TopMarks;
+	sub A acutecomb by Aacute;
+	sub a acutecomb by aacute;
+	sub A uni0308 by Adieresis;
+	sub A uni0308 by Adieresis;
+	sub C uni030C by Ccaron;
+	sub c uni030C by ccaron;
+	sub D uni030C by Dcaron;
+	#sub d uni030C' by uni0315;
+	sub d [uni030C uni0315] by dcaron;
+	sub E acutecomb by Eacute;
+	sub e acutecomb by eacute;
+	sub E uni030C by Ecaron;
+	sub e uni030C by ecaron;
+	sub I acutecomb by Iacute;
+	sub i acutecomb by iacute;
+	sub L acutecomb by Lacute;
+	sub l acutecomb by lacute;
+	#sub [l L] uni030C' by uni0315;
+	sub L [uni030C uni0315] by Lcaron;
+	sub l [uni030C uni0315] by lcaron;
+	sub N uni030C by Ncaron;
+	sub n uni030C by ncaron;
+	sub O acutecomb by Oacute;
+	sub o acutecomb by oacute;
+	sub O uni0302 by Ocircumflex;
+	sub o uni0302 by ocircumflex;
+	sub R uni030C by Rcaron;
+	sub r uni030C by rcaron;
+	sub R acutecomb by Racute;
+	sub r acutecomb by racute;
+	sub S uni030C by Scaron;
+	sub s uni030C by scaron;
+	sub T uni030C by Tcaron;
+	#sub t uni030C' by uni0315;
+	sub t [uni030C uni0315] by tcaron;
+	sub U acutecomb by Uacute;
+	sub u acutecomb by uacute;
+	sub U uni030A by Uring;
+	sub u uni030A by uring;
+	sub Y acutecomb by Yacute;
+	sub y acutecomb by yacute;
+	sub Z uni030C by Zcaron;
+	sub z uni030C by zcaron;
+} latin_accented_csy;
+
+feature ccmp {
+	script DFLT;
+			lookup latin_accented_hun;
+			lookup ij_to_dotless;
+			lookup latin_accented_deu;
+			lookup latin_accented_plk;
+			lookup latin_accented_rom;
+			lookup latin_accented_csy;
+			lookup cyr_accented_rus;
+	script latn;
+		language HUN;
+			lookup latin_accented_hun;
+			lookup ij_to_dotless;
+		language DEU;
+			lookup latin_accented_deu;
+		language PLK;
+			lookup latin_accented_plk;
+		language ROM;
+			lookup latin_accented_rom;
+			lookup ij_to_dotless;
+		language CSY exclude_dflt;
+			lookup latin_accented_csy;
+			lookup ij_to_dotless;
+		language SKY exclude_dflt;
+			lookup latin_accented_csy;
+			lookup ij_to_dotless;
+	script cyrl;
+		language RUS;
+			lookup cyr_accented_rus;
+} ccmp;
+
+# кернинг
+
+lookup common_kerning {
+	lookupflag IgnoreMarks;
+	pos .notdef .notdef 0; # заглушка для генерации таблицы
+} common_kerning;
+
+feature kern {
+			lookup frac_kerning;
+			lookup dot_leaders_kerning;
+			lookup roman_kerning;
+			lookup common_kerning;
+} kern;
+
+# Mark attachment classes (defined in GDEF, used in lookupflags)
+
+@GDEF_Simple = [uni26AC nonmarkingreturn space exclam quotedbl numbersign 
+	dollar percent ampersand quotesingle parenleft parenright asterisk plus
+	comma hyphen period slash 
+	numero @Digits.all
+	colon semicolon less equal greater question at A B C D E F G H I J 
+	K L M N O P Q R S T U V W X Y Z bracketleft backslash bracketright
+	underscore a b c d e f g h i j k l m n o p q r s t u v w x y z 
+	braceleft bar braceright asciitilde exclamdown cent sterling currency 
+	\yen \brokenbar \section \copyright \ordfeminine \guillemotleft \logicalnot 
+	uni00AD \registered \degree \plusminus \mu \paragraph uni00A0 \ordmasculine 
+	\guillemotright \multiply Alpha Beta Gamma uni0394 Epsilon Zeta Eta Theta 
+	Iota Kappa Lambda Mu Nu Xi Omicron Pi Rho Sigma Tau Upsilon Phi Chi Psi 
+	uni03A9 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta \iota \kappa \lambda 
+	uni03BC \nu \xi \omicron \pi \rho \sigma1 \sigma \tau \upsilon \phi \chi \psi \omega 
+  uni0194 uni025B uni0269 uni0278
+	CYRYO CYRA CYRB CYRV CYRG CYRD CYRE CYRZH CYRZ
+	CYRI CYRISHRT CYRK CYRL CYRM CYRN CYRO CYRP CYRR 
+	CYRS CYRT CYRU CYRF CYRH CYRC CYRCH CYRSH CYRSHCH 
+	CYRHRDSN CYRERY CYRSFTSN CYREREV CYRYU CYRYA cyra cyrb cyrv 
+	cyrg cyrd cyre cyrzh cyrz cyri cyrishrt cyrk cyrl 
+	cyrm cyrn cyro cyrp cyrr cyrs cyrt cyru cyrf 
+	cyrh cyrc cyrch cyrsh cyrshch cyrhrdsn cyrery cyrsftsn cyrerev 
+	cyryu cyrya cyryo uni2010 uni2011 \endash \emdash uni2016 \quoteleft 
+	\quoteright \quotesinglbase \quotereversed \quotedblleft \quotedblright 
+	\quotedblbase uni201F \bullet \onedotenleader \twodotenleader \ellipsis 
+	\perthousand uni2031 \minute \second uni2034 \guilsinglleft \guilsinglright 
+	\exclamdbl uni2042 \fraction uni2047 uni2048 uni2049 Euro uni2103 uni2109 
+	\trademark Omega
+	@RomanDigits 
+	\emptyset Delta 
+	\gradient \minus uni2213 uni2215 uni2216 \asteriskmath uni2218 uni2219 
+	\radical \proportional \infinity \orthogonal \angle uni2221 uni2222 uni2223 
+	uni2225 \integral uni222E uni2236 \similar uni223D uni223E uni223F 
+	uni2242 uni2243 \congruent \approxequal uni2250 uni2251 uni2252 uni2253 
+	uni2254 \equivalence \lessequal \greaterequal uni226A uni226B 
+	\perpendicular uni2300 \revlogicalnot uni2316 uni232D uni232F uni23E4 
+	uni23E5 \circle uni25CE uni25EF uni27C2 uni2027 uni2015 \figuredash 
+	uni2029 uni2028 universal uni2201 \partialdiff \existential uni2204 
+	\product uni2210 \summation uni222C uni222D uni222F uni2230 uni2237 
+	uni225D uni225E uni2263 \integraltp \integralbt uni239B uni239C uni239D 
+	uni239E uni239F uni23A0 uni23A1 uni23A2 uni23A3 uni23A4 uni23A5 uni23A6 
+	uni23A7 uni23A8 uni23A9 uni23AA uni23AB uni23AC uni23AD uni23AE uni2A7D 
+	uni2A7E dotlessi dotlessj \questiondown \AE \ae uni1D3F \divide Oslash 
+	oslash germandbls uni2E32 uni20BD
+	Lslash lslash OE oe uni2E41 dotmath uni2332	uni0332 uni0333 uni033F uni0305];
+@GDEF_Ligature = [germandbls];
+@GDEF_Mark = [@OgonekMark @TopMarks @ApostropheMarks @BottomMarks @RightMarks @CenterMarks @TonosMarks];
+
+table GDEF {
+	GlyphClassDef @GDEF_Simple, @GDEF_Ligature, @GDEF_Mark, ;
+} GDEF;

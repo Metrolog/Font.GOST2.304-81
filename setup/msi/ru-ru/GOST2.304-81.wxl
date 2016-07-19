@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization
+	xmlns="http://wixtoolset.org/schemas/v4/wxl"
+	Culture="ru-ru"
+	Codepage="1251"
+	Language="1049"
+>
+
+	<String Id="Manufacturer">ООО "Инженер-53"</String>
+	<String Id="Comments">Инсталляционный пакет содержит шрифты ГОСТ 2.304-81.</String>
+	<String Id="Description">Чертёжные шрифты ГОСТ 2.304-81</String>
+	<String Id="Keywords">MSI; Database; ГОСТ 2.304-81; Font</String>
+
+	<String Id="Product.DisplayName">Шрифты ГОСТ 2.304-81</String>
+	<String Id="Product.Description">Чертёжные True Type шрифты ГОСТ 2.304-81</String>
+
+	<String Id="TTF.Title">True Type шрифты</String>
+	<String Id="TTF.Description">True Type (.ttf) шрифты.</String>
+
+	<String Id="OTF.Title">Open Type шрифты</String>
+	<String Id="OTF.Description">Open Type (.otf) шрифты.</String>
+
+</WixLocalization>
