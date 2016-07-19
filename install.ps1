@@ -122,7 +122,7 @@ if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
     };
     # nearest repository selection
     if ( $env:APPVEYOR -eq 'True' ) {
-        $MiktexRemoteRepositoryRoot = "ftp://ftp.muug.ca/mirror/ctan/systems/win32/miktex";
+        $MiktexRemoteRepositoryRoot = "http://muug.ca/mirror/ctan/systems/win32/miktex";
     } else {
         $MiktexRemoteRepositoryRoot = "http://mirror.datacenter.by/pub/mirrors/CTAN/systems/win32/miktex";
     };
