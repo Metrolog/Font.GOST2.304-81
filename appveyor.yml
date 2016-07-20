@@ -1,21 +1,54 @@
 image: WMF 5
 version: 1.0.0 (Build {build})
+
 init:
+
 clone_script:
-- ps: >-
-    if ( -not $env:appveyor_pull_request_number ) {
-      git clone -q --branch=$env:appveyor_repo_branch https://github.com/$env:appveyor_repo_name.git $env:appveyor_build_folder
-      git checkout -qf $env:appveyor_repo_commit
-      git submodule update -q --init --recursive
-    } else {
-      git clone -q https://github.com/$env:appveyor_repo_name.git $env:appveyor_build_folder
-      git fetch -q origin +refs/pull/$env:appveyor_pull_request_number/merge:
-      git checkout -qf FETCH_HEAD
-      git submodule update -q --init --recursive
-    }
+  - ps: >-
+      if ( -not $env:appveyor_pull_request_number ) {
+        git clone -q --branch=$env:appveyor_repo_branch https://github.com/$env:appveyor_repo_name.git $env:appveyor_build_folder
+        git checkout -qf $env:appveyor_repo_commit
+        git submodule update -q --init --recursive
+      } else {
+        git clone -q https://github.com/$env:appveyor_repo_name.git $env:appveyor_build_folder
+        git fetch -q origin +refs/pull/$env:appveyor_pull_request_number/merge:
+        git checkout -qf FETCH_HEAD
+        git submodule update -q --init --recursive
+      }
+
 install:
-- cmd: GitVersion /output buildserver
-- ps: .\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
+  - cmd: GitVersion /output buildserver
+  - ps: .\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
+
 build_script:
-- cmd: make
+  - cmd: make
+
 test: off
+
+artifacts: 
+  - path: fonts\bin
+    name: fonts
+    type: zip
+  - path: fonts\bin\ttf\*.ttf
+    name: ttf
+  - path: tex\obj\tds\doc\latex\**\*.pdf
+    name: tex docs
+  - path: tex\release\ctan\*.zip
+    name: ctan
+  - path: setup\msi\bin\Release\*.msi
+    name: msi
+
+deploy:
+  - provider: GitHub
+    tag: $(appveyor_build_version)
+    release: v$(appveyor_build_version)
+    description: ''
+    auth_token:
+      secure: HAx57VxF99EnN5lQMiF2vODOgWGsEZvoFlvmhScufiGFS18ZIpgAfAXurdTsHqFP
+    artifact: fonts, ttf, tex docs, ctan, msi
+    draft: true
+    prerelease: false
+    on:
+      branch: hotfix/0.7.2
+#      branch: master
+#      appveyor_repo_tag: true
