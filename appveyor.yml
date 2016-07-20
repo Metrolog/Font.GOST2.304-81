@@ -32,20 +32,26 @@ artifacts:
   - path: fonts\bin\ttf\*.ttf
     name: ttf
   - path: tex\obj\tds\doc\latex\**\*.pdf
-    name: tex docs
+    name: tex-docs
   - path: tex\release\ctan\*.zip
     name: ctan
+  - path: setup\msm\bin\Release\*.msm
+    name: msm
   - path: setup\msi\bin\Release\*.msi
     name: msi
 
+before_deploy:
+  - ps: >-
+      & GitReleaseNotes . /OutputFile ReleaseNotes.md;
+      ${env:release_description} = Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8;
+
 deploy:
   - provider: GitHub
-    tag: $(appveyor_build_version)
     release: v$(appveyor_build_version)
-    description: ''
+    description: $(release_description)
     auth_token:
       secure: HAx57VxF99EnN5lQMiF2vODOgWGsEZvoFlvmhScufiGFS18ZIpgAfAXurdTsHqFP
-    artifact: fonts, ttf, tex docs, ctan, msi
+    artifact: fonts, ttf, tex-docs, ctan, msi
     draft: true
     prerelease: false
     on:
