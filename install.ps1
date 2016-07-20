@@ -47,8 +47,10 @@ $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -So
 $env:GitVersion = "$env:ChocolateyPath\lib\GitVersion.Portable.$(( Get-Package -Name GitVersion.Portable -ProviderName Chocolatey ).Version)\tools\GitVersion.exe";
 Write-Verbose "GitVersion path: $env:GitVersion";
 if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменную окружения')) {
-    [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::Machine );
+    [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::User );
 };
+
+$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey -Source chocolatey;
 
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
 
