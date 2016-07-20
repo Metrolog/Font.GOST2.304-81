@@ -55,6 +55,5 @@ deploy:
     draft: true
     prerelease: false
     on:
-      branch: hotfix/0.7.2
-#      branch: master
-#      appveyor_repo_tag: true
+      branch: master
+      appveyor_repo_tag: true
