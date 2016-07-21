@@ -7,23 +7,6 @@ include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 
 CHOCO              ?= choco
-NUGET              ?= nuget
-
-
-
-NUGET_PACKAGES_CONFIG  ?= packages.config
-NUGET_PACKAGES_DIR     ?= packages
-
-
-$(NUGET_PACKAGES_DIR)/%: ;
-	$(NUGET) \
-    install $(NUGET_PACKAGES_CONFIG) \
-    -OutputDirectory $(NUGET_PACKAGES_DIR) \
-    -ExcludeVersion
-
-
-WARMUP             ?= $(NUGET_PACKAGES_DIR)/warmup/bin/warmup
-
 
 CHOCOPKGUP         ?= chocopkgup
 
