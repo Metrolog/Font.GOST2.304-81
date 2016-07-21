@@ -1,7 +1,8 @@
 ifndef MAKE_NUGET_DIR
 MAKE_NUGET_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+ITG_MAKEUTILS_DIR ?= $(MAKE_NUGET_DIR)
 
-include $(realpath $(MAKE_NUGET_DIR)/common.mk)
+include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
 NUGET ?= nuget
 

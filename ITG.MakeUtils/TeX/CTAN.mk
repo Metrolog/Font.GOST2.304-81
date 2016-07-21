@@ -1,5 +1,6 @@
 ifndef MAKE_TEX_CTAN_DIR
 MAKE_TEX_CTAN_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+ITG_MAKEUTILS_DIR ?= $(realpath $(MAKE_TEX_CTAN_DIR)/..)
 
 LATEXTDSAUXDIR ?= $(AUXDIR)/tds
 TDSFILE ?= $(LATEXPKG).tds.zip
@@ -15,7 +16,7 @@ export CTAN_DIRECTORY ?= /macros/latex/contrib/$(LATEXPKG)
 export LICENSE ?= free
 export FREEVERSION ?= lppl
 
-include $(realpath $(MAKE_TEX_CTAN_DIR)/../common.mk)
+include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
 #
 # common
