@@ -19,4 +19,7 @@ DEPENDENCIES      := $(FONTFILES)
 
 include ..\ITG.WixUtils\msi.mk
 
+export msiTARGETS := $(TargetFullName)
+$(eval $(call declareGlobalTargets,msiTARGETS))
+
 all: msi
