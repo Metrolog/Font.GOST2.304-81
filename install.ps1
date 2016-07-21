@@ -213,6 +213,11 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     Install-PackageMikTeX -Name ctanupload;
 };
 
+$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey -Source chocolatey;
+$ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
+Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
+$ToPath += $ChocoPkgUp;
+
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
     $null = Install-Package -Name visualstudio2015community -ProviderName Chocolatey -Source chocolatey;
