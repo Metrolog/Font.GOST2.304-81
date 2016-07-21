@@ -11,6 +11,7 @@ export ITG_MAKEUTILS_DIR := $(realpath $(MAKE_COMMON_DIR))
 
 AUXDIR             ?= obj
 OUTPUTDIR          ?= release
+SOURCESDIR         ?= sources
 export REPOROOT    ?= $(abspath ./$(ROOT_PROJECT_DIR))/
 REPOVERSION        = $(REPOROOT).git/logs/HEAD
 
