@@ -16,7 +16,8 @@ export CTAN_DIRECTORY ?= /macros/latex/contrib/$(LATEXPKG)
 export LICENSE ?= free
 export FREEVERSION ?= lppl
 
-include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
+include $(ITG_MAKEUTILS_DIR)/common.mk
+include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
 #
 # common
@@ -151,6 +152,7 @@ $(eval $(call copyFilesToTarget,CTAN,$(TDSTARGET)))
 
 .PHONY: ctan
 ctan: $(CTANTARGET)
+	$(pushArtifact)
 
 #
 # common

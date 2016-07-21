@@ -4,7 +4,6 @@
 
 .PHONY: fonts
 all: fonts
-fonts: ttf ttc woff otf pstype0 pstype1
 
 ###
 
@@ -28,6 +27,10 @@ ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
 
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
+include $(ITG_MAKEUTILS_DIR)/appveyor.mk
+
+fonts: ttf ttc woff otf pstype0 pstype1
+	$(call pushArtifactFolder,$@,$(FONTSOUTPUTDIR))
 
 # fontforge, ttfautohint or no
 AUTOHINT           ?= ttfautohint
@@ -189,6 +192,7 @@ $(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf
 
 .PHONY: ttf
 ttf: $(ttfTARGETS)
+	$(pushArtifact)
 
 # build font files
 $(eval $(call generateTargetFromSources,ttc,$(ttfDIR)/$(FONT).ttc,$(ttfTARGETS)))
