@@ -79,9 +79,8 @@ $(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXPRJVERSIONFILE) 
 
 $(eval $(call copyfile,$(LATEXPKGDOCS),$(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf))
 
-.PHONY: doc
 doc: $(LATEXPKGDOCS)
-	$(pushArtifact)
+	$(pushDeploymentArtifact)
 
 # build TDS and CTAN archives for CTAN
 

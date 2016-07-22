@@ -19,9 +19,9 @@ DEPENDENCIES      := $(FONTFILES)
 include ..\ITG.WixUtils\msm.mk
 
 export msmTARGETS := $(TargetFullName)
-$(eval $(call declareGlobalTargets,msmTARGETS))
+$(eval $(call pushArtifactTargets,msmTARGETS))
 
 all: msm
 
 msm:
-	$(pushArtifact)
+	$(pushDeploymentArtifact)

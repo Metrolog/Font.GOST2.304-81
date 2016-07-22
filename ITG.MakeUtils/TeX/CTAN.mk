@@ -150,9 +150,8 @@ copyFilesToCTAN = $(call copyFilesToCTANTarget,CTAN,$1)
 
 $(eval $(call copyFilesToTarget,CTAN,$(TDSTARGET)))
 
-.PHONY: ctan
 ctan: $(CTANTARGET)
-	$(pushArtifact)
+	$(pushDeploymentArtifact)
 
 #
 # common

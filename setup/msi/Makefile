@@ -21,9 +21,9 @@ DEPENDENCIES      := $(FONTFILES)
 include ..\ITG.WixUtils\msi.mk
 
 export msiTARGETS := $(TargetFullName)
-$(eval $(call declareGlobalTargets,msiTARGETS))
+$(eval $(call pushArtifactTargets,msiTARGETS))
 
 all: msi
 
 msi:
-	$(pushArtifact)
+	$(pushDeploymentArtifact)

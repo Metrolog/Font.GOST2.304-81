@@ -4,23 +4,23 @@ ITG_MAKEUTILS_DIR   ?= $(MAKE_APPVEYOR_DIR)
 
 include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
-ifdef APPVEYOR
+ifeq ($(APPVEYOR),True)
 
-APPVEYOR ?= appveyor
+APPVEYORTOOL ?= appveyor
 
-# $(call pushArtifactFile, DeploymentName, Path)
-pushArtifactFile = $(APPVEYOR) PushArtifact $(2) -DeploymentName $(1)
+# $(call pushDeploymentArtifactFile, DeploymentName, Path)
+pushDeploymentArtifactFile = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1)
 
-# $(call pushArtifactFolder, DeploymentName, Path)
-pushArtifactFolder = $(APPVEYOR) PushArtifact $(2) -DeploymentName $(1) -Type zip
+# $(call pushDeploymentArtifactFolder, DeploymentName, Path)
+pushDeploymentArtifactFolder = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1) -Type zip
 
-pyshArtifact = $(call pushArtifactFile,$@,$^)
+pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
 else
 
-pushArtifact =
-pushArtifactFolder =
-pyshArtifact =
+pushDeploymentArtifactFile =
+pushDeploymentArtifactFolder =
+pushDeploymentArtifact =
 
 endif
 
