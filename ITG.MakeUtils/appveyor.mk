@@ -12,7 +12,7 @@ APPVEYORTOOL ?= appveyor
 pushDeploymentArtifactFile = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1)
 
 # $(call pushDeploymentArtifactFolder, DeploymentName, Path)
-pushDeploymentArtifactFolder = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1) -Type zip
+pushDeploymentArtifactFolder = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1)
 
 pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
