@@ -17,7 +17,11 @@ pushDeploymentArtifactFile = powershell \
     \$$ErrorActionPreference = \'Stop\'\; \
     \@\( $(foreach file,$(2),,\'$(file)\') \) \
     \| Get-Item \
-    \| % { Push-AppveyorArtifact \$$_.FullName -FileName \$$_.Name -DeploymentName ${1} } \
+    \| % { Push-AppveyorArtifact \
+      \$$_.FullName \
+      -FileName \$$_.Name \
+      -DeploymentName ${1} \
+    } \
   }
 
 # $(call pushDeploymentArtifactFolder, DeploymentName, Path)
@@ -30,7 +34,12 @@ pushDeploymentArtifactFolder = powershell \
     \$$root = Resolve-Path \'$(2)\'\; \
     [IO.Directory]::GetFiles\(\$$root.Path, \'*.*\', \'AllDirectories\'\) \
     \| Get-Item \
-    \| % { Push-AppveyorArtifact \$$_.FullName -FileName \$$_.FullName.Substring\(\$$root.Path.Length + 1\) -DeploymentName ${1} } \
+    \| % { Push-AppveyorArtifact \
+      \$$_.FullName -FileName \
+      \$$_.FullName.Substring\(\$$root.Path.Length + 1\) \
+      -DeploymentName ${1} \
+      -Type \'zip\' \
+    } \
   }
 
 pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
