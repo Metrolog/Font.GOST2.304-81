@@ -30,7 +30,7 @@ pushDeploymentArtifactFolder = powershell \
     \$$root = Resolve-Path \'$(2)\'\; \
     [IO.Directory]::GetFiles\(\$$root.Path, \'*.*\', \'AllDirectories\'\) \
     \| Get-Item \
-    \| % { Push-AppveyorArtifact \$$_.FullName -FileName \$$_.FullName.Substring(\$$root.Path.Length + 1) -DeploymentName ${1} } \
+    \| % { Push-AppveyorArtifact \$$_.FullName -FileName \$$_.FullName.Substring\(\$$root.Path.Length + 1\) -DeploymentName ${1} } \
   }
 
 pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
