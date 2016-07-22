@@ -16,6 +16,7 @@ export REPOROOT    ?= $(abspath ./$(ROOT_PROJECT_DIR))/
 REPOVERSION        = $(REPOROOT).git/logs/HEAD
 
 SPACE              := $(empty) $(empty)
+COMMA              :=,
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;
 else
