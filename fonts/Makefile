@@ -13,6 +13,7 @@ FONTSOUTPUTDIR     := $(FONTPRJDIR)bin
 FONTSAUXDIR        := $(FONTPRJDIR)obj
 FONTSTOOLSDIR      := $(FONTPRJDIR)tools
 FONTSTOOLSLIBS     := $(FONTSTOOLSDIR)/itgFontLib.py
+fontsTARGET        := $(FONTSOUTPUTDIR)/fonts.zip
 
 # include make packages
 
@@ -22,9 +23,6 @@ ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 include $(ITG_MAKEUTILS_DIR)/appveyor.mk
-
-fonts: ttf ttc woff otf pstype0 pstype1
-	$(call pushDeploymentArtifactFolder,$@,$(FONTSOUTPUTDIR))
 
 AUTOHINT           ?= ttfautohint
 FONTFORGE          ?= fontforge \
@@ -193,7 +191,10 @@ $(eval $(call generateFontsOfType,otf,otf,,afm))
 $(eval $(call generateFontsOfType,pstype0,ps,,afm pfm tfm))
 $(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 
-# clean projects
+$(eval $(call copyFilesToZIP,$(fontsTARGET),$(foreach target,ttf ttc woff otf pstype0 pstype1,$($(target)TARGETS)),$(FONTSOUTPUTDIR)))
+
+fonts: $(fontsTARGET) | ttf ttc woff otf pstype0 pstype1
+	$(pushDeploymentArtifact)
 
 clean::
 	rm -rf $(FONTSAUXDIR)

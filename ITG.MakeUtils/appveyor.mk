@@ -38,7 +38,6 @@ pushDeploymentArtifactFolder = powershell \
       \$$_.FullName -FileName \
       \$$_.FullName.Substring\(\$$root.Path.Length + 1\) \
       -DeploymentName ${1} \
-      -Type \'zip\' \
     } \
   }
 
