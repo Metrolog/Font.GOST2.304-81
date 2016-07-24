@@ -17,6 +17,8 @@ REPOVERSION        = $(REPOROOT).git/logs/HEAD
 
 SPACE              := $(empty) $(empty)
 COMMA              :=,
+LEFT_BRACKET       :=(
+RIGHT_BRACKET      :=)
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;
 else
@@ -30,6 +32,11 @@ ZIP                ?= zip \
 	-o \
 	-9
 TAR                ?= tar
+
+SHELL_SPECIAL_STRINGS = ; " ' ` $$ @ $$(LEFT_BRACKET) $$(RIGHT_BRACKET) & | \
+
+# $(call shellEncode, commandLine)
+$(eval shellEncode = $$(strip $(foreach specialString,$(SHELL_SPECIAL_STRINGS),$$$(LEFT_BRACKET)subst $(specialString),\$(specialString),)$$(1)$(foreach specialString,$(SHELL_SPECIAL_STRINGS),$(RIGHT_BRACKET))))
 
 # $(call setvariable, var, value)
 define setvariable
