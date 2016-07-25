@@ -147,10 +147,10 @@ endef
 # build True Type fonts
 
 export ttfDIR := $(FONTSOUTPUTDIR)/ttf
-$(eval $(call pushArtifactTargets, ttfDIR))
+$(eval $(call pushArtifactTargets,ttfDIR))
 FFGENERATEttf := $(FONTSTOOLSDIR)/generate-ttf.py
 export ttfTARGETS := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
-$(eval $(call pushArtifactTargets, ttfTARGETS))
+$(eval $(call pushArtifactTargets,ttfTARGETS))
 
 ifeq ($(AUTOHINT),ttfautohint)
 
