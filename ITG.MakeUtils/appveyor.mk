@@ -9,7 +9,6 @@ ifeq ($(APPVEYOR),True)
 APPVEYORTOOL ?= appveyor
 
 # $(call pushDeploymentArtifactFile, DeploymentName, Path)
-#pushDeploymentArtifactFile = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1)
 pushDeploymentArtifactFile = $(call shellEncode,\
   powershell \
     -NoLogo \
@@ -21,13 +20,12 @@ pushDeploymentArtifactFile = $(call shellEncode,\
       | % { Push-AppveyorArtifact \
         $$_.FullName \
         -FileName $$_.Name \
-        -DeploymentName ${1} \
+        -DeploymentName '$(1)' \
       } \
     } \
   )
 
 # $(call pushDeploymentArtifactFolder, DeploymentName, Path)
-#pushDeploymentArtifactFolder = $(APPVEYORTOOL) PushArtifact $(2) -DeploymentName $(1)
 pushDeploymentArtifactFolder = $(call shellEncode,\
   powershell \
     -NoLogo \
@@ -40,7 +38,7 @@ pushDeploymentArtifactFolder = $(call shellEncode,\
       | % { Push-AppveyorArtifact \
         $$_.FullName -FileName \
         $$_.FullName.Substring($$root.Path.Length + 1) \
-        -DeploymentName ${1} \
+        -DeploymentName '$(1)' \
       } \
     } \
   )
