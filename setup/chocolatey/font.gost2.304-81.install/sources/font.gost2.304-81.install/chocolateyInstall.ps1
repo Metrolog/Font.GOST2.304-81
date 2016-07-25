@@ -1,4 +1,4 @@
-Install-ChocolateyPackage `
+﻿Install-ChocolateyPackage `
     -packageName '{{PackageName}}' `
     -installerType msi `
     -silentArgs "/qn /norestart /l*v `"$env:TEMP\chocolatey\{{PackageName}}.{{PackageVersion}}\MsiInstall.log`"" `
