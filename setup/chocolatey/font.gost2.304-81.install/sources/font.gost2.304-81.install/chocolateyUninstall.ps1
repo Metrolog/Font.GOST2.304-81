@@ -1,6 +1,6 @@
 ﻿Uninstall-ChocolateyPackage `
-    -packageName '{{PackageName}}' `
+    -packageName $env:chocolateyPackageName `
     -installerType msi `
-    -silentArgs "{{PackageGUID}} /qn /norestart /l*v `"$env:TEMP\chocolatey\{{PackageName}}.{{PackageVersion}}\MsiUninstall.log`"" `
+    -silentArgs "$( ( Get-Item '*.msi' )[0].Name ) /qn /norestart" `
     -validExitCodes = @(0, 3010, 1641) `
 ;

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>font.gost2.304-81.install</id>
-    <version>{{PackageVersion}}</version>
+    <version>$version$</version>
     <title>Fonts GOST 2.304-81 (Install)</title>
     <authors>Sergey S. Betke</authors>
     <owners>Sergey S. Betke</owners>
@@ -14,7 +14,7 @@ MSI installer for GOST 2.304-81 true type fonts.
     </description>
     <summary>MSI installer for GOST 2.304-81 true type fonts</summary>
 	<releaseNotes>
-All release notes can be found on the GitHub site - https://github.com/Metrolog/Font.GOST2.304-81/releases/v{{PackageVersion}}
+All release notes can be found on the GitHub site - https://github.com/Metrolog/Font.GOST2.304-81/releases/v$version$
 	</releaseNotes>
     <tags>font GOST 2.304-81 ttf</tags>
     <dependencies>

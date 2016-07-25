@@ -8,8 +8,15 @@ include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 include $(ITG_MAKEUTILS_DIR)/chocolatey.mk
 include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
-$(eval $(call packChocoMSIWebPackage,CHOCO_FONTS_INSTALL_PACKAGE_,font.gost2.304-81.install,$(ProductCode),$(MajorMinorPatch),$(msiTARGETS)))
+CHOCO_PACKAGE_NAME = font.gost2.304-81.install
+CHOCO_PACKAGE_INSTALLER = $(SOURCESDIR)/$(CHOCO_PACKAGE_NAME)/$(notdir $(msiTARGETS))
+
+$(eval $(call copyfile,$(CHOCO_PACKAGE_INSTALLER),$(msiTARGETS)))
+$(eval $(call packChocoMSIPackage,CHOCO_FONTS_INSTALL_PACKAGE_,$(CHOCO_PACKAGE_NAME),$(ProductCode),$(MajorMinorPatch),$(CHOCO_PACKAGE_INSTALLER)))
 
 all: choco.fonts.install
 choco.fonts.install: $(CHOCO_FONTS_INSTALL_PACKAGE_TARGETS)
 	$(pushDeploymentArtifact)
+
+clean::
+	rm -f $(SOURCESDIR)/$(CHOCO_PACKAGE_NAME)/*.msi
