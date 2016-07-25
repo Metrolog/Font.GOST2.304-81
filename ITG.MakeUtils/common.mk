@@ -77,13 +77,22 @@ SUBPROJECT_EXPORTS_FILE ?= $(SUBPROJECTS_EXPORTS_DIR)/undefined
 $(SUBPROJECT_EXPORTS_FILE):: $(MAKEFILE_LIST)
 	$(file > $@,# subproject exported variables)
 
-# $(call pushArtifactTargets, Variables)
-define pushArtifactTargets
+# $(call exportGlobalVariablesAux, Variables, Writer)
+define exportGlobalVariablesAux
 $(SUBPROJECT_EXPORTS_FILE)::
-	$(foreach var,$(1),$$(file >> $$@,export $(var)=$$(foreach path,$$($(var)),$$$$$$$$(ROOT_PROJECT_DIR)/$(SUBPROJECT_DIR)$$(path))))
+	$(foreach var,$(1),$$(file >> $$@,export $(var)=$(call $(2),$(var))))
 
 endef
-pushArtifactTarget = pushArtifactTargets
+
+# $(call exportGlobalVariables, Variables)
+SimpleVariableWriter = $$($(1))
+exportGlobalVariables = $(call exportGlobalVariablesAux,$(1),SimpleVariableWriter)
+exportGlobalVariable = $(exportGlobalVariables)
+
+# $(call pushArtifactTargets, Variables)
+TargetWriter = $$(foreach path,$$($(1)),$$$$$$$$(ROOT_PROJECT_DIR)/$(SUBPROJECT_DIR)$$(path))
+pushArtifactTargets = $(call exportGlobalVariablesAux,$(1),TargetWriter)
+pushArtifactTarget = $(pushArtifactTargets)
 
 # $(call calcRootProjectDir, Project)
 calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$(call getSubProjectDir,$1))))
