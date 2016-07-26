@@ -4,11 +4,14 @@ ITG_MAKEUTILS_DIR   ?= $(MAKE_TESTS_DIR)
 
 include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
+# $(call testPlatformWrapper, testScript)
+testPlatformWrapper =$(1)
+
 # $(call testWrapper, testScript)
 define testWrapper
 @echo ===============================================================================
 	@echo Test \"$$@\"...
-	$(1)
+	$(call testPlatformWrapper,$(1))
 	@echo Test OK.
 	@echo ===============================================================================
 endef
