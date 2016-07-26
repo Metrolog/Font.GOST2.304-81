@@ -45,7 +45,7 @@ packChocoWebPackage = $(call packChocoWebPackageAux,$1,$2,,$3,$4)
 # $(call packChocoMSIWebPackage, id, packageId, productCode, packageVersion, Dependencies)
 packChocoMSIWebPackage = $(call packChocoWebPackageAux,$1,$2,--packageguid=$3,$4,$5)
 
-# $(call packChocoPackageAux, id, packageId, installerArgs, packageVersion, dependencies)
+# $(call packChocoPackageAux, id, packageId, installerArgs, packageVersion, preReleaseSuffix, dependencies)
 define packChocoPackageAux
 
 export $(1)TARGETS ?= $(OUTPUTDIR)/$2/$$($(1)VERSION)/$(call calcChocoPackageFileName,$2,$$($(1)VERSION))
@@ -53,14 +53,19 @@ $(call declareGlobalTargets,$(1)TARGETS)
 $(1)NUSPEC      ?= $(wildcard $(SOURCESDIR)/$2/*.nuspec)
 $(1)TOOLS       ?= $(wildcard $(SOURCESDIR)/$2/chocolatey*.ps1)
 $(1)VERSION     ?= $4
+$(1)VERSIONSUFFIX ?= $5
+ifneq ($$($(1)VERSIONSUFFIX),)
+$(1)VERSIONSUFFIXARG := -Suffix $$($(1)VERSIONSUFFIX)
+endif
 
-$$($(1)TARGETS): $$($(1)NUSPEC) $$($(1)TOOLS) $5
+$$($(1)TARGETS): $$($(1)NUSPEC) $$($(1)TOOLS) $6
 	$$(info Generate chocolatey package file "$$@"...)
 	$$(MAKETARGETDIR)
 	$$(NUGET) \
     pack $$< \
     -OutputDirectory $$(@D) \
     -Version $$($(1)VERSION) \
+    $$($(1)VERSIONSUFFIXARG) \
     -Verbosity detailed \
     -NoPackageAnalysis \
     -NonInteractive
@@ -71,7 +76,7 @@ $(1): $$($(1)TARGETS)
 
 endef
 
-# $(call packChocoMSIPackage, id, packageId, productCode, packageVersion, Dependencies)
-packChocoMSIPackage = $(call packChocoPackageAux,$1,$2,,$4,$5)
+# $(call packChocoMSIPackage, id, packageId, productCode, packageVersion, preReleaseSuffix, dependencies)
+packChocoMSIPackage = $(call packChocoPackageAux,$1,$2,,$4,$5,$6)
 
 endif

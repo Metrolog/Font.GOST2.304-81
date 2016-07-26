@@ -13,7 +13,7 @@ CHOCO_PACKAGE_NAME = font.gost2.304-81.install
 CHOCO_PACKAGE_INSTALLER = $(SOURCESDIR)/$(CHOCO_PACKAGE_NAME)/$(notdir $(msiTARGETS))
 
 $(eval $(call copyfile,$(CHOCO_PACKAGE_INSTALLER),$(msiTARGETS)))
-$(eval $(call packChocoMSIPackage,CHOCO_FONTS_INSTALL_PACKAGE_,$(CHOCO_PACKAGE_NAME),$(ProductCode),$(MajorMinorPatch),$(CHOCO_PACKAGE_INSTALLER)))
+$(eval $(call packChocoMSIPackage,CHOCO_FONTS_INSTALL_PACKAGE_,$(CHOCO_PACKAGE_NAME),$(ProductCode),$(MajorMinorPatch),$(PreReleaseLabel),$(CHOCO_PACKAGE_INSTALLER)))
 
 all: choco.fonts.install
 choco.fonts.install: $(CHOCO_FONTS_INSTALL_PACKAGE_TARGETS)
