@@ -15,7 +15,7 @@ pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
 # $(call testPlatformWrapper,testId,testScript)
 testPlatformWrapper = \
-  $(APPVEYORTOOL) UpdateTest -Name "$1" -Outcome Running; \
+  $(APPVEYORTOOL) AddTest -Name "$1" -Framework "script" -Outcome Running; \
   STD_OUT_FILE=$$$$(mktemp); \
   STD_ERR_FILE=$$$$(mktemp); \
   $2 > $$$$STD_OUT_FILE 2> $$$$STD_ERR_FILE; \
