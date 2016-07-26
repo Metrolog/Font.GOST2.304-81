@@ -45,6 +45,54 @@ pushDeploymentArtifactFolder = $(call shellEncode,\
 
 pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
+# $(call testPlatformWrapper,testId,testScript)
+$(eval testPlatformWrapper = \
+  $(call shellEncode,\
+    powershell \
+      -NoLogo \
+      -NonInteractive \
+      -Command & { \
+        $$$$$$$$ErrorActionPreference = 'Stop'; \
+        function Execute-TestScript { \
+            [CmdletBinding()] \
+            param() \
+            & $$2 \
+        }; \
+        $$$$$$$$sw = [Diagnostics.Stopwatch]::new(); \
+        try { \
+            Update-AppveyorTest \
+                -Name '$$1' \
+                -Outcome 'Running' \
+            ; \
+            $$$$$$$$sw.Start(); \
+            Execute-TestScript \
+                -ErrorAction 'Stop' \
+                -OutVariable stdOutStr \
+                -ErrorVariable stdErrStr \
+            ; \
+            $$$$$$$$sw.Stop(); \
+            Update-AppveyorTest \
+                -Name '$$1' \
+                -Outcome 'Passed' \
+                -Duration ( $$$$$$$$sw.Elapsed.Milliseconds ) \
+                -StdOut $$$$$$$$stdOutStr \
+            ; \
+        } catch { \
+            $$$$$$$$sw.Stop(); \
+            Update-AppveyorTest \
+                -Name '$$1' \
+                -Outcome 'Failed' \
+                -Duration ( $$$$$$$$sw.Elapsed.Milliseconds ) \
+                -StdOut $$$$$$$$stdOutStr \
+                -ErrorMessage ( $$$$$$$$_.Exception.Message ) \
+                -StdErr $$$$$$$$stdErrStr \
+            ; \
+            throw; \
+        }; \
+      } \
+  ) \
+)
+
 else
 
 pushDeploymentArtifactFile =

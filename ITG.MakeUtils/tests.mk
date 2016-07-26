@@ -4,23 +4,18 @@ ITG_MAKEUTILS_DIR   ?= $(MAKE_TESTS_DIR)
 
 include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
-# $(call testPlatformWrapper, testScript)
-testPlatformWrapper =$(1)
-
-# $(call testWrapper, testScript)
-define testWrapper
-@echo ===============================================================================
-	@echo Test \"$$@\"...
-	$(call testPlatformWrapper,$(1))
-	@echo Test OK.
-	@echo ===============================================================================
-endef
+# $(call testPlatformWrapper,testId,testScript)
+testPlatformWrapper ?=$(2)
 
 # $(call defineTest,id,targetId,script,dependencies)
 define defineTest
 .PHONY: test.$(1)-$(2)
 test.$(1)-$(2): $(4)
-	$(call testWrapper,$(3))
+	@echo ===============================================================================
+	@echo Test \"$$@\"...
+	$(call testPlatformWrapper,$$@,$3)
+	@echo Test OK.
+	@echo ===============================================================================
 
 .PHONY: test-$(2)
 test-$(2): | test.$(1)-$(2)

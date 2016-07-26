@@ -57,6 +57,8 @@ if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
     $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
     $ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
 
+    $null = Install-Package -Name chocolatey -ProviderName Chocolatey -Source chocolatey;
+
     if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
         $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
     };
