@@ -14,56 +14,21 @@ pushDeploymentArtifactFile = for file in $2; do $(APPVEYORTOOL) PushArtifact $$f
 pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
 # $(call testPlatformWrapper,testId,testScript)
-$(eval testPlatformWrapper = \
-  $(call shellEncode,\
-    powershell \
-      -NoLogo \
-      -NonInteractive \
-      -Command & { \
-        Update-AppveyorTest \
-            -Name '$$1' \
-            -Outcome 'Running' \
-        ; \
-        $$$$$$$$process = [System.Diagnostics.Process]::new(); \
-        try { \
-            $$$$$$$$process.StartInfo = [System.Diagnostics.ProcessStartInfo]::new($$$$$$$$env:ComSpec, '/C $$2'); \
-            $$$$$$$$process.StartInfo.RedirectStandardOutput = $$$$$$$$true; \
-            $$$$$$$$process.StartInfo.RedirectStandardError = $$$$$$$$true; \
-            $$$$$$$$process.StartInfo.UseShellExecute = $$$$$$$$false; \
-            $$$$$$$$process.StartInfo.WorkingDirectory = Get-Location; \
-            Write-Verbose 'Run $$2'; \
-            $$$$$$$$null = $$$$$$$$process.Start(); \
-            $$$$$$$$process.WaitForExit(); \
-            $$$$$$$$stdOut = $$$$$$$$process.StandardOutput.ReadToEnd(); \
-            $$$$$$$$stdErr = $$$$$$$$process.StandardError.ReadToEnd(); \
-            $$$$$$$$duration = $$$$$$$$process.ExitTime.Subtract( $$$$$$$$process.StartTime ); \
-            if ( $$$$$$$$process.ExitCode -eq 0 ) { \
-                Update-AppveyorTest \
-                    -Name '$$1' \
-                    -Outcome 'Passed' \
-                    -Duration ( $$$$$$$$duration.Milliseconds ) \
-                    -StdOut $$$$$$$$stdOut \
-                    -StdErr $$$$$$$$stdErr \
-                ; \
-                Write-Output $$$$$$$$stdOut; \
-            } else { \
-                Update-AppveyorTest \
-                    -Name '$$1' \
-                    -Outcome 'Failed' \
-                    -Duration ( $$$$$$$$duration.Milliseconds ) \
-                    -StdOut $$$$$$$$stdOut \
-                    -StdErr $$$$$$$$stdErr \
-                ; \
-                Write-Output $$$$$$$$stdOut; \
-                Write-Error $$$$$$$$stdErr; \
-            }; \
-            exit( $$$$$$$$process.ExitCode ); \
-        } finally { \
-            $$$$$$$$process.Dispose(); \
-        }; \
-      } \
-  ) \
-)
+testPlatformWrapper = \
+  $(APPVEYORTOOL) UpdateTest -Name "$1" -Outcome Running; \
+  STD_OUT_FILE=$$$$(mktemp); \
+  STD_ERR_FILE=$$$$(mktemp); \
+  $2 > $$$$STD_OUT_FILE 2> $$$$STD_ERR_FILE; \
+  EXIT_CODE=$$$$?; \
+  STD_OUT="$$$$(cat $$$$STD_OUT_FILE)"; \
+  STD_ERR="$$$$(cat $$$$STD_ERR_FILE)"; \
+  echo $$$$STD_OUT; \
+  if [[ $$$$EXIT_CODE -eq 0 ]]; then \
+    $(APPVEYORTOOL) UpdateTest -Name "$1" -Outcome Passed -StdOut $$$$STD_OUT; \
+  else \
+    $(APPVEYORTOOL) UpdateTest -Name "$1" -Outcome Failed -StdOut $$$$STD_OUT -StdErr $$$$STD_ERR; \
+  fi; \
+  exit $$$$EXIT_CODE;
 
 else
 

@@ -35,16 +35,6 @@ ZIP                ?= zip \
 	-9
 TAR                ?= tar
 
-SHELL_SPECIAL_STRINGS = \
-  ; " ' ` \
-  $(DOLLAR_SIGN)$(DOLLAR_SIGN)$(DOLLAR_SIGN)$(DOLLAR_SIGN)$(DOLLAR_SIGN)$(DOLLAR_SIGN)$(DOLLAR_SIGN)$(DOLLAR_SIGN) \
-  @ \
-  $$(RIGHT_BRACKET) $$(LEFT_BRACKET) \
-  & | \\
-
-# $(call shellEncode, commandLine)
-$(eval shellEncode = $$(strip $(foreach specialString,$(SHELL_SPECIAL_STRINGS),$$$(LEFT_BRACKET)subst $(specialString),\$(specialString),)$$(value 1)$(foreach specialString,$(SHELL_SPECIAL_STRINGS),$(RIGHT_BRACKET))))
-
 # $(call setvariable, var, value)
 define setvariable
 $1:=$2
