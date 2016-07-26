@@ -15,7 +15,7 @@ pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
 # $(call testPlatformWrapper,testId,testScript)
 testPlatformWrapper = \
-  $(APPVEYORTOOL) AddTest -Name "$1" -Framework "MSTest" -FileName "" -Outcome Running; \
+  $(APPVEYORTOOL) AddTest -Name "$1" -Framework "xUnit" -FileName "" -Outcome Running; \
   STD_OUT_FILE=$$$$(mktemp); \
   STD_ERR_FILE=$$$$(mktemp); \
   $2 > $$$$STD_OUT_FILE 2> $$$$STD_ERR_FILE; \
@@ -24,9 +24,9 @@ testPlatformWrapper = \
   STD_ERR="$$$$(cat $$$$STD_ERR_FILE)"; \
   echo $$$$STD_OUT; \
   if [[ $$$$EXIT_CODE -eq 0 ]]; then \
-    $(APPVEYORTOOL) UpdateTest -Name "$1" -Framework "MSTest" -FileName "" -Outcome Passed -StdOut $$$$STD_OUT; \
+    $(APPVEYORTOOL) AddTest -Name "$1" -Framework "xUnit" -FileName "" -Outcome Passed -StdOut $$$$STD_OUT; \
   else \
-    $(APPVEYORTOOL) UpdateTest -Name "$1" -Framework "MSTest" -FileName "" -Outcome Failed -StdOut $$$$STD_OUT -StdErr $$$$STD_ERR; \
+    $(APPVEYORTOOL) AddTest -Name "$1" -Framework "xUnit" -FileName "" -Outcome Failed -StdOut $$$$STD_OUT -StdErr $$$$STD_ERR; \
   fi; \
   exit $$$$EXIT_CODE;
 
