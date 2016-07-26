@@ -23,7 +23,8 @@ install:
 build_script:
   - cmd: make
 
-test: off
+test_script:
+  - cmd: make test
 
 before_deploy:
   - ps: >-

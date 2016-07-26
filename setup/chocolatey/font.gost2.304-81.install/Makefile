@@ -18,5 +18,19 @@ all: choco.fonts.install
 choco.fonts.install: $(CHOCO_FONTS_INSTALL_PACKAGE_TARGETS)
 	$(pushDeploymentArtifact)
 
+.PHONY: test-choco.fonts.install
+test-choco.fonts.install: $(CHOCO_FONTS_INSTALL_PACKAGE_TARGETS)
+	@echo ===============================================================================
+	@echo Test "$@": $(CHOCO) install $(CHOCO_PACKAGE_NAME)...
+	$(CHOCO) install $(CHOCO_PACKAGE_NAME) --force --confirm -pre --source "$(<D)"
+	@echo Test OK.
+	@echo ===============================================================================
+	@echo Test "$@": $(CHOCO) uninstall $(CHOCO_PACKAGE_NAME)...
+	$(CHOCO) uninstall $(CHOCO_PACKAGE_NAME) --confirm
+	@echo Test OK.
+	@echo ===============================================================================
+
+test: test-choco.fonts.install
+
 clean::
 	rm -f $(SOURCESDIR)/$(CHOCO_PACKAGE_NAME)/*.msi

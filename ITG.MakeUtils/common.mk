@@ -8,6 +8,7 @@ export ITG_MAKEUTILS_DIR := $(realpath $(MAKE_COMMON_DIR))
 
 .DEFAULT_GOAL      := all
 .PHONY: all
+.PHONY: test
 
 AUXDIR             ?= obj
 OUTPUTDIR          ?= release
@@ -130,11 +131,16 @@ include $(SUBPROJECTS_EXPORTS_DIR)/$1.mk
 endif
 $1:
 	$(call MAKE_SUBPROJECT,$1)
+test-$1:
+	$(call MAKE_SUBPROJECT,$1) test
 $3:
+	$(call MAKE_SUBPROJECT,$1) $$@
+$(foreach target,$3,test-$(target)):
 	$(call MAKE_SUBPROJECT,$1) $$@
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 all:: $1
+test: test-$1
 clean::
 	@$(call MAKE_SUBPROJECT,$1) clean
 endef
@@ -144,6 +150,9 @@ $(ROOT_PROJECT_DIR)/%:
 	$(MAKE) -C $(ROOT_PROJECT_DIR) $*
 
 endif
+
+.PHONY: test
+test:
 
 .PHONY: clean
 clean::
