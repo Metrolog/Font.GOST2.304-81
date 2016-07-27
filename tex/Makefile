@@ -22,12 +22,16 @@ endif
 
 TEXLUA             ?= texlua
 PDFVIEWER          ?= start
-LATEXMK            ?= latexmk \
+LATEXMK            ?= latexmk
+LATEXMAKE          ?= $(LATEXMK) \
 	-xelatex \
 	-auxdir=$(AUXDIR) \
 	$(VIEWPDFOPT) \
 	-recorder -gg \
 	-use-make \
+	-interaction=nonstopmode \
+	-halt-on-error
+LATEXUNPACK        ?= latex \
 	-interaction=nonstopmode \
 	-halt-on-error
 
@@ -37,20 +41,17 @@ LATEXPKG := gost2-304
 LATEXSRCDIR := sources
 LATEXTOOLSDIR := tools
 LATEXPKGMAINDIR := $(LATEXSRCDIR)/$(LATEXPKG)
-LATEXPKGSOURCEFILESPATTERN := *.ins *.dtx
-LATEXPKGSOURCEFILES := $(foreach PATTERN,$(LATEXPKGSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
-
-# build latex version file
-
+LATEXPKGOTHERSOURCEFILESPATTERN := 
 LATEXPRJVERSIONFILE := $(LATEXPKGMAINDIR)/version.dtx
+LATEXPKGSOURCEFILES := \
+  $(wildcard $(LATEXPKGMAINDIR)/*.ins) \
+  $(sort $(wildcard $(LATEXPKGMAINDIR)/*.dtx) $(LATEXPRJVERSIONFILE)) \
+  $(foreach PATTERN,$(LATEXPKGOTHERSOURCEFILESPATTERN),$(wildcard $(LATEXPKGMAINDIR)/$(PATTERN)))
 
 # unpack latex package files
 
 LATEXPKGUNPACKDIR := $(AUXDIR)/$(LATEXPKG)
 LATEXPKGINSTALLFILES := $(LATEXPKGUNPACKDIR)/$(LATEXPKG).sty
-LATEXUNPACK ?= latex \
-	-interaction=nonstopmode \
-	-halt-on-error
 
 LATEXSANDBOXSOURCEFILES := $(patsubst $(LATEXPKGMAINDIR)/%,$(LATEXPKGUNPACKDIR)/%,$(LATEXPKGSOURCEFILES))
 $(foreach file,$(LATEXSANDBOXSOURCEFILES),$(eval $(call copyfilefrom,$(file),$(LATEXPKGMAINDIR))))
@@ -75,7 +76,7 @@ export TEXFONTS = $(ttfDIR)
 $(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXPRJVERSIONFILE) $(LATEXSANDBOXSOURCEFILES) $(LATEXPKGINSTALLFILES) $(LATEXMKRC) $(ttfTARGETS)
 	$(info Build package doc files "$@"...)
 	$(MAKETARGETDIR)
-	$(LATEXMK) -r $(LATEXMKRC) -outdir=$(@D) $<
+	$(LATEXMAKE) -r $(LATEXMKRC) -outdir=$(@D) $<
 
 $(eval $(call copyfile,$(LATEXPKGDOCS),$(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf))
 
@@ -95,3 +96,6 @@ include $(ITG_MAKEUTILS_DIR)/TeX/CTAN.mk
 .CTAN: $(LATEXPKGINSTALLFILES) $(LATEXPKGSOURCEFILES)
 .CTAN: $(LATEXPKGDOCS) $(wildcard $(LATEXPKGMAINDIR)/*.md)
 .CTAN: $(ttfTARGETS) $(otfTARGETS) $(filter %.pfm %.tfm,$(pstype1TARGETS))
+
+clean::
+	rm -f $(LATEXPRJVERSIONFILE)
