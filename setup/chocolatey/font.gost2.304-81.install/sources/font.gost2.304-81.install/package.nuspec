@@ -8,9 +8,7 @@
     <owners>Sergey S. Betke</owners>
     <licenseUrl>https://raw.githubusercontent.com/Metrolog/Font.GOST2.304-81/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Metrolog/Font.GOST2.304-81</projectUrl>
-    <!--
     <packageSourceUrl>https://github.com/Metrolog/Font.GOST2.304-81/tree/v$version$/setup/chocolatey/font.gost2.304-81.install</packageSourceUrl>
-    -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 MSI installer for GOST 2.304-81 true type fonts.
