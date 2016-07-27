@@ -16,7 +16,7 @@ MSI installer for GOST 2.304-81 true type fonts.
 	<releaseNotes>
 All release notes can be found on the GitHub site - https://github.com/Metrolog/Font.GOST2.304-81/releases/v$version$
 	</releaseNotes>
-    <tags>font GOST 2.304-81 ttf</tags>
+    <tags>admin font ttf ГОСТ ГОСТ2.304-81</tags>
     <dependencies>
     </dependencies>	
   </metadata>
