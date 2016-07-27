@@ -27,9 +27,9 @@ testPlatformWrapper = \
   STD_ERR="$$$$(cat $$$$STD_ERR_FILE)"; \
   echo $$$$STD_OUT; \
   if [[ $$$$EXIT_CODE -eq 0 ]]; then \
-    $(APPVEYORTOOL) UpdateTest -Name "$1" -Duration $$$$DURATION -Framework "MSTest" -FileName "" -Outcome Passed -StdOut $$$$STD_OUT; \
+    $(APPVEYORTOOL) UpdateTest -Name "$1" -Duration $$$$DURATION -Framework "MSTest" -FileName "" -Outcome Passed -StdOut "$$$$STD_OUT"; \
   else \
-    $(APPVEYORTOOL) UpdateTest -Name "$1" -Duration $$$$DURATION -Framework "MSTest" -FileName "" -Outcome Failed -StdOut $$$$STD_OUT -StdErr $$$$STD_ERR; \
+    $(APPVEYORTOOL) UpdateTest -Name "$1" -Duration $$$$DURATION -Framework "MSTest" -FileName "" -Outcome Failed -StdOut "$$$$STD_OUT" -StdErr "$$$$STD_ERR"; \
   fi; \
   exit $$$$EXIT_CODE;
 
