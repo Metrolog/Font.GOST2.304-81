@@ -8,15 +8,20 @@
     <owners>Sergey S. Betke</owners>
     <licenseUrl>https://raw.githubusercontent.com/Metrolog/Font.GOST2.304-81/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Metrolog/Font.GOST2.304-81</projectUrl>
+    <projectSourceUrl>https://github.com/Metrolog/Font.GOST2.304-81/tree/v$version$</projectSourceUrl>
+    <packageSourceUrl>https://github.com/Metrolog/Font.GOST2.304-81/tree/v$version$/setup/chocolatey/font.gost2.304-81.install</packageSourceUrl>
+    <docsUrl>https://github.com/Metrolog/Font.GOST2.304-81/wiki</docsUrl>
+    <bugTrackerUrl>https://github.com/Metrolog/Font.GOST2.304-81/issues</bugTrackerUrl>
+    <mailingListUrl>https://gitter.im/Metrolog/Font.GOST2.304-81</mailingListUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 MSI installer for GOST 2.304-81 true type fonts.
     </description>
     <summary>MSI installer for GOST 2.304-81 true type fonts</summary>
-	<releaseNotes>
+    <releaseNotes>
 All release notes can be found on the GitHub site - https://github.com/Metrolog/Font.GOST2.304-81/releases/v$version$
-	</releaseNotes>
-    <tags>font GOST 2.304-81 ttf</tags>
+    </releaseNotes>
+    <tags>admin font ttf ГОСТ ГОСТ2.304-81</tags>
     <dependencies>
     </dependencies>	
   </metadata>
