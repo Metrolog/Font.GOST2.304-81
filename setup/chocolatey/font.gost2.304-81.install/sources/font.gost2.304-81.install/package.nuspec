@@ -10,6 +10,7 @@
     <projectUrl>https://github.com/Metrolog/Font.GOST2.304-81</projectUrl>
     <packageSourceUrl>https://github.com/Metrolog/Font.GOST2.304-81/tree/v$version$/setup/chocolatey/font.gost2.304-81.install</packageSourceUrl>
     <docsUrl>https://github.com/Metrolog/Font.GOST2.304-81/wiki</docsUrl>
+    <bugTrackerUrl>https://github.com/Metrolog/Font.GOST2.304-81/issues</bugTrackerUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
 MSI installer for GOST 2.304-81 true type fonts.
