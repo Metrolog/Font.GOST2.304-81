@@ -10,6 +10,7 @@ ITG_MAKEUTILS_DIR  ?= ITG.MakeUtils
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 include $(ITG_MAKEUTILS_DIR)/TeX/gitversion.mk
+include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
 # tools
 
@@ -78,8 +79,8 @@ $(LATEXPKGTYPESETDIR)/%.pdf: $(LATEXPKGTYPESETDIR)/%.dtx $(LATEXPRJVERSIONFILE) 
 
 $(eval $(call copyfile,$(LATEXPKGDOCS),$(LATEXPKGTYPESETDIR)/$(LATEXPKG).pdf))
 
-.PHONY: doc
 doc: $(LATEXPKGDOCS)
+	$(pushDeploymentArtifact)
 
 # build TDS and CTAN archives for CTAN
 

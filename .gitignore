@@ -2,6 +2,7 @@
 obj
 release
 bin
+_output
 dirstate
 make.log
 build.log

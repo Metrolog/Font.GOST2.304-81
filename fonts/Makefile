@@ -2,9 +2,7 @@
 ### GNU make Makefile for build GOST 2.304-81 fonts files
 ###
 
-.PHONY: fonts
 all: fonts
-fonts: ttf ttc woff otf pstype0 pstype1
 
 ###
 
@@ -15,21 +13,17 @@ FONTSOUTPUTDIR     := $(FONTPRJDIR)bin
 FONTSAUXDIR        := $(FONTPRJDIR)obj
 FONTSTOOLSDIR      := $(FONTPRJDIR)tools
 FONTSTOOLSLIBS     := $(FONTSTOOLSDIR)/itgFontLib.py
+fontsTARGET        := $(FONTSOUTPUTDIR)/fonts.zip
 
 # include make packages
 
 FONTS_PACKAGES_DIR ?= packages/
 ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
 
-#$(ITG_MAKEUTILS_DIR)/%:
-#	$(info Download ITG.MakeUtils files...)
-#	$(MAKETARGETDIR)
-#	git clone https://github.com/it-Service/ITG.MakeUtils.git Rails $(ITG_MAKEUTILS_DIR)
-
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
+include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
-# fontforge, ttfautohint or no
 AUTOHINT           ?= ttfautohint
 FONTFORGE          ?= fontforge \
 	-nosplash
@@ -109,7 +103,7 @@ define generateTargetFromSources
 FFGENERATE$(1)  ?= $(FONTSTOOLSDIR)/generate-$(1).py
 $(1)DEPS        ?= $$(FFGENERATE$(1)) $(FONTSTOOLSLIBS)
 export $(1)TARGETS ?= $2
-$(call declareGlobalTargets,$(1)TARGETS)
+$(call pushArtifactTargets,$(1)TARGETS)
 $(1)SOURCES     ?= $3
 
 $$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
@@ -130,10 +124,10 @@ FFGENERATE$(1)  ?= $(FONTSTOOLSDIR)/generate-$(1).py
 $(1)DEPS        ?= $$(FFGENERATE$(1)) $(FONTSTOOLSLIBS)
 $(1)EXT         ?= $2
 export $(1)MAINTARGETS := $(foreach VARIANT,$(FONTVARIANTS),$$($(1)DIR)/$(FONT)-$(VARIANT).$$($(1)EXT))
-$(call declareGlobalTargets, $(1)MAINTARGETS)
+$(call pushArtifactTargets, $(1)MAINTARGETS)
 $(1)EXTS        ?= $4
 export $(1)TARGETS := $$($(1)MAINTARGETS) $$(foreach ext,$$($(1)EXTS),$$($(1)MAINTARGETS:.$$($(1)EXT)=.$$(ext)))
-$(call declareGlobalTargets, $(1)TARGETS)
+$(call pushArtifactTargets, $(1)TARGETS)
 ifneq ($(strip $3),)
   $(1)SOURCES   ?= $3
 else
@@ -153,10 +147,10 @@ endef
 # build True Type fonts
 
 export ttfDIR := $(FONTSOUTPUTDIR)/ttf
-$(eval $(call declareGlobalTargets, ttfDIR))
+$(eval $(call pushArtifactTargets,ttfDIR))
 FFGENERATEttf := $(FONTSTOOLSDIR)/generate-ttf.py
 export ttfTARGETS := $(foreach VARIANT, $(FONTVARIANTS), $(ttfDIR)/$(FONT)-$(VARIANT).ttf)
-$(eval $(call declareGlobalTargets, ttfTARGETS))
+$(eval $(call pushArtifactTargets,ttfTARGETS))
 
 ifeq ($(AUTOHINT),ttfautohint)
 
@@ -187,8 +181,8 @@ $(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf
 	$(MAKETARGETDIR)
 	cp $< $@
 
-.PHONY: ttf
 ttf: $(ttfTARGETS)
+	$(pushDeploymentArtifact)
 
 # build font files
 $(eval $(call generateTargetFromSources,ttc,$(ttfDIR)/$(FONT).ttc,$(ttfTARGETS)))
@@ -197,9 +191,11 @@ $(eval $(call generateFontsOfType,otf,otf,,afm))
 $(eval $(call generateFontsOfType,pstype0,ps,,afm pfm tfm))
 $(eval $(call generateFontsOfType,pstype1,pfb,,afm pfm tfm))
 
-# clean projects
+$(eval $(call copyFilesToZIP,$(fontsTARGET),$(foreach target,ttf ttc woff otf pstype0 pstype1,$($(target)TARGETS)),$(FONTSOUTPUTDIR)))
 
-.PHONY: clean
+fonts: $(fontsTARGET) | ttf ttc woff otf pstype0 pstype1
+	$(pushDeploymentArtifact)
+
 clean::
 	rm -rf $(FONTSAUXDIR)
 	rm -rf $(FONTSOUTPUTDIR)
