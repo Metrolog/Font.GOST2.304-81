@@ -1,7 +1,8 @@
 ifndef MAKE_GITVERSION_DIR
 MAKE_GITVERSION_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+ITG_MAKEUTILS_DIR ?= $(MAKE_GITVERSION_DIR)
 
-include $(realpath $(MAKE_GITVERSION_DIR)/common.mk)
+include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
 GITVERSION ?= gitversion.bat
 
