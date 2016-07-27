@@ -8,13 +8,19 @@ export ITG_MAKEUTILS_DIR := $(realpath $(MAKE_COMMON_DIR))
 
 .DEFAULT_GOAL      := all
 .PHONY: all
+.PHONY: test
 
 AUXDIR             ?= obj
 OUTPUTDIR          ?= release
+SOURCESDIR         ?= sources
 export REPOROOT    ?= $(abspath ./$(ROOT_PROJECT_DIR))/
 REPOVERSION        = $(REPOROOT).git/logs/HEAD
 
 SPACE              := $(empty) $(empty)
+COMMA              :=,
+LEFT_BRACKET       :=(
+RIGHT_BRACKET      :=)
+DOLLAR_SIGN        :=$$
 ifeq ($(OS),Windows_NT)
 	PATHSEP          :=;
 else
@@ -68,13 +74,22 @@ SUBPROJECT_EXPORTS_FILE ?= $(SUBPROJECTS_EXPORTS_DIR)/undefined
 $(SUBPROJECT_EXPORTS_FILE):: $(MAKEFILE_LIST)
 	$(file > $@,# subproject exported variables)
 
-# $(call declareGlobalTargets, Variables)
-define declareGlobalTargets
+# $(call exportGlobalVariablesAux, Variables, Writer)
+define exportGlobalVariablesAux
 $(SUBPROJECT_EXPORTS_FILE)::
-	$(foreach var,$(1),$$(file >> $$@,export $(var)=$$(foreach path,$$($(var)),$$$$$$$$(ROOT_PROJECT_DIR)/$(SUBPROJECT_DIR)$$(path))))
+	$(foreach var,$(1),$$(file >> $$@,export $(var)=$(call $(2),$(var))))
 
 endef
-declareGlobalTarget = declareGlobalTargets
+
+# $(call exportGlobalVariables, Variables)
+SimpleVariableWriter = $$($(1))
+exportGlobalVariables = $(call exportGlobalVariablesAux,$(1),SimpleVariableWriter)
+exportGlobalVariable = $(exportGlobalVariables)
+
+# $(call pushArtifactTargets, Variables)
+TargetWriter = $$(foreach path,$$($(1)),$$$$$$$$(ROOT_PROJECT_DIR)/$(SUBPROJECT_DIR)$$(path))
+pushArtifactTargets = $(call exportGlobalVariablesAux,$(1),TargetWriter)
+pushArtifactTarget = $(pushArtifactTargets)
 
 # $(call calcRootProjectDir, Project)
 calcRootProjectDir = $(subst $(SPACE),/,$(patsubst %,..,$(subst /,$(SPACE),$(call getSubProjectDir,$1))))
@@ -112,11 +127,16 @@ include $(SUBPROJECTS_EXPORTS_DIR)/$1.mk
 endif
 $1:
 	$(call MAKE_SUBPROJECT,$1)
+test-$1:
+	$(call MAKE_SUBPROJECT,$1) test
 $3:
+	$(call MAKE_SUBPROJECT,$1) $$@
+$(foreach target,$3,test-$(target)):
 	$(call MAKE_SUBPROJECT,$1) $$@
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 all:: $1
+test: test-$1
 clean::
 	@$(call MAKE_SUBPROJECT,$1) clean
 endef
@@ -126,6 +146,9 @@ $(ROOT_PROJECT_DIR)/%:
 	$(MAKE) -C $(ROOT_PROJECT_DIR) $*
 
 endif
+
+.PHONY: test
+test:
 
 .PHONY: clean
 clean::

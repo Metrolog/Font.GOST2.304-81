@@ -57,6 +57,8 @@ if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
     $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
     $ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
 
+    $null = Install-Package -Name chocolatey -ProviderName Chocolatey -Source chocolatey;
+
     if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
         $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
     };
@@ -212,6 +214,11 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     & 'ppm' install HTML::FormatText | Out-String | Write-Verbose;
     Install-PackageMikTeX -Name ctanupload;
 };
+
+$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey -Source chocolatey;
+$ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
+Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
+$ToPath += $ChocoPkgUp;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;

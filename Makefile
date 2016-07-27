@@ -15,5 +15,6 @@ ifeq ($(OS),Windows_NT)
 
 $(eval $(call useSubProject,msm,setup/msm))
 $(eval $(call useSubProject,msi,setup/msi))
+$(eval $(call useSubProject,choco.fonts.install,setup/chocolatey/font.gost2.304-81.install))
 
 endif

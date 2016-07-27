@@ -30,8 +30,16 @@
 	<?define ProductProjectName="$(var.ProductInternalName)"?>
 	<?define ProductDescription="!(loc.Product.Description)"?>
 	<?define ProductName="$(var.ProductShortName) v$(var.ProductVersion)"?>
-	<?define ProductCode="0FE6159A-9D17-482A-9873-85D4ECBEDA9B"?>
-	<?define UpgradeCode="7C5D2996-34AE-40E7-B53D-643346A9165C"?>
+	<?ifdef env.ProductCode?>
+		<?define ProductCode="$(env.ProductCode)"?>
+	<?else?>
+		<?define ProductCode="0FE6159A-9D17-482A-9873-85D4ECBEDA9B"?>
+	<?endif?>
+	<?ifdef env.UpgradeCode?>
+		<?define UpgradeCode="$(env.UpgradeCode)"?>
+	<?else?>
+		<?define UpgradeCode="7C5D2996-34AE-40E7-B53D-643346A9165C"?>
+	<?endif?>
 	<?define Manufacturer="!(loc.Manufacturer)"?>
 	<?define ManufacturerId="Engineer53"?>
 

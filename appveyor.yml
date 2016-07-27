@@ -23,22 +23,8 @@ install:
 build_script:
   - cmd: make
 
-test: off
-
-artifacts: 
-  - path: fonts\bin
-    name: fonts
-    type: zip
-  - path: fonts\bin\ttf\*.ttf
-    name: ttf
-  - path: tex\obj\tds\doc\latex\**\*.pdf
-    name: tex-docs
-  - path: tex\release\ctan\*.zip
-    name: ctan
-  - path: setup\msm\bin\Release\*.msm
-    name: msm
-  - path: setup\msi\bin\Release\*.msi
-    name: msi
+test_script:
+  - cmd: make test
 
 before_deploy:
   - ps: >-
@@ -46,15 +32,16 @@ before_deploy:
       ${env:release_description} = ( Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8 ) -join "`n";
 
 deploy:
-  - provider: GitHub
-    tag: $(appveyor_repo_tag_name)
-    release: $(appveyor_repo_tag_name)
+  - provider: Environment
+    name: GitHub-Releases
     description: $(release_description)
-    auth_token:
-      secure: HAx57VxF99EnN5lQMiF2vODOgWGsEZvoFlvmhScufiGFS18ZIpgAfAXurdTsHqFP
-    artifact: fonts, ttf, tex-docs, ctan, msi
-    draft: true
-    prerelease: false
+    artifact: fonts, ttf, doc, ctan, msi
+    on:
+      branch: master
+      appveyor_repo_tag: true
+  - provider: Environment
+    name: Chocolatey
+    artifact: choco.fonts.install
     on:
       branch: master
       appveyor_repo_tag: true
