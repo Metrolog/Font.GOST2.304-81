@@ -9,14 +9,20 @@ NUGET ?= nuget
 NUGET_PACKAGES_CONFIG  ?= packages.config
 NUGET_PACKAGES_DIR     ?= packages
 
-$(NUGET_PACKAGES_DIR)/%: ;
-	$(info Expected package $@...)
+# $(call defineNugetPackagesConfig,ConfigFile,PackagesDir)
+define defineNugetPackagesConfig
+
+$(2)/%: $(1)
 	$(NUGET) \
-    install $(NUGET_PACKAGES_CONFIG) \
-    -OutputDirectory $(NUGET_PACKAGES_DIR) \
+    install $$(call winPath,$$<) \
+    -OutputDirectory $$(call winPath,$(2)) \
     -ExcludeVersion
 
 clean::
-	rm -rf $(NUGET_PACKAGES_DIR)
+	rm -rf $(2)
+
+endef
+
+$(eval $(call defineNugetPackagesConfig,$(NUGET_PACKAGES_CONFIG),$(NUGET_PACKAGES_DIR)))
 
 endif
