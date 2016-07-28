@@ -62,6 +62,9 @@ $1:$2
 	@touch $$@
 endef
 
+# $(call winPath,sourcePathOrFileName)
+winPath = $(shell cygpath -w $1)
+
 #
 # subprojects
 #
