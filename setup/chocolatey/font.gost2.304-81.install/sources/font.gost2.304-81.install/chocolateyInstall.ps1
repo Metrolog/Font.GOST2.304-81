@@ -2,6 +2,6 @@
     -packageName $env:chocolateyPackageName `
     -installerType msi `
     -silentArgs '/quiet /qn /norestart' `
-    -file ( ( Get-Item -Path ( Join-Path -Path ( Split-Path -Parent $PSCommandPath ) -ChildPath '*.msi' ) )[0].FullName ) `
+    -file ( Join-Path -Path ( Split-Path -parent $MyInvocation.MyCommand.Definition ) -ChildPath 'setup.msi' ) `
     -validExitCodes @(0, 3010, 1641) `
 ;
