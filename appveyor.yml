@@ -38,10 +38,10 @@ deploy:
     artifact: fonts, ttf, doc, ctan, msi
     on:
       branch: master
-      appveyor_repo_tag: true
+      #appveyor_repo_tag: true
   - provider: Environment
     name: Chocolatey
     artifact: choco.fonts.install
     on:
       branch: master
-      appveyor_repo_tag: true
+      #appveyor_repo_tag: true
