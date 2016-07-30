@@ -33,6 +33,8 @@ testPlatformWrapper = \
   fi; \
   exit $$$$EXIT_CODE;
 
+OPENSSL := $(call shellPath,C:\OpenSSL-Win64\bin\openssl.exe)
+
 else
 
 pushDeploymentArtifactFile =

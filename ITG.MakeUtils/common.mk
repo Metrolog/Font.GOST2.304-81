@@ -65,6 +65,9 @@ endef
 # $(call winPath,sourcePathOrFileName)
 winPath = $(shell cygpath -w $1)
 
+# $(call shellPath,sourcePathOrFileName)
+shellPath = $(shell cygpath -u $1)
+
 #
 # subprojects
 #
