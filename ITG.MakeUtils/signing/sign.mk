@@ -109,13 +109,6 @@ SIGNTARGETWITHSIGNTOOL ?= $(SIGNTOOL) \
   /fd SHA1 \
   $(call winPath,$@)
 
-SIGNTARGET = \
-  $(if $(filter %.exe %.msi %.msm %.dll,$@), \
-    $(SIGNTARGETWITHSIGNTOOL), \
-    $(if $(filter %.ttf %.otf,$@), \
-    ) \
-  )
-
 # signtool.exe verify /v /a c:\signfiles\the_file_to_be_signed
 #
 # Double executable signing
@@ -138,5 +131,21 @@ else
 SIGNTARGET ?=
 
 endif
+
+SIGNCODE ?= signcode
+SIGNTARGETWITHSIGNCODE = $(SIGNCODE) \
+  -spc $(CODE_SIGNING_CERTIFICATE_SPC) \
+  -v $(CODE_SIGNING_CERTIFICATE_PVK) \
+  -j mssipotf.dll \
+  -t http://timestamp.verisign.com/scripts/timstamp.dll \
+  $(call winPath,$@)
+
+SIGNTARGET = \
+  $(if $(filter %.exe %.msi %.msm %.dll,$@), \
+    $(SIGNTARGETWITHSIGNTOOL), \
+    $(if $(filter %.ttf %.otf,$@), \
+      $(SIGNTARGETWITHSIGNCODE) \
+    ) \
+  )
 
 endif

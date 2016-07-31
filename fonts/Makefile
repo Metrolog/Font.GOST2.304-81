@@ -22,6 +22,7 @@ ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
 
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
+include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
 include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
 AUTOHINT           ?= ttfautohint
@@ -106,11 +107,11 @@ export $(1)TARGETS ?= $2
 $(call pushArtifactTargets,$(1)TARGETS)
 $(1)SOURCES     ?= $3
 
-$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
+$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_PVK) $(CODE_SIGNING_CERTIFICATE_SPC)
 	$$(info Generate $1 font file "$$@"...)
 	$$(MAKETARGETDIR)
 	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$(filter-out $$($(1)DEPS),$$^)
-
+	$$(SIGNTARGET)
 .PHONY: $1
 $(1): $$($(1)TARGETS)
 
@@ -176,10 +177,11 @@ $(FONTSAUXDIR)/%.ttf: $(FONTSAUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(FONTSTOOL
 
 endif 
 
-$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf
+$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf $(CODE_SIGNING_CERTIFICATE_PVK) $(CODE_SIGNING_CERTIFICATE_SPC)
 	#-$(FASTFONT) $<
 	$(MAKETARGETDIR)
 	cp $< $@
+	$(SIGNTARGET)
 
 ttf: $(ttfTARGETS)
 	$(pushDeploymentArtifact)
