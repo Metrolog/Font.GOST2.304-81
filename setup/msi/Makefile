@@ -2,9 +2,6 @@
 # GNU make Makefile
 # 
 
-.DEFAULT_GOAL     := all
-.PHONY: all
-
 ITG_MAKEUTILS_DIR  ?= ../ITG.MakeUtils
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/appveyor.mk

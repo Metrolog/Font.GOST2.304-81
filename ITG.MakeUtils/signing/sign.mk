@@ -3,9 +3,8 @@ MAKE_SIGNING_SIGN_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 ITG_MAKEUTILS_DIR ?= $(realpath $(MAKE_SIGNING_SIGN_DIR)/..)
 
 include $(ITG_MAKEUTILS_DIR)/common.mk
-include $(ITG_MAKEUTILS_DIR)/nuget.mk
 
-PFX_PASSWORD ?= pfxpassword
+CODE_SIGNING_CERTIFICATE_PASSWORD ?= pfxpassword
 OPENSSL ?= openssl
 CERTUTIL := certutil
 
@@ -20,7 +19,7 @@ $1:
     -ExecutionPolicy unrestricted \
     -File $(call winPath,$(MAKE_SIGNING_SIGN_DIR)/Export-CodeSigningCertificate.ps1) \
     -FilePath $$@ \
-    -Password '$(PFX_PASSWORD)' \
+    -Password '$(CODE_SIGNING_CERTIFICATE_PASSWORD)' \
     -ErrorAction Stop \
     -Verbose
 
@@ -34,7 +33,7 @@ $1: $2
     pkcs12 \
     -nocerts \
     -nodes \
-    -passin pass:$(PFX_PASSWORD) \
+    -passin pass:$(CODE_SIGNING_CERTIFICATE_PASSWORD) \
     -in $$< \
     -out $$@
 
@@ -47,7 +46,7 @@ $1: $2
 	$$(OPENSSL) \
     pkcs12 \
     -nokeys \
-    -passin pass:$(PFX_PASSWORD) \
+    -passin pass:$(CODE_SIGNING_CERTIFICATE_PASSWORD) \
     -in $$< \
     -out $$@
 
@@ -62,8 +61,8 @@ $1: $2
     -inform PEM \
     -outform PVK \
     -pvk-strong \
-    -passin pass:$(PFX_PASSWORD) \
-    -passout pass:$(PFX_PASSWORD) \
+    -passin pass:$(CODE_SIGNING_CERTIFICATE_PASSWORD) \
+    -passout pass:$(CODE_SIGNING_CERTIFICATE_PASSWORD) \
     -in $$< \
     -out $$@
 
@@ -90,12 +89,47 @@ $1: $2 $3
 	$(OPENSSL) \
     pkcs12 \
     -export \
-    -passin pass:$(PFX_PASSWORD) \
-    -passout pass:$(PFX_PASSWORD) \
+    -passin pass:$(CODE_SIGNING_CERTIFICATE_PASSWORD) \
+    -passout pass:$(CODE_SIGNING_CERTIFICATE_PASSWORD) \
     -inkey $$< \
     $$(foreach crtFile,$$(filter %.crt,$$^),-in $$(crtFile)) \
     -out $$@
 
 endef
+
+ifdef WindowsSDKVersion
+
+SIGNTOOL ?= signtool
+SIGNTARGET ?= $(SIGNTOOL) \
+  sign \
+  /f $(CODE_SIGNING_CERTIFICATE_PFX) \
+  /p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
+  /v \
+  /tr http://timestamp.geotrust.com/tsa \
+  /fd SHA1 \
+  $(call winPath,$@)
+
+# signtool.exe verify /v /a c:\signfiles\the_file_to_be_signed
+#
+# Double executable signing
+# It is also possible to sign your binaries using SHA1 and SHA2
+# to guarantee a maximal compatibility.
+# However it can only work for binaries (.exe) and not for .msi installers.
+# To do so, simply execute the two following commands:
+# 
+# signtool sign /f yourFile.pfx /p password /t "http://timestamp.verisign.com/scripts/timstamp.dll" /fd SHA1 "PATH_TO_EXECUTABLE"
+# signtool sign /as /f yourFile.pfx /p password /tr "http://sha256timestamp.ws.symantec.com/sha256/timestamp" /td SHA256 /fd SHA256 "CHEMIN_VERS_VOTRE_EXECUTABLE"
+# 
+# The first command is used to sign the file using SHA1, the second one, SHA2.
+# The SHA2 signature is set as default. The timestamping server for the SHA1 signature is using Microsoft's format.
+# The example is valid for Symantec certificates. 
+# If your want a RFC3161 compliant SHA1 signaure, you can use the following server :
+# http://timestamp.geotrust.com/tsa 
+
+else
+
+SIGNTARGET ?=
+
+endif
 
 endif
