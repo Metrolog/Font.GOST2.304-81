@@ -34,13 +34,8 @@ Import-Module -Name PackageManagement;
 
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
-$null = Register-PackageSource `
-    -Name chocolatey `
-    -ProviderName Chocolatey `
-    -Location 'http://chocolatey.org/api/v2/' `
-    -Trusted `
-    -Force `
-;
+$null = Set-PackageSource -Name chocolatey -Trusted;
+$null = Set-PackageSource -Name nuget.org -Trusted;
 $ToPath += "$env:ChocolateyPath\bin";
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
@@ -71,6 +66,7 @@ if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
         $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
     };
 
+    $null = Install-Package -Name openssl -RequiredVersion 1.0.2;
 };
 
 $env:CygWin = Get-ItemPropertyValue `
