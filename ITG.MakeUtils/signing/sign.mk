@@ -5,8 +5,6 @@ ITG_MAKEUTILS_DIR ?= $(realpath $(MAKE_SIGNING_SIGN_DIR)/..)
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/nuget.mk
 
-# update .pvk and .spc files from .pfx
-
 PFX_PASSWORD ?= pfxpassword
 OPENSSL ?= openssl
 CERTUTIL := certutil
@@ -80,19 +78,24 @@ $1: $2
     -nocrl \
     -inform PEM \
     -outform DER \
-    -in $$< \
+    -certfile $$< \
     -out $$@
 
 endef
 
-ifndef CODE_SIGNING_PRIVATE_KEY
-%_key.pem:
-	$(file > $@,-----BEGIN PRIVATE KEY-----)
-	$(file >> $@,$(CODE_SIGNING_PRIVATE_KEY))
-	$(file >> $@,-----END PRIVATE KEY-----)
-%_cert.pem:
-	$(file > $@,$(CODE_SIGNING_PRIVATE_KEY))
-else
-endif
+# $(call convertCertificatePem2Pfx,PfxFile,KeyFile,CertPemFile)
+define convertCertificatePem2Pfx
+$1: $2 $3
+	$$(MAKETARGETDIR)
+	$(OPENSSL) \
+    pkcs12 \
+    -export \
+    -passin pass:$(PFX_PASSWORD) \
+    -passout pass:$(PFX_PASSWORD) \
+    -inkey $$< \
+    $$(foreach crtFile,$$(filter %.crt,$$^),-in $$(crtFile)) \
+    -out $$@
+
+endef
 
 endif

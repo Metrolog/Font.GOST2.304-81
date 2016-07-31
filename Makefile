@@ -10,7 +10,7 @@ include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 
 ifeq ($(OS),Windows_NT)
 
-$(eval $(call useSubProject,sign,sign,cert-prepare pvk spc))
+$(eval $(call useSubProject,sign,sign,pfx pvk spc))
 
 endif
 
