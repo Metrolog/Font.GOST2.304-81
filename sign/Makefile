@@ -2,7 +2,7 @@
 ### GNU make Makefile for update .pvk and .spc files from .pfx
 ###
 
-ITG_MAKEUTILS_DIR  ?= ITG.MakeUtils
+ITG_MAKEUTILS_DIR ?= ITG.MakeUtils
 
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
@@ -10,12 +10,12 @@ include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
 CODE_SIGNING_CERTIFICATE_DIR = certificate
 CODE_SIGNING_CERTIFICATE := $(CODE_SIGNING_CERTIFICATE_DIR)/cert.pfx
 export CODE_SIGNING_CERTIFICATE_PFX := $(basename $(CODE_SIGNING_CERTIFICATE)).pfx
-$(call pushArtifactTargets,CODE_SIGNING_CERTIFICATE_PFX)
+$(eval $(call pushArtifactTargets,CODE_SIGNING_CERTIFICATE_PFX))
 export CODE_SIGNING_CERTIFICATE_PVK := $(basename $(CODE_SIGNING_CERTIFICATE)).pvk
-$(call pushArtifactTargets,CODE_SIGNING_CERTIFICATE_PVK)
+$(eval $(call pushArtifactTargets,CODE_SIGNING_CERTIFICATE_PVK))
 CODE_SIGNING_CERTIFICATE_PVK_PEM := $(basename $(CODE_SIGNING_CERTIFICATE)).key.pem
 export CODE_SIGNING_CERTIFICATE_SPC := $(basename $(CODE_SIGNING_CERTIFICATE)).spc
-$(call pushArtifactTargets,CODE_SIGNING_CERTIFICATE_SPC)
+$(eval $(call pushArtifactTargets,CODE_SIGNING_CERTIFICATE_SPC))
 CODE_SIGNING_CERTIFICATE_SPC_PEM := $(basename $(CODE_SIGNING_CERTIFICATE)).spc.pem
 
 ifdef CODE_SIGNING_CERTIFICATE_PVK_TEXT
