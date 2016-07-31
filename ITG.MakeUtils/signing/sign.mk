@@ -100,7 +100,7 @@ endef
 ifdef WindowsSDKVersion
 
 SIGNTOOL ?= signtool
-SIGNTARGET ?= $(SIGNTOOL) \
+SIGNTARGETWITHSIGNTOOL ?= $(SIGNTOOL) \
   sign \
   /f $(CODE_SIGNING_CERTIFICATE_PFX) \
   /p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
@@ -108,6 +108,13 @@ SIGNTARGET ?= $(SIGNTOOL) \
   /tr http://timestamp.geotrust.com/tsa \
   /fd SHA1 \
   $(call winPath,$@)
+
+SIGNTARGET = \
+  $(if $(filter %.exe %.msi %.msm %.dll,$@), \
+    $(SIGNTARGETWITHSIGNTOOL), \
+    $(if $(filter %.ttf %.otf,$@), \
+    ) \
+  )
 
 # signtool.exe verify /v /a c:\signfiles\the_file_to_be_signed
 #
