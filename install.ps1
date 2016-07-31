@@ -23,6 +23,44 @@ param (
     $GUI
 ) 
 
+Function Execute-ExternalInstaller {
+    [CmdletBinding(
+        SupportsShouldProcess = $true
+        , ConfirmImpact = 'Medium'
+    )]
+    param (
+        [String]
+        $LiteralPath
+        ,
+        [String]
+        $ArgumentList
+    )
+
+    $pinfo = [System.Diagnostics.ProcessStartInfo]::new();
+    $pinfo.FileName = $LiteralPath;
+    $pinfo.RedirectStandardError = $true;
+    $pinfo.RedirectStandardOutput = $true;
+    $pinfo.UseShellExecute = $false;
+    $pinfo.Arguments = $ArgumentList;
+    $p = [System.Diagnostics.Process]::new();
+    try {
+        $p.StartInfo = $pinfo;
+        $p.Start() | Out-Null;
+        $p.WaitForExit();
+        $LASTEXITCODE = $p.ExitCode;
+        $p.StandardOutput.ReadToEnd() `
+        | Write-Output `
+        ;
+        if ( $p.ExitCode -ne 0 ) {
+            $p.StandardError.ReadToEnd() `
+            | Write-Error `
+            ;
+        };
+    } finally {
+        $p.Close();
+    };
+}
+
 switch ( $env:PROCESSOR_ARCHITECTURE ) {
     'amd64' { $ArchPath = 'x64'; }
     'x86'   { $ArchPath = 'x86'; }
@@ -96,11 +134,9 @@ $ToPath += "$env:CygWin\bin";
 
 Write-Verbose 'Install CygWin tools...';
 if ($PSCmdLet.ShouldProcess('make, mkdir, touch, zip, ttfautohint', 'Установить пакет CygWin')) {
-    Start-Process `
-        -FilePath $cygwinsetup `
+    Execute-ExternalInstaller `
+        -LiteralPath $cygwinsetup `
         -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --upgrade-also --site http://mirrors.kernel.org/sourceware/cygwin/' `
-        -Wait `
-        -WindowStyle Minimized `
     ;
 };
 
@@ -215,6 +251,26 @@ $null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey 
 $ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
 Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
 $ToPath += $ChocoPkgUp;
+
+if ($PSCmdLet.ShouldProcess('SignCode', 'Установить')) {
+    $DsigFile = Join-Path -Path $env:Temp -ChildPath 'Dsig.exe';
+    Invoke-WebRequest `
+        -Uri 'http://download.microsoft.com/download/4/7/e/47e8e7fb-9441-4887-988f-e259a443052d/Dsig.EXE' `
+        -OutFile $DsigFile `
+    ;
+    $DsigFolder = Join-Path -Path $env:Temp -ChildPath 'Dsig';
+    Remove-Item -LiteralPath $DsigFolder -Recurse -Force -ErrorAction SilentlyContinue;
+    Execute-ExternalInstaller `
+        -LiteralPath $DsigFile `
+        -ArgumentList "/Q /T:`"$DsigFolder`"" `
+    ;
+    $DsigInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::SystemX86);
+    @( 'signcode.exe', 'mssipotf.dll', 'chktrust.exe' ) `
+    | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
+    | Copy-Item -Destination $DsigInstallFolder -Force `
+    ;
+    & $DsigInstallFolder\regsvr32 /s mssipotf.dll;
+};
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
