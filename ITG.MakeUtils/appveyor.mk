@@ -15,11 +15,12 @@ pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
 # $(call testPlatformWrapper,testId,testScript)
 testPlatformWrapper = \
+  set +e; \
   $(APPVEYORTOOL) AddTest -Name "$1" -Framework "MSTest" -FileName "" -Outcome Running; \
   STD_OUT_FILE=$$$$(mktemp); \
   STD_ERR_FILE=$$$$(mktemp); \
   START_TIME=$$$$(($$$$(date +%s%3N))); \
-  $2 > $$$$STD_OUT_FILE 2> $$$$STD_ERR_FILE; \
+  ( $2 ) > $$$$STD_OUT_FILE 2> $$$$STD_ERR_FILE; \
   EXIT_CODE=$$$$?; \
   FINISH_TIME=$$$$(($$$$(date +%s%3N))); \
   DURATION=$$$$(($$$$FINISH_TIME-$$$$START_TIME)); \
