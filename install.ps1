@@ -264,12 +264,33 @@ if ($PSCmdLet.ShouldProcess('SignCode', 'Установить')) {
         -LiteralPath $DsigFile `
         -ArgumentList "/Q /T:`"$DsigFolder`"" `
     ;
-    $DsigInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::SystemX86);
-    @( 'signcode.exe', 'mssipotf.dll', 'chktrust.exe' ) `
+    $DsigDllInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::SystemX86);
+    @( 'mssipotf.dll' ) `
     | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
     | Copy-Item -Destination $DsigInstallFolder -Force `
     ;
-    & $DsigInstallFolder\regsvr32 /s mssipotf.dll;
+    & $DsigDllInstallFolder\regsvr32 /s mssipotf.dll;
+    $DsigInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::Windows);
+    @( 'signcode.exe', 'chktrust.exe' ) `
+    | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
+    | Copy-Item -Destination $DsigInstallFolder -Force `
+    ;
+
+    $SignCodePwdFile = Join-Path -Path $env:Temp -ChildPath 'signcode-pwd.zip';
+    Invoke-WebRequest `
+        -Uri 'http://www.stephan-brenner.com/downloads/signcode-pwd/signcode-pwd_1_02.zip' `
+        -OutFile $SignCodePwdFile `
+    ;
+    $SignCodePwdFolder = Join-Path -Path $env:Temp -ChildPath 'signcode-pwd';
+    Expand-Archive `
+        -LiteralPath $SignCodePwdFile `
+        -DestinationPath $SignCodePwdFolder `
+        -Force `
+    ;
+    @( 'signcode-pwd.exe' ) `
+    | % { Get-Item -LiteralPath ( Join-Path -Path $SignCodePwdFolder -ChildPath $_ ) } `
+    | Copy-Item -Destination $DsigInstallFolder -Force `
+    ;
 };
 
 if ( $GUI ) {

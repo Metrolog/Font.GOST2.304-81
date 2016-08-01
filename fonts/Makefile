@@ -107,7 +107,7 @@ export $(1)TARGETS ?= $2
 $(call pushArtifactTargets,$(1)TARGETS)
 $(1)SOURCES     ?= $3
 
-$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_PVK) $(CODE_SIGNING_CERTIFICATE_SPC)
+$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_TARGETS)
 	$$(info Generate $1 font file "$$@"...)
 	$$(MAKETARGETDIR)
 	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$($(1)SOURCES)
@@ -177,7 +177,7 @@ $(FONTSAUXDIR)/%.ttf: $(FONTSAUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(FONTSTOOL
 
 endif 
 
-$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf $(CODE_SIGNING_CERTIFICATE_PVK) $(CODE_SIGNING_CERTIFICATE_SPC)
+$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf $(CODE_SIGNING_CERTIFICATE_TARGETS)
 	#-$(FASTFONT) $<
 	$(MAKETARGETDIR)
 	cp $< $@
