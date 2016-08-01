@@ -23,6 +23,7 @@ ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
 include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
+include $(ITG_MAKEUTILS_DIR)/tests.mk
 include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
 AUTOHINT           ?= ttfautohint
@@ -185,6 +186,14 @@ $(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf $(CODE_SIGNING_CERTIFICATE_TARGETS)
 
 ttf: $(ttfTARGETS)
 	$(pushDeploymentArtifact)
+
+$(eval $(call defineTest,check_sign,ttf,\
+  set -e; \
+  $$(foreach signedFile,$$^,\
+    $$(call SIGNTEST,$$(signedFile)); \
+  ), \
+  $(ttfTARGETS) \
+))
 
 # build font files
 $(eval $(call generateTargetFromSources,ttc,$(ttfDIR)/$(FONT).ttc,$(ttfTARGETS)))

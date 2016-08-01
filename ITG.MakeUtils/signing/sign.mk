@@ -100,14 +100,14 @@ endef
 ifdef WindowsSDKVersion
 
 SIGNTOOL ?= signtool
-SIGNTARGETWITHSIGNTOOL ?= $(SIGNTOOL) \
+SIGNWITHSIGNTOOL ?= $(SIGNTOOL) \
   sign \
   /f $(CODE_SIGNING_CERTIFICATE_PFX) \
   /p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
   /v \
   /tr http://timestamp.geotrust.com/tsa \
   /fd SHA1 \
-  $(call winPath,$@)
+  $(call winPath,$1)
 
 # signtool.exe verify /v /a c:\signfiles\the_file_to_be_signed
 #
@@ -135,40 +135,61 @@ endif
 SIGNCODE ?= signcode
 SIGNCODEPWD ?= signcode-pwd
 
-SIGNTARGETWITHSIGNCODE = \
-  cp -f $@ $$TMP/$(@F); \
+SIGNWITHSIGNCODE = \
+  set -e; \
+  cp -f $1 $$TMP/$(notdir $1); \
   $(SIGNCODEPWD) -m $(CODE_SIGNING_CERTIFICATE_PASSWORD); \
+  set +e; \
   for ((a=1; a <= 10; a++)); do \
     $(SIGNCODE) \
       -spc "$(call winPath,$(CODE_SIGNING_CERTIFICATE_SPC))" \
       -v "$(call winPath,$(CODE_SIGNING_CERTIFICATE_PVK))" \
       -j "mssipotf.dll" \
-      "$(call winPath,$@)"; \
+      "$(call winPath,$1)"; \
     EXIT_CODE=$$?; \
     if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
-    cp -f $$TMP/$(@F) $@; \
+    cp -f $$TMP/$(notdir $1) $1; \
   done; \
-  cp -f $@ $$TMP/$(@F); \
+  set -e; \
+  cp -f $1 $$TMP/$(notdir $1); \
   if [[ $$EXIT_CODE -eq 0 ]]; then \
+    set +e; \
     for ((a=1; a <= 10; a++)); do \
       $(SIGNCODE) \
         -x \
         -t "http://timestamp.verisign.com/scripts/timstamp.dll" \
-        "$(call winPath,$@)"; \
+        "$(call winPath,$1)"; \
       EXIT_CODE=$$?; \
       if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
-      cp -f $$TMP/$(@F) $@; \
+      cp -f $$TMP/$(notdir $1) $1; \
     done; \
   fi; \
   $(SIGNCODEPWD) -t; \
   exit $$EXIT_CODE;
 
-SIGNTARGET = \
-  $(if $(filter %.exe %.msi %.msm %.dll,$@), \
-    $(SIGNTARGETWITHSIGNTOOL), \
-    $(if $(filter %.ttf,$@), \
-      $(SIGNTARGETWITHSIGNCODE) \
+# $(call SIGN,fileForSigning)
+SIGN = \
+  $(if $(filter %.exe %.msi %.msm %.dll,$1), \
+    $(call SIGNWITHSIGNTOOL,$1), \
+    $(if $(filter %.ttf,$1), \
+      $(call SIGNWITHSIGNCODE,$1) \
     ) \
   )
+
+SIGNTARGET = $(call SIGN,$@)
+
+CHKTRUST ?= chktrust
+SIGNTESTWITHCHKTRUST = ( cd $(dir $1); $(CHKTRUST) -v -q $(notdir $1) )
+
+# $(call SIGNTEST,signedFile)
+SIGNTEST = \
+  $(if $(filter %.exe %.msi %.msm %.dll,$1), \
+    , \
+    $(if $(filter %.ttf,$1), \
+      $(call SIGNTESTWITHCHKTRUST,$1) \
+    ) \
+  )
+
+SIGNTESTTARGET = $(call SIGNTEST,$@)
 
 endif
