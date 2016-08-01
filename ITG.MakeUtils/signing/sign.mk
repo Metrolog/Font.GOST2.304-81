@@ -97,6 +97,12 @@ $1: $2 $3
 
 endef
 
+# $(call encodeCertificatePfx, PfxFile)
+encodeCertificatePfx = $(call encodeFile,,$1)
+
+# $(call decodeCertificatePfx, PfxFile)
+decodeCertificatePfx = $(call decodeFile,$1)
+
 ifdef WindowsSDKVersion
 
 SIGNTOOL ?= signtool

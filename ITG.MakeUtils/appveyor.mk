@@ -1,12 +1,13 @@
 ifndef MAKE_APPVEYOR_DIR
 MAKE_APPVEYOR_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
-ITG_MAKEUTILS_DIR   ?= $(MAKE_APPVEYOR_DIR)
+ITG_MAKEUTILS_DIR ?= $(MAKE_APPVEYOR_DIR)
 
-include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
+include $(ITG_MAKEUTILS_DIR)/common.mk
+include $(ITG_MAKEUTILS_DIR)/nuget.mk
 
 ifeq ($(APPVEYOR),True)
 
-APPVEYORTOOL ?= appveyor
+APPVEYORTOOL := appveyor
 
 # $(call pushDeploymentArtifactFile, DeploymentName, Path)
 pushDeploymentArtifactFile = for file in $2; do $(APPVEYORTOOL) PushArtifact $$file -DeploymentName '$(1)'; done
@@ -42,5 +43,32 @@ pushDeploymentArtifactFile =
 pushDeploymentArtifact =
 
 endif
+
+SECURE_FILE_TOOL ?= $(NUGET_PACKAGES_DIR)/secure-file/tools/secure-file
+SECURE_FILES_SECRET ?= password
+
+getEncodedFile = $1.enc
+
+# $(call encodeFile, to, from, secret)
+define encodeFile
+$(if $1,$1,$(call getEncodedFile,$2)): $2 | $$(SECURE_FILE_TOOL)
+	$$(MAKETARGETDIR)
+	$$(SECURE_FILE_TOOL) \
+    -secret $$(if $3,$3,$$(SECURE_FILES_SECRET)) \
+    -encrypt $$(call winPath,$$<) \
+    -out $$(call winPath,$$@)
+
+endef
+
+# $(call decodeFile, to, from, secret)
+define decodeFile
+$1: $(if $2,$2,$(call getEncodedFile,$1)) | $$(SECURE_FILE_TOOL)
+	$$(MAKETARGETDIR)
+	$$(SECURE_FILE_TOOL) \
+    -secret $$(if $3,$3,$$(SECURE_FILES_SECRET)) \
+    -decrypt $$(call winPath,$$<) \
+    -out $$(call winPath,$$@)
+
+endef
 
 endif
