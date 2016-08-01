@@ -110,7 +110,7 @@ $(1)SOURCES     ?= $3
 $$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_PVK) $(CODE_SIGNING_CERTIFICATE_SPC)
 	$$(info Generate $1 font file "$$@"...)
 	$$(MAKETARGETDIR)
-	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$(filter-out $$($(1)DEPS),$$^)
+	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$($(1)SOURCES)
 	$$(SIGNTARGET)
 .PHONY: $1
 $(1): $$($(1)TARGETS)
