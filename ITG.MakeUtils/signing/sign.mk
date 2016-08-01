@@ -133,17 +133,33 @@ SIGNTARGET ?=
 endif
 
 SIGNCODE ?= signcode
-SIGNTARGETWITHSIGNCODE = $(SIGNCODE) \
-  -spc $(CODE_SIGNING_CERTIFICATE_SPC) \
-  -v $(CODE_SIGNING_CERTIFICATE_PVK) \
-  -j mssipotf.dll \
-  -t http://timestamp.verisign.com/scripts/timstamp.dll \
-  $(call winPath,$@)
+
+SIGNTARGETWITHSIGNCODE = \
+  for ((a=1; a <= 5; a++)); do \
+    $(SIGNCODE) \
+      -spc "$(call winPath,$(CODE_SIGNING_CERTIFICATE_SPC))" \
+      -v "$(call winPath,$(CODE_SIGNING_CERTIFICATE_PVK))" \
+      -j "mssipotf.dll" \
+      "$(call winPath,$@)"; \
+    EXIT_CODE=$$?; \
+    if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
+  done; \
+  if [[ $$EXIT_CODE -eq 0 ]]; then \
+    for ((a=1; a <= 5; a++)); do \
+      $(SIGNCODE) \
+        -x \
+        -t "http://timestamp.verisign.com/scripts/timstamp.dll" \
+        "$(call winPath,$@)"; \
+      EXIT_CODE=$$?; \
+      if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
+    done; \
+  fi; \
+  exit $$EXIT_CODE;
 
 SIGNTARGET = \
   $(if $(filter %.exe %.msi %.msm %.dll,$@), \
     $(SIGNTARGETWITHSIGNTOOL), \
-    $(if $(filter %.ttf %.otf,$@), \
+    $(if $(filter %.ttf %.ttc %.otf,$@), \
       $(SIGNTARGETWITHSIGNCODE) \
     ) \
   )
