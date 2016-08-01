@@ -92,10 +92,6 @@ if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
 
     $null = Install-Package -Name chocolatey -ProviderName Chocolatey -Source chocolatey;
 
-    if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
-        $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
-    };
-
     if ( ( Get-Package -Name Git -ErrorAction SilentlyContinue ).count -eq 0 ) {
         $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey -Source chocolatey;
     };
@@ -107,6 +103,7 @@ if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
     $null = Install-Package -Name openssl -RequiredVersion 1.0.2;
 };
 
+$null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
 $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
     -Name rootdir `
