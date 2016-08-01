@@ -49,7 +49,7 @@ Function Execute-ExternalInstaller {
         $p.WaitForExit();
         $LASTEXITCODE = $p.ExitCode;
         $p.StandardOutput.ReadToEnd() `
-        | Write-Output `
+        | Write-Verbose `
         ;
         if ( $p.ExitCode -ne 0 ) {
             $p.StandardError.ReadToEnd() `
