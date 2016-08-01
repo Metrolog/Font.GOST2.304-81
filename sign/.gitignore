@@ -1,3 +1,3 @@
-/certificate/*.pem
-/certificate/*.pvk
-/certificate/*.spc
+*.pem
+*.spc
+*.pvk
