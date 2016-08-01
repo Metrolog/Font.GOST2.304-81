@@ -265,9 +265,10 @@ if ($PSCmdLet.ShouldProcess('SignCode', 'Установить')) {
     $DsigDllInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::SystemX86);
     @( 'mssipotf.dll' ) `
     | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
-    | Copy-Item -Destination $DsigInstallFolder -Force `
+    | Copy-Item -Destination $DsigDllInstallFolder -Force `
     ;
-    & $DsigDllInstallFolder\regsvr32 /s mssipotf.dll;
+    & $DsigDllInstallFolder\regsvr32 /s mssipotf.dll `
+    | Out-String | Write-Verbose;
     $DsigInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::Windows);
     @( 'signcode.exe', 'chktrust.exe' ) `
     | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
