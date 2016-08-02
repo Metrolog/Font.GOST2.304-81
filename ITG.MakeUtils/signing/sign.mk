@@ -104,14 +104,15 @@ encodeCertificatePfx = $(call encodeFile,,$1)
 decodeCertificatePfx = $(call decodeFile,$1)
 
 SIGNTOOL ?= signtool
-SIGNWITHSIGNTOOL ?= $(SIGNTOOL) \
-  sign \
-  /f $(CODE_SIGNING_CERTIFICATE_PFX) \
-  /p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
-  /v \
-  /tr http://timestamp.geotrust.com/tsa \
-  /fd SHA1 \
-  $(call winPath,$1)
+SIGNWITHSIGNTOOL ?= \
+  $(SIGNTOOL) \
+    sign \
+    /f $(CODE_SIGNING_CERTIFICATE_PFX) \
+    /p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
+    /v \
+    /tr http://timestamp.geotrust.com/tsa \
+    /fd SHA1 \
+    $(call winPath,$1)
 
 # signtool.exe verify /v /a c:\signfiles\the_file_to_be_signed
 #
@@ -176,13 +177,23 @@ SIGN = \
 
 SIGNTARGET = $(call SIGN,$@)
 
+
+SIGNTESTWITHSIGNCODE = \
+  $(SIGNTOOL) \
+    verify \
+    /pa \
+    /all \
+    /tw \
+    /v \
+    $1
+
 CHKTRUST ?= chktrust
 SIGNTESTWITHCHKTRUST = ( cd $(dir $1); $(CHKTRUST) -v -q $(notdir $1) )
 
 # $(call SIGNTEST,signedFile)
 SIGNTEST = \
   $(if $(filter %.exe %.msi %.msm %.dll,$1), \
-    , \
+    $(call SIGNTESTWITHSIGNCODE,$1), \
     $(if $(filter %.ttf,$1), \
       $(call SIGNTESTWITHCHKTRUST,$1) \
     ) \
