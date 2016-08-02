@@ -72,38 +72,46 @@ Import-Module -Name PackageManagement;
 
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
-$null = Set-PackageSource -Name chocolatey -Trusted;
-$null = Set-PackageSource -Name nuget.org -Trusted;
+$null = (
+    Get-PackageSource -ProviderName Chocolatey `
+    | Set-PackageSource -Trusted `
+);
+$null = (
+    Get-PackageSource -ProviderName NuGet `
+    | Set-PackageSource -Trusted `
+);
 $ToPath += "$env:ChocolateyPath\bin";
 
-$null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey;
 $env:GitVersion = "$env:ChocolateyPath\lib\GitVersion.Portable.$(( Get-Package -Name GitVersion.Portable -ProviderName Chocolatey ).Version)\tools\GitVersion.exe";
 Write-Verbose "GitVersion path: $env:GitVersion";
 if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменную окружения')) {
     [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::User );
 };
 
-$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey;
 
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
 
-    $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
+    $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey;
     $ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
 
-    $null = Install-Package -Name chocolatey -ProviderName Chocolatey -Source chocolatey;
+    $null = Install-Package -Name chocolatey -ProviderName Chocolatey;
 
     if ( ( Get-Package -Name Git -ErrorAction SilentlyContinue ).count -eq 0 ) {
-        $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey -Source chocolatey;
+        $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey;
     };
 
     if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
-        $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
+        $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey;
     };
 
     $null = Install-Package -Name openssl -RequiredVersion 1.0.2;
+
+    $null = Install-Package -Name windows-sdk-10 -ProviderName Chocolatey;
 };
 
-$null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'cygwin' -ProviderName Chocolatey;
 $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
     -Name rootdir `
@@ -138,7 +146,7 @@ if ($PSCmdLet.ShouldProcess('make, mkdir, touch, zip, ttfautohint', 'Устан�
     #   -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --upgrade-also --site http://mirrors.kernel.org/sourceware/cygwin/' `
 };
 
-$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
 if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
@@ -245,7 +253,7 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     Install-PackageMikTeX -Name ctanupload;
 };
 
-$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey;
 $ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
 Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
 $ToPath += $ChocoPkgUp;
@@ -293,9 +301,9 @@ if ($PSCmdLet.ShouldProcess('SignCode', 'Установить')) {
 };
 
 if ( $GUI ) {
-    $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
-    $null = Install-Package -Name visualstudio2015community -ProviderName Chocolatey -Source chocolatey;
-    $null = Install-Package -Name notepadplusplus -ProviderName Chocolatey -Source chocolatey;
+    $null = Install-Package -Name SourceTree -ProviderName Chocolatey;
+    $null = Install-Package -Name visualstudio2015community -ProviderName Chocolatey;
+    $null = Install-Package -Name notepadplusplus -ProviderName Chocolatey;
 };
 
 Write-Verbose 'Preparing PATH environment variable...';
