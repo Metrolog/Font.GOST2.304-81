@@ -103,8 +103,6 @@ encodeCertificatePfx = $(call encodeFile,,$1)
 # $(call decodeCertificatePfx, PfxFile)
 decodeCertificatePfx = $(call decodeFile,$1)
 
-ifdef WindowsSDKVersion
-
 SIGNTOOL ?= signtool
 SIGNWITHSIGNTOOL ?= $(SIGNTOOL) \
   sign \
@@ -131,12 +129,6 @@ SIGNWITHSIGNTOOL ?= $(SIGNTOOL) \
 # The example is valid for Symantec certificates. 
 # If your want a RFC3161 compliant SHA1 signaure, you can use the following server :
 # http://timestamp.geotrust.com/tsa 
-
-else
-
-SIGNTARGET ?=
-
-endif
 
 SIGNCODE ?= signcode
 SIGNCODEPWD ?= signcode-pwd
