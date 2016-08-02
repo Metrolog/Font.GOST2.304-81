@@ -27,6 +27,12 @@ install:
 build_script:
   - cmd: make
 
+before_test: 
+  - cmd: openssl pkcs12 -in sign/certificate/cert.pfx -passin pass:%CODE_SIGNING_CERTIFICATE_PASSWORD% -nokeys -out sign/certificate/cert.cer
+  - ps: Import-Certificate -FilePath 'sign/certificate/cert.cer' -CertStoreLocation 'Cert:\LocalMachine\TrustedPublisher' -Verbose
+  - cmd: openssl pkcs12 -in sign/certificate/cert.pfx -passin pass:%CODE_SIGNING_CERTIFICATE_PASSWORD% -nokeys -cacerts -out sign/certificate/CA.cer
+  - ps: Import-Certificate -FilePath 'sign/certificate/CA.cer' -CertStoreLocation 'Cert:\LocalMachine\AuthRoot' -Verbose
+
 test_script:
   - cmd: make test --keep-going
 

@@ -27,7 +27,7 @@ Get-ChildItem -LiteralPath cert:/CurrentUser/My `
 | Export-PfxCertificate `
     -FilePath $FilePath `
     -Password ( ConvertTo-SecureString -String $Password -AsPlainText -Force ) `
-    -ChainOption EndEntityCertOnly `
+    -ChainOption BuildChain `
     -Force `
 | Out-Null `
 ;
