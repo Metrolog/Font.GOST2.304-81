@@ -4,6 +4,7 @@ version: 1.0.0 (Build {build})
 environment: 
   CODE_SIGNING_CERTIFICATE_PASSWORD:
     secure: +Dn/WhvBx1rVgenyg7x+Bg==
+  SIGNTOOL: '%ProgramFiles(x86)%/Windows Kits/8.1/bin/x64/SignTool.exe'
 
 init:
 
