@@ -28,7 +28,7 @@ build_script:
   - cmd: make
 
 test_script:
-  - cmd: make test
+  - cmd: make test --keep-going
 
 before_deploy:
   - ps: >-

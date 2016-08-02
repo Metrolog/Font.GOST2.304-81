@@ -14,9 +14,13 @@ pushDeploymentArtifactFile = for file in $2; do $(APPVEYORTOOL) PushArtifact $$f
 
 pushDeploymentArtifact = $(call pushDeploymentArtifactFile,$@,$^)
 
+# $(call testPlatformSetStatus,testId,status,duration)
+testPlatformSetStatus = echo Test \"$1\" $2$(if $3, in $3 ms).
+
 # $(call testPlatformWrapper,testId,testScript)
 testPlatformWrapper = \
   set +e; \
+  $(call testPlatformSetStatus,$1,Running); \
   $(APPVEYORTOOL) AddTest -Name "$1" -Framework "MSTest" -FileName "" -Outcome Running; \
   STD_OUT_FILE=$$$$(mktemp); \
   STD_ERR_FILE=$$$$(mktemp); \
@@ -29,8 +33,10 @@ testPlatformWrapper = \
   STD_ERR="$$$$(cat $$$$STD_ERR_FILE)"; \
   echo $$$$STD_OUT; \
   if [[ $$$$EXIT_CODE -eq 0 ]]; then \
+    $(call testPlatformSetStatus,$1,Passed,$$$$DURATION); \
     $(APPVEYORTOOL) UpdateTest -Name "$1" -Duration $$$$DURATION -Framework "MSTest" -FileName "" -Outcome Passed -StdOut "$$$$STD_OUT"; \
   else \
+    $(call testPlatformSetStatus,$1,Failed,$$$$DURATION); \
     $(APPVEYORTOOL) UpdateTest -Name "$1" -Duration $$$$DURATION -Framework "MSTest" -FileName "" -Outcome Failed -StdOut "$$$$STD_OUT" -StdErr "$$$$STD_ERR"; \
   fi; \
   exit $$$$EXIT_CODE;
