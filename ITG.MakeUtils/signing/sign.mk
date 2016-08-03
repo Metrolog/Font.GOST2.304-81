@@ -170,7 +170,7 @@ SIGNWITHSIGNCODE = \
 SIGN = \
   $(if $(filter %.exe %.msi %.msm %.dll,$1), \
     $(call SIGNWITHSIGNTOOL,$1), \
-    $(if $(filter %.ttf,$1), \
+    $(if $(filter %.ttf %.otf,$1), \
       $(call SIGNWITHSIGNCODE,$1) \
     ) \
   )
@@ -194,11 +194,18 @@ SIGNTESTWITHCHKTRUST = ( cd $(dir $1); $(CHKTRUST) -v -q $(notdir $1) )
 SIGNTEST = \
   $(if $(filter %.exe %.msi %.msm %.dll,$1), \
     $(call SIGNTESTWITHSIGNCODE,$1), \
-    $(if $(filter %.ttf,$1), \
+    $(if $(filter %.ttf %.otf,$1), \
       $(call SIGNTESTWITHCHKTRUST,$1) \
     ) \
   )
 
 SIGNTESTTARGET = $(call SIGNTEST,$@)
+
+# $(call SIGNTESTS,signedFiles)
+SIGNTESTS = \
+  set -e; \
+  $(foreach file,$(1), \
+    $(if $(strip $(call SIGNTEST,$(file))),$(call SIGNTEST,$(file));) \
+  ) \
 
 endif

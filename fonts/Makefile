@@ -136,13 +136,19 @@ else
   $(1)SOURCES   ?= $(FONTSAUXDIR)/%-$(LASTSFDLABEL).sfd
 endif
 
-$$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS)
+$$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_TARGETS)
 	$$(info Generate .$2 font file "$$@"...)
 	$$(MAKETARGETDIR)
 	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$($(1)DIR)/$$*.$$($(1)EXT) $$(filter-out $$($(1)DEPS),$$^)
+	$$(SIGNTARGET)
 
 .PHONY: $1
 $(1): $$($(1)TARGETS)
+
+$(call defineTest,check_sign,$(1),\
+  $$(call SIGNTESTS,$$^), \
+  $$($(1)TARGETS) \
+)
 
 endef
 
@@ -188,10 +194,7 @@ ttf: $(ttfTARGETS)
 	$(pushDeploymentArtifact)
 
 $(eval $(call defineTest,check_sign,ttf,\
-  set -e; \
-  $$(foreach signedFile,$$^,\
-    $$(call SIGNTEST,$$(signedFile)); \
-  ), \
+  $$(call SIGNTESTS,$$^), \
   $(ttfTARGETS) \
 ))
 

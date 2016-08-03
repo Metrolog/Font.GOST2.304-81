@@ -11,8 +11,6 @@ testPlatformSetStatus = echo Test \"$1\" $2$(if $3, in $3 ms).
 testPlatformWrapper = \
   set +e; \
   $(call testPlatformSetStatus,$1,Running); \
-  STD_OUT_FILE=$$$$(mktemp); \
-  STD_ERR_FILE=$$$$(mktemp); \
   START_TIME=$$$$(($$$$(date +%s%3N))); \
   ( $2 ); \
   EXIT_CODE=$$$$?; \
