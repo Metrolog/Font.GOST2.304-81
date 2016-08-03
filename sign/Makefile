@@ -2,38 +2,43 @@
 ### GNU make Makefile for update .pvk and .spc files from .pfx
 ###
 
-.DEFAULT_GOAL		:= all
+ITG_MAKEUTILS_DIR ?= ITG.MakeUtils
 
-.PHONY: all
-all: pvk spc
+include $(ITG_MAKEUTILS_DIR)/common.mk
+include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
 
-.DELETE_ON_ERROR:;
+CODE_SIGNING_CERTIFICATE_DIR = certificate
+CODE_SIGNING_CERTIFICATE := $(CODE_SIGNING_CERTIFICATE_DIR)/cert.pfx
+export CODE_SIGNING_CERTIFICATE_PFX := $(basename $(CODE_SIGNING_CERTIFICATE)).pfx
+$(eval $(call pushArtifactTarget,CODE_SIGNING_CERTIFICATE_PFX))
+export CODE_SIGNING_CERTIFICATE_PVK := $(basename $(CODE_SIGNING_CERTIFICATE)).pvk
+$(eval $(call pushArtifactTarget,CODE_SIGNING_CERTIFICATE_PVK))
+CODE_SIGNING_CERTIFICATE_PVK_PEM := $(basename $(CODE_SIGNING_CERTIFICATE)).key.pem
+export CODE_SIGNING_CERTIFICATE_SPC := $(basename $(CODE_SIGNING_CERTIFICATE)).spc
+$(eval $(call pushArtifactTarget,CODE_SIGNING_CERTIFICATE_SPC))
+CODE_SIGNING_CERTIFICATE_SPC_PEM := $(basename $(CODE_SIGNING_CERTIFICATE)).spc.pem
+export CODE_SIGNING_CERTIFICATE_TARGETS := $(CODE_SIGNING_CERTIFICATE_PFX) $(CODE_SIGNING_CERTIFICATE_PVK) $(CODE_SIGNING_CERTIFICATE_SPC)
+$(eval $(call pushArtifactTarget,CODE_SIGNING_CERTIFICATE_TARGETS))
 
-OPENSSL				?= "%ProgramFiles(x86)%/OpenSSL/bin/openssl"
-SIGNCERTIFICATE		?= sign
 
-%_key.pem: %.pfx
-	$(OPENSSL) pkcs12 -in $< -nocerts -nodes -out $@
+ifneq ($(CI),True)
 
-%.pvk: %_key.pem
-	$(OPENSSL) rsa -in $< -outform PVK -pvk-strong -out $@
+$(eval $(call exportCodeSigningCertificate,$(CODE_SIGNING_CERTIFICATE_PFX)))
 
-%_cert.pem: %.pfx
-	$(OPENSSL) pkcs12 -in $< -nokeys -out $@
+endif
 
-%.spc: %_cert.pem
-	$(OPENSSL) crl2pkcs7 -nocrl -certfile $< -outform DER -out $@
+.PHONY: pfx
+pfx: $(CODE_SIGNING_CERTIFICATE_PFX)
 
+$(eval $(call exportCertificateKeyFromPfx2Pem,$(CODE_SIGNING_CERTIFICATE_PVK_PEM),$(CODE_SIGNING_CERTIFICATE_PFX)))
+$(eval $(call convertCertificateKeyPem2Pvk,$(CODE_SIGNING_CERTIFICATE_PVK),$(CODE_SIGNING_CERTIFICATE_PVK_PEM)))
 .PHONY: pvk
-pvk: $(SIGNCERTIFICATE).pvk
+pvk: $(CODE_SIGNING_CERTIFICATE_PVK)
 
+$(eval $(call exportCertificateFromPfx2Pem,$(CODE_SIGNING_CERTIFICATE_SPC_PEM),$(CODE_SIGNING_CERTIFICATE_PFX)))
+$(eval $(call convertCertificatePem2Spc,$(CODE_SIGNING_CERTIFICATE_SPC),$(CODE_SIGNING_CERTIFICATE_SPC_PEM)))
 .PHONY: spc
-spc: $(SIGNCERTIFICATE).spc
+spc: $(CODE_SIGNING_CERTIFICATE_SPC)
 
-# clean projects
-
-.PHONY: clean
-clean:
-	-rm -f *.pem
-	-rm -f *.pvk
-	-rm -f *.spc
+clean::
+	rm -rf $(CODE_SIGNING_CERTIFICATE_DIR)

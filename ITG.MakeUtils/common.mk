@@ -62,6 +62,12 @@ $1:$2
 	@touch $$@
 endef
 
+# $(call winPath,sourcePathOrFileName)
+winPath = $(shell cygpath -w $1)
+
+# $(call shellPath,sourcePathOrFileName)
+shellPath = $(shell cygpath -u $1)
+
 #
 # subprojects
 #
@@ -128,11 +134,11 @@ endif
 $1:
 	$(call MAKE_SUBPROJECT,$1)
 test-$1:
-	$(call MAKE_SUBPROJECT,$1) test
+	$(call MAKE_SUBPROJECT,$1) --keep-going test
 $3:
 	$(call MAKE_SUBPROJECT,$1) $$@
 $(foreach target,$3,test-$(target)):
-	$(call MAKE_SUBPROJECT,$1) $$@
+	$(call MAKE_SUBPROJECT,$1) --keep-going $$@
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 all:: $1

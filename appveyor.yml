@@ -1,7 +1,12 @@
 image: WMF 5
 version: 1.0.0 (Build {build})
 
+environment: 
+  CODE_SIGNING_CERTIFICATE_PASSWORD:
+    secure: +Dn/WhvBx1rVgenyg7x+Bg==
+
 init:
+  - cmd: set PATH=%PATH%;%ProgramFiles(x86)%/Windows Kits/8.1/bin/x64
 
 clone_script:
   - ps: >-
@@ -23,8 +28,14 @@ install:
 build_script:
   - cmd: make
 
+before_test: 
+  - cmd: openssl pkcs12 -in sign/certificate/cert.pfx -passin pass:%CODE_SIGNING_CERTIFICATE_PASSWORD% -nokeys -out sign/certificate/cert.cer
+  - ps: Import-Certificate -FilePath 'sign/certificate/cert.cer' -CertStoreLocation 'Cert:\LocalMachine\TrustedPublisher' -Verbose
+  - cmd: openssl pkcs12 -in sign/certificate/cert.pfx -passin pass:%CODE_SIGNING_CERTIFICATE_PASSWORD% -nokeys -cacerts -out sign/certificate/CA.cer
+  - ps: Import-Certificate -FilePath 'sign/certificate/CA.cer' -CertStoreLocation 'Cert:\LocalMachine\AuthRoot' -Verbose
+
 test_script:
-  - cmd: make test
+  - cmd: make test --keep-going
 
 before_deploy:
   - ps: >-
@@ -38,10 +49,10 @@ deploy:
     artifact: fonts, ttf, doc, ctan, msi
     on:
       branch: master
-      appveyor_repo_tag: true
+      #appveyor_repo_tag: true
   - provider: Environment
     name: Chocolatey
     artifact: choco.fonts.install
     on:
       branch: master
-      appveyor_repo_tag: true
+      #appveyor_repo_tag: true

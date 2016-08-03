@@ -1,7 +1,7 @@
 ﻿Uninstall-ChocolateyPackage `
     -packageName $env:chocolateyPackageName `
     -installerType msi `
-    -silentArgs "$( ( Get-Item -Path ( Join-Path -Path ( Split-Path -Parent $PSCommandPath ) -ChildPath '*.msi' ) )[0].FullName ) /quiet /qn  /norestart" `
-    -file ( ( Get-Item -Path ( Join-Path -Path ( Split-Path -Parent $PSCommandPath ) -ChildPath '*.msi' ) )[0].FullName ) `
+    -silentArgs "$( Join-Path -Path ( Split-Path -parent $MyInvocation.MyCommand.Definition ) -ChildPath 'setup.msi' ) /quiet /qn  /norestart" `
+    -file ( Join-Path -Path ( Split-Path -parent $MyInvocation.MyCommand.Definition ) -ChildPath 'setup.msi' ) `
     -validExitCodes @(0, 3010, 1641) `
 ;
