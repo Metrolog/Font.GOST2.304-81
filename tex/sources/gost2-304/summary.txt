@@ -1,1 +1,0 @@
-The package provides a GOST 2.304-81 fonts.

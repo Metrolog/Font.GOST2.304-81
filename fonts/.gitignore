@@ -1,9 +1,0 @@
-*.sfd-*
-obj
-release
-bin
-dirstate
-make.log
-build.log
-*.pyc
-packages
