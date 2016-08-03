@@ -23,6 +23,44 @@ param (
     $GUI
 ) 
 
+Function Execute-ExternalInstaller {
+    [CmdletBinding(
+        SupportsShouldProcess = $true
+        , ConfirmImpact = 'Medium'
+    )]
+    param (
+        [String]
+        $LiteralPath
+        ,
+        [String]
+        $ArgumentList
+    )
+
+    $pinfo = [System.Diagnostics.ProcessStartInfo]::new();
+    $pinfo.FileName = $LiteralPath;
+    $pinfo.RedirectStandardError = $true;
+    $pinfo.RedirectStandardOutput = $true;
+    $pinfo.UseShellExecute = $false;
+    $pinfo.Arguments = $ArgumentList;
+    $p = [System.Diagnostics.Process]::new();
+    try {
+        $p.StartInfo = $pinfo;
+        $p.Start() | Out-Null;
+        $p.WaitForExit();
+        $LASTEXITCODE = $p.ExitCode;
+        $p.StandardOutput.ReadToEnd() `
+        | Write-Verbose `
+        ;
+        if ( $p.ExitCode -ne 0 ) {
+            $p.StandardError.ReadToEnd() `
+            | Write-Error `
+            ;
+        };
+    } finally {
+        $p.Close();
+    };
+}
+
 switch ( $env:PROCESSOR_ARCHITECTURE ) {
     'amd64' { $ArchPath = 'x64'; }
     'x86'   { $ArchPath = 'x86'; }
@@ -34,45 +72,46 @@ Import-Module -Name PackageManagement;
 
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
-$null = Register-PackageSource `
-    -Name chocolatey `
-    -ProviderName Chocolatey `
-    -Location 'http://chocolatey.org/api/v2/' `
-    -Trusted `
-    -Force `
-;
+$null = (
+    Get-PackageSource -ProviderName Chocolatey `
+    | Set-PackageSource -Trusted `
+);
+$null = (
+    Get-PackageSource -ProviderName NuGet `
+    | Set-PackageSource -Trusted `
+);
 $ToPath += "$env:ChocolateyPath\bin";
 
-$null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey;
 $env:GitVersion = "$env:ChocolateyPath\lib\GitVersion.Portable.$(( Get-Package -Name GitVersion.Portable -ProviderName Chocolatey ).Version)\tools\GitVersion.exe";
 Write-Verbose "GitVersion path: $env:GitVersion";
 if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменную окружения')) {
     [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::User );
 };
 
-$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey;
 
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
 
-    $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey -Source chocolatey;
+    $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey;
     $ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
 
-    $null = Install-Package -Name chocolatey -ProviderName Chocolatey -Source chocolatey;
-
-    if ( -not ( Test-Path 'HKLM:\SOFTWARE\Cygwin\setup' ) ) {
-        $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey -Source chocolatey;
-    };
+    $null = Install-Package -Name chocolatey -ProviderName Chocolatey;
 
     if ( ( Get-Package -Name Git -ErrorAction SilentlyContinue ).count -eq 0 ) {
-        $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey -Source chocolatey;
+        $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey;
     };
 
     if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
-        $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey -Source chocolatey;
+        $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey;
     };
 
+    $null = Install-Package -Name openssl -RequiredVersion 1.0.2;
+
+    $null = Install-Package -Name windows-sdk-10 -ProviderName Chocolatey;
 };
 
+$null = Install-Package -Name 'cygwin' -ProviderName Chocolatey;
 $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
     -Name rootdir `
@@ -100,15 +139,14 @@ $ToPath += "$env:CygWin\bin";
 
 Write-Verbose 'Install CygWin tools...';
 if ($PSCmdLet.ShouldProcess('make, mkdir, touch, zip, ttfautohint', 'Установить пакет CygWin')) {
-    Start-Process `
-        -FilePath $cygwinsetup `
-        -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --upgrade-also --site http://mirrors.kernel.org/sourceware/cygwin/' `
-        -Wait `
-        -WindowStyle Minimized `
+    Execute-ExternalInstaller `
+        -LiteralPath $cygwinsetup `
+        -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --site http://mirrors.kernel.org/sourceware/cygwin/' `
     ;
+    #   -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --upgrade-also --site http://mirrors.kernel.org/sourceware/cygwin/' `
 };
 
-$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
 if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
@@ -215,15 +253,57 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     Install-PackageMikTeX -Name ctanupload;
 };
 
-$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey -Source chocolatey;
+$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey;
 $ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
 Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
 $ToPath += $ChocoPkgUp;
 
+if ($PSCmdLet.ShouldProcess('SignCode', 'Установить')) {
+    $DsigFile = Join-Path -Path $env:Temp -ChildPath 'Dsig.exe';
+    Invoke-WebRequest `
+        -Uri 'http://download.microsoft.com/download/4/7/e/47e8e7fb-9441-4887-988f-e259a443052d/Dsig.EXE' `
+        -OutFile $DsigFile `
+    ;
+    $DsigFolder = Join-Path -Path $env:Temp -ChildPath 'Dsig';
+    Remove-Item -LiteralPath $DsigFolder -Recurse -Force -ErrorAction SilentlyContinue;
+    Execute-ExternalInstaller `
+        -LiteralPath $DsigFile `
+        -ArgumentList "/Q /T:`"$DsigFolder`"" `
+    ;
+    $DsigDllInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::SystemX86);
+    @( 'mssipotf.dll' ) `
+    | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
+    | Copy-Item -Destination $DsigDllInstallFolder -Force `
+    ;
+    & $DsigDllInstallFolder\regsvr32 /s mssipotf.dll `
+    | Out-String | Write-Verbose;
+    $DsigInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::Windows);
+    @( 'signcode.exe', 'chktrust.exe' ) `
+    | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
+    | Copy-Item -Destination $DsigInstallFolder -Force `
+    ;
+
+    $SignCodePwdFile = Join-Path -Path $env:Temp -ChildPath 'signcode-pwd.zip';
+    Invoke-WebRequest `
+        -Uri 'http://www.stephan-brenner.com/downloads/signcode-pwd/signcode-pwd_1_02.zip' `
+        -OutFile $SignCodePwdFile `
+    ;
+    $SignCodePwdFolder = Join-Path -Path $env:Temp -ChildPath 'signcode-pwd';
+    Expand-Archive `
+        -LiteralPath $SignCodePwdFile `
+        -DestinationPath $SignCodePwdFolder `
+        -Force `
+    ;
+    @( 'signcode-pwd.exe' ) `
+    | % { Get-Item -LiteralPath ( Join-Path -Path $SignCodePwdFolder -ChildPath $_ ) } `
+    | Copy-Item -Destination $DsigInstallFolder -Force `
+    ;
+};
+
 if ( $GUI ) {
-    $null = Install-Package -Name SourceTree -ProviderName Chocolatey -Source chocolatey;
-    $null = Install-Package -Name visualstudio2015community -ProviderName Chocolatey -Source chocolatey;
-    $null = Install-Package -Name notepadplusplus -ProviderName Chocolatey -Source chocolatey;
+    $null = Install-Package -Name SourceTree -ProviderName Chocolatey;
+    $null = Install-Package -Name visualstudio2015community -ProviderName Chocolatey;
+    $null = Install-Package -Name notepadplusplus -ProviderName Chocolatey;
 };
 
 Write-Verbose 'Preparing PATH environment variable...';

@@ -22,6 +22,8 @@ ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
 
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/gitversion.mk
+include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
+include $(ITG_MAKEUTILS_DIR)/tests.mk
 include $(ITG_MAKEUTILS_DIR)/appveyor.mk
 
 AUTOHINT           ?= ttfautohint
@@ -106,11 +108,11 @@ export $(1)TARGETS ?= $2
 $(call pushArtifactTargets,$(1)TARGETS)
 $(1)SOURCES     ?= $3
 
-$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS)
+$$($(1)TARGETS): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_TARGETS)
 	$$(info Generate $1 font file "$$@"...)
 	$$(MAKETARGETDIR)
-	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$(filter-out $$($(1)DEPS),$$^)
-
+	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$@ $$($(1)SOURCES)
+	$$(SIGNTARGET)
 .PHONY: $1
 $(1): $$($(1)TARGETS)
 
@@ -134,13 +136,19 @@ else
   $(1)SOURCES   ?= $(FONTSAUXDIR)/%-$(LASTSFDLABEL).sfd
 endif
 
-$$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS)
+$$($(1)DIR)/%.$$($(1)EXT) $$(foreach ext,$$($(1)EXTS),$$($(1)DIR)/%.$$(ext)): $$($(1)SOURCES) $$($(1)DEPS) $(CODE_SIGNING_CERTIFICATE_TARGETS)
 	$$(info Generate .$2 font file "$$@"...)
 	$$(MAKETARGETDIR)
 	$$(FONTFORGE) -script $$(FFGENERATE$(1)) $$($(1)DIR)/$$*.$$($(1)EXT) $$(filter-out $$($(1)DEPS),$$^)
+	$$(SIGNTARGET)
 
 .PHONY: $1
 $(1): $$($(1)TARGETS)
+
+$(call defineTest,check_sign,$(1),\
+  $$(call SIGNTESTS,$$^), \
+  $$($(1)TARGETS) \
+)
 
 endef
 
@@ -176,13 +184,19 @@ $(FONTSAUXDIR)/%.ttf: $(FONTSAUXDIR)/%-autokern.sfd $(FFGENERATEttf) $(FONTSTOOL
 
 endif 
 
-$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf
+$(ttfDIR)/%.ttf: $(FONTSAUXDIR)/%.ttf $(CODE_SIGNING_CERTIFICATE_TARGETS)
 	#-$(FASTFONT) $<
 	$(MAKETARGETDIR)
 	cp $< $@
+	$(SIGNTARGET)
 
 ttf: $(ttfTARGETS)
 	$(pushDeploymentArtifact)
+
+$(eval $(call defineTest,check_sign,ttf,\
+  $$(call SIGNTESTS,$$^), \
+  $(ttfTARGETS) \
+))
 
 # build font files
 $(eval $(call generateTargetFromSources,ttc,$(ttfDIR)/$(FONT).ttc,$(ttfTARGETS)))

@@ -11,9 +11,5 @@ build.log
 /latex/gost2.304/gost2.304.pdf
 /latex/gost2.304/gost2.304.zip
 .vs
-*.spc
-*.pvk
-*.pfx
 packages
-.vs
 ReleaseNotes.md
