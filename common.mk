@@ -139,6 +139,8 @@ $3:
 	$(call MAKE_SUBPROJECT,$1) $$@
 $(foreach target,$3,test-$(target)):
 	$(call MAKE_SUBPROJECT,$1) --keep-going $$@
+$(foreach target,$3,test.%-$(target)):
+	$(call MAKE_SUBPROJECT,$1) --keep-going $$@
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*
 all:: $1
