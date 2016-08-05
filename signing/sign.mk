@@ -6,7 +6,10 @@ include $(ITG_MAKEUTILS_DIR)/common.mk
 
 CODE_SIGNING_CERTIFICATE_PASSWORD ?= pfxpassword
 OPENSSL ?= openssl
-CERTUTIL := certutil
+SIGNTOOL ?= signtool
+SIGNCODE ?= signcode
+SIGNCODEPWD ?= signcode-pwd
+CHKTRUST ?= chktrust
 
 $(call exportCodeSigningCertificate,filePath,password)
 define exportCodeSigningCertificate
@@ -103,7 +106,6 @@ encodeCertificatePfx = $(call encodeFile,,$1)
 # $(call decodeCertificatePfx, PfxFile)
 decodeCertificatePfx = $(call decodeFile,$1)
 
-SIGNTOOL ?= signtool
 SIGNWITHSIGNTOOL ?= \
   $(SIGNTOOL) \
     sign \
@@ -131,40 +133,39 @@ SIGNWITHSIGNTOOL ?= \
 # If your want a RFC3161 compliant SHA1 signaure, you can use the following server :
 # http://timestamp.geotrust.com/tsa 
 
-SIGNCODE ?= signcode
-SIGNCODEPWD ?= signcode-pwd
-
 SIGNWITHSIGNCODE = \
-  set -e; \
-  cp -f $1 $$TMP/$(notdir $1); \
-  $(SIGNCODEPWD) -m $(CODE_SIGNING_CERTIFICATE_PASSWORD); \
-  set +e; \
-  for ((a=1; a <= 10; a++)); do \
-    $(SIGNCODE) \
-      -spc "$(call winPath,$(CODE_SIGNING_CERTIFICATE_SPC))" \
-      -v "$(call winPath,$(CODE_SIGNING_CERTIFICATE_PVK))" \
-      -j "mssipotf.dll" \
-      "$(call winPath,$1)"; \
-    EXIT_CODE=$$?; \
-    if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
-    cp -f $$TMP/$(notdir $1) $1; \
-  done; \
-  set -e; \
-  cp -f $1 $$TMP/$(notdir $1); \
-  if [[ $$EXIT_CODE -eq 0 ]]; then \
+  ( \
+    set -e; \
+    cp -f $1 $(TMP)/$(notdir $1); \
+    $(SIGNCODEPWD) -m $(CODE_SIGNING_CERTIFICATE_PASSWORD); \
     set +e; \
     for ((a=1; a <= 10; a++)); do \
       $(SIGNCODE) \
-        -x \
-        -t "http://timestamp.verisign.com/scripts/timstamp.dll" \
+        -spc "$(call winPath,$(CODE_SIGNING_CERTIFICATE_SPC))" \
+        -v "$(call winPath,$(CODE_SIGNING_CERTIFICATE_PVK))" \
+        -j "mssipotf.dll" \
         "$(call winPath,$1)"; \
       EXIT_CODE=$$?; \
       if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
-      cp -f $$TMP/$(notdir $1) $1; \
+      cp -f $(TMP)/$(notdir $1) $1; \
     done; \
-  fi; \
-  $(SIGNCODEPWD) -t; \
-  exit $$EXIT_CODE;
+    set -e; \
+    cp -f $1 $(TMP)/$(notdir $1); \
+    if [[ $$EXIT_CODE -eq 0 ]]; then \
+      set +e; \
+      for ((a=1; a <= 10; a++)); do \
+        $(SIGNCODE) \
+          -x \
+          -t "http://timestamp.verisign.com/scripts/timstamp.dll" \
+          "$(call winPath,$1)"; \
+        EXIT_CODE=$$?; \
+        if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
+        cp -f $(TMP)/$(notdir $1) $1; \
+      done; \
+    fi; \
+    $(SIGNCODEPWD) -t; \
+    exit $$EXIT_CODE \
+  )
 
 # $(call SIGN,fileForSigning)
 SIGN = \
@@ -177,6 +178,12 @@ SIGN = \
 
 SIGNTARGET = $(call SIGN,$@)
 
+# $(call SIGNFILES,files)
+SIGNFILES = \
+  set -e; \
+  $(foreach file,$(1), \
+    $(if $(strip $(call SIGN,$(file))),$(call SIGN,$(file));) \
+  )
 
 SIGNTESTWITHSIGNCODE = \
   $(SIGNTOOL) \
@@ -187,8 +194,11 @@ SIGNTESTWITHSIGNCODE = \
     /v \
     $1
 
-CHKTRUST ?= chktrust
-SIGNTESTWITHCHKTRUST = ( cd $(dir $1); $(CHKTRUST) -v -q $(notdir $1) )
+SIGNTESTWITHCHKTRUST = \
+  ( \
+    cd $(dir $1);\
+    $(CHKTRUST) -v -q $(notdir $1);\
+  )
 
 # $(call SIGNTEST,signedFile)
 SIGNTEST = \
@@ -206,6 +216,6 @@ SIGNTESTS = \
   set -e; \
   $(foreach file,$(1), \
     $(if $(strip $(call SIGNTEST,$(file))),$(call SIGNTEST,$(file));) \
-  ) \
+  )
 
 endif
