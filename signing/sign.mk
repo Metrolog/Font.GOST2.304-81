@@ -8,7 +8,7 @@ CODE_SIGNING_CERTIFICATE_PASSWORD ?= pfxpassword
 OPENSSL ?= openssl
 SIGNTOOL ?= signtool
 SIGNCODE ?= signcode
-SIGNCODEPWD ?= signcode-pwd
+SIGNCODEPWD ?= signcodepwd
 CHKTRUST ?= chktrust
 
 $(call exportCodeSigningCertificate,filePath,password)
@@ -134,38 +134,13 @@ SIGNWITHSIGNTOOL ?= \
 # http://timestamp.geotrust.com/tsa 
 
 SIGNWITHSIGNCODE = \
-  ( \
-    set -e; \
-    cp -f $1 $(TMP)/$(notdir $1); \
-    $(SIGNCODEPWD) -m $(CODE_SIGNING_CERTIFICATE_PASSWORD); \
-    set +e; \
-    for ((a=1; a <= 10; a++)); do \
-      $(SIGNCODE) \
-        -spc "$(call winPath,$(CODE_SIGNING_CERTIFICATE_SPC))" \
-        -v "$(call winPath,$(CODE_SIGNING_CERTIFICATE_PVK))" \
-        -j "mssipotf.dll" \
-        "$(call winPath,$1)"; \
-      EXIT_CODE=$$?; \
-      if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
-      cp -f $(TMP)/$(notdir $1) $1; \
-    done; \
-    set -e; \
-    cp -f $1 $(TMP)/$(notdir $1); \
-    if [[ $$EXIT_CODE -eq 0 ]]; then \
-      set +e; \
-      for ((a=1; a <= 10; a++)); do \
-        $(SIGNCODE) \
-          -x \
-          -t "http://timestamp.verisign.com/scripts/timstamp.dll" \
-          "$(call winPath,$1)"; \
-        EXIT_CODE=$$?; \
-        if [[ $$EXIT_CODE -eq 0 ]]; then break; fi; \
-        cp -f $(TMP)/$(notdir $1) $1; \
-      done; \
-    fi; \
-    $(SIGNCODEPWD) -t; \
-    exit $$EXIT_CODE \
-  )
+  $(SIGNCODEPWD) \
+    -spc "$(call winPath,$(CODE_SIGNING_CERTIFICATE_SPC))" \
+    -v "$(call winPath,$(CODE_SIGNING_CERTIFICATE_PVK))" \
+    -j "mssipotf.dll" \
+    -t "http://timestamp.verisign.com/scripts/timstamp.dll" \
+    -p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
+    "$(call winPath,$1)"
 
 # $(call SIGN,fileForSigning)
 SIGN = \
