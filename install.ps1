@@ -74,13 +74,13 @@ $null = (
     Get-PackageSource -ProviderName NuGet `
     | Set-PackageSource -Trusted `
 );
-$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName NuGet;
-$null = Install-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
-$null = Import-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
 $null = (
     Get-PackageSource -ProviderName Chocolatey `
     | Set-PackageSource -Trusted `
 );
+$null = Install-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
+$null = Import-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
+$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName Chocolatey;
 $ToPath += "$env:ChocolateyPath\bin";
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey;
