@@ -70,8 +70,8 @@ $ToPath = @();
 
 Import-Module -Name PackageManagement;
 
-$null = Install-PackageProvider -Name Chocolatey -Force;
-$null = Import-PackageProvider -Name Chocolatey -Force;
+$null = Install-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
+$null = Import-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
 $null = (
     Get-PackageSource -ProviderName Chocolatey `
     | Set-PackageSource -Trusted `
@@ -258,47 +258,7 @@ $ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package 
 Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
 $ToPath += $ChocoPkgUp;
 
-if ($PSCmdLet.ShouldProcess('SignCode', 'Установить')) {
-    $DsigFile = Join-Path -Path $env:Temp -ChildPath 'Dsig.exe';
-    Invoke-WebRequest `
-        -Uri 'http://download.microsoft.com/download/4/7/e/47e8e7fb-9441-4887-988f-e259a443052d/Dsig.EXE' `
-        -OutFile $DsigFile `
-    ;
-    $DsigFolder = Join-Path -Path $env:Temp -ChildPath 'Dsig';
-    Remove-Item -LiteralPath $DsigFolder -Recurse -Force -ErrorAction SilentlyContinue;
-    Execute-ExternalInstaller `
-        -LiteralPath $DsigFile `
-        -ArgumentList "/Q /T:`"$DsigFolder`"" `
-    ;
-    $DsigDllInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::SystemX86);
-    @( 'mssipotf.dll' ) `
-    | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
-    | Copy-Item -Destination $DsigDllInstallFolder -Force `
-    ;
-    & $DsigDllInstallFolder\regsvr32 /s mssipotf.dll `
-    | Out-String | Write-Verbose;
-    $DsigInstallFolder = [Environment]::GetFolderPath([Environment+SpecialFolder]::Windows);
-    @( 'signcode.exe', 'chktrust.exe' ) `
-    | % { Get-Item -LiteralPath ( Join-Path -Path $DsigFolder -ChildPath $_ ) } `
-    | Copy-Item -Destination $DsigInstallFolder -Force `
-    ;
-
-    $SignCodePwdFile = Join-Path -Path $env:Temp -ChildPath 'signcode-pwd.zip';
-    Invoke-WebRequest `
-        -Uri 'http://www.stephan-brenner.com/downloads/signcode-pwd/signcode-pwd_1_02.zip' `
-        -OutFile $SignCodePwdFile `
-    ;
-    $SignCodePwdFolder = Join-Path -Path $env:Temp -ChildPath 'signcode-pwd';
-    Expand-Archive `
-        -LiteralPath $SignCodePwdFile `
-        -DestinationPath $SignCodePwdFolder `
-        -Force `
-    ;
-    @( 'signcode-pwd.exe' ) `
-    | % { Get-Item -LiteralPath ( Join-Path -Path $SignCodePwdFolder -ChildPath $_ ) } `
-    | Copy-Item -Destination $DsigInstallFolder -Force `
-    ;
-};
+$null = Install-Package -Name SignCode.Install -RequiredVersion 1.0.2 -ProviderName Chocolatey;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey;
