@@ -246,7 +246,7 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
 };
 
 & choco install ChocolateyPackageUpdater --confirm --failonstderr | Out-String -Stream | Write-Verbose;
-& choco install SignCode.Install --confirm --version 1.0.2 --failonstderr | Out-String -Stream | Write-Verbose;
+& choco install SignCode.Install --confirm --version 1.0.2 | Out-String -Stream | Write-Verbose;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey;
