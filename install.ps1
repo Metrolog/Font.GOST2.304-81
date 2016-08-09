@@ -70,14 +70,16 @@ $ToPath = @();
 
 Import-Module -Name PackageManagement;
 
-$null = Install-PackageProvider -Name NuGet -Force -ForceBootstrap;
+$null = Install-PackageProvider -Name NuGet -Force;
+$null = Import-PackageProvider -Name NuGet -Force;
 $null = (
     Get-PackageSource -ProviderName NuGet `
     | Set-PackageSource -Trusted `
 );
-$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -Forcebootstrap -ProviderName NuGet;
+$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName NuGet;
 $ToPath += "$env:ChocolateyPath\bin";
-$null = Install-PackageProvider -Name Chocolatey -Force -ForceBootstrap;
+$null = Install-PackageProvider -Name Chocolatey -Force;
+$null = Import-PackageProvider -Name Chocolatey -Force;
 $null = (
     Get-PackageSource -ProviderName Chocolatey `
     | Set-PackageSource -Trusted `
