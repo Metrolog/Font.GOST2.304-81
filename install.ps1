@@ -70,28 +70,18 @@ $ToPath = @();
 
 Import-Module -Name PackageManagement;
 
-Write-Verbose 1;
-$null = Install-PackageProvider -Name NuGet -Force;
-Write-Verbose 11;
-$null = Import-PackageProvider -Name NuGet -Force;
-Write-Verbose 111;
+$null = Install-PackageProvider -Name NuGet -Force -ForceBootstrap;
 $null = (
     Get-PackageSource -ProviderName NuGet `
     | Set-PackageSource -Trusted `
 );
-Write-Verbose 2;
-$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName NuGet;
-Write-Verbose 3;
+$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -Forcebootstrap -ProviderName NuGet;
 $ToPath += "$env:ChocolateyPath\bin";
-$null = Install-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
-Write-Verbose 4;
-$null = Import-PackageProvider -Name Chocolatey -MinimumVersion 2.8.5.130 -Force;
-Write-Verbose 5;
+$null = Install-PackageProvider -Name Chocolatey -Force -ForceBootstrap;
 $null = (
     Get-PackageSource -ProviderName Chocolatey `
     | Set-PackageSource -Trusted `
 );
-Write-Verbose 6;
 
 $null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey;
 $env:GitVersion = "$env:ChocolateyPath\lib\GitVersion.Portable.$(( Get-Package -Name GitVersion.Portable -ProviderName Chocolatey ).Version)\tools\GitVersion.exe";
