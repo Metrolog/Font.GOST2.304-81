@@ -76,44 +76,57 @@ $null = (
     Get-PackageSource -ProviderName NuGet `
     | Set-PackageSource -Trusted `
 );
-$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName NuGet;
-$ToPath += "$env:ChocolateyPath\bin";
 $null = Install-PackageProvider -Name Chocolatey -Force;
 $null = Import-PackageProvider -Name Chocolatey -Force;
 $null = (
     Get-PackageSource -ProviderName Chocolatey `
     | Set-PackageSource -Trusted `
 );
+$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName Chocolatey;
+$null = Import-PackageProvider -Name Chocolatey -Force;
+$null = (
+    Get-PackageSource -ProviderName Chocolatey `
+    | Set-PackageSource -Trusted `
+);
+#$ToPath += "$env:ChocolateyPath\bin";
 
-$null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey;
-$env:GitVersion = "$env:ChocolateyPath\lib\GitVersion.Portable.$(( Get-Package -Name GitVersion.Portable -ProviderName Chocolatey ).Version)\tools\GitVersion.exe";
-Write-Verbose "GitVersion path: $env:GitVersion";
-if ($PSCmdLet.ShouldProcess('GitVersion', 'Установить переменную окружения')) {
-    [System.Environment]::SetEnvironmentVariable( 'GitVersion', $env:GitVersion, [System.EnvironmentVariableTarget]::User );
-};
+& choco install GitVersion.Portable --confirm;
+#$null = Install-Package -Name 'GitVersion.Portable' -ProviderName Chocolatey -ExcludeVersion -Verbose;
+#$env:GITVERSION = "$env:ChocolateyPath\lib\GitVersion.Portable\tools\GitVersion.exe";
+#Write-Verbose "GitVersion path: $env:GITVERSION";
+#if ($PSCmdLet.ShouldProcess('GITVERSION', 'Установить переменную окружения')) {
+#    [System.Environment]::SetEnvironmentVariable( 'GITVERSION', $env:GITVERSION, [System.EnvironmentVariableTarget]::User );
+#};
 
-$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey;
+& choco install GitReleaseNotes.Portable --confirm;
+#$null = Install-Package -Name 'GitReleaseNotes.Portable' -ProviderName Chocolatey;
 
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
 
-    $null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey;
-    $ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
-
-    $null = Install-Package -Name chocolatey -ProviderName Chocolatey;
+    & choco install NuGet.CommandLine --confirm;
+    #$null = Install-Package -Name NuGet.CommandLine -ProviderName Chocolatey;
+    #$ToPath += "$env:ChocolateyPath\lib\NuGet.CommandLine.$(( Get-Package -Name NuGet.CommandLine -ProviderName Chocolatey ).Version)\tools";
 
     if ( ( Get-Package -Name Git -ErrorAction SilentlyContinue ).count -eq 0 ) {
-        $null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey;
+        & choco install git --confirm;
+        #$null = Install-Package -Name 'git' -MinimumVersion '2.8' -ProviderName Chocolatey;
     };
 
     if ( -not ( Test-Path "$env:SystemDrive\Perl" ) ) {
-        $null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey;
+        & choco install StrawberryPerl --confirm;
+        #$null = Install-Package -Name StrawberryPerl -ProviderName Chocolatey;
     };
 
-    $null = Install-Package -Name openssl -RequiredVersion 1.0.2;
+    & choco install openssl --confirm;
+    #$null = Install-Package -Name openssl -RequiredVersion 1.0.2;
 
-    $null = Install-Package -Name windows-sdk-10 -ProviderName Chocolatey;
+    & choco install windows-sdk-10 --confirm;
+    #$null = Install-Package -Name windows-sdk-10 -ProviderName Chocolatey;
 };
 
+& choco install cygwin --confirm;
+& choco install make mkdir touch zip ttfautohint --source cygwin --confirm;
+<#
 $null = Install-Package -Name 'cygwin' -ProviderName Chocolatey;
 $env:CygWin = Get-ItemPropertyValue `
     -Path HKLM:\SOFTWARE\Cygwin\setup `
@@ -148,8 +161,10 @@ if ($PSCmdLet.ShouldProcess('make, mkdir, touch, zip, ttfautohint', 'Устан�
     ;
     #   -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --upgrade-also --site http://mirrors.kernel.org/sourceware/cygwin/' `
 };
+#>
 
-$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey;
+& choco install fontforge --confirm;
+#$null = Install-Package -Name 'fontforge' -MinimumVersion '2015.08.24.20150930' -ProviderName Chocolatey;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
 
 if ($PSCmdLet.ShouldProcess('MikTeX', 'Установить')) {
@@ -256,12 +271,14 @@ if ($PSCmdLet.ShouldProcess('ctanupload', 'Установить сценарий
     Install-PackageMikTeX -Name ctanupload;
 };
 
-$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey;
-$ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
-Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
-$ToPath += $ChocoPkgUp;
+& choco install ChocolateyPackageUpdater --confirm;
+#$null = Install-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey;
+#$ChocoPkgUp = "$env:ChocolateyPath\lib\ChocolateyPackageUpdater.$(( Get-Package -Name ChocolateyPackageUpdater -ProviderName Chocolatey ).Version)\tools\chocopkgup";
+#Write-Verbose "ChocoPkgUp path: $ChocoPkgUp";
+#$ToPath += $ChocoPkgUp;
 
-$null = Install-Package -Name SignCode.Install -RequiredVersion 1.0.2 -ProviderName Chocolatey;
+choco install SignCode.Install --confirm --version 1.0.2;
+#$null = Install-Package -Name SignCode.Install -RequiredVersion 1.0.2 -ProviderName Chocolatey;
 
 if ( $GUI ) {
     $null = Install-Package -Name SourceTree -ProviderName Chocolatey;
