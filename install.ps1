@@ -136,6 +136,7 @@ if ($PSCmdLet.ShouldProcess('make, mkdir, touch, zip, ttfautohint', 'Устан�
         -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --site http://mirrors.kernel.org/sourceware/cygwin/' `
     ;
 };
+#>
 
 & choco install fontforge --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 $ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
