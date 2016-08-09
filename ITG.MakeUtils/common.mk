@@ -68,6 +68,15 @@ winPath = $(shell cygpath -w $1)
 # $(call shellPath,sourcePathOrFileName)
 shellPath = $(shell cygpath -u $1)
 
+# $(call psExecuteCommand,powershellScriptBlock)
+psExecuteCommand = \
+  powershell \
+    -NoLogo \
+    -NonInteractive \
+    -NoProfile \
+    -ExecutionPolicy unrestricted \
+    -Command "& { $(1) }"
+
 #
 # subprojects
 #
