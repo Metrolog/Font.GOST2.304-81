@@ -1,4 +1,4 @@
-﻿[![Build status](https://ci.appveyor.com/api/projects/status/robb062g2i4c7l9w?svg=true)](https://ci.appveyor.com/project/sergey-s-betke/font-gost2-304-81)
+﻿[![Build status](https://ci.appveyor.com/api/projects/status/robb062g2i4c7l9w/branch/master?svg=true)](https://ci.appveyor.com/project/sergey-s-betke/font-gost2-304-81)
 [![Join the chat at https://gitter.im/Metrolog/Font.GOST2.304-81](https://badges.gitter.im/Metrolog/Font.GOST2.304-81.svg)](https://gitter.im/Metrolog/Font.GOST2.304-81?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Шрифты ЕСКД ГОСТ 2.304-81
