@@ -8,7 +8,6 @@ include $(ITG_MAKEUTILS_DIR)/nuget.mk
 ifeq ($(APPVEYOR),True)
 
 APPVEYORTOOL ?= appveyor
-APPVEYORTOOL := $(call shellPath,$(APPVEYORTOOL))
 
 # $(call pushDeploymentArtifactFile, DeploymentName, Path)
 pushDeploymentArtifactFile = for file in $2; do $(APPVEYORTOOL) PushArtifact $$file -DeploymentName '$(1)'; done
