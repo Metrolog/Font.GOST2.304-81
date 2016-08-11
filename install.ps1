@@ -258,7 +258,7 @@ Write-Verbose 'Preparing PATH environment variable...';
 if ($PSCmdLet.ShouldProcess('PATH', 'Установить переменную окружения')) {
     $Path = `
         ( `
-            ( $env:Path -split ';' ) `
+            ( ( [Environment]::GetEnvironmentVariable( 'PATH', [System.EnvironmentVariableTarget]::Process ) ) -split ';' ) `
             + $ToPath `
             | Sort-Object -Unique `
         ) `
