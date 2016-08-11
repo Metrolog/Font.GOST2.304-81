@@ -75,7 +75,9 @@ psExecuteCommand = \
     -NonInteractive \
     -NoProfile \
     -ExecutionPolicy unrestricted \
-    -Command "& { $(1) }"
+    -Command "\
+      Set-Variable -Name ErrorActionPreference -Value Stop; \
+      & { $(1) }"
 
 #
 # subprojects

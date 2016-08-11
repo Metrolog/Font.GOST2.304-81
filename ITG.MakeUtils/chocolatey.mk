@@ -7,6 +7,43 @@ include $(realpath $(ITG_MAKEUTILS_DIR)/tests.mk)
 
 CHOCO              ?= choco
 NUGET              ?= nuget
+FILEHASHALGORITHM  ?= md5
+
+# $(call getExternalFileId,externalFileXml)
+getExternalFileId = $(patsubst %.externalfile.xml,%,$(notdir $1))
+
+# $(call getChocoPackageWebFileChecksumTarget,externalFileXml,bitsPrefix)
+getChocoPackageWebFileChecksumTarget = $(call getExternalFileId,$1)_CHECKSUM$(2)
+
+# $(call getChocoPackageWebFileChecksumAuxFile,externalFileXml,bitsPrefix)
+getChocoPackageWebFileChecksumAuxFile = $(call getExternalFileId,$1)_AUXFILE$(2)
+
+# $(call getChocoPackageWebFileChecksumFile,externalFileXml,bitsPrefix)
+getChocoPackageWebFileChecksumFile = $(dir $1)$(call getExternalFileId,$1)$(if $(2),($2)).$(FILEHASHALGORITHM).checksum.txt
+
+%.externalfile.tmp: %.externalfile.xml
+	$(MAKETARGETDIR)
+	$(call psExecuteCommand, \
+    Invoke-WebRequest \
+      -Uri ( ( Select-Xml -LiteralPath '$<' -XPath '/package/files/file[@fileid=\"$(call getExternalFileId,$*)\"]/@url').Node.Value ) \
+      -OutFile '$@' \
+      -Verbose \
+    ; \
+  )
+	@touch $@
+
+clean::
+	shopt -s globstar; rm -rf **/*.externalfile.tmp
+
+%.$(FILEHASHALGORITHM).checksum.txt: %.externalfile.tmp %.externalfile.xml
+	$(MAKETARGETDIR)
+	$(call psExecuteCommand, \
+    ( Get-FileHash -LiteralPath '$<' -Algorithm $(FILEHASHALGORITHM) -Verbose ).Hash \
+    | Out-File -LiteralPath '$@' -Encoding utf8 -Force \
+    ; \
+  )
+
+#	checksum -t=$(FILEHASHALGORITHM) -f="$<" >> "$@"
 
 # $(call calcChocoPackageFileName, packageId, packageVersion)
 calcChocoPackageFileName = $1.$2.nupkg
@@ -21,7 +58,12 @@ $(1)TOOLS       ?= $(wildcard $(SOURCESDIR)/$2/chocolatey*.ps1)
 $(1)VERSION     ?= $4
 $(1)VERSIONSUFFIX ?= $5
 
-$$($(1)TARGETS): $$($(1)NUSPEC) $$($(1)TOOLS) $6
+$$($(1)TARGETS): \
+    $$($(1)NUSPEC) \
+    $$($(1)TOOLS) \
+    $(wildcard $(SOURCESDIR)/$2/*.ignore) \
+    $(patsubst %.externalfile.xml,%.$(FILEHASHALGORITHM).checksum.txt,$(wildcard $(SOURCESDIR)/$2/*.externalfile.xml)) \
+    $6
 	$$(info Generate chocolatey package file "$$@"...)
 	$$(MAKETARGETDIR)
 	cd $$(@D) && $$(CHOCO) \
@@ -48,7 +90,7 @@ packChocoWebPackage = $(call packChocoPackageAux,$1,$2,,$3,$4,$5)
 define defineInstallTestForChocoPackage
 
 $(call defineTest,install,$1,\
-  $(CHOCO) install $2 --force --confirm -pre --source "$$(<D)", \
+  $(CHOCO) install $2 --force --confirm -pre --version $$($(1)VERSION) --source "$$(<D)", \
   $$($(1)TARGETS) \
 )
 
