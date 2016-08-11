@@ -4,7 +4,7 @@ ITG_MAKEUTILS_DIR ?= $(MAKE_GITVERSION_DIR)
 
 include $(realpath $(ITG_MAKEUTILS_DIR)/common.mk)
 
-GITVERSION ?= gitversion.bat
+GITVERSION ?= gitversion
 
 export GITVERSIONMAKEFILE ?= $(abspath $(AUXDIR)/version.mk)
 
