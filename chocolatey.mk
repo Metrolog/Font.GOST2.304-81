@@ -35,7 +35,7 @@ getChocoPackageWebFileChecksumFile = $(dir $1)$(call getExternalFileId,$1)$(if $
 clean::
 	shopt -s globstar; rm -rf **/*.externalfile.tmp
 
-%.$(FILEHASHALGORITHM).checksum.txt: %.externalfile.xml %.externalfile.tmp
+%.$(FILEHASHALGORITHM).checksum.txt: %.externalfile.tmp %.externalfile.xml
 	$(MAKETARGETDIR)
 	$(call psExecuteCommand, \
     ( Get-FileHash -LiteralPath '$<' -Algorithm $(FILEHASHALGORITHM) -Verbose ).Hash \
@@ -90,7 +90,7 @@ packChocoWebPackage = $(call packChocoPackageAux,$1,$2,,$3,$4,$5)
 define defineInstallTestForChocoPackage
 
 $(call defineTest,install,$1,\
-  $(CHOCO) install $2 --force --confirm -pre --source "$$(<D)", \
+  $(CHOCO) install $2 --force --confirm -pre --version $$($(1)VERSION) --source "$$(<D)", \
   $$($(1)TARGETS) \
 )
 
