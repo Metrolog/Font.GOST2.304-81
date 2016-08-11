@@ -7,6 +7,59 @@ include $(realpath $(ITG_MAKEUTILS_DIR)/tests.mk)
 
 CHOCO              ?= choco
 NUGET              ?= nuget
+FILEHASHALGORITHM  ?= md5
+
+# $(call getExternalFileId,externalFileXml)
+getExternalFileId = $(patsubst %.externalfile.xml,%,$(notdir $1))
+
+# $(call getChocoPackageWebFileChecksumTarget,externalFileXml,bitsPrefix)
+getChocoPackageWebFileChecksumTarget = $(call getExternalFileId,$1)_CHECKSUM$(2)
+
+CHOCO_PACKAGE_WEBFILES_AUXDIR ?= $(AUXDIR)/webfiles
+
+# $(call getChocoPackageWebFileChecksumAuxFile,externalFileXml,bitsPrefix)
+getChocoPackageWebFileChecksumAuxFile = $(call getExternalFileId,$1)_AUXFILE$(2)
+
+$(CHOCO_PACKAGE_WEBFILES_AUXDIR)/%:
+	$(MAKETARGETDIR)
+	$(call psExecuteCommand, \
+    Invoke-WebRequest \
+      -Uri ( ( Select-Xml -LiteralPath '$<' -XPath '/package/files/file[@fileid=\"$(call getExternalFileId,$*)\"]/@url').Node.Value ) \
+      -OutFile $@ \
+      -Verbose \
+    ; \
+  )
+	@touch $@
+
+%.$(FILEHASHALGORITHM):
+	$(MAKETARGETDIR)
+	$(call psExecuteCommand, \
+    ( Get-FileHash -LiteralPath '$<' -Algorithm $(FILEHASHALGORITHM) -Verbose ).Hash \
+    | Out-File -LiteralPath '$@' -Encoding utf8 -Force -Verbose \
+    ; \
+  )
+
+#	checksum -t=$(FILEHASHALGORITHM) -f="$<" >> "$@"
+
+# $(call getChocoPackageWebFileChecksumAux,externalFileXml,bitsPrefix)
+define getChocoPackageWebFileChecksumAux
+
+$(call getChocoPackageWebFileChecksumAuxFile,$1,$2) ?= $(CHOCO_PACKAGE_WEBFILES_AUXDIR)/$(call getExternalFileId,$1)$(2)
+$$($(call getChocoPackageWebFileChecksumAuxFile,$1,$2)): $1
+
+$(call getChocoPackageWebFileChecksumTarget,$1,$2) ?= $(dir $1)$(call getExternalFileId,$1)$(2).$(FILEHASHALGORITHM)
+$$($(call getChocoPackageWebFileChecksumTarget,$1,$2)): $$($(call getChocoPackageWebFileChecksumAuxFile,$1,$2)) $1
+
+endef
+
+# $(call defineChocoPackageWebFile,id,packageId,externalFileXml)
+define defineChocoPackageWebFile
+
+$(call getChocoPackageWebFileChecksumAux,$3)
+
+$$($(1)TARGETS): $$($(call getChocoPackageWebFileChecksumTarget,$3))
+
+endef
 
 # $(call calcChocoPackageFileName, packageId, packageVersion)
 calcChocoPackageFileName = $1.$2.nupkg
