@@ -68,6 +68,17 @@ winPath = $(shell cygpath -w $1)
 # $(call shellPath,sourcePathOrFileName)
 shellPath = $(shell cygpath -u $1)
 
+# $(call psExecuteCommand,powershellScriptBlock)
+psExecuteCommand = \
+  powershell \
+    -NoLogo \
+    -NonInteractive \
+    -NoProfile \
+    -ExecutionPolicy unrestricted \
+    -Command "\
+      Set-Variable -Name ErrorActionPreference -Value Stop; \
+      & { $(1) }"
+
 #
 # subprojects
 #
@@ -138,6 +149,8 @@ test-$1:
 $3:
 	$(call MAKE_SUBPROJECT,$1) $$@
 $(foreach target,$3,test-$(target)):
+	$(call MAKE_SUBPROJECT,$1) --keep-going $$@
+$(foreach target,$3,test.%-$(target)):
 	$(call MAKE_SUBPROJECT,$1) --keep-going $$@
 $(call getSubProjectDir,$1)/%:
 	$(call MAKE_SUBPROJECT,$1) $$*

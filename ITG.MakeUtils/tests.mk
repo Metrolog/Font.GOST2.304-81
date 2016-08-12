@@ -25,16 +25,18 @@ testPlatformWrapper = \
 
 # $(call defineTest,id,targetId,script,dependencies)
 define defineTest
-.PHONY: test.$(1)-$(2)
-test.$(1)-$(2): $(4)
+.PHONY: test.$(1)$(TEST_$(1)_INDEX)-$(2)
+test.$(1)$(TEST_$(1)_INDEX)-$(2): $(4)
 	@echo ===============================================================================
 	@$(call testPlatformWrapper,$$@,$3)
 	@echo ===============================================================================
 
 .PHONY: test-$(2)
-test-$(2): | test.$(1)-$(2)
+test-$(2): | test.$(1)$(TEST_$(1)_INDEX)-$(2)
 
 test: | test-$(2)
+
+$(eval export TEST_$(1)_INDEX := $(shell echo $$(($(TEST_$(1)_INDEX)+1))))
 
 endef
 

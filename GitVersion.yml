@@ -10,7 +10,7 @@ commit-message-incrementing: Enabled
 branches:
   master:
     mode: ContinuousDeployment
-    tag: s
+    tag: build
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
@@ -41,7 +41,7 @@ branches:
     track-merge-target: false
   support[/-]:
     mode: ContinuousDeployment
-    tag: s
+    tag: ''
     increment: Patch
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
