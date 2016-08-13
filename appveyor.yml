@@ -5,6 +5,9 @@ environment:
   CODE_SIGNING_CERTIFICATE_PASSWORD:
     secure: +Dn/WhvBx1rVgenyg7x+Bg==
 
+init:
+  - cmd: set PATH=%PATH%;%ProgramFiles(x86)%/Windows Kits/8.1/bin/x64
+
 clone_script:
   - ps: >-
       if ( -not $env:appveyor_pull_request_number ) {
@@ -23,8 +26,6 @@ install:
   - ps: .\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
 
 build_script:
-  - cmd: set PATH=%PATH%;%ProgramFiles%/AppVeyor/BuildAgent
-  - cmd: set PATH=%PATH%;%ProgramFiles(x86)%/Windows Kits/8.1/bin/x64
   - cmd: make
 
 before_test: 

@@ -82,7 +82,9 @@ $null = (
     Get-PackageSource -ProviderName Chocolatey `
     | Set-PackageSource -Trusted `
 );
-$null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName Chocolatey;
+if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
+    $null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName Chocolatey;
+};
 $null = Import-PackageProvider -Name Chocolatey -Force;
 $null = (
     Get-PackageSource -ProviderName Chocolatey `
