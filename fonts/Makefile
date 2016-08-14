@@ -22,8 +22,6 @@ FONTSTOOLSDIR      := $(FONTPRJDIR)tools
 FONTSTOOLSLIBS     := $(FONTSTOOLSDIR)/itgFontLib.py
 fontsTARGET        := $(FONTSOUTPUTDIR)/fonts.zip
 
-FONTS_PACKAGES_DIR ?= packages/
-
 # generate aux .sfd files
 
 FULLSTROKEDFONTSFD	:= $(FONTSAUXDIR)/$(FONT)-stroked-full-aux.sfd
@@ -195,4 +193,3 @@ fonts: $(fontsTARGET) | ttf ttc woff otf pstype0 pstype1
 clean::
 	rm -rf $(FONTSAUXDIR)
 	rm -rf $(FONTSOUTPUTDIR)
-	rm -rf $(FONTS_PACKAGES_DIR)
