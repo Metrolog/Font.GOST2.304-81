@@ -2,9 +2,16 @@
 ### GNU make Makefile for build GOST 2.304-81 fonts files
 ###
 
-all: fonts
+ITG_MAKEUTILS_DIR ?= ITG.MakeUtils
 
-###
+include $(ITG_MAKEUTILS_DIR)/common.mk
+include $(ITG_MAKEUTILS_DIR)/gitversion.mk
+include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
+include $(ITG_MAKEUTILS_DIR)/fontforge/fontforge.mk
+include $(ITG_MAKEUTILS_DIR)/tests.mk
+include $(ITG_MAKEUTILS_DIR)/appveyor.mk
+
+all: fonts
 
 FONTPRJDIR         ?=
 FONT               := GOST2.304-81TypeA
@@ -15,32 +22,7 @@ FONTSTOOLSDIR      := $(FONTPRJDIR)tools
 FONTSTOOLSLIBS     := $(FONTSTOOLSDIR)/itgFontLib.py
 fontsTARGET        := $(FONTSOUTPUTDIR)/fonts.zip
 
-# include make packages
-
 FONTS_PACKAGES_DIR ?= packages/
-ITG_MAKEUTILS_DIR  ?= $(FONTS_PACKAGES_DIR)ITG.MakeUtils
-
-include $(ITG_MAKEUTILS_DIR)/common.mk
-include $(ITG_MAKEUTILS_DIR)/gitversion.mk
-include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
-include $(ITG_MAKEUTILS_DIR)/tests.mk
-include $(ITG_MAKEUTILS_DIR)/appveyor.mk
-
-AUTOHINT           ?= ttfautohint
-FONTFORGE          ?= fontforge \
-	-nosplash
-ifeq ($(OS),Windows_NT)
-PY                 ?= ffpython
-else
-PY                 ?= python
-endif
-TTFAUTOHINT        ?= $(FONTSTOOLSDIR)/ttfautohint \
-	--hinting-range-min=8 --hinting-range-max=88 --hinting-limit=220 --increase-x-height=22 \
-	--windows-compatibility \
-	--composites \
-	--strong-stem-width="gGD" \
-	--no-info
-#	FASTFONT         ?= fastfont
 
 # generate aux .sfd files
 
