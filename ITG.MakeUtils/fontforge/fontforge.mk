@@ -5,6 +5,9 @@ ITG_MAKEUTILS_DIR ?= $(realpath $(MAKE_FONTFORGE_CTAN_DIR)/..)
 include $(ITG_MAKEUTILS_DIR)/common.mk
 include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
 
+TOOLSDIR           ?= tools/
+FONTSTOOLSLIBS     := $(TOOLSDIR)itgFontLib.py
+
 FONTFORGE          ?= fontforge \
 	-nosplash
 
@@ -16,7 +19,7 @@ endif
 
 AUTOHINT           ?= ttfautohint
 TTFAUTOHINT        ?= \
-  $(FONTSTOOLSDIR)/ttfautohint \
+  $(TOOLSDIR)ttfautohint \
     --hinting-range-min=8 \
     --hinting-range-max=88 \
     --hinting-limit=220 \
